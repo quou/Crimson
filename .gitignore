@@ -4,3 +4,4 @@ Makefile
 SDL2ConfigVersion.cmake
 cmake_install.cmake
 CMakeFiles
+*.a
