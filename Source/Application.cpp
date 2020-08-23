@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "Graphics/Display.h"
+#include <Crimson.h>
 
 int main(int argc, char const *argv[]) {
    SDL_Init(SDL_INIT_EVERYTHING);

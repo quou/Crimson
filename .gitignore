@@ -1,7 +1,11 @@
 CMakeCache.txt
-Crimson
 Makefile
 SDL2ConfigVersion.cmake
 cmake_install.cmake
 CMakeFiles
+bin
 *.a
+*.dll
+*.exe
+*.lib
+*.so
