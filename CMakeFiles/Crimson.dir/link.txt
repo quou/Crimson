@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/Crimson.dir/Source/Application.cpp.o  -o Crimson  -Wl,-rpath,/home/george/Documents/Crimson/Extern/SDL Extern/SDL/libSDL2main.a Extern/SDL/libSDL2-2.0.so.0.12.1 
