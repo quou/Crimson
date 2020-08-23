@@ -17,10 +17,10 @@ set(CRIMSON_EXT_INCLUDES
    Extern/glad/include
 )
 
-set(CRIMSON_INCLUDE_DIR Engine)
+set(CRIMSON_INCLUDE_DIR Crimson)
 
 set(CRIMSON_SOURCE
-   Engine/Graphics/Display.cpp
+   Crimson/Graphics/Display.cpp
 )
 
 if (WIN32)
@@ -37,7 +37,7 @@ set(CRIMSON_DEPS
 )
 
 add_library(Crimson ${CRIMSON_SOURCE})
-target_include_directories(Crimson PUBLIC ${CRIMSON_EXT_INCLUDES} Engine)
+target_include_directories(Crimson PUBLIC ${CRIMSON_EXT_INCLUDES} Crimson)
 target_link_libraries(Crimson ${CRIMSON_DEPS})
 
 
@@ -45,7 +45,7 @@ target_link_libraries(Crimson ${CRIMSON_DEPS})
 project(Sandbox)
 
 set(SANDBOX_SOURCE
-   Source/Application.cpp
+   Sandbox/Application.cpp
 )
 
 add_executable(Sandbox ${SANDBOX_SOURCE})
