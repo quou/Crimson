@@ -21,6 +21,7 @@ set(CRIMSON_INCLUDE_DIR Crimson)
 
 set(CRIMSON_SOURCE
    Crimson/Graphics/Display.cpp
+   Crimson/Application.cpp
 )
 
 if (WIN32)
