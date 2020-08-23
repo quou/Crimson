@@ -2,14 +2,22 @@ cmake_minimum_required(VERSION 3.0.0)
 
 project(Crimson)
 
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+
 add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
 
 set(CRIMSON_SOURCE
    Source/Application.cpp
+   Source/Graphics/Display.cpp
 )
 
-include_directories(Extern/SDL/include Extern/glad/include)
+set(EXT_INCLUDES
+   Extern/SDL/include
+   Extern/glad/include
+)
+
+include_directories(${EXT_INCLUDES} Source)
 
 add_executable(Crimson ${CRIMSON_SOURCE})
 
