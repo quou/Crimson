@@ -1,3 +1,3 @@
 [submodule "Extern/SDL"]
 	path = Extern/SDL
-	url = https://github.com/SDL-mirror/SDL
+	url = https://github.com/georgelam6/SDL
