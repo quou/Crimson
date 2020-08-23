@@ -11,4 +11,9 @@ set(CRIMSON_SOURCE
 include_directories(Extern/SDL/include)
 
 add_executable(Crimson ${CRIMSON_SOURCE})
-target_link_libraries(Crimson SDL2main SDL2)
+
+if (MSVC)
+   target_link_libraries(Crimson opengl32 SDL2main SDL2)
+else()
+   target_link_libraries(Crimson libGL.so SDL2main SDL2)
+endif()
