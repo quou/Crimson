@@ -10,14 +10,6 @@ namespace Crimson {
 
       m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | flags);
       m_glContext = SDL_GL_CreateContext(m_window);
-
-      /* TODO: OpenGL initialisation should be inside a renderer class */
-      if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
-         std::cout << "Error loading OpenGL" << '\n';
-      }
-
-      SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-      SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
    }
 
    void Display::Clear(float r, float g, float b, float a) {

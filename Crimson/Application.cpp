@@ -7,6 +7,7 @@ namespace Crimson {
       SDL_Init(SDL_INIT_EVERYTHING);
 
       m_display.Init(800, 600, 0, "Test Application");
+      m_renderer.Init();
    }
 
    void Application::Update(float delta) {

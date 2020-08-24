@@ -2,6 +2,7 @@
 #define APPLICATION_H
 
 #include "Graphics/Display.h"
+#include "Graphics/Renderer.h"
 
 namespace Crimson {
    class Application {
@@ -12,6 +13,7 @@ namespace Crimson {
       void Quit();
 
       Display m_display;
+      Renderer m_renderer;
 
       bool m_isRunning {true};
 

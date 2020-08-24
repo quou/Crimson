@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 
+set(CMAKE_BINARY_DIR bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
@@ -7,10 +11,6 @@ add_subdirectory(Extern/glad)
 
 # ENGINE
 project(Crimson)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 set(CRIMSON_EXT_INCLUDES
    Extern/SDL/include
@@ -21,6 +21,7 @@ set(CRIMSON_INCLUDE_DIR Crimson)
 
 set(CRIMSON_SOURCE
    Crimson/Graphics/Display.cpp
+   Crimson/Graphics/Renderer.cpp
    Crimson/Application.cpp
 )
 
