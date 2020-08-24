@@ -2,11 +2,16 @@
 #define MATRIX4
 
 #include "Vector3.h"
+#include "Vector4.h"
 #include "Math.h"
 
 namespace Crimson {
    struct Matrix4 {
-      float elements[4 * 4];
+
+      union {
+         float elements[4 * 4];
+         Vector4 columns[4];
+      };
 
       Matrix4() {
          for (size_t i = 0; i < 4 * 4; i++) {
