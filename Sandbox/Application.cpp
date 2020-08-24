@@ -4,12 +4,7 @@ class Application : public Crimson::Application {
 private:
 public:
    void OnBegin() override {
-      Crimson::Vector3 testVec(1, 3, 1);
-      Crimson::Vector3 testVec2(1, 0, 1);
-
-      if (testVec != testVec2) {
-         std::cout << "hi" << '\n';
-      }
+      Crimson::Matrix4 pos = Crimson::Matrix4::Translate(Crimson::Vector3(2, 3, 4));
    }
 
    void OnUpdate(float delta) override {
