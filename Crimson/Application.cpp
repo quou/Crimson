@@ -8,6 +8,7 @@ namespace Crimson {
 
       m_display.Init(800, 600, 0, "Test Application");
       m_renderer.Init();
+      OnBegin();
    }
 
    void Application::Update(float delta) {

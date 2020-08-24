@@ -19,6 +19,7 @@ namespace Crimson {
 
    protected:
       virtual void OnUpdate(float delta) {}
+      virtual void OnBegin() {}
 
    public:
       void Run();
