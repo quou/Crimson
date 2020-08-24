@@ -7,14 +7,18 @@
 namespace Crimson {
 
    void Display::Init(int width, int height, int flags, const char* title) {
+      SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+      SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+      SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+      SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+      SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+      SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+      SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+      SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+      SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
       m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | flags);
       m_glContext = SDL_GL_CreateContext(m_window);
-   }
-
-   void Display::Clear(float r, float g, float b, float a) {
-      glClearColor(r, g, b, a);
-      glClear(GL_COLOR_BUFFER_BIT);
    }
 
    void Display::Present() {

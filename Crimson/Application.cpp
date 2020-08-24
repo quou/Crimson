@@ -15,7 +15,7 @@ namespace Crimson {
    }
 
    void Application::Render() {
-      m_display.Clear(0.1f, 0.3f, 0.5f, 1.0f);
+      m_renderer.Clear(0.1f, 0.3f, 0.5f, 1.0f);
       m_display.Present();
    }
 

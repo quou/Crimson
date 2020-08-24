@@ -6,6 +6,7 @@ class Renderer {
 private:
 public:
    void Init();
+   void Clear(float r, float g, float b, float a);
 };
 
 

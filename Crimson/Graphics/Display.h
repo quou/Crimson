@@ -12,7 +12,6 @@ namespace Crimson {
       Display() {}
       ~Display();
       void Init(int width, int height, int flags, const char* title);
-      void Clear(float r, float g, float b, float a);
       void Present();
    };
 }
