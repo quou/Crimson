@@ -7,5 +7,5 @@ uniform mat4 view = mat4(1.0f);
 uniform mat4 modl = mat4(1.0f);
 
 void main() {
-   gl_Position = position;
+   gl_Position = proj * position;
 }

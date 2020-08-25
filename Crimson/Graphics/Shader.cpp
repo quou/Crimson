@@ -32,6 +32,27 @@ namespace Crimson {
       glUseProgram(0);
    }
 
+   void Shader::SetUniformMatrix4(const std::string& name, const Matrix4& matrix) {
+      glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, matrix.elements);
+   }
+
+   void Shader::SetUniform1f(const std::string& name, float value) {
+      glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
+   }
+
+   void Shader::SetUniform2f(const std::string& name, float v1, float v2) {
+      glUniform2f(glGetUniformLocation(m_ID, name.c_str()), v1, v2);
+   }
+
+   void Shader::SetUniform3f(const std::string& name, float v1, float v2, float v3) {
+      glUniform3f(glGetUniformLocation(m_ID, name.c_str()), v1, v2, v3);
+   }
+
+   void Shader::SetUniform4f(const std::string& name, float v1, float v2, float v3, float v4) {
+      glUniform4f(glGetUniformLocation(m_ID, name.c_str()), v1, v2, v3, v4);
+   }
+
+
    unsigned int Shader::Load() {
       unsigned int program = glCreateProgram();
       unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);

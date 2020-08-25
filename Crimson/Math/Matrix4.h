@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Math.h"
+#include <math.h>
 
 namespace Crimson {
    struct Matrix4 {
@@ -131,11 +132,12 @@ namespace Crimson {
          return result;
       }
 
+      Matrix4 operator*(const Matrix4& other) {
+         Matrix4 tmp = *this;
+         return tmp.Multiply(other);
+      }
    };
 
-   Matrix4 operator*(Matrix4 left, const Matrix4& right) {
-      return left.Multiply(right);
-   }
 }
 
 #endif /* end of include guard: MATRIX4 */

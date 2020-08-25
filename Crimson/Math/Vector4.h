@@ -2,6 +2,7 @@
 #define VECTOR4_H
 
 #include <iostream>
+#include <math.h>
 
 namespace Crimson {
    struct Vector4 {
@@ -137,13 +138,12 @@ namespace Crimson {
          return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
       }
 
-      friend std::ostream& operator<<(std::ostream& os, const Vector4& v);
+      std::ostream& operator<<(std::ostream& os) {
+         os << "(" << x << ", " << y << ", " << z << ", " << w << ")";
+         return os;
+      }
    };
 
-   std::ostream& operator<<(std::ostream& os, const Vector4& v) {
-      os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
-      return os;
-   }
 }
 
 #endif /* end of include guard: VECTOR2_H */

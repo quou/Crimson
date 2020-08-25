@@ -2,6 +2,7 @@
 #define VECTOR3_H
 
 #include <iostream>
+#include <math.h>
 
 namespace Crimson {
    struct Vector3 {
@@ -137,13 +138,13 @@ namespace Crimson {
          return Vector3(a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1);
       }
 
-      friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
+      std::ostream& operator<<(std::ostream& os) {
+         os << "(" << x << ", " << y << ", " << z << ")";
+         return os;
+      }
    };
 
-   std::ostream& operator<<(std::ostream& os, const Vector3& v) {
-      os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
-      return os;
-   }
+
 }
 
 #endif /* end of include guard: VECTOR2_H */

@@ -5,7 +5,7 @@
 #include <math.h>
 
 namespace Crimson {
-   float ToRadians(float degrees) {
+   static float ToRadians(float degrees) {
       return degrees * (M_PI / 180.0f);
    }
 }
