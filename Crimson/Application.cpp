@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <glad/glad.h>
+
 namespace Crimson {
    void Application::Init() {
       SDL_Init(SDL_INIT_EVERYTHING);
@@ -17,6 +19,7 @@ namespace Crimson {
 
    void Application::Render() {
       m_renderer.Clear(0.1f, 0.3f, 0.5f, 1.0f);
+      OnRender(1.0f);
       m_display.Present();
    }
 

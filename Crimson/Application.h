@@ -18,8 +18,9 @@ namespace Crimson {
       bool m_isRunning {true};
 
    protected:
-      virtual void OnUpdate(float delta) {}
       virtual void OnBegin() {}
+      virtual void OnUpdate(float delta) {}
+      virtual void OnRender(float delta) {}
 
    public:
       void Run();

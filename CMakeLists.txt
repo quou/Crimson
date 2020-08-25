@@ -22,6 +22,7 @@ set(CRIMSON_INCLUDE_DIR Crimson)
 set(CRIMSON_SOURCE
    Crimson/Graphics/Display.cpp
    Crimson/Graphics/Renderer.cpp
+   Crimson/Graphics/Shader.cpp
    Crimson/Application.cpp
 )
 

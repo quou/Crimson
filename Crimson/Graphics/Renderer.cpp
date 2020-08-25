@@ -21,7 +21,7 @@ namespace Crimson {
       glClear(GL_COLOR_BUFFER_BIT);
    }
 
-   void Renderer::Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader) {
+   /*void Renderer::Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader) {
       glUseProgram(shader);
       glBindVertexArray(vertexArray);
 
@@ -29,6 +29,6 @@ namespace Crimson {
 
       glBindVertexArray(0);
       glUseProgram(0);
-   }
+   }*/
 
 }

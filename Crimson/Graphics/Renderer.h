@@ -7,7 +7,7 @@ namespace Crimson {
    public:
       void Init();
       void Clear(float r, float g, float b, float a);
-      void Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader);
+      //void Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader);
    };
 }
 
