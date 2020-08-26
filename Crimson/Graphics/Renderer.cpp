@@ -13,6 +13,8 @@ namespace Crimson {
       }
 
       glEnable(GL_DEPTH_TEST);
+      glEnable(GL_CULL_FACE);
+      glCullFace(GL_BACK);
 
       std::cout << "OpenGL " << glGetString(GL_VERSION) << '\n';
       std::cout << glGetString(GL_RENDERER) << '\n';

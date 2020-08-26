@@ -5,6 +5,9 @@
 #include <glad/glad.h>
 
 namespace Crimson {
+   Uint64 NOW = SDL_GetPerformanceCounter();
+   Uint64 LAST = 0;
+
    Application::Application() {
       SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -21,8 +24,13 @@ namespace Crimson {
    }
 
    void Application::Render() {
+      LAST = NOW;
+      NOW = SDL_GetPerformanceCounter();
+      m_deltaTime = (double)((NOW - LAST)*1000 / (double)SDL_GetPerformanceFrequency() );
+      m_deltaTime*=0.001f;
+
       m_renderer.Clear(0.0f, 0.0f, 0.0f, 1.0f);
-      OnRender(1.0f);
+      OnRender(m_deltaTime);
       m_display.Present();
    }
 
@@ -30,10 +38,17 @@ namespace Crimson {
       Init();
       while (m_isRunning) {
          SDL_Event e;
+         m_keyboard.Update();
          while (SDL_PollEvent(&e)) {
             switch (e.type) {
             case SDL_QUIT:
                m_isRunning = false;
+               break;
+            case SDL_KEYDOWN:
+               m_keyboard.KeyDownEvent(e);
+               break;
+            case SDL_KEYUP:
+               m_keyboard.KeyUpEvent(e);
                break;
             default:
                break;
@@ -41,7 +56,7 @@ namespace Crimson {
          }
 
          Update(1.0f);
-         OnUpdate(1.0f);
+         OnUpdate(m_deltaTime);
          Render();
       }
    }

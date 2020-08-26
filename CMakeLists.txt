@@ -29,6 +29,7 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Model.cpp
    Crimson/Graphics/Texture.cpp
    Crimson/Graphics/Lighting/Light.cpp
+   Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
    Crimson/Application.cpp

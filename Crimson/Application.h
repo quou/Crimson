@@ -3,6 +3,7 @@
 
 #include "Graphics/Display.h"
 #include "Graphics/Renderer.h"
+#include "Input/Keyboard.h"
 
 namespace Crimson {
    class Application {
@@ -15,6 +16,8 @@ namespace Crimson {
       Display m_display;
       Renderer m_renderer;
 
+      float m_deltaTime;
+
       bool m_isRunning {true};
 
    protected:
@@ -22,6 +25,8 @@ namespace Crimson {
       virtual void OnBegin() {}
       virtual void OnUpdate(float delta) {}
       virtual void OnRender(float delta) {}
+
+      Keyboard m_keyboard;
 
    public:
       void Run();
