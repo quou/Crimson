@@ -9,6 +9,7 @@
 #include "Graphics/Shader.h"
 #include "Graphics/Model.h"
 #include "Graphics/Texture.h"
+#include "Graphics/Lighting/Light.h"
 
 
 /* Utils */

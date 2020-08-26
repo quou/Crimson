@@ -21,6 +21,8 @@ namespace Crimson {
       ~Shader();
       void Init(const std::string& vertPath, const std::string& fragPath);
 
+      unsigned int GetUniformLocation(const std::string& name);
+
       void SetUniformMatrix4(const std::string& name, const glm::mat4& matrix);
       void SetUniform1i(const std::string& name, int value);
       void SetUniform1f(const std::string& name, float value);

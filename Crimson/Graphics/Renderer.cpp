@@ -12,13 +12,15 @@ namespace Crimson {
          std::cout << "Error loading OpenGL" << '\n';
       }
 
+      glEnable(GL_DEPTH_TEST);
+
       std::cout << "OpenGL " << glGetString(GL_VERSION) << '\n';
       std::cout << glGetString(GL_RENDERER) << '\n';
    }
 
    void Renderer::Clear(float r, float g, float b, float a) {
       glClearColor(r, g, b, a);
-      glClear(GL_COLOR_BUFFER_BIT);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    }
 
    /*void Renderer::Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader) {

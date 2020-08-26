@@ -34,6 +34,10 @@ namespace Crimson {
       glUseProgram(0);
    }
 
+   unsigned int Shader::GetUniformLocation(const std::string& name) {
+      return glGetUniformLocation(m_ID, name.c_str());
+   }
+
    void Shader::SetUniform1i(const std::string& name, int value) {
       glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
    }
@@ -91,7 +95,7 @@ namespace Crimson {
       glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
       if (result == GL_FALSE) {
          int length;
-         glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
+         glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
          std::vector<char> errorMessage(length);
          glGetShaderInfoLog(fragment, length, &length, &errorMessage[0]);
          std::cerr << &errorMessage[0] << '\n';

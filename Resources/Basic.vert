@@ -12,7 +12,8 @@ uniform mat4 view = mat4(1.0f);
 uniform mat4 modl = mat4(1.0f);
 
 void main() {
-   v_normal = normal;
-   gl_Position = proj * view * modl * vec4(position, 1.0);
+   v_normal = mat3(transpose(inverse(modl))) * normal;
    v_texCoord = texCoord;
+
+   gl_Position = proj * view * modl * vec4(position, 1.0);
 }
