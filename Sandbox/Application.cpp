@@ -10,7 +10,7 @@ private:
    Crimson::Shader m_shader;
    Crimson::Model m_model;
    Crimson::Texture m_texture;
-   Crimson::Light m_directional;
+   Crimson::DirectionalLight m_directional;
    Crimson::Camera m_camera;
 
    Crimson::Material m_shinyMaterial;
@@ -25,7 +25,8 @@ public:
       m_model("Resources/monkey3.obj"),
       m_texture("Resources/Wood.jpg"),
       m_shader("Resources/Basic.vert", "Resources/Basic.frag"),
-      m_shinyMaterial(1.0f, 32) {}
+      m_shinyMaterial(1.0f, 32),
+      m_directional(glm::vec3(1,1,1), 0.2f, 0.9f, glm::vec3(1,1,0)) {}
 
    void OnBegin() override  {
       m_texture.Bind(0);
@@ -38,19 +39,14 @@ public:
       m_shader.SetUniform1i("tex", 0);
       m_shader.SetUniformMatrix4("modl", m_modl);
 
-      /*m_directional.UseLight(m_shader.GetUniformLocation("directionalLight.ambientIntensity"),
+      m_directional.UseLight(m_shader.GetUniformLocation("directionalLight.ambientIntensity"),
                              m_shader.GetUniformLocation("directionalLight.color"),
                              m_shader.GetUniformLocation("directionalLight.diffuseIntensity"),
-                             m_shader.GetUniformLocation("directionalLight.direction"));*/
+                             m_shader.GetUniformLocation("directionalLight.direction"));
 
       m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
       m_shinyMaterial.UseMaterial(m_shader.GetUniformLocation("material.specularIntensity"),
                                   m_shader.GetUniformLocation("material.shininess"));
-
-      m_shader.SetUniform3f("directionalLight.color", 1, 1, 1);
-      m_shader.SetUniform1f("directionalLight.ambientIntensity", 0.2f);
-      m_shader.SetUniform1f("directionalLight.diffuseIntensity", 0.9f);
-      m_shader.SetUniform3f("directionalLight.direction", 1, 1, 0);
    }
 
    void OnUpdate(float delta) override {

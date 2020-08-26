@@ -5,7 +5,7 @@
 
 namespace Crimson {
    class Light {
-   private:
+   protected:
       glm::vec3 m_color;
       float m_ambientIntensity;
 
@@ -14,10 +14,10 @@ namespace Crimson {
 
    public:
       Light();
-      Light(const glm::vec3& color, float ambientIntensity, const glm::vec3& direction, float diffuseIntensity);
+      Light(const glm::vec3& color, float ambientIntensity, float diffuseIntensity);
 
       virtual void UseLight(unsigned int ambientIntensityLocation, unsigned int ambientColorLocation,
-                            unsigned int diffuseIntensityLocation, unsigned int directionLocation);
+                            unsigned int diffuseIntensityLocation);
 
       virtual ~Light() {}
    };

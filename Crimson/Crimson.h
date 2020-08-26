@@ -10,6 +10,7 @@
 #include "Graphics/Model.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Lighting/Light.h"
+#include "Graphics/Lighting/Directional.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 
