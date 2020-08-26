@@ -17,6 +17,7 @@ set(CRIMSON_EXT_INCLUDES
    Extern/SDL/include
    Extern/glad/include
    Extern/glm
+   Extern/SLECS
 )
 
 set(CRIMSON_INCLUDE_DIR Crimson)
