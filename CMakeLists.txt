@@ -7,6 +7,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
 add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
+add_subdirectory(Extern/glm)
 
 
 # ENGINE
@@ -15,6 +16,7 @@ project(Crimson)
 set(CRIMSON_EXT_INCLUDES
    Extern/SDL/include
    Extern/glad/include
+   Extern/glm
 )
 
 set(CRIMSON_INCLUDE_DIR Crimson)
@@ -23,6 +25,10 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Display.cpp
    Crimson/Graphics/Renderer.cpp
    Crimson/Graphics/Shader.cpp
+   Crimson/Graphics/Model.cpp
+   Crimson/Graphics/Texture.cpp
+   Crimson/Utils/obj_loader.cpp
+   Crimson/Utils/stb_image.c
    Crimson/Application.cpp
 )
 

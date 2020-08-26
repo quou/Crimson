@@ -7,13 +7,9 @@
 #include "Graphics/Display.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/Shader.h"
+#include "Graphics/Model.h"
+#include "Graphics/Texture.h"
 
-
-/* Math */
-#include "Math/Math.h"
-#include "Math/Vector3.h"
-#include "Math/Vector4.h"
-#include "Math/Matrix4.h"
 
 /* Utils */
 #include "Utils/FileUtils.h"

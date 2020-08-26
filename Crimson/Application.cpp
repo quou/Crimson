@@ -5,11 +5,14 @@
 #include <glad/glad.h>
 
 namespace Crimson {
-   void Application::Init() {
+   Application::Application() {
       SDL_Init(SDL_INIT_EVERYTHING);
 
       m_display.Init(800, 600, 0, "Test Application");
       m_renderer.Init();
+   }
+
+   void Application::Init() {
       OnBegin();
    }
 

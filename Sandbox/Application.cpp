@@ -1,31 +1,33 @@
 #include <Crimson.h>
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-
-class Application : public Crimson::Application {
+class App : public Crimson::Application {
 private:
-   unsigned int m_vbo;
+   /*unsigned int m_vbo;*/
    Crimson::Shader m_shader;
+   Crimson::Model m_model;
+   Crimson::Texture m_texture;
 public:
+   App() :
+      m_model("Resources/monkey3.obj"),
+      m_texture("Resources/Wood.jpg"),
+      m_shader("Resources/Basic.vert", "Resources/Basic.frag") {}
+
    void OnBegin() override  {
-      float verts[] = {
-         0.0f, 0.0f, -10.0f,
-         3.0f, 0.0f, -10.0f,
-         0.0f, 3.0f, -10.0f
-      };
+      glm::mat4 pers = glm::perspective(45.0f, 1.33f, 0.1f, 100.0f);
 
-      glGenBuffers(1, &m_vbo);
-      glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-      glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-      glEnableVertexAttribArray(0);
+      m_texture.Bind(0);
 
-      Crimson::Matrix4 ortho = Crimson::Matrix4::Perspective(45.0f, 1.33f, 0.1f, 100.0f);
+      glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -5));
+      model = glm::rotate(model, 90.0f, glm::vec3(0, 1, 0));
 
-      m_shader.Init("Resources/Basic.vert", "Resources/Basic.frag");
       m_shader.Bind();
-      m_shader.SetUniformMatrix4("proj", ortho);
+      m_shader.SetUniform1i("tex", 0);
+      m_shader.SetUniformMatrix4("proj", pers);
+      m_shader.SetUniformMatrix4("modl", model);
    }
 
    void OnUpdate(float delta) override {
@@ -33,12 +35,12 @@ public:
    }
 
    void OnRender(float delta) override {
-      glDrawArrays(GL_TRIANGLES, 0, 3);
+      m_model.Render();
    }
 };
 
 int main(int argc, char const *argv[]) {
-   Application app;
+   App app;
    app.Run();
 
    return 0;

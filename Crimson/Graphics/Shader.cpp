@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <vector>
 #include <iostream>
 
@@ -32,8 +34,12 @@ namespace Crimson {
       glUseProgram(0);
    }
 
-   void Shader::SetUniformMatrix4(const std::string& name, const Matrix4& matrix) {
-      glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, matrix.elements);
+   void Shader::SetUniform1i(const std::string& name, int value) {
+      glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+   }
+
+   void Shader::SetUniformMatrix4(const std::string& name, const glm::mat4& matrix) {
+      glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
    }
 
    void Shader::SetUniform1f(const std::string& name, float value) {

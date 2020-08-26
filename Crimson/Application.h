@@ -18,6 +18,7 @@ namespace Crimson {
       bool m_isRunning {true};
 
    protected:
+      Application();
       virtual void OnBegin() {}
       virtual void OnUpdate(float delta) {}
       virtual void OnRender(float delta) {}

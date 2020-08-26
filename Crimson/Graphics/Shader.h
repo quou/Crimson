@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Math/Matrix4.h"
+#include <glm/glm.hpp>
 
 
 namespace Crimson {
@@ -21,7 +21,8 @@ namespace Crimson {
       ~Shader();
       void Init(const std::string& vertPath, const std::string& fragPath);
 
-      void SetUniformMatrix4(const std::string& name, const Matrix4& matrix);
+      void SetUniformMatrix4(const std::string& name, const glm::mat4& matrix);
+      void SetUniform1i(const std::string& name, int value);
       void SetUniform1f(const std::string& name, float value);
       void SetUniform2f(const std::string& name, float v1, float v2);
       void SetUniform3f(const std::string& name, float v1, float v2, float v3);
