@@ -4,3 +4,6 @@
 [submodule "Extern/SLECS"]
 	path = Extern/SLECS
 	url = https://github.com/georgelam6/SLECS
+[submodule "Extern/imgui"]
+	path = Extern/imgui
+	url = https://github.com/ocornut/imgui.git
