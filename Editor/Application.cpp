@@ -4,6 +4,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <imgui.h>
+#include <imgui_impl_sdl.h>
+#include <imgui_impl_opengl3.h>
+
 
 class App : public Crimson::Application {
 private:
@@ -21,7 +25,7 @@ private:
    float m_curAngle = 0.0f;
 public:
    App() :
-      m_camera(glm::vec3(0,0,-5), 45.0f, 800/600, 0.1f, 100.0f),
+      m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f),
       m_model("Resources/monkey3.obj"),
       m_texture("Resources/Wood.jpg"),
       m_shader("Resources/Basic.vert", "Resources/Basic.frag"),
@@ -29,6 +33,22 @@ public:
       m_directional(glm::vec3(1,1,1), 0.2f, 0.9f, glm::vec3(1,1,0)) {}
 
    void OnBegin() override  {
+      IMGUI_CHECKVERSION();
+      ImGui::CreateContext();
+      ImGuiIO& io = ImGui::GetIO(); (void)io;
+      io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+      io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+
+      ImGuiStyle& style = ImGui::GetStyle();
+      if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+      {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+      }
+
+      ImGui_ImplSDL2_InitForOpenGL(GetSDLWindow(), GetSDLGLContext());
+      ImGui_ImplOpenGL3_Init("#version 330 core");
+
       m_texture.Bind(0);
 
       m_modl = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
@@ -50,6 +70,9 @@ public:
    }
 
    void OnUpdate(float delta) override {
+      ImGui_ImplSDL2_ProcessEvent(&GetEvent());
+
+
       m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
       m_shader.SetUniformMatrix4("view", m_camera.GetViewProjection());
       m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
@@ -122,12 +145,34 @@ public:
    void OnRender(float delta) override {
       m_shader.SetUniformMatrix4("modl", m_modl);
       m_model.Render();
+
+      ImGui_ImplOpenGL3_NewFrame();
+      ImGui_ImplSDL2_NewFrame(GetSDLWindow());
+      ImGui::NewFrame();
+
+      ImGui::ShowDemoWindow();
+
+      ImGui::Render();
+      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+      ImGuiIO& io = ImGui::GetIO(); (void)io;
+      if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+         SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
+         SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+         ImGui::UpdatePlatformWindows();
+         ImGui::RenderPlatformWindowsDefault();
+         SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+      }
    }
 };
 
 int main(int argc, char const *argv[]) {
    App app;
    app.Run();
+
+   ImGui_ImplOpenGL3_Shutdown();
+   ImGui_ImplSDL2_Shutdown();
+   ImGui::DestroyContext();
 
    return 0;
 }

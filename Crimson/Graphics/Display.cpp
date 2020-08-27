@@ -7,6 +7,9 @@
 namespace Crimson {
 
    void Display::Init(int width, int height, int flags, const char* title) {
+      m_width = width;
+      m_height = height;
+
       SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
       SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
       SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
@@ -30,5 +33,11 @@ namespace Crimson {
    Display::~Display() {
       SDL_GL_DeleteContext(m_glContext);
       SDL_DestroyWindow(m_window);
+   }
+
+   void Display::ResizeWindow(int w, int h) {
+      m_width = w;
+      m_height = h;
+      glViewport(0,0,w,h);
    }
 }

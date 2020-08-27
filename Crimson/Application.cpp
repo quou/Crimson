@@ -11,7 +11,7 @@ namespace Crimson {
    Application::Application() {
       SDL_Init(SDL_INIT_EVERYTHING);
 
-      m_display.Init(800, 600, 0, "Test Application");
+      m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, "Test Application");
       m_renderer.Init();
    }
 
@@ -37,19 +37,28 @@ namespace Crimson {
    void Application::Run() {
       Init();
       while (m_isRunning) {
-         SDL_Event e;
          m_keyboard.Update();
-         while (SDL_PollEvent(&e)) {
-            switch (e.type) {
+         while (SDL_PollEvent(&m_event)) {
+            switch (m_event.type) {
             case SDL_QUIT:
                m_isRunning = false;
                break;
             case SDL_KEYDOWN:
-               m_keyboard.KeyDownEvent(e);
+               m_keyboard.KeyDownEvent(m_event);
                break;
             case SDL_KEYUP:
-               m_keyboard.KeyUpEvent(e);
+               m_keyboard.KeyUpEvent(m_event);
                break;
+            case SDL_WINDOWEVENT:
+               if (m_event.window.windowID == m_display.GetWindowID()) {
+                  switch (m_event.window.event) {
+                     case SDL_WINDOWEVENT_RESIZED:
+                        m_display.ResizeWindow(m_event.window.data1, m_event.window.data2);
+                        break;
+                     default:
+                        break;
+                  }
+               }
             default:
                break;
             }

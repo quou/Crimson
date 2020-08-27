@@ -11,6 +11,7 @@ namespace Crimson {
       if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
          std::cout << "Error loading OpenGL" << '\n';
       }
+      glViewport(0, 0, 1366, 768);
 
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_CULL_FACE);

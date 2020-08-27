@@ -9,6 +9,7 @@ add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
 add_subdirectory(Extern/glm)
 
+set(CMAKE_CXX_STANDARD 14)
 
 # ENGINE
 project(Crimson)
@@ -18,11 +19,23 @@ set(CRIMSON_EXT_INCLUDES
    Extern/glad/include
    Extern/glm
    Extern/SLECS
+   Extern/imgui
+   Extern/imgui/examples
 )
 
 set(CRIMSON_INCLUDE_DIR Crimson)
 
+set(IMGUI_SOURCE
+   Extern/imgui/imgui.cpp
+   Extern/imgui/imgui_demo.cpp
+   Extern/imgui/imgui_draw.cpp
+   Extern/imgui/imgui_widgets.cpp
+   Extern/imgui/examples/imgui_impl_sdl.cpp
+   Extern/imgui/examples/imgui_impl_opengl3.cpp
+)
+
 set(CRIMSON_SOURCE
+   ${IMGUI_SOURCE}
    Crimson/Graphics/Display.cpp
    Crimson/Graphics/Renderer.cpp
    Crimson/Graphics/Shader.cpp
@@ -64,3 +77,14 @@ set(SANDBOX_SOURCE
 add_executable(Sandbox ${SANDBOX_SOURCE})
 target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
 target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
+
+# EDITOR
+project(Editor)
+
+set(EDITOR_SOURCE
+   Editor/Application.cpp
+)
+
+add_executable(Editor ${EDITOR_SOURCE})
+target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
+target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)
