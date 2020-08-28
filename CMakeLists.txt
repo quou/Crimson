@@ -46,6 +46,7 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
+   Crimson/SLECS.cpp
    Crimson/Application.cpp
 )
 
@@ -83,6 +84,7 @@ project(Editor)
 
 set(EDITOR_SOURCE
    Editor/Application.cpp
+   Editor/GUI.cpp
 )
 
 add_executable(Editor ${EDITOR_SOURCE})
