@@ -14,6 +14,10 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 
+/* ECS */
+#include "SLECS.h"
+#include "ComponentSystems/ModelComponent.h"
+#include "ComponentSystems/Transform.h"
 
 /* Utils */
 #include "Utils/FileUtils.h"

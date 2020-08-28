@@ -18,7 +18,6 @@ set(CRIMSON_EXT_INCLUDES
    Extern/SDL/include
    Extern/glad/include
    Extern/glm
-   Extern/SLECS
    Extern/imgui
    Extern/imgui/examples
 )
@@ -46,7 +45,6 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
-   Crimson/SLECS.cpp
    Crimson/Application.cpp
 )
 

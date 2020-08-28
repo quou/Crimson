@@ -8,6 +8,7 @@ namespace Crimson {
    private:
       unsigned int m_texture;
    public:
+      Texture() {}
       Texture(const std::string& fileName);
 
       void Load(const std::string& fileName);

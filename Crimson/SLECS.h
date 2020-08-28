@@ -29,7 +29,11 @@ SOFTWARE.
 */
 
 
-#pragma once
+#ifndef SLECS_H
+#define SLECS_H
+
+#define MAX_COMPONENTS 32
+#define MAX_ENTITIES 1000
 
 #include <iostream>
 #include <vector>
@@ -263,3 +267,6 @@ public:
 
 
 };
+
+
+#endif /* end of include guard: SLECS_H */

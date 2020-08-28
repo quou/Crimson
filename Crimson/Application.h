@@ -4,6 +4,7 @@
 #include "Graphics/Display.h"
 #include "Graphics/Renderer.h"
 #include "Input/Keyboard.h"
+#include "SLECS.h"
 
 namespace Crimson {
    class Application {
@@ -35,6 +36,7 @@ namespace Crimson {
       inline const SDL_Event& GetEvent() const {return m_event;}
 
       Keyboard m_keyboard;
+      ECS m_ecs;
 
    public:
       void Run();

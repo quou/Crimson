@@ -8,9 +8,6 @@
 
 class App : public Crimson::Application {
 private:
-   Crimson::Shader m_shader;
-   Crimson::Model m_model;
-   Crimson::Texture m_texture;
    Crimson::DirectionalLight m_directional;
    Crimson::Camera m_camera;
 
@@ -21,45 +18,43 @@ private:
 
    float m_curAngle = 0.0f;
 
+   EntityHandle m_monkey;
+
    GUI m_gui;
 public:
    App() :
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f),
-      m_model("Resources/monkey3.obj"),
-      m_texture("Resources/Wood.jpg"),
-      m_shader("Resources/Basic.vert", "Resources/Basic.frag"),
+      //m_model("Resources/monkey3.obj"),
+      //m_texture("Resources/Wood.jpg"),
+      //m_shader("Resources/Basic.vert", "Resources/Basic.frag"),
       m_shinyMaterial(1.0f, 32),
       m_directional(glm::vec3(1,1,1), 0.2f, 0.9f, glm::vec3(1,1,0)) {}
 
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      m_texture.Bind(0);
+      m_monkey = m_ecs.CreateEntity();
+      m_ecs.AddComponent<Crimson::Transform>(m_monkey, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+      m_ecs.AddComponent<Crimson::ModelComponent>(m_monkey)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->texture.Load("Resources/Wood.jpg");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->model.Load("Resources/monkey3.obj");
 
-      m_modl = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-      m_modl = glm::rotate(m_modl, 5.5f, glm::vec3(0, 1, 0));
-      m_modl = glm::scale(m_modl, glm::vec3(1.0f, 1.0f, 1.0f));
+      m_directional.UseLight(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.ambientIntensity"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.color"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.diffuseIntensity"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.direction"));
 
-      m_shader.Bind();
-      m_shader.SetUniform1i("tex", 0);
-      m_shader.SetUniformMatrix4("modl", m_modl);
-
-      m_directional.UseLight(m_shader.GetUniformLocation("directionalLight.ambientIntensity"),
-                             m_shader.GetUniformLocation("directionalLight.color"),
-                             m_shader.GetUniformLocation("directionalLight.diffuseIntensity"),
-                             m_shader.GetUniformLocation("directionalLight.direction"));
-
-      m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
-      m_shinyMaterial.UseMaterial(m_shader.GetUniformLocation("material.specularIntensity"),
-                                  m_shader.GetUniformLocation("material.shininess"));
+      //m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
+      m_shinyMaterial.UseMaterial(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.specularIntensity"),
+                                  m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.shininess"));
    }
 
    void OnUpdate(float delta) override {
       m_gui.Update(GetEvent());
 
       m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
-      m_shader.SetUniformMatrix4("view", m_camera.GetViewProjection());
-      m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
+      //m_shader.SetUniformMatrix4("view", m_camera.GetViewProjection());
+      //m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
 
       float pitch = m_camera.GetPitch();
       float yaw = m_camera.GetYaw();
@@ -127,8 +122,15 @@ public:
    }
 
    void OnRender(float delta) override {
-      m_shader.SetUniformMatrix4("modl", m_modl);
-      m_model.Render();
+      m_directional.UseLight(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.ambientIntensity"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.color"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.diffuseIntensity"),
+                             m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("directionalLight.direction"));
+
+      //m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
+      m_shinyMaterial.UseMaterial(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.specularIntensity"),
+                                  m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.shininess"));
+      Crimson::RenderModels(m_ecs, m_camera);
 
       m_gui.Render(GetSDLWindow());
    }

@@ -23,6 +23,7 @@ namespace Crimson {
 
       unsigned int m_drawCount;
    public:
+      Model() {}
       Model(const std::string& fileName);
 
       void Load(const std::string& fileName);
