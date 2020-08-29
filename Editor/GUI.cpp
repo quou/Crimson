@@ -31,13 +31,19 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    ImGui_ImplOpenGL3_Init("#version 330 core");
 }
 
-void GUI::Render(SDL_Window* window) {
+void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui_ImplOpenGL3_NewFrame();
    ImGui_ImplSDL2_NewFrame(window);
    ImGui::NewFrame();
 
-   ImGui::ShowDemoWindow();
+   ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
+   ImGui::Begin("Hierarchy");
+   std::vector<EntityHandle> ents = sceneManager.GetEntities();
+   for (unsigned int i = 0; i < ents.size(); i++) {
+      ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ents[i])->name.c_str());
+   }
+   ImGui::End();
 
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -18,6 +18,8 @@ namespace Crimson {
    public:
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
 
+      inline const std::vector<EntityHandle>& GetEntities() const {return m_entities;}
+
       void Deserialize(const std::string& fileName, ECS& ecs, Renderer& renderer);
    };
 }
