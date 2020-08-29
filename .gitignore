@@ -9,3 +9,4 @@ bin
 *.exe
 *.lib
 *.so
+imgui.ini
