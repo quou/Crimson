@@ -5,6 +5,7 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Model.h"
 #include "Graphics/Camera.h"
+#include "Graphics/Material.h"
 #include "SLECS.h"
 #include "Transform.h"
 
@@ -13,6 +14,7 @@ namespace Crimson {
       Texture texture;
       Shader shader;
       Model model;
+      Material material;
    };
 
    static void RenderModels(ECS& ecs, Camera& camera) {
@@ -26,6 +28,9 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("eyePosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
+
+         ecs.GetComponent<ModelComponent>(ent)->material.UseMaterial(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.specularIntensity"),
+                                                                     ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.shininess"));
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
       }

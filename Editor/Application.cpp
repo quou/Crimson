@@ -8,10 +8,7 @@
 
 class App : public Crimson::Application {
 private:
-   Crimson::DirectionalLight m_directional;
    Crimson::Camera m_camera;
-
-   Crimson::Material m_shinyMaterial;
 
    glm::mat4 m_modl;
    glm::mat4 m_view;
@@ -23,8 +20,7 @@ private:
    GUI m_gui;
 public:
    App() :
-      m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f),
-      m_shinyMaterial(1.0f, 32) {}
+      m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f) {}
 
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
@@ -38,9 +34,7 @@ public:
       m_ecs.AddComponent<Crimson::ModelComponent>(m_monkey)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag", m_renderer);
       m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->texture.Load("Resources/Wood.jpg");
       m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->model.Load("Resources/monkey3.obj");
-
-      m_shinyMaterial.UseMaterial(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.specularIntensity"),
-                                  m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.shininess"));
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->material = Crimson::Material(1.0f, 32);
    }
 
    void OnUpdate(float delta) override {
@@ -114,9 +108,6 @@ public:
    }
 
    void OnRender(float delta) override {
-      m_shinyMaterial.UseMaterial(m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.specularIntensity"),
-                                  m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->shader.GetUniformLocation("material.shininess"));
-
       Crimson::RenderModels(m_ecs, m_camera);
 
       m_gui.Render(GetSDLWindow());
