@@ -29,8 +29,7 @@ namespace Crimson {
       m_deltaTime = (double)((NOW - LAST)*1000 / (double)SDL_GetPerformanceFrequency() );
       m_deltaTime*=0.001f;
 
-      m_renderer.Clear(0.0f, 0.0f, 0.0f, 1.0f);
-      m_renderer.UpdateLighting(m_sceneManager);
+      m_renderer.Clear(0.0f, 0.0f, 0.0f, 0.0f);
       OnRender(m_deltaTime);
       m_display.Present();
    }

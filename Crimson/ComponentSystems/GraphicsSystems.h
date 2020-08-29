@@ -6,6 +6,7 @@
 #include "Graphics/Model.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
+#include "SceneManagement/SceneManager.h"
 #include "SLECS.h"
 #include "Transform.h"
 
@@ -17,7 +18,7 @@ namespace Crimson {
       Material material;
    };
 
-   static void RenderModels(ECS& ecs, Camera& camera) {
+   static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
       for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {
          glm::mat4 model = GetModelFromTransform(*ecs.GetComponent<Transform>(ent));
 
@@ -28,6 +29,11 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("eyePosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
+
+         sceneManager.GetConfig()->directionalLight.UseLight(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.ambientIntensity"),
+                                                             ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.color"),
+                                                             ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.diffuseIntensity"),
+                                                             ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.direction"));
 
          ecs.GetComponent<ModelComponent>(ent)->material.UseMaterial(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.specularIntensity"),
                                                                      ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.shininess"));

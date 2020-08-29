@@ -33,15 +33,6 @@ namespace Crimson {
       m_shaders.push_back(shader);
    }
 
-   void Renderer::UpdateLighting(SceneManager& sceneManager) {
-      for (unsigned int i = 0; i < m_shaders.size(); i++) {
-         sceneManager.GetConfig()->directionalLight.UseLight(m_shaders[i]->GetUniformLocation("directionalLight.ambientIntensity"),
-                                                             m_shaders[i]->GetUniformLocation("directionalLight.color"),
-                                                             m_shaders[i]->GetUniformLocation("directionalLight.diffuseIntensity"),
-                                                             m_shaders[i]->GetUniformLocation("directionalLight.direction"));
-      }
-   }
-
 
    /*void Renderer::Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader) {
       glUseProgram(shader);

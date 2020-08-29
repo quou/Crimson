@@ -16,6 +16,8 @@ private:
    float m_curAngle = 0.0f;
 
    EntityHandle m_monkey;
+   EntityHandle m_monkey2;
+   EntityHandle m_monkey3;
 
    GUI m_gui;
 public:
@@ -29,12 +31,26 @@ public:
       m_sceneManager.GetConfig()->directionalLight.m_diffuseIntensity = 1.0f;
       m_sceneManager.GetConfig()->directionalLight.m_direction = glm::vec3(1,1,-1);
 
+      m_monkey2 = m_ecs.CreateEntity();
+      m_ecs.AddComponent<Crimson::Transform>(m_monkey2, glm::vec3(2.7f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+      m_ecs.AddComponent<Crimson::ModelComponent>(m_monkey2)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag", m_renderer);
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey2)->texture.Load("Resources/Wood.jpg");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey2)->model.Load("Resources/monkey3.obj");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey2)->material = Crimson::Material(0.0f, 32);
+
       m_monkey = m_ecs.CreateEntity();
       m_ecs.AddComponent<Crimson::Transform>(m_monkey, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
       m_ecs.AddComponent<Crimson::ModelComponent>(m_monkey)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag", m_renderer);
       m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->texture.Load("Resources/Wood.jpg");
       m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->model.Load("Resources/monkey3.obj");
-      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->material = Crimson::Material(1.0f, 32);
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey)->material = Crimson::Material(0.5f, 32);
+
+      m_monkey3 = m_ecs.CreateEntity();
+      m_ecs.AddComponent<Crimson::Transform>(m_monkey3, glm::vec3(-2.7f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+      m_ecs.AddComponent<Crimson::ModelComponent>(m_monkey3)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag", m_renderer);
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey3)->texture.Load("Resources/Wood.jpg");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey3)->model.Load("Resources/monkey3.obj");
+      m_ecs.GetComponent<Crimson::ModelComponent>(m_monkey3)->material = Crimson::Material(1.0f, 32);
    }
 
    void OnUpdate(float delta) override {
@@ -108,7 +124,7 @@ public:
    }
 
    void OnRender(float delta) override {
-      Crimson::RenderModels(m_ecs, m_camera);
+      Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
       m_gui.Render(GetSDLWindow());
    }
