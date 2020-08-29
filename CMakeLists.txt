@@ -47,6 +47,7 @@ set(CRIMSON_SOURCE
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
    Crimson/Utils/tinyxml2.cpp
+   Crimson/Utils/ImGuizmo.cpp
    Crimson/SceneManagement/SceneManager.cpp
    Crimson/Application.cpp
 )

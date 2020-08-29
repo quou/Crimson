@@ -6,12 +6,12 @@
 
 class GUI {
 private:
-
+   EntityHandle m_selectedEntity = 0;
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);
    void Init(SDL_Window* window, const SDL_GLContext glContext);
-   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager);
+   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera);
    void Update(const SDL_Event& event);
    ~GUI();
 };

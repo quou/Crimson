@@ -107,7 +107,7 @@ public:
    void OnRender(float delta) override {
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
-      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager);
+      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera);
    }
 };
 

@@ -33,6 +33,14 @@ namespace Crimson {
          return m_perspective * glm::lookAt(m_position, m_position + m_forward, m_up);
       }
 
+      inline glm::mat4 GetView() const {
+         return glm::lookAt(m_position, m_position + m_forward, m_up);
+      }
+
+      inline glm::mat4 GetProjection() const {
+         return m_perspective;
+      }
+
       void SetPosition(const glm::vec3& newPos) {
          m_position = newPos;
       }
