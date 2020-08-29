@@ -1,5 +1,6 @@
 #include "Shader.h"
 
+
 #include <glad/glad.h>
 
 #include <glm/gtc/type_ptr.hpp>
@@ -10,20 +11,22 @@
 #include "Utils/FileUtils.h"
 
 namespace Crimson {
-   Shader::Shader(const std::string& vertPath, const std::string& fragPath)
+   Shader::Shader(const std::string& vertPath, const std::string& fragPath, Renderer& renderer)
       : m_vertPath(vertPath), m_fragPath(fragPath)
    {
       m_ID = Load();
+      renderer.AddShader(this);
    }
 
    Shader::~Shader() {
       glDeleteProgram(m_ID);
    }
 
-   void Shader::Init(const std::string& vertPath, const std::string& fragPath) {
+   void Shader::Init(const std::string& vertPath, const std::string& fragPath, Renderer& renderer) {
       m_vertPath = vertPath;
       m_fragPath = fragPath;
       m_ID = Load();
+      renderer.AddShader(this);
    }
 
    void Shader::Bind() {

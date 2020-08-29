@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+#include "Shader.h"
+#include "SceneManagement/SceneManager.h"
+
 namespace Crimson {
 
    void Renderer::Init() {
@@ -25,6 +28,20 @@ namespace Crimson {
       glClearColor(r, g, b, a);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    }
+
+   void Renderer::AddShader(Shader* shader) {
+      m_shaders.push_back(shader);
+   }
+
+   void Renderer::UpdateLighting(SceneManager& sceneManager) {
+      for (unsigned int i = 0; i < m_shaders.size(); i++) {
+         sceneManager.GetConfig()->directionalLight.UseLight(m_shaders[i]->GetUniformLocation("directionalLight.ambientIntensity"),
+                                                             m_shaders[i]->GetUniformLocation("directionalLight.color"),
+                                                             m_shaders[i]->GetUniformLocation("directionalLight.diffuseIntensity"),
+                                                             m_shaders[i]->GetUniformLocation("directionalLight.direction"));
+      }
+   }
+
 
    /*void Renderer::Draw(unsigned int vertexArray, unsigned int drawCount, unsigned int shader) {
       glUseProgram(shader);

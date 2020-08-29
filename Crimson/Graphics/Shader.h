@@ -5,6 +5,7 @@
 
 #include <glm/glm.hpp>
 
+#include "Renderer.h"
 
 namespace Crimson {
    class Shader {
@@ -17,9 +18,9 @@ namespace Crimson {
       unsigned int Load();
    public:
       Shader() {m_ID = 0;}
-      Shader(const std::string& vertPath, const std::string& fragPath);
+      Shader(const std::string& vertPath, const std::string& fragPath, Renderer& renderer);
       ~Shader();
-      void Init(const std::string& vertPath, const std::string& fragPath);
+      void Init(const std::string& vertPath, const std::string& fragPath, Renderer& renderer);
 
       unsigned int GetUniformLocation(const std::string& name);
 

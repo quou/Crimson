@@ -30,6 +30,7 @@ namespace Crimson {
       m_deltaTime*=0.001f;
 
       m_renderer.Clear(0.0f, 0.0f, 0.0f, 1.0f);
+      m_renderer.UpdateLighting(m_sceneManager);
       OnRender(m_deltaTime);
       m_display.Present();
    }

@@ -6,13 +6,13 @@
 namespace Crimson {
    class Light {
    protected:
+
+   public:
       glm::vec3 m_color;
       float m_ambientIntensity;
 
-      glm::vec3 m_direction;
       float m_diffuseIntensity;
-
-   public:
+      
       Light();
       Light(const glm::vec3& color, float ambientIntensity, float diffuseIntensity);
 

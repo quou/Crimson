@@ -4,6 +4,7 @@
 #include "Graphics/Display.h"
 #include "Graphics/Renderer.h"
 #include "Input/Keyboard.h"
+#include "SceneManagement/SceneManager.h"
 #include "SLECS.h"
 
 namespace Crimson {
@@ -15,7 +16,6 @@ namespace Crimson {
       void Quit();
 
       Display m_display;
-      Renderer m_renderer;
 
       float m_deltaTime;
 
@@ -35,8 +35,10 @@ namespace Crimson {
 
       inline const SDL_Event& GetEvent() const {return m_event;}
 
+      Renderer m_renderer;
       Keyboard m_keyboard;
       ECS m_ecs;
+      SceneManager m_sceneManager;
 
    public:
       void Run();

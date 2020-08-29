@@ -5,7 +5,7 @@
 namespace Crimson {
 
    DirectionalLight::DirectionalLight() : Light() {
-      m_direction = glm::vec3(0, -1, 0);
+      m_direction = glm::vec3(0, 1, 0);
    }
 
    DirectionalLight::DirectionalLight(const glm::vec3& color, float ambientIntensity, float diffuseIntensity, const glm::vec3& direction)

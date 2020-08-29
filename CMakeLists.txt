@@ -67,15 +67,15 @@ target_link_libraries(Crimson ${CRIMSON_DEPS})
 
 
 # SANDBOX
-project(Sandbox)
-
-set(SANDBOX_SOURCE
-   Sandbox/Application.cpp
-)
-
-add_executable(Sandbox ${SANDBOX_SOURCE})
-target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
-target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
+# project(Sandbox)
+#
+# set(SANDBOX_SOURCE
+#    Sandbox/Application.cpp
+# )
+#
+# add_executable(Sandbox ${SANDBOX_SOURCE})
+# target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
+# target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
 
 # EDITOR
 project(Editor)

@@ -14,9 +14,12 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 
+/* Scene Management */
+#include "SceneManagement/SceneManager.h"
+
 /* ECS */
 #include "SLECS.h"
-#include "ComponentSystems/ModelComponent.h"
+#include "ComponentSystems/GraphicsSystems.h"
 #include "ComponentSystems/Transform.h"
 
 /* Utils */
