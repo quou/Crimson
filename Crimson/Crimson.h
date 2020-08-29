@@ -15,6 +15,7 @@
 #include "Graphics/Material.h"
 
 /* Scene Management */
+#include "SceneManagement/SceneSettings.h"
 #include "SceneManagement/SceneManager.h"
 
 /* ECS */

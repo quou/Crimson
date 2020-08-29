@@ -38,6 +38,7 @@ void GUI::Render(SDL_Window* window) {
 
    ImGui::ShowDemoWindow();
 
+
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

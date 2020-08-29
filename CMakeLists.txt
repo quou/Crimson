@@ -9,6 +9,7 @@ add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
 add_subdirectory(Extern/glm)
 
+
 set(CMAKE_CXX_STANDARD 14)
 
 # ENGINE
@@ -45,6 +46,8 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
+   Crimson/Utils/tinyxml2.cpp
+   Crimson/SceneManagement/SceneManager.cpp
    Crimson/Application.cpp
 )
 

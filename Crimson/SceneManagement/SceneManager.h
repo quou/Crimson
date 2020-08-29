@@ -3,12 +3,22 @@
 
 #include "SceneSettings.h"
 
+#include <string>
+#include <vector>
+
+#include "SLECS.h"
+
 namespace Crimson {
+   class Renderer;
+
    class SceneManager {
    private:
       SceneSettings m_sceneSettings;
+      std::vector<EntityHandle> m_entities;
    public:
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
+
+      void Deserialize(const std::string& fileName, ECS& ecs, Renderer& renderer);
    };
 }
 
