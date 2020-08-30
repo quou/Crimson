@@ -26,7 +26,8 @@ static std::string EraseSubstring(const std::string & main, const std::string & 
 }
 
 GUI::GUI(SDL_Window* window, const SDL_GLContext glContext) {
-   m_workingDir = std::filesystem::current_path();
+   m_workingDir = std::filesystem::current_path().string() + "/";
+   std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
    Init(window, glContext);
 }
 
@@ -35,7 +36,9 @@ void GUI::Update(const SDL_Event& event) {
 }
 
 void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
-   m_workingDir = std::string(std::filesystem::current_path()) + "/";
+   m_workingDir = std::filesystem::current_path().string() + "/";
+   std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
+   std::cout << m_workingDir << std::endl;
    IMGUI_CHECKVERSION();
    ImGui::CreateContext();
    ImGuiIO& io = ImGui::GetIO(); (void)io;
