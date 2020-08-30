@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <imgui.h>
+
 #include "GUI.h"
 
 class App : public Crimson::Application {
@@ -24,10 +26,14 @@ public:
    App() :
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f) {}
 
+   void UpdateGui(SDL_Event e) {
+      m_gui.Update(e);
+   }
+
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs, m_renderer);
+      m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
 
       m_sceneManager.GetConfig()->directionalLight.m_ambientIntensity = 0.1f;
       m_sceneManager.GetConfig()->directionalLight.m_diffuseIntensity = 1.0f;
@@ -35,7 +41,6 @@ public:
    }
 
    void OnUpdate(float delta) override {
-      m_gui.Update(GetEvent());
 
       m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
 
@@ -48,16 +53,18 @@ public:
       float yoffset = 0.0f;
       float xoffset = 0.0f;
 
-      if (m_keyboard.IsKeyHeld(SDL_SCANCODE_UP)) {
-         yoffset = rotSpeed * delta;
-      } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_DOWN)) {
-         yoffset = -rotSpeed * delta;
-      }
+      if (!ImGui::IsAnyWindowFocused()) {
+         if (m_keyboard.IsKeyHeld(SDL_SCANCODE_UP)) {
+            yoffset = rotSpeed * delta;
+         } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_DOWN)) {
+            yoffset = -rotSpeed * delta;
+         }
 
-      if (m_keyboard.IsKeyHeld(SDL_SCANCODE_LEFT)) {
-         xoffset = -rotSpeed * delta;
-      } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_RIGHT)) {
-         xoffset = rotSpeed * delta;
+         if (m_keyboard.IsKeyHeld(SDL_SCANCODE_LEFT)) {
+            xoffset = -rotSpeed * delta;
+         } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_RIGHT)) {
+            xoffset = rotSpeed * delta;
+         }
       }
 
       float sensitivity = 0.1f;
@@ -79,26 +86,28 @@ public:
 
 
       glm::vec3 pos = m_camera.GetPosition();
-      float rot = glm::radians(m_camera.GetYaw());
-      if (m_keyboard.IsKeyHeld(SDL_SCANCODE_W)) {
-         pos.x -= (float)cos(rot) * moveSpeed * -1.0f * delta;
-         pos.z += (float)sin(rot) * moveSpeed * delta;
-      } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_S)) {
-         pos.x -= (float)cos(rot) * moveSpeed * 1.0f * delta;
-         pos.z -= (float)sin(rot) * moveSpeed * delta;
-      }
-      if (m_keyboard.IsKeyHeld(SDL_SCANCODE_D)) {
-         pos.x -= (float)sin(rot) * moveSpeed * delta;
-         pos.z += (float)cos(rot) * moveSpeed * 1.0f * delta;
-      } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_A)) {
-         pos.x += (float)sin(rot) * moveSpeed * delta;
-         pos.z += (float)cos(rot) * moveSpeed * -1.0f * delta;
-      }
+      if (!ImGui::IsAnyWindowFocused()) {
+         float rot = glm::radians(m_camera.GetYaw());
+         if (m_keyboard.IsKeyHeld(SDL_SCANCODE_W)) {
+            pos.x -= (float)cos(rot) * moveSpeed * -1.0f * delta;
+            pos.z += (float)sin(rot) * moveSpeed * delta;
+         } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_S)) {
+            pos.x -= (float)cos(rot) * moveSpeed * 1.0f * delta;
+            pos.z -= (float)sin(rot) * moveSpeed * delta;
+         }
+         if (m_keyboard.IsKeyHeld(SDL_SCANCODE_D)) {
+            pos.x -= (float)sin(rot) * moveSpeed * delta;
+            pos.z += (float)cos(rot) * moveSpeed * 1.0f * delta;
+         } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_A)) {
+            pos.x += (float)sin(rot) * moveSpeed * delta;
+            pos.z += (float)cos(rot) * moveSpeed * -1.0f * delta;
+         }
 
-      if (m_keyboard.IsKeyHeld(SDL_SCANCODE_SPACE)) {
-         pos.y+=5.5f*delta;
-      } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_LSHIFT)) {
-         pos.y-=5.5f*delta;
+         if (m_keyboard.IsKeyHeld(SDL_SCANCODE_SPACE)) {
+            pos.y+=5.5f*delta;
+         } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_LSHIFT)) {
+            pos.y-=5.5f*delta;
+         }
       }
 
       m_camera.SetPosition(pos);
@@ -111,8 +120,15 @@ public:
    }
 };
 
+
+App app;
+
+void EventCallback(SDL_Event event) {
+   app.UpdateGui(event);
+}
+
 int main(int argc, char const *argv[]) {
-   App app;
+   app.SetEventCallback(EventCallback);
    app.Run();
 
    return 0;

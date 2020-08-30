@@ -39,6 +39,10 @@ namespace Crimson {
       while (m_isRunning) {
          m_keyboard.Update();
          while (SDL_PollEvent(&m_event)) {
+            if (m_eventCallback) {
+               (*m_eventCallback) (m_event);
+            }
+
             switch (m_event.type) {
             case SDL_QUIT:
                m_isRunning = false;

@@ -23,6 +23,8 @@ namespace Crimson {
 
       SDL_Event m_event;
 
+      void (*m_eventCallback)(SDL_Event event);
+
    protected:
       Application();
       virtual void OnBegin() {}
@@ -42,6 +44,9 @@ namespace Crimson {
 
    public:
       void Run();
+      void SetEventCallback(void (*ptr)(SDL_Event event)) {
+         m_eventCallback = ptr;
+      }
 
       virtual ~Application();
    };
