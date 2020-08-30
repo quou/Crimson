@@ -20,6 +20,8 @@ namespace Crimson {
       glEnable(GL_CULL_FACE);
       glCullFace(GL_BACK);
 
+      glEnable(GL_MULTISAMPLE);
+
       std::cout << "OpenGL " << glGetString(GL_VERSION) << '\n';
       std::cout << glGetString(GL_RENDERER) << '\n';
    }

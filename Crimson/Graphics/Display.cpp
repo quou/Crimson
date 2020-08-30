@@ -20,6 +20,7 @@ namespace Crimson {
       SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
       SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
       SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+      SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
 
       m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | flags);
       m_glContext = SDL_GL_CreateContext(m_window);
