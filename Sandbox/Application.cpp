@@ -8,12 +8,7 @@
 class App : public Crimson::Application {
 private:
    Crimson::Shader m_shader;
-   Crimson::Model m_model;
-   Crimson::Texture m_texture;
-   Crimson::DirectionalLight m_directional;
    Crimson::Camera m_camera;
-
-   Crimson::Material m_shinyMaterial;
 
    glm::mat4 m_modl;
    glm::mat4 m_view;
@@ -21,32 +16,14 @@ private:
    float m_curAngle = 0.0f;
 public:
    App() :
-      m_camera(glm::vec3(0,0,-5), 45.0f, 800/600, 0.1f, 100.0f),
-      m_model("Resources/monkey3.obj"),
-      m_texture("Resources/Wood.jpg"),
-      m_shader("Resources/Basic.vert", "Resources/Basic.frag"),
-      m_shinyMaterial(1.0f, 32),
-      m_directional(glm::vec3(1,1,1), 0.2f, 0.9f, glm::vec3(1,1,0)) {}
+      m_camera(glm::vec3(0,0,-5), 45.0f, 800/600, 0.1f, 100.0f) {}
 
    void OnBegin() override  {
-      m_texture.Bind(0);
+      m_sceneManager.GetConfig()->directionalLight.m_intensity = 1.0f;
+      m_sceneManager.GetConfig()->directionalLight.m_direction = glm::vec3(1,1,-1);
+      m_sceneManager.GetConfig()->ambientLight.m_intensity = 0.1f;
 
-      m_modl = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-      m_modl = glm::rotate(m_modl, 5.5f, glm::vec3(0, 1, 0));
-      m_modl = glm::scale(m_modl, glm::vec3(1.0f, 1.0f, 1.0f));
-
-      m_shader.Bind();
-      m_shader.SetUniform1i("tex", 0);
-      m_shader.SetUniformMatrix4("modl", m_modl);
-
-      m_directional.UseLight(m_shader.GetUniformLocation("directionalLight.ambientIntensity"),
-                             m_shader.GetUniformLocation("directionalLight.color"),
-                             m_shader.GetUniformLocation("directionalLight.diffuseIntensity"),
-                             m_shader.GetUniformLocation("directionalLight.direction"));
-
-      m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
-      m_shinyMaterial.UseMaterial(m_shader.GetUniformLocation("material.specularIntensity"),
-                                  m_shader.GetUniformLocation("material.shininess"));
+      m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
    }
 
    void OnUpdate(float delta) override {
@@ -120,8 +97,7 @@ public:
    }
 
    void OnRender(float delta) override {
-      m_shader.SetUniformMatrix4("modl", m_modl);
-      m_model.Render();
+      Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
    }
 };
 
