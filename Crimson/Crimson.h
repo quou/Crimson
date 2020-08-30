@@ -25,5 +25,6 @@
 
 /* Utils */
 #include "Utils/FileUtils.h"
+#include "Utils/WorkingDir.h"
 
 #endif /* end of include guard: CRIMSON_H */

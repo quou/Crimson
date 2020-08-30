@@ -1,8 +1,8 @@
 <entity>
     <transform name="monkey1">
-        <position x="0" y="3.470890998840332" z="0"/>
+        <position x="-0.0085797309875488281" y="1.3713396787643433" z="0.95891082286834717"/>
         <rotation x="0" y="-0" z="0"/>
-        <scale x="1" y="1" z="1"/>
+        <scale x="0.48000001907348633" y="0.48000001907348633" z="0.48000001907348633"/>
     </transform>
     <model>
         <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
@@ -14,14 +14,14 @@
 
 <entity>
     <transform name="monkey2">
-        <position x="0" y="0" z="0"/>
-        <rotation x="0" y="0" z="0"/>
+        <position x="1.1920928955078125e-07" y="0" z="0"/>
+        <rotation x="0" y="-0" z="0"/>
         <scale x="1" y="1" z="1"/>
     </transform>
     <model>
         <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-        <texture res="Resources/Wood.jpg"/>
-        <mesh res="Resources/monkey3.obj"/>
+        <texture res="Resources/Bricks.jpg"/>
+        <mesh res="Resources/torus.obj"/>
         <material res="Resources/Shiny.txt"/>
     </model>
 </entity>

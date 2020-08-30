@@ -10,7 +10,7 @@ add_subdirectory(Extern/glad)
 add_subdirectory(Extern/glm)
 
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # ENGINE
 project(Crimson)
@@ -48,6 +48,7 @@ set(CRIMSON_SOURCE
    Crimson/Utils/stb_image.c
    Crimson/Utils/tinyxml2.cpp
    Crimson/Utils/ImGuizmo.cpp
+   Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp
    Crimson/SceneManagement/SceneManager.cpp
    Crimson/Application.cpp
 )

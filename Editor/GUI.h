@@ -4,9 +4,18 @@
 #include <SDL2/SDL.h>
 #include <Crimson.h>
 
+#include <Utils/FileBrowser/ImGuiFileBrowser.h>
+
 class GUI {
 private:
    EntityHandle m_selectedEntity = 0;
+
+   imgui_addons::ImGuiFileBrowser m_fileDialog;
+
+   bool m_selectMeshPopup = false;
+   bool m_selectTexturePopup = false;
+
+   std::string m_workingDir;
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);

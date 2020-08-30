@@ -9,7 +9,24 @@
 
 #include <Utils/ImGuizmo.h>
 
+#include <filesystem>
+
+static std::string EraseSubstring(const std::string & main, const std::string & erase)
+{
+   std::string result = main;
+
+    // Search for the substring in string
+    size_t pos = main.find(erase);
+    if (pos != std::string::npos)
+    {
+        // If found then erase it from string
+        result.erase(pos, erase.length());
+    }
+    return result;
+}
+
 GUI::GUI(SDL_Window* window, const SDL_GLContext glContext) {
+   m_workingDir = std::filesystem::current_path();
    Init(window, glContext);
 }
 
@@ -17,8 +34,8 @@ void GUI::Update(const SDL_Event& event) {
    ImGui_ImplSDL2_ProcessEvent(&event);
 }
 
-
 void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
+   m_workingDir = std::string(std::filesystem::current_path()) + "/";
    IMGUI_CHECKVERSION();
    ImGui::CreateContext();
    ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -94,11 +111,27 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    float matrixRotation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.z};
    float matrixScale[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.z};
 	ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
+
    if (ImGui::CollapsingHeader("Transform")) {
 	  ImGui::InputFloat3("Position", matrixTranslation, 3);
 	  ImGui::InputFloat3("Rotation", matrixRotation, 3);
 	  ImGui::InputFloat3("Scale", matrixScale, 3);
    }
+
+   if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
+      if (ImGui::CollapsingHeader("Model")) {
+         ImGui::Text("Mesh: %s", ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.GetRes().c_str()); ImGui::SameLine();
+         if (ImGui::Button("Load Mesh")) {
+            m_selectMeshPopup = true;
+         }
+
+         ImGui::Text("Texture: %s", ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->texture.GetRes().c_str()); ImGui::SameLine();
+         if (ImGui::Button("Load Texture")) {
+            m_selectTexturePopup = true;
+         }
+      }
+   }
+
 	ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, glm::value_ptr(currentGizmoMatrix));
    ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
    ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
@@ -122,6 +155,30 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
       }
 
       ImGui::EndMainMenuBar();
+   }
+
+   if (m_selectMeshPopup) {
+      ImGui::OpenPopup("Select Mesh");
+      m_selectMeshPopup = false;
+   }
+
+   if (m_selectTexturePopup) {
+      ImGui::OpenPopup("Select Texture");
+      m_selectTexturePopup = false;
+   }
+
+   if (m_fileDialog.showFileDialog("Select Mesh", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), ".obj")) {
+      std::string path = EraseSubstring(m_fileDialog.selected_path, m_workingDir);
+      if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
+         ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.Load(path);
+      }
+   }
+
+   if (m_fileDialog.showFileDialog("Select Texture", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), ".png,.jpg")) {
+      std::string path = EraseSubstring(m_fileDialog.selected_path, m_workingDir);
+      if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
+         ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->texture.Load(path);
+      }
    }
 
    ImGui::Begin("Scene Control Panel");
