@@ -20,6 +20,9 @@ namespace Crimson {
 
       inline const std::vector<EntityHandle>& GetEntities() const {return m_entities;}
 
+      void CreateEntity(const std::string& name, ECS& ecs);
+      void DeleteEntity(EntityHandle entity, ECS& ecs);
+
       void Serialize(const std::string& fileName, ECS& ecs);
       void Deserialize(const std::string& fileName, ECS& ecs);
    };

@@ -33,6 +33,10 @@ public:
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
+      /* Create a dummy entity, so that when entities are deleted, the GUI won't get confused*/
+      EntityHandle dummyEnt = m_ecs.CreateEntity();
+      m_ecs.AddComponent<Crimson::Transform>(dummyEnt);
+
       m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
 
       m_sceneManager.GetConfig()->directionalLight.m_intensity = 1.0f;

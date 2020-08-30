@@ -63,6 +63,17 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 
    /* Scene Hierarchy */
    ImGui::Begin("Hierarchy");
+   if (ImGui::Button("Create Entity")) {
+      sceneManager.CreateEntity("New Entity", ecs);
+   } ImGui::SameLine();
+   if (ImGui::Button("Delete Entity")) {
+      if (m_selectedEntity != 0) {
+         sceneManager.DeleteEntity(m_selectedEntity, ecs);
+         m_selectedEntity = 0;
+      }
+   }
+   ImGui::Separator();
+
    std::vector<EntityHandle> ents = sceneManager.GetEntities();
 
    static ImGuiTreeNodeFlags baseFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
@@ -111,6 +122,10 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    float matrixRotation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.z};
    float matrixScale[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.z};
 	ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
+
+   char* buf = strdup(ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
+   ImGui::InputText("Name", buf, 256);
+   ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name = buf;
 
    if (ImGui::CollapsingHeader("Transform")) {
 	  ImGui::InputFloat3("Position", matrixTranslation, 3);

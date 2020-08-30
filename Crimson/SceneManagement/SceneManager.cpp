@@ -4,15 +4,32 @@
 
 #include <glm/glm.hpp>
 
+#include <fstream>
+#include <algorithm>
+
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/GraphicsSystems.h"
 #include "Graphics/Renderer.h"
 
 using namespace tinyxml2;
 
-#include <fstream>
 
 namespace Crimson {
+   void SceneManager::CreateEntity(const std::string& name, ECS& ecs) {
+      EntityHandle newEntity = ecs.CreateEntity();
+      ecs.AddComponent<Transform>(newEntity, name);
+      ecs.GetComponent<Transform>(newEntity)->position = glm::vec3(0,0,0);
+      ecs.GetComponent<Transform>(newEntity)->rotation = glm::vec3(0,0,0);
+      ecs.GetComponent<Transform>(newEntity)->scale = glm::vec3(1,1,1);
+      m_entities.push_back(newEntity);
+   }
+
+   void SceneManager::DeleteEntity(EntityHandle entity, ECS& ecs) {
+      m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
+      ecs.DestroyEntity(entity);
+   }
+
+
    void SceneManager::Serialize(const std::string& fileName, ECS& ecs) {
       XMLPrinter printer;
 
