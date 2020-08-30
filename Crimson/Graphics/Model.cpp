@@ -8,6 +8,7 @@ namespace Crimson {
    }
 
    void Model::Load(const std::string& fileName) {
+      m_res = fileName;
       IndexedModel model = OBJModel(fileName).ToIndexedModel();
       Init(model);
    }

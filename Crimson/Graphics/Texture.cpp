@@ -12,6 +12,7 @@ namespace Crimson {
    }
 
    void Texture::Load(const std::string& fileName) {
+      m_res = fileName;
       int width, height, componentCount;
       unsigned char* textureData = stbi_load(fileName.c_str(), &width, &height, &componentCount, 4);
 

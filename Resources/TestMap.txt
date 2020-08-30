@@ -1,44 +1,27 @@
 <entity>
-   <transform name="monkey1">
-      <position x="2.7" y="0" z="0"/>
-      <rotation x="0" y="0" z="0"/>
-      <scale x="1" y="1" z="1"/>
-   </transform>
-
-   <model>
-      <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-      <texture res="Resources/Wood.jpg"/>
-      <mesh res="Resources/monkey3.obj"/>
-      <material res="Resources/Shiny.txt"/>
-   </model>
+    <transform name="monkey1">
+        <position x="0" y="3.470890998840332" z="0"/>
+        <rotation x="0" y="-0" z="0"/>
+        <scale x="1" y="1" z="1"/>
+    </transform>
+    <model>
+        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+        <texture res="Resources/Wood.jpg"/>
+        <mesh res="Resources/monkey3.obj"/>
+        <material res="Resources/Shiny.txt"/>
+    </model>
 </entity>
 
 <entity>
-   <transform name="monkey2">
-      <position x="0" y="0" z="0"/>
-      <rotation x="0" y="0" z="0"/>
-      <scale x="1" y="1" z="1"/>
-   </transform>
-
-   <model>
-      <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-      <texture res="Resources/Wood.jpg"/>
-      <mesh res="Resources/monkey3.obj"/>
-      <material res="Resources/Shiny.txt"/>
-   </model>
-</entity>
-
-<entity>
-   <transform name="monkey3">
-      <position x="-2.7" y="0" z="0"/>
-      <rotation x="0" y="0" z="0"/>
-      <scale x="1" y="1" z="1"/>
-   </transform>
-
-   <model>
-      <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-      <texture res="Resources/Wood.jpg"/>
-      <mesh res="Resources/monkey3.obj"/>
-      <material res="Resources/Shiny.txt"/>
-   </model>
+    <transform name="monkey2">
+        <position x="0" y="0" z="0"/>
+        <rotation x="0" y="0" z="0"/>
+        <scale x="1" y="1" z="1"/>
+    </transform>
+    <model>
+        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+        <texture res="Resources/Wood.jpg"/>
+        <mesh res="Resources/monkey3.obj"/>
+        <material res="Resources/Shiny.txt"/>
+    </model>
 </entity>

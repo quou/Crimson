@@ -22,11 +22,15 @@ namespace Crimson {
       unsigned int m_vertexBuffer[NUM_BUFFERS];
 
       unsigned int m_drawCount;
+
+      std::string m_res;
    public:
       Model() {}
       Model(const std::string& fileName);
 
       void Load(const std::string& fileName);
+
+      inline std::string GetRes() const {return m_res;}
 
       void Render();
 

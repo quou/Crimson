@@ -112,6 +112,18 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 	ImGuizmo::SetRect(x, y, w, h);
 	ImGuizmo::Manipulate(glm::value_ptr(camera.GetView()), glm::value_ptr(camera.GetProjection()), mCurrentGizmoOperation, mCurrentGizmoMode, glm::value_ptr(currentGizmoMatrix));
 
+
+   if (ImGui::BeginMainMenuBar()) {
+      if (ImGui::BeginMenu("File")) {
+         if (ImGui::MenuItem("Save")) {
+            sceneManager.Serialize("Resources/TestMap.txt", ecs);
+         }
+         ImGui::EndMenu();
+      }
+
+      ImGui::EndMainMenuBar();
+   }
+
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

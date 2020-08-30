@@ -18,9 +18,9 @@ namespace Crimson {
       unsigned int Load();
    public:
       Shader() {m_ID = 0;}
-      Shader(const std::string& vertPath, const std::string& fragPath, Renderer& renderer);
+      Shader(const std::string& vertPath, const std::string& fragPath);
       ~Shader();
-      void Init(const std::string& vertPath, const std::string& fragPath, Renderer& renderer);
+      void Init(const std::string& vertPath, const std::string& fragPath);
 
       unsigned int GetUniformLocation(const std::string& name);
 
@@ -30,6 +30,9 @@ namespace Crimson {
       void SetUniform2f(const std::string& name, float v1, float v2);
       void SetUniform3f(const std::string& name, float v1, float v2, float v3);
       void SetUniform4f(const std::string& name, float v1, float v2, float v3, float v4);
+
+      inline std::string GetVertPath() const {return m_vertPath;}
+      inline std::string GetFragPath() const {return m_fragPath;}
 
       void Bind();
       void Unbind();

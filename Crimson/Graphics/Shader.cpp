@@ -11,22 +11,20 @@
 #include "Utils/FileUtils.h"
 
 namespace Crimson {
-   Shader::Shader(const std::string& vertPath, const std::string& fragPath, Renderer& renderer)
+   Shader::Shader(const std::string& vertPath, const std::string& fragPath)
       : m_vertPath(vertPath), m_fragPath(fragPath)
    {
       m_ID = Load();
-      renderer.AddShader(this);
    }
 
    Shader::~Shader() {
       glDeleteProgram(m_ID);
    }
 
-   void Shader::Init(const std::string& vertPath, const std::string& fragPath, Renderer& renderer) {
+   void Shader::Init(const std::string& vertPath, const std::string& fragPath) {
       m_vertPath = vertPath;
       m_fragPath = fragPath;
       m_ID = Load();
-      renderer.AddShader(this);
    }
 
    void Shader::Bind() {
