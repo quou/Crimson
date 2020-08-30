@@ -5,23 +5,16 @@
 namespace Crimson {
    Light::Light() {
       m_color = glm::vec3(1, 1, 1);
-      m_ambientIntensity = 1.0f;
-
-      m_diffuseIntensity = 0;
+      m_intensity = 1.0f;
    }
 
-   Light::Light(const glm::vec3& color, float ambientIntensity, float diffuseIntensity) {
+   Light::Light(const glm::vec3& color, float ambientIntensity) {
       m_color = color;
-      m_ambientIntensity = ambientIntensity;
-
-      m_diffuseIntensity = diffuseIntensity;
+      m_intensity = ambientIntensity;
    }
 
-   void Light::UseLight(unsigned int ambientIntensityLocation, unsigned int ambientColorLocation,
-                        unsigned int diffuseIntensityLocation) {
-      glUniform1f(ambientIntensityLocation, m_ambientIntensity);
+   void Light::UseLight(unsigned int ambientIntensityLocation, unsigned int ambientColorLocation) {
+      glUniform1f(ambientIntensityLocation, m_intensity);
       glUniform3f(ambientColorLocation, m_color.x, m_color.y, m_color.z);
-
-      glUniform1f(diffuseIntensityLocation, m_diffuseIntensity);
    }
 }

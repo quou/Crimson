@@ -124,6 +124,24 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
       ImGui::EndMainMenuBar();
    }
 
+   ImGui::Begin("Scene Control Panel");
+
+   ImGui::SliderFloat("Ambient Intensity", &sceneManager.GetConfig()->ambientLight.m_intensity, 0.0f, 1.0f);
+   static float newcol[3] = { sceneManager.GetConfig()->ambientLight.m_color.x, sceneManager.GetConfig()->ambientLight.m_color.y, sceneManager.GetConfig()->ambientLight.m_color.z};
+   ImGui::ColorEdit3("Ambient Color", newcol);
+   ImGui::Separator();
+   ImGui::SliderFloat("Diffuse Intensity", &sceneManager.GetConfig()->directionalLight.m_intensity, 0.0f, 1.0f);
+   static float newcol2[3] = { sceneManager.GetConfig()->directionalLight.m_color.x, sceneManager.GetConfig()->directionalLight.m_color.y, sceneManager.GetConfig()->directionalLight.m_color.z};
+   ImGui::ColorEdit3("Diffuse Color", newcol2);
+
+   float newDirection[3] = {sceneManager.GetConfig()->directionalLight.m_direction.x, sceneManager.GetConfig()->directionalLight.m_direction.y, sceneManager.GetConfig()->directionalLight.m_direction.z};
+   ImGui::SliderFloat3("Diffuse Direction", newDirection, -1.0f, 1.0f);
+   sceneManager.GetConfig()->directionalLight.m_direction = glm::vec3(newDirection[0],newDirection[1],newDirection[2]);
+   sceneManager.GetConfig()->directionalLight.m_color = glm::vec3(newcol2[0],newcol2[1],newcol2[2]);
+   sceneManager.GetConfig()->ambientLight.m_color = glm::vec3(newcol[0],newcol[1],newcol[2]);
+   sceneManager.GetConfig()->ambientLight.m_color = glm::vec3(newcol[0],newcol[1],newcol[2]);
+   ImGui::End();
+
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

@@ -9,15 +9,12 @@ namespace Crimson {
 
    public:
       glm::vec3 m_color;
-      float m_ambientIntensity;
+      float m_intensity;
 
-      float m_diffuseIntensity;
-      
       Light();
-      Light(const glm::vec3& color, float ambientIntensity, float diffuseIntensity);
+      Light(const glm::vec3& color, float ambientIntensity);
 
-      virtual void UseLight(unsigned int ambientIntensityLocation, unsigned int ambientColorLocation,
-                            unsigned int diffuseIntensityLocation);
+      virtual void UseLight(unsigned int ambientIntensityLocation, unsigned int ambientColorLocation);
 
       virtual ~Light() {}
    };
