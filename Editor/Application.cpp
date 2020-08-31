@@ -33,7 +33,7 @@ public:
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      /* Create a dummy entity, so that when entities are deleted, the GUI won't get confused*/
+      /* Create a dummy entity, so that when entities are deleted, the GUI won't segfault due to zero entities */
       EntityHandle dummyEnt = m_ecs.CreateEntity();
       m_ecs.AddComponent<Crimson::Transform>(dummyEnt);
 

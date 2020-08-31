@@ -10,6 +10,7 @@
 #include <Utils/ImGuizmo.h>
 
 #include <filesystem>
+#include <algorithm>
 
 static std::string EraseSubstring(const std::string & main, const std::string & erase)
 {
@@ -38,7 +39,6 @@ void GUI::Update(const SDL_Event& event) {
 void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    m_workingDir = std::filesystem::current_path().string() + "/";
    std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
-   std::cout << m_workingDir << std::endl;
    IMGUI_CHECKVERSION();
    ImGui::CreateContext();
    ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -148,6 +148,25 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
             m_selectTexturePopup = true;
          }
       }
+   }
+
+   static bool showAddComponentPopup = false;
+   if (ImGui::Button("Add Component")) {
+      showAddComponentPopup = true;
+   }
+
+   if (showAddComponentPopup) {
+      ImGui::OpenPopup("Add Component Popup");
+      showAddComponentPopup = false;
+   }
+
+   if (ImGui::BeginPopup("Add Component Popup")) {
+      if (ImGui::MenuItem("Model") && m_selectedEntity != 0) {
+         ecs.AddComponent<Crimson::ModelComponent>(m_selectedEntity);
+         ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.Init("Resources/Basic.vert", "Resources/Basic.frag");
+         ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->material = Crimson::Material(0.1, 32, "Resources/Shiny.txt");
+      }
+      ImGui::EndPopup();
    }
 
 	ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, glm::value_ptr(currentGizmoMatrix));

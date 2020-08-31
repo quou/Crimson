@@ -1,6 +1,6 @@
 <entity>
     <transform name="Monkey">
-        <position x="-0.0085797309875488281" y="0.67571175098419189" z="-0.078593283891677856"/>
+        <position x="0" y="0.90125340223312378" z="0"/>
         <rotation x="0" y="-0" z="0"/>
         <scale x="0.48000001907348633" y="0.48000001907348633" z="0.48000001907348633"/>
     </transform>
@@ -27,9 +27,15 @@
 </entity>
 
 <entity>
-    <transform name="New Entity">
-        <position x="2.375232458114624" y="0" z="0"/>
+    <transform name="Torus 2">
+        <position x="0" y="1.6463594436645508" z="0"/>
         <rotation x="0" y="-0" z="0"/>
         <scale x="1" y="1" z="1"/>
     </transform>
+    <model>
+        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+        <texture res="Resources/Wood.jpg"/>
+        <mesh res="Resources/torus.obj"/>
+        <material res="Resources/Shiny.txt"/>
+    </model>
 </entity>
