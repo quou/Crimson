@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "SLECS.h"
+#include "Utils/tinyxml2.h"
 
 namespace Crimson {
    class Renderer;
@@ -15,6 +16,11 @@ namespace Crimson {
    private:
       SceneSettings m_sceneSettings;
       std::vector<EntityHandle> m_entities;
+
+      EntityHandle ParseEntity(tinyxml2::XMLElement* node, ECS& ecs);
+      void ParseEntities(tinyxml2::XMLElement* node, ECS& ecs, EntityHandle parent=0);
+
+      void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
    public:
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
 

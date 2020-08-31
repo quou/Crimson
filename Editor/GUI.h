@@ -16,6 +16,10 @@ private:
    bool m_selectTexturePopup = false;
 
    std::string m_workingDir;
+
+   glm::mat4 currentGizmoMatrix;
+
+   void DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags flags);
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);

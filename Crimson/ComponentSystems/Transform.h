@@ -3,7 +3,9 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
 #include <string>
+#include <algorithm>
 
 namespace Crimson {
    struct Transform {
@@ -11,7 +13,24 @@ namespace Crimson {
       glm::vec3 position;
       glm::vec3 rotation;
       glm::vec3 scale;
+
+      EntityHandle parent = 0;
+      std::vector<EntityHandle> children;
    };
+
+   static void AddParent(Transform* transform, EntityHandle entity) {
+      transform->parent = entity;
+   }
+   static void Unparent(Transform* transform) {
+      transform->parent = 0;
+   }
+
+   static void AddChild(Transform* transform, EntityHandle entity) {
+      transform->children.push_back(entity);
+   }
+   static void RemoveChild(Transform* transform, EntityHandle entity) {
+      transform->children.erase(std::remove(transform->children.begin(), transform->children.end(), entity), transform->children.end());
+   }
 
    static glm::mat4 GetModelFromTransform(const Transform& transform) {
       glm::vec3 pos = transform.position;

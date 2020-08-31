@@ -105,6 +105,10 @@ private:
    std::vector<EntityIndex> m_freeEntities; /* A vector of entities that can be overwritton */
 
 public:
+   ECS() {
+      CreateEntity();
+   }
+
    ~ECS() {
       for (size_t i = 0; i < m_components.size(); i++) {
          delete m_components[i];
@@ -122,6 +126,10 @@ public:
 
    template <typename T, typename... Args>
    T* AddComponent(EntityHandle entity, Args... pArgs) {
+      if (entity == 0) {
+         return nullptr;
+      }
+
       unsigned int componentID = GetComponentID<T>();
 
       if (m_entities[GetEntityIndex(entity)].first != entity) {
@@ -145,6 +153,9 @@ public:
 
    template <typename T>
    T* GetComponent(EntityHandle entity) {
+      if (entity == 0) {
+         return nullptr;
+      }
       int componentID = GetComponentID<T>();
 
       if (m_entities[GetEntityIndex(entity)].first != entity) {
@@ -163,6 +174,9 @@ public:
 
    template <typename T>
    void RemoveComponent(EntityHandle entity) {
+      if (entity == 0) {
+         return;
+      }
       if (m_entities[GetEntityIndex(entity)].first != entity) {
          std::cerr << __FUNCTION__ << ": Attempt to access a deleted entity." << '\n';
          return;
@@ -173,6 +187,10 @@ public:
 
 
    void DestroyEntity(EntityHandle entity) {
+      if (entity == 0) {
+         return;
+      }
+
       EntityHandle newEntity = CreateHandleToEntity(EntityIndex(-1), GetEntityVersion(entity) + 1);
 
       EntityIndex index = GetEntityIndex(entity);

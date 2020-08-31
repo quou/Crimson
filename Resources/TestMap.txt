@@ -1,41 +1,67 @@
-<entity>
-    <transform name="Monkey">
-        <position x="0" y="0.90125340223312378" z="0"/>
-        <rotation x="0" y="-0" z="0"/>
-        <scale x="0.48000001907348633" y="0.48000001907348633" z="0.48000001907348633"/>
-    </transform>
-    <model>
-        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-        <texture res="Resources/Wood.jpg"/>
-        <mesh res="Resources/monkey3.obj"/>
-        <material res="Resources/Shiny.txt"/>
-    </model>
-</entity>
-
-<entity>
-    <transform name="Torus">
-        <position x="1.1920928955078125e-07" y="0" z="0"/>
-        <rotation x="0" y="-0" z="0"/>
-        <scale x="1" y="1" z="1"/>
-    </transform>
-    <model>
-        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-        <texture res="Resources/Bricks.jpg"/>
-        <mesh res="Resources/torus.obj"/>
-        <material res="Resources/Shiny.txt"/>
-    </model>
-</entity>
-
-<entity>
-    <transform name="Torus 2">
-        <position x="0" y="1.6463594436645508" z="0"/>
-        <rotation x="0" y="-0" z="0"/>
-        <scale x="1" y="1" z="1"/>
-    </transform>
-    <model>
-        <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
-        <texture res="Resources/Wood.jpg"/>
-        <mesh res="Resources/torus.obj"/>
-        <material res="Resources/Shiny.txt"/>
-    </model>
-</entity>
+<scene>
+    <entity>
+        <transform name="Monkey">
+            <position x="-3.7634859085083008" y="2.1525521278381348" z="-0.29030957818031311"/>
+            <rotation x="0" y="-0" z="0"/>
+            <scale x="0.48000001907348633" y="0.48000001907348633" z="0.48000001907348633"/>
+        </transform>
+        <model>
+            <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+            <texture res="Resources/Wood.jpg"/>
+            <mesh res="Resources/monkey3.obj"/>
+            <material res="Resources/Shiny.txt"/>
+        </model>
+    </entity>
+    <entity>
+        <transform name="Torus 1">
+            <position x="-3.792365550994873" y="1" z="3.7520415219205461e-08"/>
+            <rotation x="-3.1415908336639404" y="-0" z="0"/>
+            <scale x="0.99990534782409668" y="0.99998074769973755" z="0.9999927282333374"/>
+        </transform>
+        <model>
+            <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+            <texture res="Resources/Bricks.jpg"/>
+            <mesh res="Resources/torus.obj"/>
+            <material res="Resources/Shiny.txt"/>
+        </model>
+    </entity>
+    <entity>
+        <transform name="Torus 2">
+            <position x="-3.8074138164520264" y="-1.1756463050842285" z="-9.5100446628748614e-08"/>
+            <rotation x="1.5707963705062866" y="-0" z="0"/>
+            <scale x="0.99964421987533569" y="1" z="1"/>
+        </transform>
+        <model>
+            <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+            <texture res="Resources/Wood.jpg"/>
+            <mesh res="Resources/torus.obj"/>
+            <material res="Resources/Shiny.txt"/>
+        </model>
+        <entity>
+            <transform name="Child">
+                <position x="-5.1493806838989258" y="1.0487381219863892" z="2.1304666919519377e-09"/>
+                <rotation x="1.5707963705062866" y="-0" z="0"/>
+                <scale x="0.99985390901565552" y="1" z="1"/>
+            </transform>
+            <model>
+                <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+                <texture res="Resources/Wood.jpg"/>
+                <mesh res="Resources/torus.obj"/>
+                <material res="Resources/Shiny.txt"/>
+            </model>
+        </entity>
+    </entity>
+    <entity>
+        <transform name="Torus 3">
+            <position x="-2.34493088722229" y="1" z="1.1488270246218235e-07"/>
+            <rotation x="1.5707963705062866" y="-0" z="0"/>
+            <scale x="0.99991267919540405" y="0.99999994039535522" z="0.99999994039535522"/>
+        </transform>
+        <model>
+            <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+            <texture res="Resources/Wood.jpg"/>
+            <mesh res="Resources/torus.obj"/>
+            <material res="Resources/Shiny.txt"/>
+        </model>
+    </entity>
+</scene>
