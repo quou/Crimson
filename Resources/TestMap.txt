@@ -29,7 +29,7 @@
         <transform name="Torus 2">
             <position x="-3.8074138164520264" y="-1.1756463050842285" z="-9.5100446628748614e-08"/>
             <rotation x="1.5707963705062866" y="-0" z="0"/>
-            <scale x="0.99964421987533569" y="1" z="1"/>
+            <scale x="0.99962824583053589" y="1" z="1"/>
         </transform>
         <model>
             <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
@@ -39,9 +39,9 @@
         </model>
         <entity>
             <transform name="Child">
-                <position x="-5.1493806838989258" y="1.0487381219863892" z="2.1304666919519377e-09"/>
+                <position x="-0.9392579197883606" y="0.0017380717908963561" z="-4.3635356661297919e-08"/>
                 <rotation x="1.5707963705062866" y="-0" z="0"/>
-                <scale x="0.99985390901565552" y="1" z="1"/>
+                <scale x="0.9997895359992981" y="1" z="1"/>
             </transform>
             <model>
                 <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
@@ -49,6 +49,19 @@
                 <mesh res="Resources/torus.obj"/>
                 <material res="Resources/Shiny.txt"/>
             </model>
+            <entity>
+                <transform name="Child2">
+                    <position x="4.4361720085144043" y="1.4005280733108521" z="-1.0163110175653856e-07"/>
+                    <rotation x="-2.8994588851928711" y="-0" z="0"/>
+                    <scale x="0.99976116418838501" y="0.99999892711639404" z="0.99999892711639404"/>
+                </transform>
+                <model>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+                    <texture res="Resources/Wood.jpg"/>
+                    <mesh res="Resources/monkey3.obj"/>
+                    <material res="Resources/Shiny.txt"/>
+                </model>
+            </entity>
         </entity>
     </entity>
     <entity>

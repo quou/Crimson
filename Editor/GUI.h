@@ -1,7 +1,7 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <Crimson.h>
 
 #include <Utils/FileBrowser/ImGuiFileBrowser.h>
@@ -18,6 +18,7 @@ private:
    std::string m_workingDir;
 
    glm::mat4 currentGizmoMatrix;
+   glm::mat4 currentLocalGizmoMatrix;
 
    void DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags flags);
 public:

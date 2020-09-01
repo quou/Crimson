@@ -4,6 +4,8 @@
 
 #include <glad/glad.h>
 
+#include "ComponentSystems/Transform.h"
+
 namespace Crimson {
    Uint64 NOW = SDL_GetPerformanceCounter();
    Uint64 LAST = 0;
@@ -13,14 +15,24 @@ namespace Crimson {
 
       m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, "Test Application");
       m_renderer.Init();
+
+
    }
 
    void Application::Init() {
+      for (EntityHandle ent : System<Transform>(m_ecs)) {
+         Transform* t = m_ecs.GetComponent<Transform>(ent);
+
+         t->worldPosition = t->position;
+         t->worldScale = t->scale;
+         t->worldRotation = t->rotation;
+      }
+
       OnBegin();
    }
 
    void Application::Update(float delta) {
-
+      UpdateTransforms(m_ecs);
    }
 
    void Application::Render() {

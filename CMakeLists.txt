@@ -83,13 +83,13 @@ target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCL
 target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
 
 # EDITOR
-project(Editor)
-
-set(EDITOR_SOURCE
-   Editor/Application.cpp
-   Editor/GUI.cpp
-)
-
-add_executable(Editor ${EDITOR_SOURCE})
-target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
-target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)
+# project(Editor)
+#
+# set(EDITOR_SOURCE
+#    Editor/Application.cpp
+#    Editor/GUI.cpp
+# )
+#
+# add_executable(Editor ${EDITOR_SOURCE})
+# target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
+# target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)

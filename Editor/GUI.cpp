@@ -34,7 +34,7 @@ void GUI::DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags 
    }
 
    if (m_selectedEntity == entity) {
-      flags != ImGuiTreeNodeFlags_Selected;
+      flags |= ImGuiTreeNodeFlags_Selected;
    }
 
    if (entity) {
@@ -42,9 +42,9 @@ void GUI::DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags 
          if (ImGui::TreeNodeEx((void*)(EntityHandle)entity, flags, "%s", ecs.GetComponent<Crimson::Transform>(entity)->name.c_str())) {
             if (ImGui::IsItemClicked()) {
                m_selectedEntity = entity;
-               std::cout << ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name << '\n';
                if (m_selectedEntity) {
-                  currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+                  currentGizmoMatrix = Crimson::GetLocalModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+                  currentLocalGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
                }
             }
 
@@ -57,9 +57,9 @@ void GUI::DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags 
          if (ImGui::TreeNodeEx((void*)(EntityHandle)entity, flags | ImGuiTreeNodeFlags_Leaf, "%s", ecs.GetComponent<Crimson::Transform>(entity)->name.c_str())) {
             if (ImGui::IsItemClicked()) {
                m_selectedEntity = entity;
-               std::cout << ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name << '\n';
                if (m_selectedEntity) {
-                  currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+                  currentGizmoMatrix = Crimson::GetLocalModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+                  currentLocalGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
                }
             }
 
@@ -160,9 +160,9 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 		mCurrentGizmoOperation = ImGuizmo::SCALE;
 
    if (m_selectedEntity) {
-      float matrixTranslation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position.z};
-      float matrixRotation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation.z};
-      float matrixScale[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale.z};
+      float matrixTranslation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldPosition.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldPosition.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldPosition.z};
+      float matrixRotation[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldRotation.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldRotation.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldRotation.z};
+      float matrixScale[3] = {ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldScale.x,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldScale.y,ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->worldScale.z};
    	ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
 
       char* buf = strdup(ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
@@ -210,10 +210,6 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
          }
       }
 
-   	ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, glm::value_ptr(currentGizmoMatrix));
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
 
       ImGuiIO& io = ImGui::GetIO(); (void)io;
       int x, y, w, h;
@@ -222,6 +218,10 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    	ImGuizmo::SetRect(x, y, w, h);
    	ImGuizmo::Manipulate(glm::value_ptr(camera.GetView()), glm::value_ptr(camera.GetProjection()), mCurrentGizmoOperation, mCurrentGizmoMode, glm::value_ptr(currentGizmoMatrix));
 
+      ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, glm::value_ptr(currentLocalGizmoMatrix));
+      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
+      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
+      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
    }
    ImGui::End();
 
