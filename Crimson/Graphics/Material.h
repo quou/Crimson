@@ -7,7 +7,7 @@ namespace Crimson {
    class Material {
    public:
       Material();
-      Material(float specularIntensity, float shininess, std::string file = "");
+      Material(float specularIntensity, float shininess);
 
       void UseMaterial(unsigned int specularIntensityLocation, unsigned int shininessLocation);
 

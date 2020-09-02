@@ -7,7 +7,6 @@
 
 class App : public Crimson::Application {
 private:
-   Crimson::Shader m_shader;
    Crimson::Camera m_camera;
 
    glm::mat4 m_modl;
@@ -28,8 +27,6 @@ public:
 
    void OnUpdate(float delta) override {
       m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
-      m_shader.SetUniformMatrix4("view", m_camera.GetViewProjection());
-      m_shader.SetUniform3f("eyePosition", m_camera.GetPosition().x, m_camera.GetPosition().y, m_camera.GetPosition().z);
 
       float pitch = m_camera.GetPitch();
       float yaw = m_camera.GetYaw();

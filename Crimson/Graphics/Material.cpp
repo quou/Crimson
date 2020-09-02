@@ -8,7 +8,7 @@ namespace Crimson {
       m_shininess = 0.0f;
    }
 
-   Material::Material(float specularIntensity, float shininess, std::string file) : resFile(file){
+   Material::Material(float specularIntensity, float shininess) {
       m_specularIntensity = specularIntensity;
       m_shininess = shininess;
    }

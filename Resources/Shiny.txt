@@ -1,1 +1,0 @@
-<material specular_intensity="1" shininess="32" />

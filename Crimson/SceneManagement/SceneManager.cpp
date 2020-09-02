@@ -28,7 +28,7 @@ namespace Crimson {
       ecs.DestroyEntity(entity);
    }
 
-   static auto FindEntity(XMLElement* node, char const* name)  {
+   static auto FindEntity(XMLElement* node, const char* name)  {
       std::vector<XMLElement*> found;
          for (
             auto el = node->FirstChildElement(name);
@@ -68,10 +68,6 @@ namespace Crimson {
       if (eComponent) {
          ecs.AddComponent<ModelComponent>(newEntity);
 
-         XMLElement* eShader = eComponent->FirstChildElement("shader");
-         std::string vertPath = eShader->Attribute("vertex");
-         std::string fragPath = eShader->Attribute("fragment");
-
          XMLElement* eTexture = eComponent->FirstChildElement("texture");
          std::string texRes = eTexture->Attribute("res");
 
@@ -79,17 +75,17 @@ namespace Crimson {
          std::string meshRes = eMesh->Attribute("res");
 
          XMLElement* eMaterial = eComponent->FirstChildElement("material");
-         XMLDocument matDoc;
-         std::string matRes = eMaterial->Attribute("res");
-         matDoc.LoadFile(eMaterial->Attribute("res"));
-         XMLElement* matRoot = matDoc.FirstChildElement("material");
-         float matSpecularIntensity = matRoot->FloatAttribute("specular_intensity");
-         float matShininess = matRoot->FloatAttribute("shininess");
+         float matSpecularIntensity = eMaterial->FloatAttribute("specular_intensity");
+         float matShininess = eMaterial->FloatAttribute("shininess");
+
+         XMLElement* eShader = eMaterial->FirstChildElement("shader");
+         std::string vertPath = eShader->Attribute("vertex");
+         std::string fragPath = eShader->Attribute("fragment");
 
          ecs.GetComponent<ModelComponent>(newEntity)->shader.Init(vertPath, fragPath);
          ecs.GetComponent<ModelComponent>(newEntity)->texture.Load(texRes);
          ecs.GetComponent<ModelComponent>(newEntity)->model.Load(meshRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->material = Material(matSpecularIntensity, matShininess, matRes);
+         ecs.GetComponent<ModelComponent>(newEntity)->material = Material(matSpecularIntensity, matShininess);
       }
 
       m_entities.push_back(newEntity);
@@ -137,11 +133,6 @@ namespace Crimson {
          std::string matRes = ecs.GetComponent<ModelComponent>(ent)->material.resFile;
 
          printer.OpenElement("model");
-            printer.OpenElement("shader");
-               printer.PushAttribute("vertex", vertPath.c_str());
-               printer.PushAttribute("fragment", fragPath.c_str());
-            printer.CloseElement();
-
             printer.OpenElement("texture");
                printer.PushAttribute("res", texRes.c_str());
             printer.CloseElement();
@@ -151,7 +142,10 @@ namespace Crimson {
             printer.CloseElement();
 
             printer.OpenElement("material");
-               printer.PushAttribute("res", matRes.c_str());
+               printer.OpenElement("shader");
+                  printer.PushAttribute("vertex", vertPath.c_str());
+                  printer.PushAttribute("fragment", fragPath.c_str());
+               printer.CloseElement();
             printer.CloseElement();
          printer.CloseElement();
       }
