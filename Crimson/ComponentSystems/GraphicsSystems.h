@@ -7,8 +7,8 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 #include "SceneManagement/SceneManager.h"
-#include "SLECS.h"
 #include "Transform.h"
+#include "SLECS.h"
 
 namespace Crimson {
    struct ModelComponent {
@@ -35,6 +35,13 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.diffuse", sceneManager.GetConfig()->directionalLight.diffuse.x, sceneManager.GetConfig()->directionalLight.diffuse.y, sceneManager.GetConfig()->directionalLight.diffuse.z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.specular", sceneManager.GetConfig()->directionalLight.specular.x, sceneManager.GetConfig()->directionalLight.specular.y, sceneManager.GetConfig()->directionalLight.specular.z);
 
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.position", 0.0f, 3.0f, 0.0f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.constant", 1.0f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.linear", 0.09f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.quadratic", 0.032f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.ambient", 0.5, 0, 0);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.diffuse", 0.5, 0, 0);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.specular", 0.5, 0, 0);
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.ambient", ecs.GetComponent<ModelComponent>(ent)->material.ambient.x, ecs.GetComponent<ModelComponent>(ent)->material.ambient.y, ecs.GetComponent<ModelComponent>(ent)->material.ambient.z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.diffuse", ecs.GetComponent<ModelComponent>(ent)->material.diffuse.x, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.y, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.z);

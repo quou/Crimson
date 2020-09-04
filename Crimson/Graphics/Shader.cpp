@@ -7,10 +7,31 @@
 
 #include <vector>
 #include <iostream>
-
-#include "Utils/FileUtils.h"
+#include <fstream>
+#include <stdio.h>
 
 namespace Crimson {
+
+   std::string LoadShader(const std::string& fileName) {
+      std::string shader;
+
+      std::ifstream file(fileName);
+      std::string line;
+      if (file.is_open()) {
+         while (std::getline(file, line)) {
+            if (line.rfind("#include", 0) == 0) {
+               shader+=LoadShader(line.substr(line.find(" ") + 1));
+            } else {
+               shader+=line+"\n";
+            }
+         }
+      } else {
+         printf("Failed to load file %s\n", fileName.c_str());
+      }
+
+      return shader;
+   }
+
    Shader::Shader(const std::string& vertPath, const std::string& fragPath)
       : m_vertPath(vertPath), m_fragPath(fragPath)
    {
@@ -69,8 +90,8 @@ namespace Crimson {
       unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
       unsigned int fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-      std::string v = read_file(m_vertPath);
-      std::string f = read_file(m_fragPath);
+      std::string v = LoadShader(m_vertPath);
+      std::string f = LoadShader(m_fragPath);
 
       const char* vertCode = v.c_str();
       const char* fragCode = f.c_str();
