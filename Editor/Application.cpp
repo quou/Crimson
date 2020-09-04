@@ -34,6 +34,7 @@ public:
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
+      m_sceneManager.Serialize("Resources/TestMap.txt", m_ecs);
    }
 
    void OnUpdate(float delta) override {

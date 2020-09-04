@@ -75,8 +75,7 @@ namespace Crimson {
          std::string meshRes = eMesh->Attribute("res");
 
          XMLElement* eMaterial = eComponent->FirstChildElement("material");
-         float matSpecularIntensity = eMaterial->FloatAttribute("specular_intensity");
-         float matShininess = eMaterial->FloatAttribute("shininess");
+         glm::vec3 matColor(eMaterial->FloatAttribute("r"), eMaterial->FloatAttribute("g"), eMaterial->FloatAttribute("b"));
 
          XMLElement* eShader = eMaterial->FirstChildElement("shader");
          std::string vertPath = eShader->Attribute("vertex");
@@ -85,7 +84,7 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(newEntity)->shader.Init(vertPath, fragPath);
          ecs.GetComponent<ModelComponent>(newEntity)->texture.Load(texRes);
          ecs.GetComponent<ModelComponent>(newEntity)->model.Load(meshRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->material = Material(matSpecularIntensity, matShininess);
+         ecs.GetComponent<ModelComponent>(newEntity)->material = {matColor};
       }
 
       m_entities.push_back(newEntity);
@@ -130,7 +129,7 @@ namespace Crimson {
          std::string fragPath = ecs.GetComponent<ModelComponent>(ent)->shader.GetFragPath();
          std::string texRes = ecs.GetComponent<ModelComponent>(ent)->texture.GetRes();
          std::string meshRes = ecs.GetComponent<ModelComponent>(ent)->model.GetRes();
-         std::string matRes = ecs.GetComponent<ModelComponent>(ent)->material.resFile;
+         glm::vec3 matColor = ecs.GetComponent<ModelComponent>(ent)->material.color;
 
          printer.OpenElement("model");
             printer.OpenElement("texture");
@@ -142,6 +141,9 @@ namespace Crimson {
             printer.CloseElement();
 
             printer.OpenElement("material");
+               printer.PushAttribute("r", matColor.x);
+               printer.PushAttribute("g", matColor.y);
+               printer.PushAttribute("b", matColor.z);
                printer.OpenElement("shader");
                   printer.PushAttribute("vertex", vertPath.c_str());
                   printer.PushAttribute("fragment", fragPath.c_str());

@@ -42,7 +42,6 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Shader.cpp
    Crimson/Graphics/Model.cpp
    Crimson/Graphics/Texture.cpp
-   Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
    Crimson/Utils/tinyxml2.cpp
