@@ -10,7 +10,23 @@
             <texture res="Resources/Wood.jpg"/>
             <mesh res="Resources/monkey3.obj"/>
             <material specular_intensity="1" shininess="32">
-               <shader vertex="Resources/Basic.vert" fragment="Resources/Basic.frag"/>
+               <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+            </material>
+        </model>
+    </entity>
+
+    <entity>
+        <transform name="Torus">
+            <position x="5" y="0" z="0"/>
+            <rotation x="0" y="-0" z="0"/>
+            <scale x="2" y="2" z="2"/>
+        </transform>
+
+        <model>
+            <texture res="Resources/Wood.jpg"/>
+            <mesh res="Resources/torus.obj"/>
+            <material specular_intensity="1" shininess="32">
+               <shader vertex="Resources/Basic.vert" fragment="Resources/BasicUnlit.frag"/>
             </material>
         </model>
     </entity>

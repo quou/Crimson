@@ -26,19 +26,9 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.Bind();
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", 0);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("eyePosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("cameraPosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
-
-         sceneManager.GetConfig()->directionalLight.UseLight(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.color"),
-                                                             ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.intensity"),
-                                                             ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("directionalLight.direction"));
-
-         sceneManager.GetConfig()->ambientLight.UseLight(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("ambientLight.intensity"),
-                                                         ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("ambientLight.color"));
-
-         ecs.GetComponent<ModelComponent>(ent)->material.UseMaterial(ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.specularIntensity"),
-                                                                     ecs.GetComponent<ModelComponent>(ent)->shader.GetUniformLocation("material.shininess"));
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
       }

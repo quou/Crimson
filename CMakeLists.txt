@@ -42,8 +42,6 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Shader.cpp
    Crimson/Graphics/Model.cpp
    Crimson/Graphics/Texture.cpp
-   Crimson/Graphics/Lighting/Light.cpp
-   Crimson/Graphics/Lighting/Directional.cpp
    Crimson/Graphics/Material.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
@@ -84,13 +82,13 @@ target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCL
 target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
 
 # EDITOR
-# project(Editor)
-#
-# set(EDITOR_SOURCE
-#    Editor/Application.cpp
-#    Editor/GUI.cpp
-# )
-#
-# add_executable(Editor ${EDITOR_SOURCE})
-# target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
-# target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)
+project(Editor)
+
+set(EDITOR_SOURCE
+   Editor/Application.cpp
+   Editor/GUI.cpp
+)
+
+add_executable(Editor ${EDITOR_SOURCE})
+target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
+target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)

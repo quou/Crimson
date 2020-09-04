@@ -34,10 +34,6 @@ public:
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
-
-      m_sceneManager.GetConfig()->directionalLight.m_intensity = 1.0f;
-      m_sceneManager.GetConfig()->directionalLight.m_direction = glm::vec3(1,1,-1);
-      m_sceneManager.GetConfig()->ambientLight.m_intensity = 0.1f;
    }
 
    void OnUpdate(float delta) override {

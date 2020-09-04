@@ -11,14 +11,9 @@ private:
    EntityHandle m_selectedEntity = 0;
 
    imgui_addons::ImGuiFileBrowser m_fileDialog;
-
-   bool m_selectMeshPopup = false;
-   bool m_selectTexturePopup = false;
-
+   
    std::string m_workingDir;
 
-   glm::mat4 currentGizmoMatrix;
-   glm::mat4 currentLocalGizmoMatrix;
 
    void DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags flags);
 public:

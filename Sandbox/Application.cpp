@@ -18,10 +18,6 @@ public:
       m_camera(glm::vec3(0,0,-5), 45.0f, 800/600, 0.1f, 100.0f) {}
 
    void OnBegin() override  {
-      m_sceneManager.GetConfig()->directionalLight.m_intensity = 1.0f;
-      m_sceneManager.GetConfig()->directionalLight.m_direction = glm::vec3(1,1,-1);
-      m_sceneManager.GetConfig()->ambientLight.m_intensity = 0.1f;
-
       m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
    }
 
