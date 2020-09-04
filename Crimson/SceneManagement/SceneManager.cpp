@@ -75,8 +75,14 @@ namespace Crimson {
          std::string meshRes = eMesh->Attribute("res");
 
          XMLElement* eMaterial = eComponent->FirstChildElement("material");
-         glm::vec3 matColor(eMaterial->FloatAttribute("r"), eMaterial->FloatAttribute("g"), eMaterial->FloatAttribute("b"));
-         float matSpecular = eMaterial->FloatAttribute("specular_strength");
+         XMLElement* eAmbient = eMaterial->FirstChildElement("ambient");
+         XMLElement* eDiffuse = eMaterial->FirstChildElement("diffuse");
+         XMLElement* eSpecular = eMaterial->FirstChildElement("specular");
+         XMLElement* eShininess = eMaterial->FirstChildElement("shininess");
+         glm::vec3 matAmbient(eAmbient->FloatAttribute("x"), eAmbient->FloatAttribute("y"), eAmbient->FloatAttribute("z"));
+         glm::vec3 matDiffuse(eDiffuse->FloatAttribute("x"), eDiffuse->FloatAttribute("y"), eDiffuse->FloatAttribute("z"));
+         glm::vec3 matSpecular(eSpecular->FloatAttribute("x"), eSpecular->FloatAttribute("y"), eSpecular->FloatAttribute("z"));
+         float matShininess = eShininess->FloatAttribute("shininess");
 
          XMLElement* eShader = eMaterial->FirstChildElement("shader");
          std::string vertPath = eShader->Attribute("vertex");
@@ -85,7 +91,7 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(newEntity)->shader.Init(vertPath, fragPath);
          ecs.GetComponent<ModelComponent>(newEntity)->texture.Load(texRes);
          ecs.GetComponent<ModelComponent>(newEntity)->model.Load(meshRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->material = {matColor,matSpecular};
+         ecs.GetComponent<ModelComponent>(newEntity)->material = {matAmbient, matDiffuse, matSpecular, matShininess};
       }
 
       m_entities.push_back(newEntity);
@@ -130,8 +136,10 @@ namespace Crimson {
          std::string fragPath = ecs.GetComponent<ModelComponent>(ent)->shader.GetFragPath();
          std::string texRes = ecs.GetComponent<ModelComponent>(ent)->texture.GetRes();
          std::string meshRes = ecs.GetComponent<ModelComponent>(ent)->model.GetRes();
-         glm::vec3 matColor = ecs.GetComponent<ModelComponent>(ent)->material.color;
-         float matSpecular = ecs.GetComponent<ModelComponent>(ent)->material.specularStrength;
+         glm::vec3 matAmbient = ecs.GetComponent<ModelComponent>(ent)->material.ambient;
+         glm::vec3 matDiffuse = ecs.GetComponent<ModelComponent>(ent)->material.diffuse;
+         glm::vec3 matSpecular = ecs.GetComponent<ModelComponent>(ent)->material.specular;
+         float matShininess = ecs.GetComponent<ModelComponent>(ent)->material.shininess;
 
          printer.OpenElement("model");
             printer.OpenElement("texture");
@@ -143,10 +151,28 @@ namespace Crimson {
             printer.CloseElement();
 
             printer.OpenElement("material");
-               printer.PushAttribute("r", matColor.x);
-               printer.PushAttribute("g", matColor.y);
-               printer.PushAttribute("b", matColor.z);
-               printer.PushAttribute("specular_strength", matSpecular);
+               printer.OpenElement("ambient");
+                  printer.PushAttribute("x", matAmbient.x);
+                  printer.PushAttribute("y", matAmbient.y);
+                  printer.PushAttribute("z", matAmbient.z);
+               printer.CloseElement();
+
+               printer.OpenElement("diffuse");
+                  printer.PushAttribute("x", matDiffuse.x);
+                  printer.PushAttribute("y", matDiffuse.y);
+                  printer.PushAttribute("z", matDiffuse.z);
+               printer.CloseElement();
+
+               printer.OpenElement("specular");
+                  printer.PushAttribute("x", matSpecular.x);
+                  printer.PushAttribute("y", matSpecular.y);
+                  printer.PushAttribute("z", matSpecular.z);
+               printer.CloseElement();
+
+               printer.OpenElement("shininess");
+                  printer.PushAttribute("shininess", matShininess);
+               printer.CloseElement();
+
                printer.OpenElement("shader");
                   printer.PushAttribute("vertex", vertPath.c_str());
                   printer.PushAttribute("fragment", fragPath.c_str());

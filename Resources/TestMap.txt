@@ -1,19 +1,5 @@
 <scene>
     <entity>
-        <transform name="Monkey1">
-            <position x="0" y="0" z="0"/>
-            <rotation x="0" y="-0" z="0"/>
-            <scale x="2" y="2" z="2"/>
-        </transform>
-        <model>
-            <texture res="Resources/Wood.jpg"/>
-            <mesh res="Resources/monkey3.obj"/>
-            <material r="1" g="1" b="1" specular_strength="1">
-                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-            </material>
-        </model>
-    </entity>
-    <entity>
         <transform name="Monkey2">
             <position x="-4.5" y="0" z="0"/>
             <rotation x="0" y="-0" z="0"/>
@@ -22,36 +8,12 @@
         <model>
             <texture res="Resources/Wood.jpg"/>
             <mesh res="Resources/monkey3.obj"/>
-            <material r="1" g="1" b="1" specular_strength="1">
+            <material>
+                <ambient x="1" y="1" z="1"/>
+                <diffuse x="1" y="1" z="1"/>
+                <specular x="0.5" y="0.5" z="0.5"/>
+                <shininess shininess="32"/>
                 <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-            </material>
-        </model>
-    </entity>
-    <entity>
-        <transform name="Monkey3">
-            <position x="-6.5" y="0" z="0"/>
-            <rotation x="0" y="-0" z="0"/>
-            <scale x="0.5" y="0.5" z="0.5"/>
-        </transform>
-        <model>
-            <texture res="Resources/Wood.jpg"/>
-            <mesh res="Resources/monkey3.obj"/>
-            <material r="1" g="1" b="1" specular_strength="1">
-                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-            </material>
-        </model>
-    </entity>
-    <entity>
-        <transform name="Torus">
-            <position x="5" y="0" z="0"/>
-            <rotation x="0" y="-0" z="0"/>
-            <scale x="2" y="2" z="2"/>
-        </transform>
-        <model>
-            <texture res="Resources/Wood.jpg"/>
-            <mesh res="Resources/torus.obj"/>
-            <material r="1" g="1" b="1" specular_strength="1">
-                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicUnlit.frag"/>
             </material>
         </model>
     </entity>

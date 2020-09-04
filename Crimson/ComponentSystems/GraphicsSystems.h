@@ -30,12 +30,15 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
 
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("ambientStrength", sceneManager.GetConfig()->ambientStrength);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("ambientColor", sceneManager.GetConfig()->ambientColor.x, sceneManager.GetConfig()->ambientColor.y, sceneManager.GetConfig()->ambientColor.z);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLightPos", sceneManager.GetConfig()->directionalLightPos.x, sceneManager.GetConfig()->directionalLightPos.y, sceneManager.GetConfig()->directionalLightPos.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("light.direction", sceneManager.GetConfig()->directionalLightDir.x, sceneManager.GetConfig()->directionalLightDir.y, sceneManager.GetConfig()->directionalLightDir.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("light.ambient",  0.2f, 0.2f, 0.2f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("light.diffuse",  0.5f, 0.5f, 0.5f);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
 
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.color", ecs.GetComponent<ModelComponent>(ent)->material.color.x, ecs.GetComponent<ModelComponent>(ent)->material.color.y, ecs.GetComponent<ModelComponent>(ent)->material.color.z);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("material.specularStrength", ecs.GetComponent<ModelComponent>(ent)->material.specularStrength);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.ambient", ecs.GetComponent<ModelComponent>(ent)->material.ambient.x, ecs.GetComponent<ModelComponent>(ent)->material.ambient.y, ecs.GetComponent<ModelComponent>(ent)->material.ambient.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.diffuse", ecs.GetComponent<ModelComponent>(ent)->material.diffuse.x, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.y, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.specular", ecs.GetComponent<ModelComponent>(ent)->material.specular.x, ecs.GetComponent<ModelComponent>(ent)->material.specular.y, ecs.GetComponent<ModelComponent>(ent)->material.specular.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("material.shininess", ecs.GetComponent<ModelComponent>(ent)->material.shininess);
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
       }
