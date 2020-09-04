@@ -6,7 +6,8 @@
 namespace Crimson {
    struct SceneSettings {
       glm::vec3 ambientColor{1,1,1};
-      float ambientStrength{0.5f};
+      glm::vec3 directionalLightPos{-10,10,-10};
+      float ambientStrength{0.3f};
    };
 }
 #endif /* end of include guard: SCENESETTINGS_H */

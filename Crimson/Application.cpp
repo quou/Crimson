@@ -15,8 +15,6 @@ namespace Crimson {
 
       m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, "Test Application");
       m_renderer.Init();
-
-
    }
 
    void Application::Init() {

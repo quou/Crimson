@@ -32,8 +32,10 @@ namespace Crimson {
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("ambientStrength", sceneManager.GetConfig()->ambientStrength);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("ambientColor", sceneManager.GetConfig()->ambientColor.x, sceneManager.GetConfig()->ambientColor.y, sceneManager.GetConfig()->ambientColor.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLightPos", sceneManager.GetConfig()->directionalLightPos.x, sceneManager.GetConfig()->directionalLightPos.y, sceneManager.GetConfig()->directionalLightPos.z);
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.color", ecs.GetComponent<ModelComponent>(ent)->material.color.x, ecs.GetComponent<ModelComponent>(ent)->material.color.y, ecs.GetComponent<ModelComponent>(ent)->material.color.z);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("material.specularStrength", ecs.GetComponent<ModelComponent>(ent)->material.specularStrength);
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
       }

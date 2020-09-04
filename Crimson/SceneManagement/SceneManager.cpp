@@ -76,6 +76,7 @@ namespace Crimson {
 
          XMLElement* eMaterial = eComponent->FirstChildElement("material");
          glm::vec3 matColor(eMaterial->FloatAttribute("r"), eMaterial->FloatAttribute("g"), eMaterial->FloatAttribute("b"));
+         float matSpecular = eMaterial->FloatAttribute("specular_strength");
 
          XMLElement* eShader = eMaterial->FirstChildElement("shader");
          std::string vertPath = eShader->Attribute("vertex");
@@ -84,7 +85,7 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(newEntity)->shader.Init(vertPath, fragPath);
          ecs.GetComponent<ModelComponent>(newEntity)->texture.Load(texRes);
          ecs.GetComponent<ModelComponent>(newEntity)->model.Load(meshRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->material = {matColor};
+         ecs.GetComponent<ModelComponent>(newEntity)->material = {matColor,matSpecular};
       }
 
       m_entities.push_back(newEntity);
@@ -130,6 +131,7 @@ namespace Crimson {
          std::string texRes = ecs.GetComponent<ModelComponent>(ent)->texture.GetRes();
          std::string meshRes = ecs.GetComponent<ModelComponent>(ent)->model.GetRes();
          glm::vec3 matColor = ecs.GetComponent<ModelComponent>(ent)->material.color;
+         float matSpecular = ecs.GetComponent<ModelComponent>(ent)->material.specularStrength;
 
          printer.OpenElement("model");
             printer.OpenElement("texture");
@@ -144,6 +146,7 @@ namespace Crimson {
                printer.PushAttribute("r", matColor.x);
                printer.PushAttribute("g", matColor.y);
                printer.PushAttribute("b", matColor.z);
+               printer.PushAttribute("specular_strength", matSpecular);
                printer.OpenElement("shader");
                   printer.PushAttribute("vertex", vertPath.c_str());
                   printer.PushAttribute("fragment", fragPath.c_str());
