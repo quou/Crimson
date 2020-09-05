@@ -22,7 +22,7 @@ namespace Crimson {
    static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
       std::vector<std::pair<glm::vec3, PointLight*>> lights;
       for (EntityHandle ent : System<Transform, PointLight>(ecs)) {
-         lights.push_back({ecs.GetComponent<Transform>(ent)->position, ecs.GetComponent<PointLight>(ent)});
+         lights.push_back({ecs.GetComponent<Transform>(ent)->worldPosition, ecs.GetComponent<PointLight>(ent)});
       }
 
       for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {

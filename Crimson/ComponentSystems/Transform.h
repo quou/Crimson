@@ -7,6 +7,8 @@
 #include <string>
 #include <algorithm>
 
+#include "SLECS.h"
+
 namespace Crimson {
    struct Transform {
       std::string name;
