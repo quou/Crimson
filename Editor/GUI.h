@@ -7,6 +7,8 @@
 #include <Utils/FileBrowser/ImGuiFileBrowser.h>
 #include <Utils/ImGuizmo.h>
 
+#include <sstream>
+
 class GUI {
 private:
    imgui_addons::ImGuiFileBrowser m_fileDialog;
@@ -15,6 +17,7 @@ private:
 
    bool m_hierarchyOpen{true};
    bool m_inspectorOpen{true};
+   bool m_consoleOpen{true};
 
    bool m_showSaveAs{false};
    bool m_showOpen{false};
@@ -42,8 +45,11 @@ public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);
    void Init(SDL_Window* window, const SDL_GLContext glContext);
-   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera);
+   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout);
    void Update(const SDL_Event& event);
+
+   void DrawConsole(std::ostringstream& strCout);
+
    ~GUI();
 };
 

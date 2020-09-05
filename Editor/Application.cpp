@@ -8,6 +8,7 @@
 
 #include "GUI.h"
 
+
 class App : public Crimson::Application {
 private:
    Crimson::Camera m_camera;
@@ -22,6 +23,7 @@ private:
    EntityHandle m_monkey3;
 
    GUI m_gui;
+
 public:
    App() :
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f) {}
@@ -33,12 +35,10 @@ public:
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
-      m_sceneManager.Serialize("Resources/TestMap.txt", m_ecs);
+      m_sceneManager.Deserialize("Resources/TestScene.scene", m_ecs);
    }
 
    void OnUpdate(float delta) override {
-
       m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();
@@ -113,7 +113,7 @@ public:
    void OnRender(float delta) override {
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
-      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera);
+      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout);
    }
 };
 

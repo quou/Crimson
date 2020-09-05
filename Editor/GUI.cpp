@@ -126,6 +126,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
       }
 
       if (ImGui::BeginMenu("Windows")) {
+         ImGui::MenuItem("Console", NULL, &m_consoleOpen);
          ImGui::MenuItem("Hierarchy", NULL, &m_hierarchyOpen);
          ImGui::MenuItem("Inspector", NULL, &m_inspectorOpen);
          ImGui::End();
@@ -192,7 +193,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    ImGui_ImplOpenGL3_Init("#version 330 core");
 }
 
-void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera) {
+void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout) {
    ImGui_ImplOpenGL3_NewFrame();
    ImGui_ImplSDL2_NewFrame(window);
    ImGui::NewFrame();
@@ -206,6 +207,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
    if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
+   DrawConsole(strCout);
 
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -224,4 +226,15 @@ GUI::~GUI() {
    ImGui_ImplOpenGL3_Shutdown();
    ImGui_ImplSDL2_Shutdown();
    ImGui::DestroyContext();
+}
+
+void GUI::DrawConsole(std::ostringstream& strCout) {
+   if (m_consoleOpen) {
+      ImGui::Begin("Console", &m_consoleOpen);
+      if (ImGui::Button("Clear")) {
+         strCout.str(std::string());
+      }
+      ImGui::TextWrapped("%s", strCout.str().c_str());
+      ImGui::End();
+   }
 }

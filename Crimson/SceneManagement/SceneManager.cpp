@@ -260,6 +260,8 @@ namespace Crimson {
          file << printer.CStr();
          file.close();
       }
+
+      std::cout << "Saved Scene: " << fileName <<'\n';
    }
 
    void SceneManager::ParseEntities(tinyxml2::XMLElement* node, ECS& ecs, EntityHandle parent) {
@@ -280,7 +282,7 @@ namespace Crimson {
       XMLDocument doc;
       XMLError result = doc.LoadFile(fileName.c_str());
       if (result != XML_SUCCESS) {
-         printf("Failed to load file: %s. Check that the XML isn't corrupt, make sure the file exists.\n", fileName.c_str());
+         std::cout << "Failed to load file: " << fileName << ". Check that the XML isn't corrupt, make sure the file exists.\n";
          return 0;
       }
 
@@ -292,8 +294,10 @@ namespace Crimson {
       try {
          ParseEntities(doc.RootElement(), ecs);
       } catch (const std::exception& e) {
-         printf("%s\n", e.what());
+         std::cout << e.what() << "\n";
       }
+
+      std::cout << "Loaded Scene: " << fileName <<'\n';
 
       return 1;
    }

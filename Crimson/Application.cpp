@@ -11,6 +11,9 @@ namespace Crimson {
    Uint64 LAST = 0;
 
    Application::Application() {
+      std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
+      std::cout.rdbuf(m_strCout.rdbuf());
+
       SDL_Init(SDL_INIT_EVERYTHING);
 
       m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, "Test Application");

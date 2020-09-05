@@ -26,7 +26,7 @@ namespace Crimson {
             }
          }
       } else {
-         printf("Failed to load file %s\n", fileName.c_str());
+         std::cout << "Failed to load shader file: " << fileName << "\n";
       }
 
       return shader;

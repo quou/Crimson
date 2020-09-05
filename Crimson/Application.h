@@ -7,6 +7,9 @@
 #include "SceneManagement/SceneManager.h"
 #include "SLECS.h"
 
+#include <iostream>
+#include <sstream>
+
 namespace Crimson {
    class Application {
    private:
@@ -43,6 +46,8 @@ namespace Crimson {
       SceneManager m_sceneManager;
 
    public:
+      std::ostringstream m_strCout;
+      
       void Run();
       void SetEventCallback(void (*ptr)(SDL_Event event)) {
          m_eventCallback = ptr;
