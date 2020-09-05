@@ -210,7 +210,6 @@ public:
          m_entities[newIndex].first = newEntity;
          return m_entities[newIndex].first;
       }
-
       m_entities.push_back(std::make_pair(CreateHandleToEntity(m_entities.size(), 0), ComponentMask()));
       return m_entities.back().first;
    }
