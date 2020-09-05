@@ -10,14 +10,52 @@
 #include <Utils/ImGuizmo.h>
 
 #include <filesystem>
+#include <string>
 #include <algorithm>
 
 void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Hierarchy", &m_hierarchyOpen);
+
    for (EntityHandle ent : sceneManager.GetEntities()) {
-      ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+      if (!ecs.GetComponent<Crimson::Transform>(ent)->parent) {
+         DrawEntityHierarchy(ecs, ent);
+      }
    }
    ImGui::End();
+}
+
+void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
+   ImGui::Begin("Inspector", &m_inspectorOpen);
+   if (m_selectedEntity) {
+      ImGui::Text("Selected Entity: %s", ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
+   }
+   ImGui::End();
+}
+
+void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
+   ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
+   if (m_selectedEntity == ent) {
+      flags |= ImGuiTreeNodeFlags_Selected;
+   }
+
+   if (ecs.GetComponent<Crimson::Transform>(ent)->children.size() == 0) {
+      flags |= ImGuiTreeNodeFlags_Leaf;
+   }
+
+   if (ImGui::TreeNodeEx((EntityHandle*)ent, flags, "%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str())) {
+      if (ImGui::IsItemClicked()) {
+         m_selectedEntity = ent;
+      }
+
+      for (EntityHandle e : ecs.GetComponent<Crimson::Transform>(ent)->children) {
+         DrawEntityHierarchy(ecs, e);
+      }
+      ImGui::TreePop();
+   } else {
+      if (ImGui::IsItemClicked()) {
+         m_selectedEntity = ent;
+      }
+   }
 }
 
 void GUI::DrawMainMenuBar() {
@@ -28,6 +66,7 @@ void GUI::DrawMainMenuBar() {
 
       if (ImGui::BeginMenu("Windows")) {
          ImGui::MenuItem("Hierarchy", NULL, &m_hierarchyOpen);
+         ImGui::MenuItem("Inspector", NULL, &m_inspectorOpen);
          ImGui::End();
       }
 
@@ -76,6 +115,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    DrawMainMenuBar();
 
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
+   if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
 
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
