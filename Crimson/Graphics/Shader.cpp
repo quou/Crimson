@@ -106,7 +106,7 @@ namespace Crimson {
          glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
          std::vector<char> errorMessage(length);
          glGetShaderInfoLog(vertex, length, &length, &errorMessage[0]);
-         std::cerr << &errorMessage[0] << '\n';
+         std::cerr << "-----VERTEX SHADER-----" <<  "\n"  << &errorMessage[0] << '\n';
          glDeleteShader(vertex);
          return 0;
       }
@@ -120,7 +120,7 @@ namespace Crimson {
          glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
          std::vector<char> errorMessage(length);
          glGetShaderInfoLog(fragment, length, &length, &errorMessage[0]);
-         std::cerr << &errorMessage[0] << '\n';
+         std::cerr << "-----FRAGMENT SHADER-----" << "\n" << &errorMessage[0] << '\n';
          glDeleteShader(fragment);
          return 0;
       }

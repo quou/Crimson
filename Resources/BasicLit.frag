@@ -12,7 +12,10 @@ uniform vec3 cameraPosition;
 
 uniform Material material;
 uniform DirectionalLight directionalLight;
-uniform PointLight pointLight;
+
+
+uniform int pointLightCount;
+uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
 vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
    vec3 ambient = light.ambient * material.ambient;
@@ -48,7 +51,7 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewD
    ambient *= attenuation;
    diffuse *= attenuation;
    specular *= attenuation;
-   return (ambient + diffuse + specular);
+   return (diffuse + specular);
 }
 
 void main() {
@@ -56,8 +59,10 @@ void main() {
 
    vec3 viewDir = normalize(cameraPosition - v_fragPos);
 
-   vec3 lightingResult = CalculateDirectionalLight(directionalLight, norm, viewDir) +
-                         CalculatePointLight(pointLight, norm, v_fragPos, viewDir);
+   vec3 lightingResult = CalculateDirectionalLight(directionalLight, norm, viewDir);
+   for (int i = 0; i < pointLightCount; i++) {
+      lightingResult += CalculatePointLight(pointLights[i], norm, v_fragPos, viewDir);
+   }
 
    gl_FragColor = texture2D(tex, v_texCoord) * vec4(lightingResult, 1.0f);
 }

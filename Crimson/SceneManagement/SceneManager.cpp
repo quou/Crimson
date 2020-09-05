@@ -8,6 +8,7 @@
 
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/GraphicsSystems.h"
+#include "Graphics/Lighting/PointLight.h"
 #include "Graphics/Renderer.h"
 
 using namespace tinyxml2;
@@ -94,6 +95,24 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(newEntity)->material = {matAmbient, matDiffuse, matSpecular, matShininess};
       }
 
+      /* POINT LIGHT LOADING */
+      eComponent = node->FirstChildElement("pointlight");
+      if (eComponent) {
+         XMLElement* eAmbient = eComponent->FirstChildElement("ambient");
+         XMLElement* eDiffuse = eComponent->FirstChildElement("diffuse");
+         XMLElement* eSpecular = eComponent->FirstChildElement("specular");
+         glm::vec3 ambient(eAmbient->FloatAttribute("x"), eAmbient->FloatAttribute("y"), eAmbient->FloatAttribute("z"));
+         glm::vec3 diffuse(eDiffuse->FloatAttribute("x"), eDiffuse->FloatAttribute("y"), eDiffuse->FloatAttribute("z"));
+         glm::vec3 specular(eSpecular->FloatAttribute("x"), eSpecular->FloatAttribute("y"), eSpecular->FloatAttribute("z"));
+
+         XMLElement* ePoint = eComponent->FirstChildElement("point");
+         float constant = ePoint->FloatAttribute("constant");
+         float linear = ePoint->FloatAttribute("linear");
+         float quadratic = ePoint->FloatAttribute("quadratic");
+
+         ecs.AddComponent<PointLight>(newEntity, constant, linear, quadratic, ambient, diffuse, specular);
+      }
+
       m_entities.push_back(newEntity);
 
       return newEntity;
@@ -177,6 +196,41 @@ namespace Crimson {
                   printer.PushAttribute("vertex", vertPath.c_str());
                   printer.PushAttribute("fragment", fragPath.c_str());
                printer.CloseElement();
+            printer.CloseElement();
+         printer.CloseElement();
+      }
+
+      if (ecs.HasComponent<PointLight>(ent)) {
+         glm::vec3 ambient = ecs.GetComponent<PointLight>(ent)->ambient;
+         glm::vec3 diffuse = ecs.GetComponent<PointLight>(ent)->diffuse;
+         glm::vec3 specular = ecs.GetComponent<PointLight>(ent)->specular;
+         float constant = ecs.GetComponent<PointLight>(ent)->constant;
+         float linear = ecs.GetComponent<PointLight>(ent)->linear;
+         float quadratic = ecs.GetComponent<PointLight>(ent)->quadratic;
+
+         printer.OpenElement("pointlight");
+            printer.OpenElement("point");
+               printer.PushAttribute("constant", constant);
+               printer.PushAttribute("linear", linear);
+               printer.PushAttribute("quadratic", quadratic);
+            printer.CloseElement();
+
+            printer.OpenElement("ambient");
+               printer.PushAttribute("x", ambient.x);
+               printer.PushAttribute("y", ambient.y);
+               printer.PushAttribute("z", ambient.z);
+            printer.CloseElement();
+
+            printer.OpenElement("diffuse");
+               printer.PushAttribute("x", diffuse.x);
+               printer.PushAttribute("y", diffuse.y);
+               printer.PushAttribute("z", diffuse.z);
+            printer.CloseElement();
+
+            printer.OpenElement("specular");
+               printer.PushAttribute("x", specular.x);
+               printer.PushAttribute("y", specular.y);
+               printer.PushAttribute("z", specular.z);
             printer.CloseElement();
          printer.CloseElement();
       }

@@ -24,3 +24,5 @@ struct PointLight {
    vec3 diffuse;
    vec3 specular;
 };
+
+#define MAX_POINT_LIGHTS 1000

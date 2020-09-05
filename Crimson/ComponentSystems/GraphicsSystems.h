@@ -7,6 +7,7 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 #include "SceneManagement/SceneManager.h"
+#include "Graphics/Lighting/PointLight.h"
 #include "Transform.h"
 #include "SLECS.h"
 
@@ -19,6 +20,11 @@ namespace Crimson {
    };
 
    static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
+      std::vector<std::pair<glm::vec3, PointLight*>> lights;
+      for (EntityHandle ent : System<Transform, PointLight>(ecs)) {
+         lights.push_back({ecs.GetComponent<Transform>(ent)->position, ecs.GetComponent<PointLight>(ent)});
+      }
+
       for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {
          glm::mat4 model = GetModelFromTransform(*ecs.GetComponent<Transform>(ent));
 
@@ -35,13 +41,21 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.diffuse", sceneManager.GetConfig()->directionalLight.diffuse.x, sceneManager.GetConfig()->directionalLight.diffuse.y, sceneManager.GetConfig()->directionalLight.diffuse.z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.specular", sceneManager.GetConfig()->directionalLight.specular.x, sceneManager.GetConfig()->directionalLight.specular.y, sceneManager.GetConfig()->directionalLight.specular.z);
 
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.position", 0.0f, 3.0f, 0.0f);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.constant", 1.0f);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.linear", 0.09f);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLight.quadratic", 0.032f);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.ambient", 0.5, 0, 0);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.diffuse", 0.5, 0, 0);
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLight.specular", 0.5, 0, 0);
+
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("pointLightCount", lights.size());
+
+         int i = 0;
+         for (auto& light : lights) {
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLights[" + std::to_string(i) + "].position", light.first.x, light.first.y, light.first.z);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLights[" + std::to_string(i) + "].constant", light.second->constant);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLights[" + std::to_string(i) + "].linear", light.second->linear);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("pointLights[" + std::to_string(i) + "].quadratic", light.second->quadratic);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLights[" + std::to_string(i) + "].ambient", light.second->ambient.x, light.second->ambient.y, light.second->ambient.z);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLights[" + std::to_string(i) + "].diffuse", light.second->diffuse.x, light.second->diffuse.y, light.second->diffuse.z);
+            ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("pointLights[" + std::to_string(i) + "].specular", light.second->specular.x, light.second->specular.y, light.second->specular.z);
+            i++;
+         }
+
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.ambient", ecs.GetComponent<ModelComponent>(ent)->material.ambient.x, ecs.GetComponent<ModelComponent>(ent)->material.ambient.y, ecs.GetComponent<ModelComponent>(ent)->material.ambient.z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("material.diffuse", ecs.GetComponent<ModelComponent>(ent)->material.diffuse.x, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.y, ecs.GetComponent<ModelComponent>(ent)->material.diffuse.z);
