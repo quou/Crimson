@@ -276,10 +276,25 @@ namespace Crimson {
    }
 
 
-   void SceneManager::Deserialize(const std::string& fileName, ECS& ecs) {
+   int SceneManager::Deserialize(const std::string& fileName, ECS& ecs) {
       XMLDocument doc;
-      doc.LoadFile(fileName.c_str());
+      XMLError result = doc.LoadFile(fileName.c_str());
+      if (result != XML_SUCCESS) {
+         printf("Failed to load file: %s. Check that the XML isn't corrupt, make sure the file exists.\n", fileName.c_str());
+         return 0;
+      }
 
-      ParseEntities(doc.RootElement(), ecs);
+      for (EntityHandle ent : m_entities) {
+         ecs.DestroyEntity(ent);
+      }
+      m_entities.clear();
+
+      try {
+         ParseEntities(doc.RootElement(), ecs);
+      } catch (const std::exception& e) {
+         printf("%s\n", e.what());
+      }
+
+      return 1;
    }
 }

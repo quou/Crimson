@@ -30,7 +30,7 @@ namespace Crimson {
       void DeleteEntity(EntityHandle entity, ECS& ecs);
 
       void Serialize(const std::string& fileName, ECS& ecs);
-      void Deserialize(const std::string& fileName, ECS& ecs);
+      int Deserialize(const std::string& fileName, ECS& ecs);
    };
 }
 
