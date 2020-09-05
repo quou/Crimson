@@ -18,7 +18,7 @@ public:
       m_camera(glm::vec3(0,0,-5), 45.0f, 800/600, 0.1f, 100.0f) {}
 
    void OnBegin() override  {
-      m_sceneManager.Deserialize("Resources/TestMap.txt", m_ecs);
+      m_sceneManager.Deserialize("Resources/TestScene.scene", m_ecs);
    }
 
    void OnUpdate(float delta) override {
