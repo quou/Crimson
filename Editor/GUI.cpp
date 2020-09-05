@@ -12,6 +12,29 @@
 #include <filesystem>
 #include <algorithm>
 
+void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
+   ImGui::Begin("Hierarchy", &m_hierarchyOpen);
+   for (EntityHandle ent : sceneManager.GetEntities()) {
+      ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+   }
+   ImGui::End();
+}
+
+void GUI::DrawMainMenuBar() {
+   if (ImGui::BeginMainMenuBar()) {
+      if (ImGui::BeginMenu("File")) {
+         ImGui::End();
+      }
+
+      if (ImGui::BeginMenu("Windows")) {
+         ImGui::MenuItem("Hierarchy", NULL, &m_hierarchyOpen);
+         ImGui::End();
+      }
+
+      ImGui::EndMainMenuBar();
+   }
+}
+
 GUI::GUI(SDL_Window* window, const SDL_GLContext glContext) {
    m_workingDir = std::filesystem::current_path().string() + "/";
    std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
@@ -50,9 +73,9 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 
    ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
-   ImGui::Begin("Window");
-   ImGui::Text("Hello, world");
-   ImGui::End();
+   DrawMainMenuBar();
+
+   if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
 
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

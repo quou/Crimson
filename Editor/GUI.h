@@ -11,11 +11,14 @@ private:
    EntityHandle m_selectedEntity = 0;
 
    imgui_addons::ImGuiFileBrowser m_fileDialog;
-   
+
    std::string m_workingDir;
 
+   bool m_hierarchyOpen{true};
 
-   void DrawEntityHierarchy(EntityHandle entity, ECS& ecs, ImGuiTreeNodeFlags flags);
+   void DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager);
+
+   void DrawMainMenuBar();
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);
