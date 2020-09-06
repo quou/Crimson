@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 
+SET(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
 set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_BINARY_DIR bin)

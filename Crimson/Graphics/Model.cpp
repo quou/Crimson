@@ -13,6 +13,28 @@ namespace Crimson {
       Init(model);
    }
 
+   Model::Model(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount) {
+      Load(vertices, vertexCount, indices, indexCount);
+   }
+
+   void Model::Load(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount) {
+      m_drawCount = vertexCount;
+
+      IndexedModel model;
+
+      for (size_t i = 0; i < vertexCount; i++) {
+         model.positions.push_back(vertices[i].pos);
+         model.texCoords.push_back(vertices[i].uv);
+         model.normals.push_back(vertices[i].normal);
+      }
+
+      for (size_t i = 0; i < indexCount; i++) {
+         model.indices.push_back(indices[i]);
+      }
+
+      Init(model);
+   }
+
    Model::~Model() {
       glDeleteVertexArrays(1, &m_vertexArray);
    }

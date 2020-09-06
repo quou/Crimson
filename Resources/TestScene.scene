@@ -1,39 +1,46 @@
 <scene>
     <entity>
-        <transform name="Monkey1">
-            <position x="-4.5" y="0" z="0"/>
+        <transform name="Monkies">
+            <position x="-0.00050842761993408203" y="0" z="0"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
-        <model>
-            <texture res="Resources/Wood.jpg"/>
-            <mesh res="Resources/monkey3.obj"/>
-            <material>
-                <ambient x="1" y="1" z="1"/>
-                <diffuse x="1" y="1" z="1"/>
-                <specular x="1" y="1" z="1"/>
-                <shininess shininess="32"/>
-                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-            </material>
-        </model>
-    </entity>
-    <entity>
-        <transform name="Monkey2">
-            <position x="0.55528402328491211" y="0.1260959804058075" z="0.65063047409057617"/>
-            <rotation x="-0.013412512838840485" y="0.016936589032411575" z="-1.6198989152908325"/>
-            <scale x="1.0000014305114746" y="0.99999922513961792" z="1"/>
-        </transform>
-        <model>
-            <texture res="Resources/Wood.jpg"/>
-            <mesh res="Resources/monkey3.obj"/>
-            <material>
-                <ambient x="1" y="1" z="1"/>
-                <diffuse x="1" y="1" z="1"/>
-                <specular x="1" y="1" z="1"/>
-                <shininess shininess="16"/>
-                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-            </material>
-        </model>
+        <entity>
+            <transform name="Monkey1">
+                <position x="-4.5" y="0" z="0"/>
+                <rotation x="0" y="-0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <model>
+                <texture res="Resources/Wood.jpg"/>
+                <mesh res="Resources/monkey3.obj"/>
+                <material>
+                    <ambient x="1" y="1" z="1"/>
+                    <diffuse x="1" y="1" z="1"/>
+                    <specular x="1" y="1" z="1"/>
+                    <shininess shininess="32"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
+        </entity>
+        <entity>
+            <transform name="Monkey2">
+                <position x="0.55528402328491211" y="0.1260959804058075" z="0.65063047409057617"/>
+                <rotation x="0" y="0" z="0"/>
+                <scale x="1.0000014305114746" y="0.99999922513961792" z="1"/>
+            </transform>
+            <model>
+                <texture res="Resources/Wood.jpg"/>
+                <mesh res="Resources/monkey3.obj"/>
+                <material>
+                    <ambient x="1" y="1" z="1"/>
+                    <diffuse x="1" y="1" z="1"/>
+                    <specular x="1" y="1" z="1"/>
+                    <shininess shininess="16"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
+        </entity>
     </entity>
     <entity>
         <transform name="Lights">

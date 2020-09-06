@@ -91,9 +91,16 @@ void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Cam
 	ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(m_currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
 
    if (m_selectedEntity) {
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->position = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
+      Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
+      t->worldPosition = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
+      t->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
+      t->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
+
+      if (t->parent) {
+         t->position = t->worldPosition - ecs.GetComponent<Crimson::Transform>(t->parent)->worldPosition;
+      } else {
+         t->position = t->worldPosition;
+      }
 
       ImGuizmo::Enable(true);
 
@@ -212,7 +219,6 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
    ImGuiIO& io = ImGui::GetIO(); (void)io;
-   int x, y, w, h;
    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
       SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
       SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();

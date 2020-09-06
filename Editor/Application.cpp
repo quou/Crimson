@@ -18,10 +18,6 @@ private:
 
    float m_curAngle = 0.0f;
 
-   EntityHandle m_monkey;
-   EntityHandle m_monkey2;
-   EntityHandle m_monkey3;
-
    GUI m_gui;
 
 public:
