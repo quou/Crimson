@@ -11,6 +11,7 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
+#include "Graphics/RenderTarget.h"
 
 /* Scene Management */
 #include "SceneManagement/SceneSettings.h"

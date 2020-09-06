@@ -83,7 +83,7 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
    }
 }
 
-void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera) {
+void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
    int x, y;
    SDL_GetWindowPosition(m_window, &x, &y);
 
@@ -103,10 +103,6 @@ void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Cam
       }
 
       ImGuizmo::Enable(true);
-
-      ImGuiIO& io = ImGui::GetIO();
-      ImGuizmo::SetRect(x, y, io.DisplaySize.x, io.DisplaySize.y);
-      ImGuizmo::Manipulate(glm::value_ptr(camera.GetView()), glm::value_ptr(camera.GetProjection()), m_currentGizmoOperation, m_currentGizmoMode, glm::value_ptr(m_currentGizmoMatrix), NULL, NULL);
    } else {
       ImGuizmo::Enable(false);
    }
@@ -136,6 +132,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
          ImGui::MenuItem("Console", NULL, &m_consoleOpen);
          ImGui::MenuItem("Hierarchy", NULL, &m_hierarchyOpen);
          ImGui::MenuItem("Inspector", NULL, &m_inspectorOpen);
+         ImGui::MenuItem("Project Explorer", NULL, &m_projectOpen);
          ImGui::End();
       }
 
@@ -161,10 +158,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
 
    if (m_fileDialog.showFileDialog("Open Scene", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), ".scene,*.*"))
    {
-      m_selectedEntity = 0;
-      if (sceneManager.Deserialize(m_fileDialog.selected_path, ecs)) {
-         m_currentScenePath = m_fileDialog.selected_path;
-      }
+      OpenScene(m_fileDialog.selected_path, sceneManager, ecs);
    }
 }
 
@@ -188,6 +182,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    ImGuiIO& io = ImGui::GetIO(); (void)io;
    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+   io.ConfigWindowsMoveFromTitleBarOnly = true;
 
    ImGuiStyle& style = ImGui::GetStyle();
    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -200,7 +195,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    ImGui_ImplOpenGL3_Init("#version 330 core");
 }
 
-void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout) {
+void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout, Crimson::RenderTarget& renderTarget) {
    ImGui_ImplOpenGL3_NewFrame();
    ImGui_ImplSDL2_NewFrame(window);
    ImGui::NewFrame();
@@ -208,13 +203,15 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 
    ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
-   DrawGizmos(ecs, sceneManager, camera);
+   DrawGizmos(ecs, sceneManager, camera, renderTarget);
 
    DrawMainMenuBar(sceneManager, ecs);
 
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
    if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
+   if (m_projectOpen) {DrawProject(ecs, sceneManager);}
    DrawConsole(strCout);
+   DrawScene(renderTarget, camera);
 
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -225,6 +222,13 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
       ImGui::UpdatePlatformWindows();
       ImGui::RenderPlatformWindowsDefault();
       SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+   }
+}
+
+void GUI::OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs) {
+   m_selectedEntity = 0;
+   if (sceneManager.Deserialize(fileName, ecs)) {
+      m_currentScenePath = fileName;
    }
 }
 
@@ -243,4 +247,23 @@ void GUI::DrawConsole(std::ostringstream& strCout) {
       ImGui::TextWrapped("%s", strCout.str().c_str());
       ImGui::End();
    }
+}
+
+void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
+   ImGui::Begin("Scene");
+   m_sceneWindowPos = ImGui::GetWindowPos();
+   renderTarget.Resize(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+   ImGui::Image((ImTextureID)renderTarget.GetOutput(), ImVec2(renderTarget.GetWidth(), renderTarget.GetHeight()), ImVec2(0, 1), ImVec2(1, 0));
+
+   ImGuiIO& io = ImGui::GetIO();
+   ImGuizmo::SetDrawlist();
+   ImGuizmo::SetRect(m_sceneWindowPos.x, m_sceneWindowPos.y, renderTarget.GetWidth(), renderTarget.GetHeight());
+   ImGuizmo::Manipulate(glm::value_ptr(camera.GetView()), glm::value_ptr(camera.GetProjection()), m_currentGizmoOperation, m_currentGizmoMode, glm::value_ptr(m_currentGizmoMatrix), NULL, NULL);
+
+   ImGui::End();
+}
+
+void GUI::DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager) {
+   ImGui::Begin("Project Explorer", &m_projectOpen);
+   ImGui::End();
 }

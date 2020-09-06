@@ -17,6 +17,8 @@ namespace Crimson {
       void Init(int width, int height, int flags, const char* title);
       void Present();
 
+      void BindAsRenderTarget();
+
       inline const SDL_GLContext& GetGLContext() const { return m_glContext; }
       inline SDL_Window* GetWindow() {return m_window;}
       inline unsigned int GetWindowID() const {return SDL_GetWindowID(m_window);}

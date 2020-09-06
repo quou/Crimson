@@ -20,6 +20,8 @@ private:
 
    GUI m_gui;
 
+   Crimson::RenderTarget m_renderTarget;
+
 public:
    App() :
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f) {}
@@ -31,11 +33,11 @@ public:
    void OnBegin() override  {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      m_sceneManager.Deserialize("Resources/TestScene.scene", m_ecs);
+      m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
    }
 
    void OnUpdate(float delta) override {
-      m_camera.UpdatePerspective(45.0f, (float)GetDisplay()->GetSize().first/(float)GetDisplay()->GetSize().second, 0.1f, 100.0f);
+      m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();
       float yaw = m_camera.GetYaw();
@@ -46,7 +48,7 @@ public:
       float yoffset = 0.0f;
       float xoffset = 0.0f;
 
-      if (!ImGui::IsAnyWindowFocused()) {
+      if (ImGui::IsAnyWindowFocused()) {
          if (m_keyboard.IsKeyHeld(SDL_SCANCODE_UP)) {
             yoffset = rotSpeed * delta;
          } else if (m_keyboard.IsKeyHeld(SDL_SCANCODE_DOWN)) {
@@ -79,7 +81,7 @@ public:
 
 
       glm::vec3 pos = m_camera.GetPosition();
-      if (!ImGui::IsAnyWindowFocused()) {
+      if (ImGui::IsAnyWindowFocused()) {
          float rot = glm::radians(m_camera.GetYaw());
          if (m_keyboard.IsKeyHeld(SDL_SCANCODE_W)) {
             pos.x -= (float)cos(rot) * moveSpeed * -1.0f * delta;
@@ -107,9 +109,12 @@ public:
    }
 
    void OnRender(float delta) override {
+      m_renderTarget.Bind();
+      m_renderTarget.Clear();
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
-      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout);
+      GetDisplay()->BindAsRenderTarget();
+      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout, m_renderTarget);
    }
 };
 

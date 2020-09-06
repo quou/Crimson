@@ -44,6 +44,7 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Renderer.cpp
    Crimson/Graphics/Shader.cpp
    Crimson/Graphics/Model.cpp
+   Crimson/Graphics/RenderTarget.cpp
    Crimson/Graphics/Texture.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c

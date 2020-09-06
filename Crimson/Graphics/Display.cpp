@@ -41,4 +41,9 @@ namespace Crimson {
       m_height = h;
       glViewport(0,0,w,h);
    }
+
+   void Display::BindAsRenderTarget() {
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
+      glViewport(0, 0, m_width, m_height);
+   }
 }
