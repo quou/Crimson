@@ -12,6 +12,7 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Material.h"
 #include "Graphics/RenderTarget.h"
+#include "Graphics/Cubemap.h"
 
 /* Scene Management */
 #include "SceneManagement/SceneSettings.h"

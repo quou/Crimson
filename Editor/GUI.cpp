@@ -251,8 +251,14 @@ void GUI::DrawConsole(std::ostringstream& strCout) {
 
 void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
    ImGui::Begin("Scene");
+   if (ImGui::IsWindowFocused()) {
+      m_isSceneFocused = true;
+   } else {
+      m_isSceneFocused = false;
+   }
+
    m_sceneWindowPos = ImGui::GetWindowPos();
-   renderTarget.Resize(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+   renderTarget.Resize(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y-35);
    ImGui::Image((ImTextureID)renderTarget.GetOutput(), ImVec2(renderTarget.GetWidth(), renderTarget.GetHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
    ImGuiIO& io = ImGui::GetIO();

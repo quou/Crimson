@@ -1,5 +1,23 @@
 <scene>
     <entity>
+        <transform name="Ground">
+            <position x="-0.73844718933105469" y="-1.5729489326477051" z="1.0389531850814819"/>
+            <rotation x="0" y="-0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <model>
+            <texture res="Resources/floorboards.png"/>
+            <mesh res="Resources/ground.obj"/>
+            <material>
+                <ambient x="1" y="1" z="1"/>
+                <diffuse x="1" y="1" z="1"/>
+                <specular x="1" y="1" z="1"/>
+                <shininess shininess="32"/>
+                <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+            </material>
+        </model>
+    </entity>
+    <entity>
         <transform name="Monkies">
             <position x="-1.2329647541046143" y="0" z="0"/>
             <rotation x="0" y="-0" z="0"/>
@@ -17,7 +35,7 @@
                 <material>
                     <ambient x="1" y="1" z="1"/>
                     <diffuse x="1" y="1" z="1"/>
-                    <specular x="1" y="1" z="1"/>
+                    <specular x="0" y="0" z="0"/>
                     <shininess shininess="32"/>
                     <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
                 </material>
@@ -42,50 +60,5 @@
             </model>
         </entity>
     </entity>
-    <entity>
-        <transform name="Lights">
-            <position x="0" y="0" z="0"/>
-            <rotation x="0" y="-0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <entity>
-            <transform name="Light1">
-                <position x="-3.3431868553161621" y="3.7099981307983398" z="1.0572071075439453"/>
-                <rotation x="0" y="-0" z="0"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <pointlight>
-                <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
-                <ambient x="1" y="0" z="0"/>
-                <diffuse x="1" y="0" z="0"/>
-                <specular x="1" y="0" z="0"/>
-            </pointlight>
-        </entity>
-        <entity>
-            <transform name="Light2">
-                <position x="0.42137038707733154" y="-0.084030628204345703" z="-2.2014598846435547"/>
-                <rotation x="0" y="-0" z="0"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <pointlight>
-                <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
-                <ambient x="0" y="1" z="0"/>
-                <diffuse x="0" y="1" z="0"/>
-                <specular x="0" y="1" z="0"/>
-            </pointlight>
-        </entity>
-        <entity>
-            <transform name="Light3">
-                <position x="-4.8065276145935059" y="1.1993718147277832" z="4.3983364105224609"/>
-                <rotation x="0" y="-0" z="0"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <pointlight>
-                <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
-                <ambient x="0" y="0" z="1"/>
-                <diffuse x="0" y="0" z="1"/>
-                <specular x="0" y="0" z="1"/>
-            </pointlight>
-        </entity>
-    </entity>
+    
 </scene>

@@ -59,6 +59,8 @@ public:
 
    void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
 
+   inline bool IsSceneFocused() {return m_isSceneFocused;}
+
    ~GUI();
 };
 
