@@ -30,7 +30,7 @@
                 <scale x="1" y="1" z="1"/>
             </transform>
             <model>
-                <texture res="Resources/Wood.jpg"/>
+                <texture res="Resources/Bricks.jpg"/>
                 <mesh res="Resources/monkey3.obj"/>
                 <material>
                     <ambient x="1" y="1" z="1"/>
@@ -60,5 +60,17 @@
             </model>
         </entity>
     </entity>
-    
+    <entity>
+        <transform name="Light">
+            <position x="-3.8572041988372803" y="2.089449405670166" z="1.3637783527374268"/>
+            <rotation x="0" y="-0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <pointlight>
+            <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
+            <ambient x="1" y="0" z="0"/>
+            <diffuse x="1" y="0" z="0"/>
+            <specular x="1" y="0" z="0"/>
+        </pointlight>
+    </entity>
 </scene>

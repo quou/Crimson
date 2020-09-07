@@ -23,9 +23,9 @@ namespace Crimson {
       unsigned int m_textureID;
    public:
       Cubemap();
-      Cubemap(std::vector<std::string> facePaths);
+      Cubemap(std::vector<std::string> facePaths, const std::string vertShader, const std::string& fragShader);
 
-      void Load(std::vector<std::string> facePaths);
+      void Load(std::vector<std::string> facePaths, const std::string vertShader, const std::string& fragShader);
 
       void Render(Camera& camera);
    };

@@ -11,12 +11,12 @@
 namespace Crimson {
    Cubemap::Cubemap() { }
 
-   Cubemap::Cubemap(std::vector<std::string> facePaths) {
-      Load(facePaths);
+   Cubemap::Cubemap(std::vector<std::string> facePaths, const std::string vertShader, const std::string& fragShader) {
+      Load(facePaths, vertShader, fragShader);
    }
 
-   void Cubemap::Load(std::vector<std::string> facePaths) {
-      m_skyShader.Init("Resources/Skybox.vert", "Resources/Skybox.frag");
+   void Cubemap::Load(std::vector<std::string> facePaths, const std::string vertShader, const std::string& fragShader) {
+      m_skyShader.Init(vertShader, fragShader);
 
       // textures
       glGenTextures(1, &m_textureID);

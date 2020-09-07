@@ -9,6 +9,8 @@
 #include "SLECS.h"
 #include "Utils/tinyxml2.h"
 
+#include "Graphics/Cubemap.h"
+
 namespace Crimson {
    class Renderer;
 
@@ -22,6 +24,8 @@ namespace Crimson {
 
       void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
    public:
+      void Init();
+
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
 
       inline const std::vector<EntityHandle>& GetEntities() const {return m_entities;}
@@ -31,6 +35,8 @@ namespace Crimson {
 
       void Serialize(const std::string& fileName, ECS& ecs);
       int Deserialize(const std::string& fileName, ECS& ecs);
+
+      Cubemap m_skybox;
    };
 }
 

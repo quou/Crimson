@@ -15,6 +15,19 @@ using namespace tinyxml2;
 
 
 namespace Crimson {
+
+   void SceneManager::Init() {
+      std::vector<std::string> skyboxFaces;
+      skyboxFaces.push_back("Resources/skybox/right.jpg");
+      skyboxFaces.push_back("Resources/skybox/left.jpg");
+      skyboxFaces.push_back("Resources/skybox/top.jpg");
+      skyboxFaces.push_back("Resources/skybox/bottom.jpg");
+      skyboxFaces.push_back("Resources/skybox/front.jpg");
+      skyboxFaces.push_back("Resources/skybox/back.jpg");
+
+      m_skybox.Load(skyboxFaces, "Resources/Skybox.vert", "Resources/Skybox.frag");
+   }
+
    void SceneManager::CreateEntity(const std::string& name, ECS& ecs) {
       EntityHandle newEntity = ecs.CreateEntity();
       ecs.AddComponent<Transform>(newEntity, name);

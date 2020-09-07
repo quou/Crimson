@@ -3,7 +3,7 @@
 
 #include <string>
 
-#ifdef WINDOWS
+#ifdef WIN32
 #include <Windows.h>
 
 namespace Crimson {

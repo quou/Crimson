@@ -8,6 +8,9 @@
 
 #include "GUI.h"
 
+#ifdef _MSC_VER
+#undef main
+#endif
 
 class App : public Crimson::Application {
 private:
@@ -19,8 +22,6 @@ private:
    float m_curAngle = 0.0f;
 
    GUI m_gui;
-
-   Crimson::Cubemap m_skybox;
 
    Crimson::RenderTarget m_renderTarget;
 
@@ -36,16 +37,6 @@ public:
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
-
-      std::vector<std::string> skyboxFaces;
-      skyboxFaces.push_back("Resources/skybox/right.jpg");
-      skyboxFaces.push_back("Resources/skybox/left.jpg");
-      skyboxFaces.push_back("Resources/skybox/top.jpg");
-      skyboxFaces.push_back("Resources/skybox/bottom.jpg");
-      skyboxFaces.push_back("Resources/skybox/front.jpg");
-      skyboxFaces.push_back("Resources/skybox/back.jpg");
-
-      m_skybox.Load(skyboxFaces);
    }
 
    void OnUpdate(float delta) override {
@@ -123,7 +114,6 @@ public:
    void OnRender(float delta) override {
       m_renderTarget.Bind();
       m_renderTarget.Clear();
-      m_skybox.Render(m_camera);
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
