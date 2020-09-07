@@ -133,6 +133,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
          ImGui::MenuItem("Hierarchy", NULL, &m_hierarchyOpen);
          ImGui::MenuItem("Inspector", NULL, &m_inspectorOpen);
          ImGui::MenuItem("Project Explorer", NULL, &m_projectOpen);
+         ImGui::MenuItem("Scene Config", NULL, &m_sceneSettingsOpen);
          ImGui::End();
       }
 
@@ -210,6 +211,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
    if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
    if (m_projectOpen) {DrawProject(ecs, sceneManager);}
+   if (m_sceneSettingsOpen) {DrawSceneSettings(ecs, sceneManager);}
    DrawConsole(strCout);
    DrawScene(renderTarget, camera);
 
@@ -271,5 +273,33 @@ void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera
 
 void GUI::DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Project Explorer", &m_projectOpen);
+   ImGui::End();
+}
+
+void GUI::DrawSceneSettings(ECS& ecs, Crimson::SceneManager& sceneManager) {
+   ImGui::Begin("Scene Config", &m_sceneSettingsOpen);
+
+   if (ImGui::CollapsingHeader("Lighting")) {
+      if (ImGui::TreeNode("Directional Light")) {
+         float newdir[3] = {sceneManager.GetConfig()->directionalLight.direction.x, sceneManager.GetConfig()->directionalLight.direction.y, sceneManager.GetConfig()->directionalLight.direction.z};
+         ImGui::DragFloat3("Direction", newdir, 0.01f, -1.0f, 1.0f);
+         sceneManager.GetConfig()->directionalLight.direction = glm::vec3(newdir[0], newdir[1], newdir[2]);
+
+         float newCol[3] = {sceneManager.GetConfig()->directionalLight.ambient.x, sceneManager.GetConfig()->directionalLight.ambient.y, sceneManager.GetConfig()->directionalLight.ambient.z};
+         ImGui::ColorEdit3("Ambient Color", newCol);
+         sceneManager.GetConfig()->directionalLight.ambient = glm::vec3(newCol[0], newCol[1], newCol[2]);
+
+         float newCol2[3] = {sceneManager.GetConfig()->directionalLight.diffuse.x, sceneManager.GetConfig()->directionalLight.diffuse.y, sceneManager.GetConfig()->directionalLight.diffuse.z};
+         ImGui::ColorEdit3("Diffuse Color", newCol2);
+         sceneManager.GetConfig()->directionalLight.diffuse = glm::vec3(newCol2[0], newCol2[1], newCol2[2]);
+
+         float newCol3[3] = {sceneManager.GetConfig()->directionalLight.specular.x, sceneManager.GetConfig()->directionalLight.specular.y, sceneManager.GetConfig()->directionalLight.specular.z};
+         ImGui::ColorEdit3("Specular Color", newCol3);
+         sceneManager.GetConfig()->directionalLight.specular = glm::vec3(newCol3[0], newCol3[1], newCol3[2]);
+
+         ImGui::TreePop();
+      }
+   }
+
    ImGui::End();
 }

@@ -257,25 +257,6 @@ namespace Crimson {
       printer.CloseElement();
    }
 
-   void SceneManager::Serialize(const std::string& fileName, ECS& ecs) {
-      XMLPrinter printer;
-
-      printer.OpenElement("scene");
-      for (EntityHandle ent : m_entities) {
-         if (!ecs.GetComponent<Transform>(ent)->parent) {
-            SerializeEntity(ent, printer, ecs);
-         }
-      }
-      printer.CloseElement();
-
-      std::ofstream file(fileName);
-      if (file.is_open()) {
-         file << printer.CStr();
-         file.close();
-      }
-
-      std::cout << "Saved Scene: " << fileName <<'\n';
-   }
 
    void SceneManager::ParseEntities(tinyxml2::XMLElement* node, ECS& ecs, EntityHandle parent) {
       for (auto el : FindEntity(node, "entity")) {
@@ -288,6 +269,57 @@ namespace Crimson {
 
          ParseEntities(el, ecs, entity);
       }
+   }
+
+   void SceneManager::Serialize(const std::string& fileName, ECS& ecs) {
+      XMLPrinter printer;
+
+      printer.OpenElement("scene");
+
+      /* SAVE SCENE CONFIG */
+      printer.OpenElement("scenesettings");
+         printer.OpenElement("directionallight");
+            printer.OpenElement("direction");
+               printer.PushAttribute("x", GetConfig()->directionalLight.direction.x);
+               printer.PushAttribute("y", GetConfig()->directionalLight.direction.y);
+               printer.PushAttribute("z", GetConfig()->directionalLight.direction.z);
+            printer.CloseElement();
+
+            printer.OpenElement("ambient");
+               printer.PushAttribute("x", GetConfig()->directionalLight.ambient.x);
+               printer.PushAttribute("y", GetConfig()->directionalLight.ambient.y);
+               printer.PushAttribute("z", GetConfig()->directionalLight.ambient.z);
+            printer.CloseElement();
+
+            printer.OpenElement("diffuse");
+               printer.PushAttribute("x", GetConfig()->directionalLight.diffuse.x);
+               printer.PushAttribute("y", GetConfig()->directionalLight.diffuse.y);
+               printer.PushAttribute("z", GetConfig()->directionalLight.diffuse.z);
+            printer.CloseElement();
+
+            printer.OpenElement("specular");
+               printer.PushAttribute("x", GetConfig()->directionalLight.specular.x);
+               printer.PushAttribute("y", GetConfig()->directionalLight.specular.y);
+               printer.PushAttribute("z", GetConfig()->directionalLight.specular.z);
+            printer.CloseElement();
+         printer.CloseElement();
+      printer.CloseElement();
+
+      for (EntityHandle ent : m_entities) {
+         if (!ecs.GetComponent<Transform>(ent)->parent) {
+            SerializeEntity(ent, printer, ecs);
+         }
+      }
+      printer.CloseElement();
+
+      std::ofstream file(fileName);
+      if (file.is_open()) {
+         file << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+         file << printer.CStr();
+         file.close();
+      }
+
+      std::cout << "Saved Scene: " << fileName <<'\n';
    }
 
 
@@ -305,6 +337,18 @@ namespace Crimson {
       m_entities.clear();
 
       try {
+         /* LOAD SCENE CONFIG */
+         XMLElement* eSceneSettings = doc.RootElement()->FirstChildElement("scenesettings");
+         XMLElement* eDirectionalLight = eSceneSettings->FirstChildElement("directionallight");
+         XMLElement* eDirection = eDirectionalLight->FirstChildElement("direction");
+         XMLElement* eAmbient = eDirectionalLight->FirstChildElement("ambient");
+         XMLElement* eDiffuse = eDirectionalLight->FirstChildElement("diffuse");
+         XMLElement* eSpecular = eDirectionalLight->FirstChildElement("specular");
+         GetConfig()->directionalLight.direction = glm::vec3(eDirection->FloatAttribute("x"), eDirection->FloatAttribute("y"), eDirection->FloatAttribute("z"));
+         GetConfig()->directionalLight.ambient = glm::vec3(eAmbient->FloatAttribute("x"), eAmbient->FloatAttribute("y"), eAmbient->FloatAttribute("z"));
+         GetConfig()->directionalLight.diffuse = glm::vec3(eDiffuse->FloatAttribute("x"), eDiffuse->FloatAttribute("y"), eDiffuse->FloatAttribute("z"));
+         GetConfig()->directionalLight.specular = glm::vec3(eSpecular->FloatAttribute("x"), eSpecular->FloatAttribute("y"), eSpecular->FloatAttribute("z"));
+
          ParseEntities(doc.RootElement(), ecs);
       } catch (const std::exception& e) {
          std::cout << e.what() << "\n";

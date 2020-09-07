@@ -51,7 +51,7 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewD
    ambient *= attenuation;
    diffuse *= attenuation;
    specular *= attenuation;
-   return (diffuse + specular);
+   return (ambient + diffuse + specular);
 }
 
 void main() {

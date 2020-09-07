@@ -1,4 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <scene>
+    <scenesettings>
+        <directionallight>
+            <direction x="1" y="-1" z="1"/>
+            <ambient x="0.35221737623214722" y="0.34361782670021057" z="0.49019604921340942"/>
+            <diffuse x="1" y="0.99124640226364136" z="0.70588231086730957"/>
+            <specular x="1" y="0.99215686321258545" z="0.70588237047195435"/>
+        </directionallight>
+    </scenesettings>
     <entity>
         <transform name="Ground">
             <position x="-0.73844718933105469" y="-1.5729489326477051" z="1.0389531850814819"/>
@@ -25,9 +34,9 @@
         </transform>
         <entity>
             <transform name="Monkey1">
-                <position x="-0.73844718933105469" y="1.1449762582778931" z="1.0389531850814819"/>
-                <rotation x="0" y="-0" z="0"/>
-                <scale x="1" y="1" z="1"/>
+                <position x="3.8495008945465088" y="-0.49913668632507324" z="0.57927358150482178"/>
+                <rotation x="0.55086725950241089" y="-0.16098225116729736" z="-0.49612292647361755"/>
+                <scale x="0.99999994039535522" y="1.0000002384185791" z="1.0000001192092896"/>
             </transform>
             <model>
                 <texture res="Resources/Bricks.jpg"/>
@@ -43,9 +52,9 @@
         </entity>
         <entity>
             <transform name="Monkey2">
-                <position x="1.3576518297195435" y="0.1260959804058075" z="0.65063047409057617"/>
-                <rotation x="0" y="-0" z="0"/>
-                <scale x="1.0000014305114746" y="0.99999922513961792" z="1"/>
+                <position x="1.9887197017669678" y="-0.60467171669006348" z="0.65063047409057617"/>
+                <rotation x="0.62046289443969727" y="0.0050725238397717476" z="-0.22422568500041962"/>
+                <scale x="1.0000013113021851" y="0.99999934434890747" z="1.0000002384185791"/>
             </transform>
             <model>
                 <texture res="Resources/Wood.jpg"/>
@@ -62,13 +71,13 @@
     </entity>
     <entity>
         <transform name="Light">
-            <position x="-3.8572041988372803" y="2.089449405670166" z="1.3637783527374268"/>
+            <position x="3.562995433807373" y="1.3345462083816528" z="3.8403196334838867"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <pointlight>
             <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
-            <ambient x="1" y="0" z="0"/>
+            <ambient x="0" y="0" z="0"/>
             <diffuse x="1" y="0" z="0"/>
             <specular x="1" y="0" z="0"/>
         </pointlight>

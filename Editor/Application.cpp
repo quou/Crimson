@@ -27,7 +27,7 @@ private:
 
 public:
    App() :
-      m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.1f, 100.0f) {}
+      m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.0f, 1000.0f) {}
 
    void UpdateGui(SDL_Event e) {
       m_gui.Update(e);
