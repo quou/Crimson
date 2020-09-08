@@ -9,6 +9,17 @@
 
 #include <sstream>
 
+struct FileNode {
+   bool isDir{false};
+
+   std::string name;
+   std::string absPath;
+   std::string ext;
+
+   std::vector<FileNode> children;
+   bool hasparent{false};
+};
+
 class GUI {
 private:
    imgui_addons::ImGuiFileBrowser m_fileDialog;
@@ -37,6 +48,7 @@ private:
    void DrawSceneSettings(ECS& ecs, Crimson::SceneManager& sceneManager);
 
    void DrawEntityHierarchy(ECS& ecs, EntityHandle ent);
+   void DrawDir(const std::string& dir);
 
    void DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget);
 

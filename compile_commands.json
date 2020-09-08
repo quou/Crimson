@@ -11,11 +11,6 @@
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Sandbox.dir/Sandbox/Application.cpp.o -c /home/george/Documents/Crimson/Sandbox/Application.cpp",
-  "file": "/home/george/Documents/Crimson/Sandbox/Application.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
   "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/imgui.cpp"
 },

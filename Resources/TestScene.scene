@@ -18,10 +18,10 @@
             <texture res="Resources/floorboards.png"/>
             <mesh res="Resources/ground.obj"/>
             <material>
-                <ambient x="1" y="1" z="1"/>
-                <diffuse x="1" y="1" z="1"/>
-                <specular x="1" y="1" z="1"/>
-                <shininess shininess="32"/>
+                <ambient x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                <specular x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                <shininess shininess="64"/>
                 <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
             </material>
         </model>
@@ -36,7 +36,7 @@
             <transform name="Monkey1">
                 <position x="3.8495008945465088" y="-0.49913668632507324" z="0.57927358150482178"/>
                 <rotation x="0.55086725950241089" y="-0.16098225116729736" z="-0.49612292647361755"/>
-                <scale x="0.99999994039535522" y="1.0000002384185791" z="1.0000001192092896"/>
+                <scale x="0.99999988079071045" y="1.0000002384185791" z="1.0000001192092896"/>
             </transform>
             <model>
                 <texture res="Resources/Bricks.jpg"/>
@@ -54,7 +54,7 @@
             <transform name="Monkey2">
                 <position x="1.9887197017669678" y="-0.60467171669006348" z="0.65063047409057617"/>
                 <rotation x="0.62046289443969727" y="0.0050725238397717476" z="-0.22422568500041962"/>
-                <scale x="1.0000013113021851" y="0.99999934434890747" z="1.0000002384185791"/>
+                <scale x="1.0000011920928955" y="0.99999934434890747" z="1.0000002384185791"/>
             </transform>
             <model>
                 <texture res="Resources/Wood.jpg"/>
@@ -77,9 +77,9 @@
         </transform>
         <pointlight>
             <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
-            <ambient x="0" y="0" z="0"/>
-            <diffuse x="1" y="0" z="0"/>
-            <specular x="1" y="0" z="0"/>
+            <ambient x="9.9999999747524271e-07" y="9.9998999303352321e-07" z="9.9998999303352321e-07"/>
+            <diffuse x="0" y="1" z="0"/>
+            <specular x="0" y="1" z="0"/>
         </pointlight>
     </entity>
 </scene>

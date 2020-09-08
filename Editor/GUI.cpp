@@ -28,6 +28,11 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
    if (m_selectedEntity && ecs.HasComponent<Crimson::Transform>(m_selectedEntity)) {
       ImGui::Text("Selected Entity: %s", ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
 
+      char buf[256];
+      strcpy(buf, ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
+      ImGui::InputText("Name", buf, 256);
+      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name = buf;
+
       if (ImGui::RadioButton("Translate", m_currentGizmoOperation == ImGuizmo::TRANSLATE))
          m_currentGizmoOperation = ImGuizmo::TRANSLATE;
       ImGui::SameLine();
@@ -50,6 +55,90 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
          t->position = glm::vec3(newpos[0], newpos[1], newpos[2]);
          t->rotation = glm::vec3(newrot[0], newrot[1], newrot[2]);
          t->scale = glm::vec3(newscale[0], newscale[1], newscale[2]);
+      }
+
+      if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
+         if (ImGui::CollapsingHeader("Model")) {
+            ImGui::Text("Mesh");
+            if (ImGui::BeginDragDropTarget()) {
+               if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                  std::string toSet = static_cast<const char*>(payload->Data);
+                  ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.Load(toSet);
+               }
+               ImGui::EndDragDropTarget();
+            }
+
+            ImGui::Text("Texture");
+            if (ImGui::BeginDragDropTarget()) {
+               if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                  std::string toSet = static_cast<const char*>(payload->Data);
+                  ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->texture.Load(toSet);
+               }
+               ImGui::EndDragDropTarget();
+            }
+
+            if (ImGui::TreeNode("Material")) {
+
+               ImGui::Text("Vertex Shader");
+               if (ImGui::BeginDragDropTarget()) {
+                  if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                     std::string toSet = static_cast<const char*>(payload->Data);
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.Init(toSet, ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.GetFragPath());
+                  }
+                  ImGui::EndDragDropTarget();
+               }
+               ImGui::SameLine();
+               ImGui::Text("Fragment Shader");
+               if (ImGui::BeginDragDropTarget()) {
+                  if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                     std::string toSet = static_cast<const char*>(payload->Data);
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.Init(ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.GetVertPath(), toSet);
+
+                  }
+                  ImGui::EndDragDropTarget();
+               }
+
+               Crimson::Material* mat = &ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->material;
+
+               float newCol[3] = {mat->ambient.x, mat->ambient.y, mat->ambient.z};
+               ImGui::ColorEdit3("Ambient Color", newCol);
+               mat->ambient = glm::vec3(newCol[0], newCol[1], newCol[2]);
+
+               float newCol2[3] = {mat->diffuse.x, mat->diffuse.y, mat->diffuse.z};
+               ImGui::ColorEdit3("Diffuse Color", newCol2);
+               mat->diffuse = glm::vec3(newCol2[0], newCol2[1], newCol2[2]);
+
+               float newCol3[3] = {mat->specular.x, mat->specular.y, mat->specular.z};
+               ImGui::ColorEdit3("Specular Color", newCol3);
+               mat->specular = glm::vec3(newCol3[0], newCol3[1], newCol3[2]);
+
+               ImGui::InputFloat("Shininess", &mat->shininess);
+
+               ImGui::TreePop();
+            }
+         }
+      }
+
+      if (ecs.HasComponent<Crimson::PointLight>(m_selectedEntity)) {
+         if (ImGui::CollapsingHeader("Point Light")) {
+            Crimson::PointLight* l = ecs.GetComponent<Crimson::PointLight>(m_selectedEntity);
+
+            ImGui::InputFloat("Constant", &l->constant);
+            ImGui::InputFloat("Linear", &l->linear);
+            ImGui::InputFloat("Quadratic", &l->quadratic);
+
+            float newCol[3] = {l->ambient.x, l->ambient.y, l->ambient.z};
+            ImGui::ColorEdit3("Ambient Color", newCol);
+            l->ambient = glm::vec3(newCol[0], newCol[1], newCol[2]);
+
+            float newCol2[3] = {l->diffuse.x, l->diffuse.y, l->diffuse.z};
+            ImGui::ColorEdit3("Diffuse Color", newCol2);
+            l->diffuse = glm::vec3(newCol2[0], newCol2[1], newCol2[2]);
+
+            float newCol3[3] = {l->specular.x, l->specular.y, l->specular.z};
+            ImGui::ColorEdit3("Specular Color", newCol3);
+            l->specular = glm::vec3(newCol3[0], newCol3[1], newCol3[2]);
+         }
       }
    }
    ImGui::End();
@@ -260,7 +349,7 @@ void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera
    }
 
    m_sceneWindowPos = ImGui::GetWindowPos();
-   renderTarget.Resize(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y-35);
+   renderTarget.Resize(ImGui::GetWindowSize().x-15, ImGui::GetWindowSize().y-35);
    ImGui::Image((ImTextureID)renderTarget.GetOutput(), ImVec2(renderTarget.GetWidth(), renderTarget.GetHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
    ImGuiIO& io = ImGui::GetIO();
@@ -271,8 +360,57 @@ void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera
    ImGui::End();
 }
 
+static void eraseSubStr(std::string & mainStr, const std::string & toErase)
+{
+    // Search for the substring in string
+    size_t pos = mainStr.find(toErase);
+    if (pos != std::string::npos)
+    {
+        // If found then erase it from string
+        mainStr.erase(pos, toErase.length());
+    }
+}
+
+void GUI::DrawDir(const std::string& dir) {
+   for (const auto& entry : std::filesystem::directory_iterator(dir)) {
+      ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+
+      bool isDir = entry.is_directory();
+
+      if (!isDir) {
+         flags |= ImGuiTreeNodeFlags_Leaf;
+      }
+
+      if (ImGui::TreeNodeEx(entry.path().filename().c_str(), flags, "%s", entry.path().filename().c_str())) {
+         if (isDir) {
+            DrawDir(dir + std::string(entry.path().filename()));
+         } else {
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+               std::string dragString = entry.path().string();
+               std::replace(dragString.begin(), dragString.end(), '\\', '/');
+               eraseSubStr(dragString, m_workingDir);
+
+               ImGui::Text("%s", entry.path().filename().c_str());
+
+               ImGui::SetDragDropPayload("File", dragString.data(), dragString.size() + 1);
+
+               ImGui::EndDragDropSource();
+            }
+         }
+
+         ImGui::TreePop();
+      }
+   }
+}
+
 void GUI::DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Project Explorer", &m_projectOpen);
+
+   if (ImGui::TreeNode("Resources")) {
+      DrawDir(m_workingDir + "Resources/");
+      ImGui::TreePop();
+   }
+
    ImGui::End();
 }
 

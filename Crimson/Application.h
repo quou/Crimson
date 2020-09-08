@@ -13,6 +13,7 @@
 namespace Crimson {
    class Application {
    private:
+
       void Init();
       void Update(float delta);
       void Render();
@@ -28,8 +29,10 @@ namespace Crimson {
 
       void (*m_eventCallback)(SDL_Event event);
 
+      std::string m_title;
+
    protected:
-      Application();
+      Application(const std::string& title);
       virtual void OnBegin() {}
       virtual void OnUpdate(float delta) {}
       virtual void OnRender(float delta) {}
@@ -47,7 +50,7 @@ namespace Crimson {
 
    public:
       std::ostringstream m_strCout;
-      
+
       void Run();
       void SetEventCallback(void (*ptr)(SDL_Event event)) {
          m_eventCallback = ptr;

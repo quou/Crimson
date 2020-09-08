@@ -10,13 +10,13 @@ namespace Crimson {
    Uint64 NOW = SDL_GetPerformanceCounter();
    Uint64 LAST = 0;
 
-   Application::Application() {
+   Application::Application(const std::string& title) : m_title(title) {
       std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
       std::cout.rdbuf(m_strCout.rdbuf());
 
       SDL_Init(SDL_INIT_EVERYTHING);
 
-      m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, "Test Application");
+      m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, m_title.c_str());
       m_renderer.Init();
 
       m_sceneManager.Init();
