@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 
+#include <iostream>
+
 namespace Crimson {
    RenderTarget::RenderTarget() {
       glGenFramebuffers(1, &ID);
@@ -25,6 +27,11 @@ namespace Crimson {
 
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputID, 0);
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depthID, 0);
+
+      int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+      if (status != GL_FRAMEBUFFER_COMPLETE) {
+         std::cout << "Framebuffer error: " << status << '\n';
+      }
    }
 
    void RenderTarget::Bind() {

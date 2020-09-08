@@ -7,6 +7,7 @@ uniform sampler2D tex;
 in vec2 v_texCoord;
 in vec3 v_normal;
 in vec3 v_fragPos;
+in vec4 v_directionalLightPos;
 
 uniform vec3 cameraPosition;
 
@@ -24,7 +25,6 @@ vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
    vec3 lightDirection = normalize(-light.direction);
    float diff = max(dot(normal, lightDirection), 0.0);
    vec3 diffuse = light.diffuse * (diff * material.diffuse);
-
 
    vec3 reflectDir = reflect(-lightDirection, normal);
 

@@ -19,22 +19,19 @@ namespace Crimson {
       Material material;
    };
 
-   static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
-      sceneManager.m_skybox.Render(camera);
-
+   static void Render_Internal(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
       std::vector<std::pair<glm::vec3, PointLight*>> lights;
       for (EntityHandle ent : System<Transform, PointLight>(ecs)) {
          lights.push_back({ecs.GetComponent<Transform>(ent)->worldPosition, ecs.GetComponent<PointLight>(ent)});
       }
 
-      int modelCount = 0;
       for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {
          glm::mat4 model = GetModelFromTransform(*ecs.GetComponent<Transform>(ent));
 
-         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(modelCount);
+         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(0);
          ecs.GetComponent<ModelComponent>(ent)->shader.Bind();
 
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", modelCount);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", 0);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("cameraPosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
@@ -66,12 +63,13 @@ namespace Crimson {
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1f("material.shininess", ecs.GetComponent<ModelComponent>(ent)->material.shininess);
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
-
-         modelCount++;
-         if (modelCount > 32) {
-            modelCount = 0;
-         }
       }
+   }
+
+   static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
+      sceneManager.m_skybox.Render(camera);
+
+      Render_Internal(ecs, camera, sceneManager);
    }
 }
 #endif /* end of include guard: MODELCOMP_H */
