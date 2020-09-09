@@ -119,10 +119,6 @@ public:
       GetDisplay()->BindAsRenderTarget();
       m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout, m_renderTarget);
 
-      ImGui::Begin("Depth map");
-      ImGui::Image((ImTextureID)m_sceneManager.GetShadowmap()->GetOutput(), ImVec2(800, 800), ImVec2(0, 1), ImVec2(1, 0));
-      ImGui::End();
-
       m_gui.EndFrame();
    }
 };

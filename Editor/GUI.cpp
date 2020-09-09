@@ -26,8 +26,6 @@ void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
 void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Inspector", &m_inspectorOpen);
    if (m_selectedEntity && ecs.HasComponent<Crimson::Transform>(m_selectedEntity)) {
-      ImGui::Text("Selected Entity: %s", ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
-
       char buf[256];
       strcpy(buf, ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
       ImGui::InputText("Name", buf, 256);
@@ -44,17 +42,17 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ImGui::CollapsingHeader("Transform")) {
          Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
-         float newpos[] = {t->position.x, t->position.y, t->position.z};
-         float newrot[] = {t->rotation.x, t->rotation.y, t->rotation.z};
-         float newscale[] = {t->scale.x, t->scale.y, t->scale.z};
+         m_newpos[0] = t->position.x;m_newpos[1] = t->position.y;m_newpos[2] = t->position.z;
+         m_newrot[0] = t->rotation.x;m_newrot[1] = t->rotation.y;m_newrot[2] = t->rotation.z;
+         m_newscale[0] = t->scale.x;m_newscale[1] = t->scale.y;m_newscale[2] = t->scale.z;
 
-         ImGui::InputFloat3("Position", newpos);
-         ImGui::InputFloat3("Rotation", newrot);
-         ImGui::InputFloat3("Scale", newscale);
+         ImGui::InputFloat3("Position", m_newpos);
+         ImGui::InputFloat3("Rotation", m_newrot);
+         ImGui::InputFloat3("Scale", m_newscale);
 
-         t->position = glm::vec3(newpos[0], newpos[1], newpos[2]);
-         t->rotation = glm::vec3(newrot[0], newrot[1], newrot[2]);
-         t->scale = glm::vec3(newscale[0], newscale[1], newscale[2]);
+         t->position = glm::vec3(m_newpos[0], m_newpos[1], m_newpos[2]);
+         t->rotation = glm::vec3(m_newrot[0], m_newrot[1], m_newrot[2]);
+         t->scale = glm::vec3(m_newscale[0], m_newscale[1], m_newscale[2]);
       }
 
       if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
@@ -173,16 +171,15 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
 }
 
 void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
-   int x, y;
-   SDL_GetWindowPosition(m_window, &x, &y);
-
-   float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-	ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(m_currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
-
    if (m_selectedEntity) {
+      ImGuizmo::Enable(true);
       Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
+
+      float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+      ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(m_currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
+
       t->worldPosition = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
-      t->rotation = glm::vec3(glm::radians(matrixRotation[0]), glm::radians(matrixRotation[1]), glm::radians(matrixRotation[2]));
+      t->rotation = glm::vec3(matrixRotation[0], matrixRotation[1], matrixRotation[2]);
       t->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
 
       if (t->parent) {
@@ -191,7 +188,6 @@ void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Cam
          t->position = t->worldPosition;
       }
 
-      ImGuizmo::Enable(true);
    } else {
       ImGuizmo::Enable(false);
    }
@@ -293,17 +289,22 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
 
    ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
-   DrawGizmos(ecs, sceneManager, camera, renderTarget);
+   if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
+
+   if (m_isSceneFocused) {
+      DrawGizmos(ecs, sceneManager, camera, renderTarget);
+   }
 
    DrawMainMenuBar(sceneManager, ecs);
 
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
-   if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
    if (m_projectOpen) {DrawProject(ecs, sceneManager);}
    if (m_sceneSettingsOpen) {DrawSceneSettings(ecs, sceneManager);}
    DrawConsole(strCout);
-   DrawScene(renderTarget, camera);
+   DrawScene(ecs, renderTarget, camera);
+}
 
+void GUI::EndFrame() {
    ImGui::Render();
    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
    ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -340,7 +341,7 @@ void GUI::DrawConsole(std::ostringstream& strCout) {
    }
 }
 
-void GUI::DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
+void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
    ImGui::Begin("Scene");
    if (ImGui::IsWindowFocused()) {
       m_isSceneFocused = true;

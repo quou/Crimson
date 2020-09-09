@@ -61,15 +61,22 @@ private:
    ImVec2 m_sceneWindowPos;
 
    bool m_isSceneFocused;
+
+   float m_newpos[3];
+   float m_newrot[3];
+   float m_newscale[3];
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext);
    void Init(SDL_Window* window, const SDL_GLContext glContext);
+
+   void EndFrame();
+
    void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout, Crimson::RenderTarget& renderTarget);
    void Update(const SDL_Event& event);
 
    void DrawConsole(std::ostringstream& strCout);
-   void DrawScene(Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
+   void DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
 
    void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
 
