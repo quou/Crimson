@@ -11,6 +11,8 @@
 #include "Transform.h"
 #include "SLECS.h"
 
+#include <glad/glad.h>
+
 namespace Crimson {
    struct ModelComponent {
       Texture texture;
@@ -28,13 +30,27 @@ namespace Crimson {
       for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {
          glm::mat4 model = GetModelFromTransform(*ecs.GetComponent<Transform>(ent));
 
-         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(0);
          ecs.GetComponent<ModelComponent>(ent)->shader.Bind();
+
+         glActiveTexture(GL_TEXTURE1);
+         glBindTexture(GL_TEXTURE_2D, sceneManager.GetShadowmap()->GetOutput());
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("shadowMap", 1);
+
+         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(0);
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", 0);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("cameraPosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);
+
+         float near_plane = 0.0f, far_plane = 100.0f;
+         glm::mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+         glm::mat4 lightView = glm::lookAt(-sceneManager.GetConfig()->directionalLight.direction * 20.0f,
+                                           glm::vec3( 0.0f, 0.0f,  0.0f),
+                                           glm::vec3( 0.0f, 1.0f,  0.0f));
+
+         glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("directionalLightTransform", lightSpaceMatrix);
 
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.direction", sceneManager.GetConfig()->directionalLight.direction.x, sceneManager.GetConfig()->directionalLight.direction.y, sceneManager.GetConfig()->directionalLight.direction.z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("directionalLight.ambient", sceneManager.GetConfig()->directionalLight.ambient.x, sceneManager.GetConfig()->directionalLight.ambient.y, sceneManager.GetConfig()->directionalLight.ambient.z);
@@ -64,6 +80,34 @@ namespace Crimson {
 
          ecs.GetComponent<ModelComponent>(ent)->model.Render();
       }
+   }
+
+   static void RenderShadows_Internal(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
+      for (EntityHandle ent : System<Transform, ModelComponent>(ecs)) {
+         glm::mat4 model = GetModelFromTransform(*ecs.GetComponent<Transform>(ent));
+
+         sceneManager.GetShadowmap()->GetShader()->Bind();
+
+         float near_plane = 0.0f, far_plane = 100.0f;
+         glm::mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+         glm::mat4 lightView = glm::lookAt(-sceneManager.GetConfig()->directionalLight.direction * 20.0f,
+                                           glm::vec3( 0.0f, 0.0f,  0.0f),
+                                           glm::vec3( 0.0f, 1.0f,  0.0f));
+
+         glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+
+         sceneManager.GetShadowmap()->GetShader()->SetUniformMatrix4("modl", model);
+         sceneManager.GetShadowmap()->GetShader()->SetUniformMatrix4("view", camera.GetViewProjection());
+         sceneManager.GetShadowmap()->GetShader()->SetUniformMatrix4("lightSpaceMatrix", lightSpaceMatrix);
+
+         ecs.GetComponent<ModelComponent>(ent)->model.Render();
+      }
+   }
+
+   static void ShadowPass(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
+      sceneManager.GetShadowmap()->BeginRender();
+      RenderShadows_Internal(ecs, camera, sceneManager);
+      sceneManager.GetShadowmap()->EndRender();
    }
 
    static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {

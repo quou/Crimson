@@ -8,9 +8,8 @@
 
 #include "GUI.h"
 
-#ifdef _MSC_VER
+#include <SDL.h>
 #undef main
-#endif
 
 class App : public Crimson::Application {
 private:
@@ -112,12 +111,19 @@ public:
    }
 
    void OnRender(float delta) override {
+      Crimson::ShadowPass(m_ecs, m_camera, m_sceneManager);
       m_renderTarget.Bind();
       m_renderTarget.Clear();
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
       m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout, m_renderTarget);
+
+      ImGui::Begin("Depth map");
+      ImGui::Image((ImTextureID)m_sceneManager.GetShadowmap()->GetOutput(), ImVec2(800, 800), ImVec2(0, 1), ImVec2(1, 0));
+      ImGui::End();
+
+      m_gui.EndFrame();
    }
 };
 

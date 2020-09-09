@@ -26,6 +26,8 @@ namespace Crimson {
       skyboxFaces.push_back("Resources/skybox/back.jpg");
 
       m_skybox.Load(skyboxFaces, "Resources/Skybox.vert", "Resources/Skybox.frag");
+
+      m_directionalShadowmap.Init();
    }
 
    void SceneManager::CreateEntity(const std::string& name, ECS& ecs) {

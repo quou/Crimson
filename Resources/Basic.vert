@@ -14,7 +14,7 @@ uniform mat4 modl = mat4(1.0f);
 uniform mat4 directionalLightTransform;
 
 void main() {
-   v_normal = mat3(transpose(inverse(modl))) * normal;
+   v_normal = transpose(inverse(mat3(modl))) * normal;
    v_texCoord = texCoord;
 
    v_fragPos = (modl * vec4(position, 1.0)).xyz;

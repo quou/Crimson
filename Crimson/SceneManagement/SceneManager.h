@@ -10,6 +10,7 @@
 #include "Utils/tinyxml2.h"
 
 #include "Graphics/Cubemap.h"
+#include "Graphics/Lighting/DirectionalShadowmap.h"
 
 namespace Crimson {
    class Renderer;
@@ -23,6 +24,8 @@ namespace Crimson {
       void ParseEntities(tinyxml2::XMLElement* node, ECS& ecs, EntityHandle parent=0);
 
       void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
+
+      DirectionalShadowmap m_directionalShadowmap;
    public:
       void Init();
 
@@ -35,6 +38,8 @@ namespace Crimson {
 
       void Serialize(const std::string& fileName, ECS& ecs);
       int Deserialize(const std::string& fileName, ECS& ecs);
+
+      DirectionalShadowmap* GetShadowmap() {return &m_directionalShadowmap;}
 
       Cubemap m_skybox;
    };

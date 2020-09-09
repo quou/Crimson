@@ -4,7 +4,7 @@
         <directionallight>
             <direction x="1" y="-1" z="1"/>
             <ambient x="0.35221737623214722" y="0.34361782670021057" z="0.49019604921340942"/>
-            <diffuse x="1" y="0.99124640226364136" z="0.70588231086730957"/>
+            <diffuse x="1" y="0.99215686321258545" z="0.70588237047195435"/>
             <specular x="1" y="0.99215686321258545" z="0.70588237047195435"/>
         </directionallight>
     </scenesettings>
@@ -34,7 +34,7 @@
         </transform>
         <entity>
             <transform name="Monkey1">
-                <position x="3.8495008945465088" y="-0.49913668632507324" z="0.57927358150482178"/>
+                <position x="3.8495008945465088" y="-0.54249715805053711" z="0.57927358150482178"/>
                 <rotation x="0.55086725950241089" y="-0.16098225116729736" z="-0.49612292647361755"/>
                 <scale x="0.99999988079071045" y="1.0000002384185791" z="1.0000001192092896"/>
             </transform>
@@ -42,8 +42,8 @@
                 <texture res="Resources/Bricks.jpg"/>
                 <mesh res="Resources/monkey3.obj"/>
                 <material>
-                    <ambient x="1" y="1" z="1"/>
-                    <diffuse x="1" y="1" z="1"/>
+                    <ambient x="0.99998998641967773" y="0.99999028444290161" z="1"/>
+                    <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
                     <specular x="0" y="0" z="0"/>
                     <shininess shininess="32"/>
                     <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
@@ -71,12 +71,12 @@
     </entity>
     <entity>
         <transform name="Light">
-            <position x="3.562995433807373" y="1.3345462083816528" z="3.8403196334838867"/>
+            <position x="3.8376336097717285" y="1.3345462083816528" z="3.4832327365875244"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <pointlight>
-            <point constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442"/>
+            <point constant="1" linear="0.008999999612569809" quadratic="0.019999999552965164"/>
             <ambient x="9.9999999747524271e-07" y="9.9998999303352321e-07" z="9.9998999303352321e-07"/>
             <diffuse x="0" y="1" z="0"/>
             <specular x="0" y="1" z="0"/>
