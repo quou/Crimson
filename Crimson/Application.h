@@ -10,6 +10,8 @@
 #include <iostream>
 #include <sstream>
 
+#include <angelscript.h>
+
 namespace Crimson {
    class Application {
    private:
@@ -48,9 +50,9 @@ namespace Crimson {
       ECS m_ecs;
       SceneManager m_sceneManager;
 
-   public:
-      std::ostringstream m_strCout;
+      asIScriptEngine* m_scriptingEngine;
 
+   public:
       void Run();
       void SetEventCallback(void (*ptr)(SDL_Event event)) {
          m_eventCallback = ptr;

@@ -6,14 +6,13 @@
 
 #include "ComponentSystems/Transform.h"
 
+#include "Scripting/ScriptWrapper.h"
+
 namespace Crimson {
    Uint64 NOW = SDL_GetPerformanceCounter();
    Uint64 LAST = 0;
 
    Application::Application(const std::string& title) : m_title(title) {
-      std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
-      std::cout.rdbuf(m_strCout.rdbuf());
-
       SDL_Init(SDL_INIT_EVERYTHING);
 
       m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, m_title.c_str());
@@ -30,6 +29,10 @@ namespace Crimson {
          t->worldScale = t->scale;
          t->worldRotation = t->rotation;
       }
+
+      m_scriptingEngine = Scripting::CreateEngine();
+      Scripting::SetupMessageSystem(m_scriptingEngine);
+      Scripting::RegisterFunctions(m_scriptingEngine);
 
       OnBegin();
    }
@@ -90,6 +93,7 @@ namespace Crimson {
    }
 
    Application::~Application() {
+      Scripting::Shutdown(m_scriptingEngine);
       SDL_Quit();
       std::cout << "Quit" << '\n';
    }

@@ -63,7 +63,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
          t->rotation = glm::vec3(m_newrot[0], m_newrot[1], m_newrot[2]);
          t->scale = glm::vec3(m_newscale[0], m_newscale[1], m_newscale[2]);
       }
-      
+
       if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Model")) {
             ImGui::Text("Mesh");
@@ -294,7 +294,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    ImGui_ImplOpenGL3_Init("#version 330 core");
 }
 
-void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout, Crimson::RenderTarget& renderTarget) {
+void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
    ImGui_ImplOpenGL3_NewFrame();
    ImGui_ImplSDL2_NewFrame(window);
    ImGui::NewFrame();
@@ -313,7 +313,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
    if (m_projectOpen) {DrawProject(ecs, sceneManager);}
    if (m_sceneSettingsOpen) {DrawSceneSettings(ecs, sceneManager);}
-   DrawConsole(strCout);
+//   DrawConsole(strCout);
    DrawScene(ecs, renderTarget, camera);
 }
 

@@ -72,7 +72,7 @@ public:
 
    void EndFrame();
 
-   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, std::ostringstream& strCout, Crimson::RenderTarget& renderTarget);
+   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget);
    void Update(const SDL_Event& event);
 
    void DrawConsole(std::ostringstream& strCout);

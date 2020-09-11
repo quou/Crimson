@@ -24,7 +24,7 @@ private:
 
    Crimson::RenderTarget m_renderTarget;
 
-   //Crimson::ScriptWrapper m_script;
+   Crimson::ScriptComponent m_testScript;
 
 public:
    App() : Application("Editor"),
@@ -32,6 +32,7 @@ public:
 
    void UpdateGui(SDL_Event e) {
       m_gui.Update(e);
+
    }
 
    void OnBegin() override  {
@@ -39,14 +40,13 @@ public:
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
 
-      //m_script.LoadAndCompile("Resources/Scripts/TestScript.jinx");
-      //m_script.Execute();
-
-      //m_script.RunFunction("on begin");
+      m_testScript.scriptFile = "Resources/Scripts/test.as";
+      Crimson::Scripting::InitModule(&m_testScript, m_scriptingEngine);
+      Crimson::Scripting::CallFunction("void OnBegin()", &m_testScript, m_scriptingEngine);
    }
 
    void OnUpdate(float delta) override {
-      //m_script.RunFunction("on update {}", {delta});
+      Crimson::Scripting::CallOnUpdate(&m_testScript, m_scriptingEngine, delta);
 
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
@@ -126,9 +126,13 @@ public:
       Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
-      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_strCout, m_renderTarget);
+      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_renderTarget);
 
       m_gui.EndFrame();
+   }
+
+   virtual ~App() {
+      Crimson::Scripting::DeinitModule(&m_testScript, m_scriptingEngine);
    }
 };
 

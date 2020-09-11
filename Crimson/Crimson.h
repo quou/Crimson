@@ -42,6 +42,10 @@ SOFTWARE.
 #include "Graphics/Lighting/DirectionalLight.h"
 #include "Graphics/Lighting/PointLight.h"
 
+/* Scripting */
+#include "Scripting/ScriptComponent.h"
+#include "Scripting/ScriptStandardFunctions.h"
+#include "Scripting/ScriptWrapper.h"
 
 /* Scene Management */
 #include "SceneManagement/SceneSettings.h"
