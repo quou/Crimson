@@ -12,6 +12,8 @@
 #include "Graphics/Cubemap.h"
 #include "Graphics/Lighting/DirectionalShadowmap.h"
 
+#include "Scripting/ScriptWrapper.h"
+
 namespace Crimson {
    class Renderer;
 
@@ -26,8 +28,10 @@ namespace Crimson {
       void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
 
       DirectionalShadowmap m_directionalShadowmap;
+
+      asIScriptEngine* scriptEngine;
    public:
-      void Init();
+      void Init(asIScriptEngine* engine);
 
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
 

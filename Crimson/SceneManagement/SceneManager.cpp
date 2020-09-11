@@ -11,12 +11,17 @@
 #include "Graphics/Lighting/PointLight.h"
 #include "Graphics/Renderer.h"
 
+#include "ComponentSystems/ScriptSystems.h"
+
 using namespace tinyxml2;
 
 
 namespace Crimson {
 
-   void SceneManager::Init() {
+   void SceneManager::Init(asIScriptEngine* engine) {
+      scriptEngine = engine;
+
+
       std::vector<std::string> skyboxFaces;
       skyboxFaces.push_back("Resources/skybox/right.jpg");
       skyboxFaces.push_back("Resources/skybox/left.jpg");
@@ -126,6 +131,12 @@ namespace Crimson {
          float quadratic = ePoint->FloatAttribute("quadratic");
 
          ecs.AddComponent<PointLight>(newEntity, constant, linear, quadratic, ambient, diffuse, specular);
+      }
+
+      /* SCRIPT LOADING */
+      eComponent = node->FirstChildElement("script");
+      if (eComponent) {
+         ecs.AddComponent<ScriptComponent>(newEntity, eComponent->Attribute("res"));
       }
 
       m_entities.push_back(newEntity);
@@ -250,6 +261,12 @@ namespace Crimson {
          printer.CloseElement();
       }
 
+      if (ecs.HasComponent<ScriptComponent>(ent)) {
+         printer.OpenElement("script");
+            printer.PushAttribute("res", ecs.GetComponent<ScriptComponent>(ent)->scriptFile.c_str());
+         printer.CloseElement();
+      }
+
       if (ecs.HasComponent<Transform>(ent)) {
          for (auto& e : ecs.GetComponent<Transform>(ent)->children) {
             SerializeEntity(e, printer, ecs);
@@ -355,6 +372,8 @@ namespace Crimson {
       } catch (const std::exception& e) {
          std::cout << e.what() << "\n";
       }
+
+      CompileScripts(ecs, scriptEngine);
 
       std::cout << "Loaded Scene: " << fileName <<'\n';
 

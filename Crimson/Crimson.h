@@ -55,6 +55,7 @@ SOFTWARE.
 #include "SLECS.h"
 #include "ComponentSystems/GraphicsSystems.h"
 #include "ComponentSystems/Transform.h"
+#include "ComponentSystems/ScriptSystems.h"
 
 /* Utils */
 #include "Utils/FileUtils.h"

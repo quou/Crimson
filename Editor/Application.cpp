@@ -24,7 +24,7 @@ private:
 
    Crimson::RenderTarget m_renderTarget;
 
-   Crimson::ScriptComponent m_testScript;
+   // Crimson::ScriptComponent m_testScript;
 
 public:
    App() : Application("Editor"),
@@ -40,13 +40,16 @@ public:
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
 
-      m_testScript.scriptFile = "Resources/Scripts/test.as";
-      Crimson::Scripting::InitModule(&m_testScript, m_scriptingEngine);
-      Crimson::Scripting::CallFunction("void OnBegin()", &m_testScript, m_scriptingEngine);
+      Crimson::InitScripts(m_ecs, m_scriptingEngine);
+
+      // m_testScript.scriptFile = "Resources/Scripts/test.as";
+      // Crimson::Scripting::InitModule(&m_testScript, m_scriptingEngine);
+      // Crimson::Scripting::CallFunction("void OnBegin()", &m_testScript, m_scriptingEngine);
    }
 
    void OnUpdate(float delta) override {
-      Crimson::Scripting::CallOnUpdate(&m_testScript, m_scriptingEngine, delta);
+      // Crimson::Scripting::CallOnUpdate(&m_testScript, m_scriptingEngine, delta);
+      Crimson::UpdateScripts(m_ecs, m_scriptingEngine, delta);
 
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
@@ -132,7 +135,7 @@ public:
    }
 
    virtual ~App() {
-      Crimson::Scripting::DeinitModule(&m_testScript, m_scriptingEngine);
+      // Crimson::Scripting::DeinitModule(&m_testScript, m_scriptingEngine);
    }
 };
 
