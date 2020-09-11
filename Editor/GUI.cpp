@@ -12,6 +12,15 @@
 #include <string>
 #include <algorithm>
 
+
+static bool hasEnding(std::string const &fullString, std::string const &ending) {
+    if (fullString.length() >= ending.length()) {
+        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+    } else {
+        return false;
+    }
+}
+
 void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Hierarchy", &m_hierarchyOpen);
 
@@ -61,7 +70,11 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
             if (ImGui::BeginDragDropTarget()) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
-                  ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.Load(toSet);
+                  if (hasEnding(toSet, ".obj")) {
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.Load(toSet);
+                  } else {
+                     std::cout << "Invalid mesh file. Only use .obj files for meshes" << '\n';
+                  }
                }
                ImGui::EndDragDropTarget();
             }

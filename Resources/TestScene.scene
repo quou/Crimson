@@ -28,14 +28,14 @@
     </entity>
     <entity>
         <transform name="Monkies">
-            <position x="-1.5" y="2" z="-1"/>
+            <position x="-4.1050505638122559" y="2" z="-1.95536208152771"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <entity>
             <transform name="Monkey1">
-                <position x="3.8495008945465088" y="-0.54249715805053711" z="0.57927358150482178"/>
-                <rotation x="0" y="0" z="0"/>
+                <position x="4.7183980941772461" y="-0.54249715805053711" z="0.57927358150482178"/>
+                <rotation x="0" y="-0" z="0"/>
                 <scale x="0.99999988079071045" y="1.0000002384185791" z="1.0000001192092896"/>
             </transform>
             <model>
