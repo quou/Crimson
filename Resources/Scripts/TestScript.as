@@ -8,7 +8,7 @@ void OnUpdate(float delta) {
    counter++;
 
    if (counter > 5000 * delta) {
-      print("Hello from update");
+      print("Hello from the update loop");
       counter = 0;
    }
 }

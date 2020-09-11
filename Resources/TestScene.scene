@@ -25,7 +25,7 @@
                 <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
             </material>
         </model>
-        <script res="Resources/Scripts/TestScript.as"/>
+        <script res="Resources/Scripts/AnotherScript.as"/>
     </entity>
     <entity>
         <transform name="Monkies">

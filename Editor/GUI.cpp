@@ -75,7 +75,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                      Crimson::Scripting::InitModule(ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity), m_scriptingEngine);
                      Crimson::Scripting::CallFunction("void OnBegin()",ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity),m_scriptingEngine);
                   } else {
-                     std::cout << "Invalid mesh file. Only use .as files for scripts" << '\n';
+                     std::cout << "Invalid script file. Only use .as files for scripts" << '\n';
                   }
                }
                ImGui::EndDragDropTarget();
