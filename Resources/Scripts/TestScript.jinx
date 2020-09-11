@@ -6,6 +6,8 @@ public function on begin
 end
 
 public function on update {number delta}
-   write line "Delta time: ", delta
+   --write line "Delta time: ", delta
    --write line meaning of life
+   --write line x position
+   --increment x position by 1 * delta
 end

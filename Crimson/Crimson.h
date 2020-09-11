@@ -42,8 +42,6 @@ SOFTWARE.
 #include "Graphics/Lighting/DirectionalLight.h"
 #include "Graphics/Lighting/PointLight.h"
 
-/* Scripting */
-#include "Script/ScriptWrapper.h"
 
 /* Scene Management */
 #include "SceneManagement/SceneSettings.h"
@@ -52,7 +50,6 @@ SOFTWARE.
 /* ECS */
 #include "SLECS.h"
 #include "ComponentSystems/GraphicsSystems.h"
-#include "ComponentSystems/ScriptSystems.h"
 #include "ComponentSystems/Transform.h"
 
 /* Utils */

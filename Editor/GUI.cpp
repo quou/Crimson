@@ -63,7 +63,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
          t->rotation = glm::vec3(m_newrot[0], m_newrot[1], m_newrot[2]);
          t->scale = glm::vec3(m_newscale[0], m_newscale[1], m_newscale[2]);
       }
-
+      
       if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Model")) {
             ImGui::Text("Mesh");

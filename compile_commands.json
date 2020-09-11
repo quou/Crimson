@@ -81,11 +81,6 @@
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Script/ScriptWrapper.cpp.o -c /home/george/Documents/Crimson/Crimson/Script/ScriptWrapper.cpp",
-  "file": "/home/george/Documents/Crimson/Crimson/Script/ScriptWrapper.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
   "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/obj_loader.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/obj_loader.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/obj_loader.cpp"
 },
