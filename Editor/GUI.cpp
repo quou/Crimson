@@ -64,6 +64,25 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
          t->scale = glm::vec3(m_newscale[0], m_newscale[1], m_newscale[2]);
       }
 
+      if (ecs.HasComponent<Crimson::ScriptComponent>(m_selectedEntity)) {
+         if (ImGui::CollapsingHeader("Script")) {
+            ImGui::Text("%s", ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.c_str());
+            if (ImGui::BeginDragDropTarget()) {
+               if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                  std::string toSet = static_cast<const char*>(payload->Data);
+                  if (hasEnding(toSet, ".as")) {
+                     ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile = toSet;
+                     Crimson::Scripting::InitModule(ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity), m_scriptingEngine);
+                     Crimson::Scripting::CallFunction("void OnBegin()",ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity),m_scriptingEngine);
+                  } else {
+                     std::cout << "Invalid mesh file. Only use .as files for scripts" << '\n';
+                  }
+               }
+               ImGui::EndDragDropTarget();
+            }
+         }
+      }
+
       if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Model")) {
             ImGui::Text("Mesh");
@@ -261,17 +280,19 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
    }
 }
 
-GUI::GUI(SDL_Window* window, const SDL_GLContext glContext) {
+GUI::GUI(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine) {
    m_workingDir = std::filesystem::current_path().string() + "/";
    std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
-   Init(window, glContext);
+   Init(window, glContext, scriptEngine);
 }
 
 void GUI::Update(const SDL_Event& event) {
    ImGui_ImplSDL2_ProcessEvent(&event);
 }
 
-void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
+void GUI::Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine) {
+   m_scriptingEngine = scriptEngine;
+
    m_window = window;
 
    m_workingDir = std::filesystem::current_path().string() + "/";

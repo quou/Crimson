@@ -28,6 +28,18 @@ namespace Crimson {
       void InitModule(ScriptComponent* scriptComponent, asIScriptEngine* engine) {
          scriptComponent->compiled = false;
 
+         if (scriptComponent->module) {
+            engine->DiscardModule(scriptComponent->scriptFile.c_str());
+            //scriptComponent->module->Discard();
+         }
+
+         if (scriptComponent->context) {
+            scriptComponent->context->Release();
+         }
+
+         scriptComponent->module = nullptr;
+         scriptComponent->context = nullptr;
+
          CScriptBuilder builder;
          int r = builder.StartNewModule(engine, scriptComponent->scriptFile.c_str());
          if( r < 0 )

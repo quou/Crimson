@@ -32,11 +32,10 @@ public:
 
    void UpdateGui(SDL_Event e) {
       m_gui.Update(e);
-
    }
 
    void OnBegin() override  {
-      m_gui.Init(GetSDLWindow(), GetSDLGLContext());
+      m_gui.Init(GetSDLWindow(), GetSDLGLContext(), m_scriptingEngine);
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
 

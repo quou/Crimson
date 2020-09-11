@@ -65,10 +65,12 @@ private:
    float m_newpos[3];
    float m_newrot[3];
    float m_newscale[3];
+
+   asIScriptEngine* m_scriptingEngine;
 public:
    GUI(){}
-   GUI(SDL_Window* window, const SDL_GLContext glContext);
-   void Init(SDL_Window* window, const SDL_GLContext glContext);
+   GUI(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine);
+   void Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine);
 
    void EndFrame();
 
