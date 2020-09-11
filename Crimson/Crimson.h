@@ -52,6 +52,7 @@ SOFTWARE.
 /* ECS */
 #include "SLECS.h"
 #include "ComponentSystems/GraphicsSystems.h"
+#include "ComponentSystems/ScriptSystems.h"
 #include "ComponentSystems/Transform.h"
 
 /* Utils */

@@ -24,7 +24,7 @@ private:
 
    Crimson::RenderTarget m_renderTarget;
 
-   Crimson::ScriptWrapper m_script;
+   //Crimson::ScriptWrapper m_script;
 
 public:
    App() : Application("Editor"),
@@ -39,14 +39,14 @@ public:
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
 
-      m_script.LoadAndCompile("Resources/Scripts/TestScript.jinx");
-      m_script.Execute();
+      //m_script.LoadAndCompile("Resources/Scripts/TestScript.jinx");
+      //m_script.Execute();
 
-      m_script.RunFunction("on begin");
+      //m_script.RunFunction("on begin");
    }
 
    void OnUpdate(float delta) override {
-      m_script.RunFunction("on update {}", {delta});
+      //m_script.RunFunction("on update {}", {delta});
 
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 

@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include "ComponentSystems/Transform.h"
+#include "ComponentSystems/ScriptSystems.h"
 
 namespace Crimson {
    Uint64 NOW = SDL_GetPerformanceCounter();
@@ -32,10 +33,13 @@ namespace Crimson {
       }
 
       OnBegin();
+      RunScripts(m_ecs);
+      CallFunctionInAllScripts(m_ecs, "on begin", {});
    }
 
    void Application::Update(float delta) {
       UpdateTransforms(m_ecs);
+      CallFunctionInAllScripts(m_ecs, "on update {}", {delta});
    }
 
    void Application::Render() {
@@ -83,7 +87,7 @@ namespace Crimson {
             }
          }
 
-         Update(1.0f);
+         Update(m_deltaTime);
          OnUpdate(m_deltaTime);
          Render();
       }

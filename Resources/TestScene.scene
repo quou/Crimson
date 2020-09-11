@@ -49,6 +49,7 @@
                     <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
                 </material>
             </model>
+            <script res="Resources/Scripts/TestScript.jinx"/>
         </entity>
         <entity>
             <transform name="Monkey2">

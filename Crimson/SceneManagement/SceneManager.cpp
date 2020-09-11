@@ -8,6 +8,7 @@
 
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/GraphicsSystems.h"
+#include "ComponentSystems/ScriptSystems.h"
 #include "Graphics/Lighting/PointLight.h"
 #include "Graphics/Renderer.h"
 
@@ -126,6 +127,13 @@ namespace Crimson {
          float quadratic = ePoint->FloatAttribute("quadratic");
 
          ecs.AddComponent<PointLight>(newEntity, constant, linear, quadratic, ambient, diffuse, specular);
+      }
+
+      /* SCRIPT LOADING */
+      eComponent = node->FirstChildElement("script");
+      if (eComponent) {
+         std::string path = eComponent->Attribute("res");
+         ecs.AddComponent<ScriptComponent>(newEntity)->scriptWrapper.LoadAndCompile(path);
       }
 
       m_entities.push_back(newEntity);
@@ -247,6 +255,12 @@ namespace Crimson {
                printer.PushAttribute("y", specular.y);
                printer.PushAttribute("z", specular.z);
             printer.CloseElement();
+         printer.CloseElement();
+      }
+
+      if (ecs.HasComponent<ScriptComponent>(ent)) {
+         printer.OpenElement("script");
+         printer.PushAttribute("res", ecs.GetComponent<ScriptComponent>(ent)->scriptWrapper.GetCodePath().c_str());
          printer.CloseElement();
       }
 
