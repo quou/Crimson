@@ -366,19 +366,17 @@ void GUI::SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs) {
    }
 }
 
-GUI::GUI(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine) {
+GUI::GUI(SDL_Window* window, const SDL_GLContext glContext) {
    m_workingDir = std::filesystem::current_path().string() + "/";
    std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
-   Init(window, glContext, scriptEngine);
+   Init(window, glContext);
 }
 
 void GUI::Update(const SDL_Event& event) {
    ImGui_ImplSDL2_ProcessEvent(&event);
 }
 
-void GUI::Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine) {
-   m_scriptingEngine = scriptEngine;
-
+void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
    m_window = window;
 
    m_workingDir = std::filesystem::current_path().string() + "/";

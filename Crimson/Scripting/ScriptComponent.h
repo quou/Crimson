@@ -1,16 +1,14 @@
 #ifndef SCRIPTCOMPONENT_H
 #define SCRIPTCOMPONENT_H
 
-#include <angelscript.h>
+#include "chaiscript/chaiscript.hpp"
 
 #include <string>
 
 namespace Crimson {
    struct ScriptComponent {
       std::string scriptFile;
-      asIScriptContext* context;
-      asIScriptModule* module;
-      bool compiled{false};
+      chaiscript::ChaiScript chai;
    };
 }
 

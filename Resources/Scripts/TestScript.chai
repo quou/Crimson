@@ -1,0 +1,7 @@
+def OnBegin() {
+   print("Hello, world");
+}
+
+def OnUpdate(float delta) {
+   print("Hello, from OnUpdate");
+}

@@ -31,7 +31,7 @@ public:
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.0f, 1000.0f) {}
 
    void OnBegin() override {
-      m_gui.Init(GetSDLWindow(), GetSDLGLContext(), m_scriptingEngine);
+      m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
    }
@@ -47,7 +47,7 @@ public:
       }
 
       if (m_isPlaying) {
-         Crimson::UpdateScripts(m_ecs, m_scriptingEngine, delta);
+         Crimson::UpdateScripts(m_ecs, delta);
       }
 
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
@@ -139,8 +139,8 @@ public:
       m_gui.SaveScene(m_sceneManager, m_ecs);
 
       if (m_gui.IsSaved()) {
-         Crimson::CompileScripts(m_ecs, m_scriptingEngine);
-         Crimson::InitScripts(m_ecs, m_scriptingEngine);
+         Crimson::CompileScripts(m_ecs);
+         Crimson::InitScripts(m_ecs);
       }
       m_isPlaying = true;
    }

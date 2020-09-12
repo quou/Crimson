@@ -1,148 +1,133 @@
 [
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Editor.dir/Editor/Application.cpp.o -c /home/george/Documents/Crimson/Editor/Application.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Editor.dir/Editor/Application.cpp.o -c /home/george/Documents/Crimson/Editor/Application.cpp",
   "file": "/home/george/Documents/Crimson/Editor/Application.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Editor.dir/Editor/GUI.cpp.o -c /home/george/Documents/Crimson/Editor/GUI.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Editor.dir/Editor/GUI.cpp.o -c /home/george/Documents/Crimson/Editor/GUI.cpp",
   "file": "/home/george/Documents/Crimson/Editor/GUI.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/imgui.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_demo.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_demo.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_demo.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_demo.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/imgui_demo.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_draw.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_draw.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_draw.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_draw.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/imgui_draw.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_widgets.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_widgets.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/imgui_widgets.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/imgui_widgets.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/imgui_widgets.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/examples/imgui_impl_sdl.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_sdl.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/examples/imgui_impl_sdl.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_sdl.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_sdl.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/examples/imgui_impl_opengl3.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_opengl3.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/imgui/examples/imgui_impl_opengl3.cpp.o -c /home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_opengl3.cpp",
   "file": "/home/george/Documents/Crimson/Extern/imgui/examples/imgui_impl_opengl3.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Display.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Display.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Display.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Display.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Display.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Renderer.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Renderer.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Renderer.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Renderer.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Renderer.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Shader.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Shader.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Shader.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Shader.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Shader.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Model.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Model.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Model.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Model.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Model.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/RenderTarget.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/RenderTarget.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/RenderTarget.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/RenderTarget.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/RenderTarget.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Texture.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Texture.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Texture.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Texture.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Texture.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Cubemap.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Cubemap.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Cubemap.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Cubemap.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Cubemap.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Lighting/DirectionalShadowmap.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Lighting/DirectionalShadowmap.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Lighting/DirectionalShadowmap.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Lighting/DirectionalShadowmap.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Lighting/DirectionalShadowmap.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Scripting/ScriptStandardFunctions.cpp.o -c /home/george/Documents/Crimson/Crimson/Scripting/ScriptStandardFunctions.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Scripting/ScriptStandardFunctions.cpp.o -c /home/george/Documents/Crimson/Crimson/Scripting/ScriptStandardFunctions.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Scripting/ScriptStandardFunctions.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Scripting/ScriptWrapper.cpp.o -c /home/george/Documents/Crimson/Crimson/Scripting/ScriptWrapper.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Scripting/ScriptWrapper.cpp.o -c /home/george/Documents/Crimson/Crimson/Scripting/ScriptWrapper.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Scripting/ScriptWrapper.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/obj_loader.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/obj_loader.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/obj_loader.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/obj_loader.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/obj_loader.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/cc  -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -o CMakeFiles/Crimson.dir/Crimson/Utils/stb_image.c.o   -c /home/george/Documents/Crimson/Crimson/Utils/stb_image.c",
+  "command": "/usr/bin/cc  -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -o CMakeFiles/Crimson.dir/Crimson/Utils/stb_image.c.o   -c /home/george/Documents/Crimson/Crimson/Utils/stb_image.c",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/stb_image.c"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/tinyxml2.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/tinyxml2.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/tinyxml2.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/tinyxml2.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/tinyxml2.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/ImGuizmo.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/ImGuizmo.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/ImGuizmo.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/ImGuizmo.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/ImGuizmo.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/TextEditor/TextEditor.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/TextEditor/TextEditor.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/TextEditor/TextEditor.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/TextEditor/TextEditor.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Utils/TextEditor/TextEditor.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/SceneManagement/SceneManager.cpp.o -c /home/george/Documents/Crimson/Crimson/SceneManagement/SceneManager.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/SceneManagement/SceneManager.cpp.o -c /home/george/Documents/Crimson/Crimson/SceneManagement/SceneManager.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/SceneManagement/SceneManager.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Application.cpp.o -c /home/george/Documents/Crimson/Crimson/Application.cpp",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Application.cpp.o -c /home/george/Documents/Crimson/Crimson/Application.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Application.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/angelscript/add_on/scriptbuilder/scriptbuilder.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/add_on/scriptbuilder/scriptbuilder.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/add_on/scriptbuilder/scriptbuilder.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/angelscript/add_on/scripthelper/scripthelper.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/add_on/scripthelper/scripthelper.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/add_on/scripthelper/scripthelper.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Extern/angelscript/add_on/scriptstdstring/scriptstdstring.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/add_on/scriptstdstring/scriptstdstring.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/add_on/scriptstdstring/scriptstdstring.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson/Extern/SDL",
@@ -1873,170 +1858,5 @@
   "directory": "/home/george/Documents/Crimson/Extern/glad",
   "command": "/usr/bin/cc  -I/home/george/Documents/Crimson/Extern/glad/include  -g   -o CMakeFiles/glad.dir/src/glad.c.o   -c /home/george/Documents/Crimson/Extern/glad/src/glad.c",
   "file": "/home/george/Documents/Crimson/Extern/glad/src/glad.c"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_atomic.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_atomic.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_atomic.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_builder.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_builder.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_builder.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_bytecode.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_bytecode.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_bytecode.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc_mips.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_mips.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_mips.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc_x86.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x86.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x86.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc_x64_gcc.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_gcc.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_gcc.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc_x64_msvc.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_msvc.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_msvc.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_callfunc_x64_mingw.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_mingw.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_callfunc_x64_mingw.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_compiler.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_compiler.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_compiler.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_configgroup.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_configgroup.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_configgroup.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_context.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_context.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_context.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_datatype.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_datatype.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_datatype.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_gc.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_gc.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_gc.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_generic.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_generic.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_generic.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_globalproperty.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_globalproperty.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_globalproperty.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_memory.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_memory.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_memory.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_module.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_module.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_module.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_objecttype.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_objecttype.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_objecttype.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_outputbuffer.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_outputbuffer.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_outputbuffer.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_parser.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_parser.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_parser.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_restore.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_restore.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_restore.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_scriptcode.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_scriptcode.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_scriptcode.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_scriptengine.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_scriptengine.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_scriptengine.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_scriptfunction.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_scriptfunction.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_scriptfunction.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_scriptnode.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_scriptnode.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_scriptnode.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_scriptobject.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_scriptobject.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_scriptobject.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_string.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_string.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_string.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_string_util.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_string_util.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_string_util.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_thread.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_thread.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_thread.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_tokenizer.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_tokenizer.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_tokenizer.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_typeinfo.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_typeinfo.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_typeinfo.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson/Extern/angelscript",
-  "command": "/usr/bin/c++  -DANGELSCRIPT_EXPORT -D_LIB -I/home/george/Documents/Crimson/Extern/angelscript/include  -g   -fPIC -o CMakeFiles/angelscript.dir/source/as_variablescope.cpp.o -c /home/george/Documents/Crimson/Extern/angelscript/source/as_variablescope.cpp",
-  "file": "/home/george/Documents/Crimson/Extern/angelscript/source/as_variablescope.cpp"
 }
 ]

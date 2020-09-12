@@ -12,7 +12,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 add_subdirectory(Extern/SDL)
 add_subdirectory(Extern/glad)
 add_subdirectory(Extern/glm)
-add_subdirectory(Extern/angelscript)
 
 
 set(CMAKE_CXX_STANDARD 17)
@@ -26,8 +25,6 @@ set(CRIMSON_EXT_INCLUDES
    Extern/glm
    Extern/imgui
    Extern/imgui/examples
-   Extern/angelscript/include
-   Extern/angelscript/add_on
 )
 
 set(CRIMSON_INCLUDE_DIR Crimson)
@@ -63,12 +60,6 @@ set(CRIMSON_SOURCE
    Crimson/Application.cpp
 )
 
-set(ANGELSCRIPT_ADDON_SOURCE
-   Extern/angelscript/add_on/scriptbuilder/scriptbuilder.cpp
-   Extern/angelscript/add_on/scripthelper/scripthelper.cpp
-   Extern/angelscript/add_on/scriptstdstring/scriptstdstring.cpp
-)
-
 if (WIN32)
    set(GL_LIB opengl32)
 else()
@@ -77,13 +68,12 @@ endif()
 
 set(CRIMSON_DEPS
    ${GL_LIB}
-   ${ANGELSCRIPT_LIBRARY_NAME}
    glad
    SDL2main
    SDL2
 )
 
-add_library(Crimson ${CRIMSON_SOURCE} ${ANGELSCRIPT_ADDON_SOURCE})
+add_library(Crimson ${CRIMSON_SOURCE})
 target_include_directories(Crimson PUBLIC ${CRIMSON_EXT_INCLUDES} Crimson)
 target_link_libraries(Crimson ${CRIMSON_DEPS})
 

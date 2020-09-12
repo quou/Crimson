@@ -69,8 +69,6 @@ private:
    float m_newrot[3];
    float m_newscale[3];
 
-   asIScriptEngine* m_scriptingEngine;
-
    bool m_isSaved{false};
 
    bool m_shouldPlay {false};
@@ -78,8 +76,8 @@ private:
    TextEditor m_textEditor;
 public:
    GUI(){}
-   GUI(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine);
-   void Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine);
+   GUI(SDL_Window* window, const SDL_GLContext glContext);
+   void Init(SDL_Window* window, const SDL_GLContext glContext);
 
    void EndFrame();
 

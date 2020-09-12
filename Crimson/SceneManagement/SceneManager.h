@@ -28,10 +28,8 @@ namespace Crimson {
       void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
 
       DirectionalShadowmap m_directionalShadowmap;
-
-      asIScriptEngine* scriptEngine;
    public:
-      void Init(asIScriptEngine* engine);
+      void Init();
 
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
 

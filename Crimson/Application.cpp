@@ -19,11 +19,7 @@ namespace Crimson {
       m_display.Init(1366, 768, SDL_WINDOW_RESIZABLE, m_title.c_str());
       m_renderer.Init();
 
-      m_scriptingEngine = Scripting::CreateEngine();
-      Scripting::SetupMessageSystem(m_scriptingEngine);
-      Scripting::RegisterFunctions(m_scriptingEngine);
-
-      m_sceneManager.Init(m_scriptingEngine);
+      m_sceneManager.Init();
    }
 
    void Application::Init() {
@@ -95,8 +91,6 @@ namespace Crimson {
    }
 
    Application::~Application() {
-      DestroyScripts(m_ecs, m_scriptingEngine);
-      Scripting::Shutdown(m_scriptingEngine);
       SDL_Quit();
       std::cout << "Quit" << '\n';
    }

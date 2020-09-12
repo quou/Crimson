@@ -10,8 +10,6 @@
 #include <iostream>
 #include <sstream>
 
-#include <angelscript.h>
-
 namespace Crimson {
    class Application {
    private:
@@ -49,8 +47,6 @@ namespace Crimson {
       Keyboard m_keyboard;
       ECS m_ecs;
       SceneManager m_sceneManager;
-
-      asIScriptEngine* m_scriptingEngine;
 
    public:
       void Run();

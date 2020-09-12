@@ -18,10 +18,7 @@ using namespace tinyxml2;
 
 namespace Crimson {
 
-   void SceneManager::Init(asIScriptEngine* engine) {
-      scriptEngine = engine;
-
-
+   void SceneManager::Init() {
       std::vector<std::string> skyboxFaces;
       skyboxFaces.push_back("Resources/skybox/right.jpg");
       skyboxFaces.push_back("Resources/skybox/left.jpg");
@@ -379,8 +376,6 @@ namespace Crimson {
       } catch (const std::exception& e) {
          std::cout << e.what() << "\n";
       }
-
-      CompileScripts(ecs, scriptEngine);
 
       std::cout << "Loaded Scene: " << fileName <<'\n';
 
