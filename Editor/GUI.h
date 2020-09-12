@@ -5,6 +5,7 @@
 #include <Crimson.h>
 
 #include <Utils/FileBrowser/ImGuiFileBrowser.h>
+#include <Utils/TextEditor/TextEditor.h>
 #include <Utils/ImGuizmo.h>
 
 #include <sstream>
@@ -69,6 +70,10 @@ private:
    float m_newscale[3];
 
    asIScriptEngine* m_scriptingEngine;
+
+   bool m_shouldPlay {false};
+
+   TextEditor m_textEditor;
 public:
    GUI(){}
    GUI(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngine* scriptEngine);
@@ -85,6 +90,7 @@ public:
    void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
 
    inline bool IsSceneFocused() {return m_isSceneFocused;}
+   inline bool GetShouldPlay() {return m_shouldPlay;}
 
    ~GUI();
 };

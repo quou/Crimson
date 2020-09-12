@@ -30,7 +30,6 @@ namespace Crimson {
 
          if (scriptComponent->module) {
             engine->DiscardModule(scriptComponent->scriptFile.c_str());
-            //scriptComponent->module->Discard();
          }
 
          if (scriptComponent->context) {
@@ -73,6 +72,12 @@ namespace Crimson {
       }
 
       void DeinitModule(ScriptComponent* scriptComponent, asIScriptEngine* engine) {
+         scriptComponent->compiled = false;
+
+         if (scriptComponent->module) {
+            engine->DiscardModule(scriptComponent->scriptFile.c_str());
+         }
+
          if (scriptComponent->context) {
             scriptComponent->context->Release();
          }

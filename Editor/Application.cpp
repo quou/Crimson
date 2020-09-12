@@ -18,37 +18,37 @@ private:
    glm::mat4 m_modl;
    glm::mat4 m_view;
 
-   float m_curAngle = 0.0f;
+   float m_curAngle {0.0f};
 
    GUI m_gui;
 
    Crimson::RenderTarget m_renderTarget;
 
-   // Crimson::ScriptComponent m_testScript;
+   bool m_isPlaying {false};
 
 public:
    App() : Application("Editor"),
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.0f, 1000.0f) {}
 
-   void UpdateGui(SDL_Event e) {
-      m_gui.Update(e);
-   }
-
-   void OnBegin() override  {
+   void OnBegin() override {
       m_gui.Init(GetSDLWindow(), GetSDLGLContext(), m_scriptingEngine);
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
-
-      Crimson::InitScripts(m_ecs, m_scriptingEngine);
-
-      // m_testScript.scriptFile = "Resources/Scripts/test.as";
-      // Crimson::Scripting::InitModule(&m_testScript, m_scriptingEngine);
-      // Crimson::Scripting::CallFunction("void OnBegin()", &m_testScript, m_scriptingEngine);
    }
 
    void OnUpdate(float delta) override {
-      // Crimson::Scripting::CallOnUpdate(&m_testScript, m_scriptingEngine, delta);
-      Crimson::UpdateScripts(m_ecs, m_scriptingEngine, delta);
+      if (m_gui.GetShouldPlay() != m_isPlaying) {
+         if (m_gui.GetShouldPlay()) {
+            Play();
+         } else {
+            Stop();
+         }
+         m_isPlaying = m_gui.GetShouldPlay();
+      }
+
+      if (m_isPlaying) {
+         Crimson::UpdateScripts(m_ecs, m_scriptingEngine, delta);
+      }
 
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
@@ -133,8 +133,25 @@ public:
       m_gui.EndFrame();
    }
 
+   void Play() {
+      std::cout << "play" << '\n';
+      Crimson::CompileScripts(m_ecs, m_scriptingEngine);
+      Crimson::InitScripts(m_ecs, m_scriptingEngine);
+      m_isPlaying = true;
+   }
+
+   void Stop() {
+      std::cout << "stop" << '\n';
+      //Crimson::DestroyScripts(m_ecs, m_scriptingEngine);
+      m_isPlaying = false;
+   }
+
+   void UpdateGui(SDL_Event e) {
+      m_gui.Update(e);
+   }
+
    virtual ~App() {
-      // Crimson::Scripting::DeinitModule(&m_testScript, m_scriptingEngine);
+      
    }
 };
 

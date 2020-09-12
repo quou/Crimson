@@ -58,6 +58,7 @@ set(CRIMSON_SOURCE
    Crimson/Utils/tinyxml2.cpp
    Crimson/Utils/ImGuizmo.cpp
    Crimson/Utils/FileBrowser/ImGuiFileBrowser.cpp
+   Crimson/Utils/TextEditor/TextEditor.cpp
    Crimson/SceneManagement/SceneManager.cpp
    Crimson/Application.cpp
 )

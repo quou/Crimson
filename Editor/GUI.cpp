@@ -72,8 +72,6 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                   std::string toSet = static_cast<const char*>(payload->Data);
                   if (hasEnding(toSet, ".as")) {
                      ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile = toSet;
-                     Crimson::Scripting::InitModule(ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity), m_scriptingEngine);
-                     Crimson::Scripting::CallFunction("void OnBegin()",ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity),m_scriptingEngine);
                   } else {
                      std::cout << "Invalid script file. Only use .as files for scripts" << '\n';
                   }
@@ -196,6 +194,8 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::NextColumn();
 
    ImGui::Text("Scene");
+   if (ImGui::Button("Play")) {m_shouldPlay = true;}
+   if (ImGui::Button("stop")) {m_shouldPlay = false;}
 
    ImGui::NextColumn();
 
@@ -386,6 +386,18 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngin
 
    ImGui_ImplSDL2_InitForOpenGL(window, glContext);
    ImGui_ImplOpenGL3_Init("#version 330 core");
+
+   auto lang = TextEditor::LanguageDefinition::AngelScript();
+   m_textEditor.SetLanguageDefinition(lang);
+   static const char* fileToEdit = "Resources/Scripts/TestScript.as";
+	{
+		std::ifstream t(fileToEdit);
+		if (t.good())
+		{
+			std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+			m_textEditor.SetText(str);
+		}
+	}
 }
 
 void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
@@ -408,6 +420,11 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    if (m_projectOpen) {DrawProject(ecs, sceneManager);}
    if (m_sceneSettingsOpen) {DrawSceneSettings(ecs, sceneManager);}
    if (m_toolbarOpen) {DrawToolbar(ecs, sceneManager);}
+
+   // ImGui::Begin("Code Editor");
+   // m_textEditor.Render("Code Editor");
+   // ImGui::End();
+
 //   DrawConsole(strCout);
    DrawScene(ecs, renderTarget, camera);
 }

@@ -116,6 +116,11 @@
 },
 {
   "directory": "/home/george/Documents/Crimson",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Utils/TextEditor/TextEditor.cpp.o -c /home/george/Documents/Crimson/Crimson/Utils/TextEditor/TextEditor.cpp",
+  "file": "/home/george/Documents/Crimson/Crimson/Utils/TextEditor/TextEditor.cpp"
+},
+{
+  "directory": "/home/george/Documents/Crimson",
   "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Extern/angelscript/include -I/home/george/Documents/Crimson/Extern/angelscript/add_on -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/SceneManagement/SceneManager.cpp.o -c /home/george/Documents/Crimson/Crimson/SceneManagement/SceneManager.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/SceneManagement/SceneManager.cpp"
 },
