@@ -31,6 +31,7 @@ private:
    bool m_consoleOpen{true};
    bool m_projectOpen{true};
    bool m_sceneSettingsOpen{true};
+   bool m_toolbarOpen{true};
 
    bool m_showSaveAs{false};
    bool m_showOpen{false};
@@ -46,6 +47,7 @@ private:
    void DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager);
    void DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager);
    void DrawSceneSettings(ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager);
 
    void DrawEntityHierarchy(ECS& ecs, EntityHandle ent);
    void DrawDir(const std::string& dir);

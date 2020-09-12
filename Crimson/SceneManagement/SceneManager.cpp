@@ -46,6 +46,13 @@ namespace Crimson {
 
    void SceneManager::DeleteEntity(EntityHandle entity, ECS& ecs) {
       m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
+
+      if (ecs.HasComponent<Transform>(entity)) {
+         for (EntityHandle ent : ecs.GetComponent<Transform>(entity)->children) {
+            DeleteEntity(ent, ecs);
+         }
+      }
+
       ecs.DestroyEntity(entity);
    }
 

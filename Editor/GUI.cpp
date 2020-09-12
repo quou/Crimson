@@ -174,6 +174,36 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::End();
 }
 
+void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
+   ImGui::Begin("Toolbox", &m_toolbarOpen);
+
+   ImGui::Columns(3, NULL, false);
+
+   ImGui::Text("Entities");
+
+   if (ImGui::MenuItem("Delete Selected")) {
+      if (m_selectedEntity) {
+         sceneManager.DeleteEntity(m_selectedEntity, ecs);
+         m_selectedEntity = 0;
+      }
+   }
+
+   if (ImGui::MenuItem("Create New")) {
+      sceneManager.CreateEntity("New Entity", ecs);
+      m_selectedEntity = 0;
+   }
+
+   ImGui::NextColumn();
+
+   ImGui::Text("Scene");
+
+   ImGui::NextColumn();
+
+   ImGui::Columns(1);
+
+   ImGui::End();
+}
+
 void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
    if (m_selectedEntity == ent) {
@@ -189,6 +219,27 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
          m_selectedEntity = ent;
          m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(ent));
       }
+      if (ImGui::BeginDragDropTarget()) {
+         if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent")) {
+            EntityHandle draggedEntity = *static_cast<EntityHandle*>(payload->Data);
+
+            if (ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent) {
+               Crimson::RemoveChild(ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent), draggedEntity);
+               ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent = 0;
+            }
+
+            Crimson::AddChild(ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
+            Crimson::AddParent(ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
+         }
+         ImGui::EndDragDropTarget();
+      }
+      if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+
+         ImGui::SetDragDropPayload("Reparent", &ent, sizeof(ent));
+
+         ImGui::EndDragDropSource();
+      }
 
       for (EntityHandle e : ecs.GetComponent<Crimson::Transform>(ent)->children) {
          DrawEntityHierarchy(ecs, e);
@@ -198,6 +249,27 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
       if (ImGui::IsItemClicked()) {
          m_selectedEntity = ent;
          m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(ent));
+      }
+      if (ImGui::BeginDragDropTarget()) {
+         if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent")) {
+            EntityHandle draggedEntity = *static_cast<EntityHandle*>(payload->Data);
+
+            if (ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent) {
+               Crimson::RemoveChild(ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent), draggedEntity);
+               ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent = 0;
+            }
+
+            Crimson::AddChild(ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
+            Crimson::AddParent(ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
+         }
+         ImGui::EndDragDropTarget();
+      }
+      if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+
+         ImGui::SetDragDropPayload("Reparent", &ent, sizeof(ent));
+
+         ImGui::EndDragDropSource();
       }
    }
 }
@@ -251,6 +323,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
          ImGui::MenuItem("Inspector", NULL, &m_inspectorOpen);
          ImGui::MenuItem("Project Explorer", NULL, &m_projectOpen);
          ImGui::MenuItem("Scene Config", NULL, &m_sceneSettingsOpen);
+         ImGui::MenuItem("Toolbar", NULL, &m_toolbarOpen);
          ImGui::End();
       }
 
@@ -334,6 +407,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    if (m_hierarchyOpen) {DrawHierarchy(ecs, sceneManager);}
    if (m_projectOpen) {DrawProject(ecs, sceneManager);}
    if (m_sceneSettingsOpen) {DrawSceneSettings(ecs, sceneManager);}
+   if (m_toolbarOpen) {DrawToolbar(ecs, sceneManager);}
 //   DrawConsole(strCout);
    DrawScene(ecs, renderTarget, camera);
 }
