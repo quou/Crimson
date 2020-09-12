@@ -1,0 +1,9 @@
+def OnBegin() {
+
+}
+
+def OnUpdate(float delta) {
+   GetTransformComponent(entity).position.x += 1 * delta;
+   GetTransformComponent(entity).rotation.y += 1 * delta;
+   print(to_string(GetTransformComponent(entity).rotation.y));
+}

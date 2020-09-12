@@ -1,7 +1,9 @@
 def OnBegin() {
-   print("Hello, world");
+   var testVec = vec3();
+   print(to_string(testVec.x));
 }
 
 def OnUpdate(float delta) {
-   print("Hello, from OnUpdate");
+   // print("Hello, from OnUpdate");
+   //GetTransformComponent(entity).position.x -= 1 * delta;
 }

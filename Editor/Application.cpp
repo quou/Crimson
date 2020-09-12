@@ -143,6 +143,7 @@ public:
          Crimson::InitScripts(m_ecs);
       }
       m_isPlaying = true;
+      ImGui::StyleColorsClassic();
    }
 
    void Stop() {
@@ -152,6 +153,7 @@ public:
 
       //Crimson::DestroyScripts(m_ecs, m_scriptingEngine);
       m_isPlaying = false;
+      ImGui::StyleColorsDark();
    }
 
    void UpdateGui(SDL_Event e) {

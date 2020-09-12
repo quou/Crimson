@@ -37,6 +37,7 @@
                         <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
                     </material>
                 </model>
+                <script res="Resources/Scripts/Monkey.chai"/>
             </entity>
             <entity>
                 <transform name="Monkey2">
@@ -55,6 +56,7 @@
                         <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
                     </material>
                 </model>
+                <script res="Resources/Scripts/Monkey.chai"/>
             </entity>
         </entity>
         <entity>

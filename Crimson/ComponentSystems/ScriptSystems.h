@@ -8,7 +8,7 @@ namespace Crimson {
    static void CompileScripts(ECS& ecs) {
       int count = 1;
       for (EntityHandle ent : System<ScriptComponent>(ecs)) {
-         Scripting::Execute(ecs.GetComponent<ScriptComponent>(ent));
+         Scripting::Execute(ecs, ent, ecs.GetComponent<ScriptComponent>(ent));
          count++;
       }
    }

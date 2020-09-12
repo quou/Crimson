@@ -70,10 +70,10 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
             if (ImGui::BeginDragDropTarget()) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
-                  if (hasEnding(toSet, ".as")) {
+                  if (hasEnding(toSet, ".chai")) {
                      ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile = toSet;
                   } else {
-                     std::cout << "Invalid script file. Only use .as files for scripts" << '\n';
+                     std::cout << "Invalid script file. Only use .chai files for scripts" << '\n';
                   }
                }
                ImGui::EndDragDropTarget();

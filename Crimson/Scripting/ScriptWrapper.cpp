@@ -2,18 +2,37 @@
 
 #include "ScriptStandardFunctions.h"
 #include "ComponentSystems/Transform.h"
+#include "chaiscript/chaiscript.hpp"
 
 #include <glm/glm.hpp>
 
 namespace Crimson {
    namespace Scripting {
-      void Execute(ScriptComponent* scriptComponent) {
+      void Execute(ECS& ecs, EntityHandle ent, ScriptComponent* scriptComponent) {
          chaiscript::ChaiScript* chai = &scriptComponent->chai;
+
+         chai->add(chaiscript::user_type<glm::vec3>(), "vec3");
+         chai->add(chaiscript::constructor<glm::vec3()>(), "vec3");
+         chai->add(chaiscript::constructor<glm::vec3(float)>(), "vec3");
+         chai->add(chaiscript::constructor<glm::vec3(float, float, float)>(), "vec3");
+         chai->add(chaiscript::fun(&glm::vec3::x), "x");
+         chai->add(chaiscript::fun(&glm::vec3::y), "y");
+         chai->add(chaiscript::fun(&glm::vec3::z), "z");
+
+         chai->add(chaiscript::user_type<Transform>(), "Transform");
+         chai->add(chaiscript::fun(&Transform::position), "position");
+         chai->add(chaiscript::fun(&Transform::rotation), "rotation");
+         chai->add(chaiscript::fun(&Transform::scale), "scale");
+
+         chai->add(chaiscript::user_type<EntityHandle>(), "EntityHandle");
+         chai->add_global(chaiscript::var(ent), "entity");
+
+         chai->add(chaiscript::fun(&ECS::GetComponent<Transform>, &ecs), "GetTransformComponent");
 
          try {
             chai->use(scriptComponent->scriptFile);
          } catch (const chaiscript::exception::eval_error &e) {
-            std::cout << "Error\n" << e.pretty_print() << '\n';
+            std::cout << e.pretty_print() << '\n';
          }
       }
 
@@ -22,7 +41,7 @@ namespace Crimson {
             auto p = scriptComponent->chai.eval<std::function<void (float)>>("OnUpdate");
             p(delta);
          } catch (const chaiscript::exception::eval_error &e) {
-            std::cout << "Error\n" << e.pretty_print() << '\n';
+            std::cout << e.pretty_print() << '\n';
          } catch (const double e) {
          } catch (int) {
          } catch (float) {
@@ -37,7 +56,7 @@ namespace Crimson {
             auto p = scriptComponent->chai.eval<std::function<void ()>>("OnBegin");
             p();
          } catch (const chaiscript::exception::eval_error &e) {
-            std::cout << "Error\n" << e.pretty_print() << '\n';
+            std::cout << e.pretty_print() << '\n';
          } catch (const double e) {
          } catch (int) {
          } catch (float) {
