@@ -71,6 +71,8 @@ private:
 
    asIScriptEngine* m_scriptingEngine;
 
+   bool m_isSaved{false};
+
    bool m_shouldPlay {false};
 
    TextEditor m_textEditor;
@@ -88,9 +90,13 @@ public:
    void DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
 
    void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
+   void SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs);
+
+   inline std::string GetCurrentScenePath() {return m_currentScenePath;}
 
    inline bool IsSceneFocused() {return m_isSceneFocused;}
    inline bool GetShouldPlay() {return m_shouldPlay;}
+   inline bool IsSaved() {return m_isSaved;}
 
    ~GUI();
 };

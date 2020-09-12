@@ -307,8 +307,10 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
          if (ImGui::MenuItem("Save")) {
             if (!m_currentScenePath.empty()) {
                sceneManager.Serialize(m_currentScenePath, ecs);
+               m_isSaved = true;
             } else {
                m_showSaveAs = true;
+               m_isSaved = false;
             }
          }
          if (ImGui::MenuItem("Save As")) {
@@ -343,6 +345,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
    if (m_fileDialog.showFileDialog("Save Scene As", imgui_addons::ImGuiFileBrowser::DialogMode::SAVE, ImVec2(700, 310), ".scene,*.*"))
    {
       sceneManager.Serialize(m_fileDialog.selected_path, ecs);
+      m_isSaved = false;
 
       m_currentScenePath = m_fileDialog.selected_path;
    }
@@ -350,6 +353,16 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
    if (m_fileDialog.showFileDialog("Open Scene", imgui_addons::ImGuiFileBrowser::DialogMode::OPEN, ImVec2(700, 310), ".scene,*.*"))
    {
       OpenScene(m_fileDialog.selected_path, sceneManager, ecs);
+   }
+}
+
+void GUI::SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs) {
+   if (!m_currentScenePath.empty()) {
+      sceneManager.Serialize(m_currentScenePath, ecs);
+      m_isSaved = true;
+   } else {
+      m_showSaveAs = true;
+      m_isSaved = false;
    }
 }
 
@@ -401,6 +414,8 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext, asIScriptEngin
 }
 
 void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
+   m_isSaved = false;
+
    ImGui_ImplOpenGL3_NewFrame();
    ImGui_ImplSDL2_NewFrame(window);
    ImGui::NewFrame();

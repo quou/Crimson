@@ -23,6 +23,8 @@ namespace Crimson {
       void RegisterFunctions(asIScriptEngine* engine) {
          RegisterStdString(engine);
          int r = engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL); assert( r >= 0 );
+
+         
       }
 
       void InitModule(ScriptComponent* scriptComponent, asIScriptEngine* engine) {

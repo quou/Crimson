@@ -135,13 +135,21 @@ public:
 
    void Play() {
       std::cout << "play" << '\n';
-      Crimson::CompileScripts(m_ecs, m_scriptingEngine);
-      Crimson::InitScripts(m_ecs, m_scriptingEngine);
+
+      m_gui.SaveScene(m_sceneManager, m_ecs);
+
+      if (m_gui.IsSaved()) {
+         Crimson::CompileScripts(m_ecs, m_scriptingEngine);
+         Crimson::InitScripts(m_ecs, m_scriptingEngine);
+      }
       m_isPlaying = true;
    }
 
    void Stop() {
       std::cout << "stop" << '\n';
+
+      m_gui.OpenScene(m_gui.GetCurrentScenePath(), m_sceneManager, m_ecs);
+
       //Crimson::DestroyScripts(m_ecs, m_scriptingEngine);
       m_isPlaying = false;
    }
@@ -151,7 +159,7 @@ public:
    }
 
    virtual ~App() {
-      
+
    }
 };
 
