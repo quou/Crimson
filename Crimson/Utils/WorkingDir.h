@@ -11,7 +11,7 @@ namespace Crimson {
    {
      char result[ MAX_PATH ];
      return std::string( result, GetModuleFileName( NULL, result, MAX_PATH ) );
-   }`
+   }
 }
 
 #else
