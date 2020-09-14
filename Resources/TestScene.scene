@@ -11,7 +11,7 @@
     <entity>
         <transform name="Scene">
             <position x="0" y="0" z="0"/>
-            <rotation x="0" y="0" z="0"/>
+            <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <entity>
@@ -20,6 +20,7 @@
                 <rotation x="0" y="-0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
+            <prefabinstance res="Resources/Prefabs/Monkey-Brick.prefab"/>
             <entity>
                 <transform name="Monkey1">
                     <position x="4.7183980941772461" y="-0.54249715805053711" z="0.57927358150482178"/>
@@ -67,7 +68,7 @@
             </transform>
             <entity>
                 <transform name="Green light">
-                    <position x="3.8376336097717285" y="1.3345462083816528" z="3.4832327365875244"/>
+                    <position x="3.8376336097717285" y="-1.4254651069641113" z="3.4832327365875244"/>
                     <rotation x="0" y="-0" z="0"/>
                     <scale x="1" y="1" z="1"/>
                 </transform>
@@ -81,7 +82,7 @@
         </entity>
         <entity>
             <transform name="Ground">
-                <position x="-0.73844718933105469" y="-1.5729489326477051" z="1.0389531850814819"/>
+                <position x="-4.0534148216247559" y="-1.9438194036483765" z="-2.8717708587646484"/>
                 <rotation x="0" y="-0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>

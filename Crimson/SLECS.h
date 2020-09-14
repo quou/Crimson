@@ -41,7 +41,7 @@ SOFTWARE.
 #include <utility>
 #include <tuple>
 
-static unsigned int impl_componentCounter = 0;
+extern unsigned int impl_componentCounter;
 template <typename T>
 unsigned int GetComponentID() {
    static unsigned int s_componentID = impl_componentCounter++;

@@ -41,6 +41,9 @@ namespace Crimson {
       void Serialize(const std::string& fileName, ECS& ecs);
       int Deserialize(const std::string& fileName, ECS& ecs);
 
+      void CreatePrefab(const std::string& fileName, EntityHandle ent, ECS& ecs);
+      void InstantiatePrefab(const std::string& fileName, ECS& ecs);
+
       DirectionalShadowmap* GetShadowmap() {return &m_directionalShadowmap;}
 
       Cubemap m_skybox;

@@ -31,6 +31,12 @@ public:
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.0f, 1000.0f) {}
 
    void OnBegin() override {
+      std::cout << "Light ID: " <<  GetComponentID<Crimson::PointLight>() << '\n';
+      std::cout << "Model ID: " <<  GetComponentID<Crimson::ModelComponent>() << '\n';
+      std::cout << "Transform ID: " <<  GetComponentID<Crimson::Transform>() << '\n';
+      std::cout << "Prefab ID: " <<  GetComponentID<Crimson::PrefabInstancerComponent>() << '\n';
+
+
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
@@ -140,6 +146,7 @@ public:
 
       if (m_gui.IsSaved()) {
          Crimson::CompileScripts(m_ecs);
+         Crimson::InstancePrefabs(m_ecs, m_sceneManager);
          Crimson::InitScripts(m_ecs);
       }
       m_isPlaying = true;

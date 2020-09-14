@@ -34,7 +34,7 @@ void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
 void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Inspector", &m_inspectorOpen);
-   if (m_selectedEntity && ecs.HasComponent<Crimson::Transform>(m_selectedEntity)) {
+   if (m_selectedEntity && !m_shouldPlay && ecs.HasComponent<Crimson::Transform>(m_selectedEntity)) {
       char buf[256];
       strcpy(buf, ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
       ImGui::InputText("Name", buf, 256);
@@ -74,6 +74,23 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                      ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile = toSet;
                   } else {
                      std::cout << "Invalid script file. Only use .chai files for scripts" << '\n';
+                  }
+               }
+               ImGui::EndDragDropTarget();
+            }
+         }
+      }
+
+      if (ecs.HasComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)) {
+         if (ImGui::CollapsingHeader("Prefab Instancer")) {
+            ImGui::Text("%s", ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)->prefabPath.c_str());
+            if (ImGui::BeginDragDropTarget()) {
+               if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
+                  std::string toSet = static_cast<const char*>(payload->Data);
+                  if (hasEnding(toSet, ".prefab")) {
+                     ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)->prefabPath = toSet;
+                  } else {
+                     std::cout << "Invalid prefab file. Only use .prefab files for prefabs" << '\n';
                   }
                }
                ImGui::EndDragDropTarget();
@@ -195,7 +212,7 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
    ImGui::Text("Scene");
    if (ImGui::Button("Play")) {m_shouldPlay = true;}
-   if (ImGui::Button("stop")) {m_shouldPlay = false;}
+   if (ImGui::Button("Stop")) {m_shouldPlay = false;}
 
    ImGui::NextColumn();
 
@@ -275,7 +292,7 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
 }
 
 void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
-   if (m_selectedEntity) {
+   if (m_selectedEntity && !m_shouldPlay) {
       ImGuizmo::Enable(true);
       Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
 

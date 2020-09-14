@@ -12,6 +12,7 @@
 #include "Graphics/Renderer.h"
 
 #include "ComponentSystems/ScriptSystems.h"
+#include "ComponentSystems/PrefabSystems.h"
 
 using namespace tinyxml2;
 
@@ -143,6 +144,12 @@ namespace Crimson {
          ecs.AddComponent<ScriptComponent>(newEntity, eComponent->Attribute("res"));
       }
 
+      /* PREFAB LOADING */
+      eComponent = node->FirstChildElement("prefabinstance");
+      if (eComponent) {
+         ecs.AddComponent<PrefabInstancerComponent>(newEntity, eComponent->Attribute("res"));
+      }
+
       m_entities.push_back(newEntity);
 
       return newEntity;
@@ -271,6 +278,12 @@ namespace Crimson {
          printer.CloseElement();
       }
 
+      if (ecs.HasComponent<PrefabInstancerComponent>(ent)) {
+         printer.OpenElement("prefabinstance");
+            printer.PushAttribute("res", ecs.GetComponent<PrefabInstancerComponent>(ent)->prefabPath.c_str());
+         printer.CloseElement();
+      }
+
       if (ecs.HasComponent<Transform>(ent)) {
          for (auto& e : ecs.GetComponent<Transform>(ent)->children) {
             SerializeEntity(e, printer, ecs);
@@ -350,7 +363,7 @@ namespace Crimson {
       XMLDocument doc;
       XMLError result = doc.LoadFile(fileName.c_str());
       if (result != XML_SUCCESS) {
-         std::cout << "Failed to load file: " << fileName << ". Check that the XML isn't corrupt, make sure the file exists.\n";
+         std::cout << "Failed to load scene file: " << fileName << ". Check that the XML isn't corrupt, make sure the file exists.\n";
          return 0;
       }
 
@@ -380,5 +393,39 @@ namespace Crimson {
       std::cout << "Loaded Scene: " << fileName <<'\n';
 
       return 1;
+   }
+
+   void SceneManager::CreatePrefab(const std::string& fileName, EntityHandle ent, ECS& ecs) {
+      XMLPrinter printer;
+
+      printer.OpenElement("prefab");
+
+      SerializeEntity(ent, printer, ecs);
+
+      printer.CloseElement();
+
+      std::ofstream file(fileName);
+      if (file.is_open()) {
+         file << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+         file << printer.CStr();
+         file.close();
+      }
+
+      std::cout << "Saved Prefab: " << fileName <<'\n';
+   }
+
+   void SceneManager::InstantiatePrefab(const std::string& fileName, ECS& ecs) {
+      XMLDocument doc;
+      XMLError result = doc.LoadFile(fileName.c_str());
+      if (result != XML_SUCCESS) {
+         std::cout << "Failed to load prefab file: " << fileName << ". Check that the XML isn't corrupt, make sure the file exists.\n";
+         return;
+      }
+
+      try {
+         ParseEntities(doc.RootElement(), ecs);
+      } catch (const std::exception& e) {
+         std::cout << e.what() << "\n";
+      }
    }
 }

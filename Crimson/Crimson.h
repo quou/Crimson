@@ -56,6 +56,7 @@ SOFTWARE.
 #include "ComponentSystems/GraphicsSystems.h"
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/ScriptSystems.h"
+#include "ComponentSystems/PrefabSystems.h"
 
 /* Utils */
 #include "Utils/FileUtils.h"

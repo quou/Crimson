@@ -40,6 +40,7 @@ set(IMGUI_SOURCE
 
 set(CRIMSON_SOURCE
    ${IMGUI_SOURCE}
+   Crimson/SLECS.cpp
    Crimson/Graphics/Display.cpp
    Crimson/Graphics/Renderer.cpp
    Crimson/Graphics/Shader.cpp
