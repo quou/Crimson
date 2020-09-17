@@ -46,6 +46,9 @@ namespace Crimson {
       m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
 
       if (ecs.HasComponent<Transform>(entity)) {
+         if (ecs.GetComponent<Transform>(entity)->parent) {
+            ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.erase(std::remove(ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.begin(), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.end(), entity), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.end());
+         }
          for (EntityHandle ent : ecs.GetComponent<Transform>(entity)->children) {
             DeleteEntity(ent, ecs);
          }
