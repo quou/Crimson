@@ -2,6 +2,7 @@
 
 #include "ScriptStandardFunctions.h"
 #include "ComponentSystems/Transform.h"
+#include "Graphics/Lighting/PointLight.h"
 #include "chaiscript/chaiscript.hpp"
 
 #include <glm/glm.hpp>
@@ -24,15 +25,30 @@ namespace Crimson {
          chai->add(chaiscript::fun(&Transform::rotation), "rotation");
          chai->add(chaiscript::fun(&Transform::scale), "scale");
 
+         chai->add(chaiscript::user_type<PointLight>(), "PointLight");
+         chai->add(chaiscript::fun(&PointLight::constant), "constant");
+         chai->add(chaiscript::fun(&PointLight::linear), "linear");
+         chai->add(chaiscript::fun(&PointLight::quadratic), "quadratic");
+         chai->add(chaiscript::fun(&PointLight::ambient), "ambient");
+         chai->add(chaiscript::fun(&PointLight::diffuse), "diffuse");
+         chai->add(chaiscript::fun(&PointLight::specular), "specular");
+
          chai->add(chaiscript::user_type<EntityHandle>(), "EntityHandle");
          chai->add_global(chaiscript::var(ent), "entity");
 
          chai->add(chaiscript::fun(&ECS::GetComponent<Transform>, &ecs), "GetTransformComponent");
+         chai->add(chaiscript::fun(&ECS::GetComponent<PointLight>, &ecs), "GetPointLightComponent");
 
          try {
             chai->use(scriptComponent->scriptFile);
          } catch (const chaiscript::exception::eval_error &e) {
             std::cout << e.pretty_print() << '\n';
+         } catch (const double e) {
+         } catch (int) {
+         } catch (float) {
+         } catch (const std::string &) {
+         } catch (const std::exception &e) {
+           std::cout << e.what() << '\n';
          }
       }
 
