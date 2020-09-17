@@ -19,6 +19,7 @@ namespace Crimson {
       Shader shader;
       Model model;
       Material material;
+      Texture normalMap;
    };
 
    static void Render_Internal(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
@@ -32,13 +33,13 @@ namespace Crimson {
 
          ecs.GetComponent<ModelComponent>(ent)->shader.Bind();
 
-         glActiveTexture(GL_TEXTURE1);
+         glActiveTexture(GL_TEXTURE0);
          glBindTexture(GL_TEXTURE_2D, sceneManager.GetShadowmap()->GetOutput());
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("shadowMap", 1);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("shadowMap", 0);
 
-         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(0);
+         ecs.GetComponent<ModelComponent>(ent)->texture.Bind(1);
+         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", 1);
 
-         ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform1i("tex", 0);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniform3f("cameraPosition", camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("view", camera.GetViewProjection());
          ecs.GetComponent<ModelComponent>(ent)->shader.SetUniformMatrix4("modl", model);

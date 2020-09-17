@@ -31,6 +31,7 @@ namespace Crimson {
    }
 
    void DirectionalShadowmap::BeginRender() {
+      glCullFace(GL_FRONT);
       glViewport(0, 0, m_res, m_res);
       glBindFramebuffer(GL_FRAMEBUFFER, m_depthFBO);
       glClear(GL_DEPTH_BUFFER_BIT);
@@ -38,5 +39,6 @@ namespace Crimson {
 
    void DirectionalShadowmap::EndRender() {
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
+      glCullFace(GL_BACK);
    }
 }

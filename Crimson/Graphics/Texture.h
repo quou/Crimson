@@ -8,6 +8,8 @@ namespace Crimson {
    private:
       unsigned int m_texture;
       std::string m_res;
+
+      bool m_loaded{false};
    public:
       Texture() {}
       Texture(const std::string& fileName);
@@ -17,6 +19,7 @@ namespace Crimson {
       void Bind(unsigned int unit);
 
       inline std::string GetRes() const {return m_res;}
+      inline bool IsLoaded() const {return m_loaded;}
 
       virtual ~Texture();
    };

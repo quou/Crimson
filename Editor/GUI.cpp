@@ -49,6 +49,38 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
       if (ImGui::RadioButton("Scale", m_currentGizmoOperation == ImGuizmo::SCALE))
          m_currentGizmoOperation = ImGuizmo::SCALE;
 
+      static bool showAddComponentPopup = false;
+
+      if (ImGui::Button("Add Component")) {
+         showAddComponentPopup = true;
+      }
+
+      if (showAddComponentPopup) {
+         ImGui::OpenPopup("add_component_popup");
+         showAddComponentPopup = false;
+      }
+
+      if (ImGui::BeginPopup("add_component_popup")) {
+
+         if (ImGui::MenuItem("Model")) {
+            ecs.AddComponent<Crimson::ModelComponent>(m_selectedEntity);
+         }
+
+         if (ImGui::MenuItem("Prefab Instancer")) {
+            ecs.AddComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity);
+         }
+
+         if (ImGui::MenuItem("Script")) {
+            ecs.AddComponent<Crimson::ScriptComponent>(m_selectedEntity);
+         }
+
+         if (ImGui::MenuItem("PointLight")) {
+            ecs.AddComponent<Crimson::PointLight>(m_selectedEntity);
+         }
+
+         ImGui::EndPopup();
+      }
+
       if (ImGui::CollapsingHeader("Transform")) {
          Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
          m_newpos[0] = t->position.x;m_newpos[1] = t->position.y;m_newpos[2] = t->position.z;

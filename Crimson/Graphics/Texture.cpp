@@ -12,12 +12,20 @@ namespace Crimson {
    }
 
    void Texture::Load(const std::string& fileName) {
+      m_loaded = true;
+
+      if (fileName.empty()) {
+         m_loaded = false;
+         return;
+      }
+
       m_res = fileName;
       int width, height, componentCount;
       unsigned char* textureData = stbi_load(fileName.c_str(), &width, &height, &componentCount, 4);
 
       if (!textureData) {
          std::cerr << "Failed to load texture: " << fileName << '\n';
+         m_loaded = false;
       }
 
       glGenTextures(1, &m_texture);
