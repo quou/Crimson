@@ -250,14 +250,14 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
    ImGui::Text("Entities");
 
-   if (ImGui::MenuItem("Delete Selected")) {
+   if (ImGui::Button("Delete Selected")) {
       if (m_selectedEntity) {
          sceneManager.DeleteEntity(m_selectedEntity, ecs);
          m_selectedEntity = 0;
       }
    }
 
-   if (ImGui::MenuItem("Create New")) {
+   if (ImGui::Button("Create New")) {
       sceneManager.CreateEntity("New Entity", ecs);
       m_selectedEntity = 0;
    }
