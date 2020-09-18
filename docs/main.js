@@ -1,7 +1,8 @@
 
 let pages = [
    "Home",
-   "Building"
+   "Building",
+   "Scripting"
 ]
 
 let currentPage = pages[0];
@@ -13,6 +14,14 @@ function getSecondPart(str) {
 var checkExist = setInterval(function() {
    if ($('.language-js').length) {
       let pres = document.getElementsByClassName('language-js')
+      for (let ii = 0; ii < pres.length; ii++) {
+          hljs.highlightBlock(pres[ii]);
+      }
+
+      clearInterval(checkExist);
+   }
+   if ($('.language-cpp').length) {
+      let pres = document.getElementsByClassName('language-cpp')
       for (let ii = 0; ii < pres.length; ii++) {
           hljs.highlightBlock(pres[ii]);
       }
