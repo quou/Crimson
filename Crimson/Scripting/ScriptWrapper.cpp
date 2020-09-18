@@ -51,7 +51,7 @@ namespace Crimson {
          chai->add(chaiscript::fun(&PointLight::specular), "specular");
 
          chai->add(chaiscript::user_type<EntityHandle>(), "EntityHandle");
-         chai->add_global(chaiscript::var(ent), "entity");
+         chai->add_global_const(chaiscript::var(ent), "entity");
 
          chai->add(chaiscript::fun(&ECS::GetComponent<Transform>, &ecs), "GetTransformComponent");
          chai->add(chaiscript::fun(&ECS::GetComponent<PointLight>, &ecs), "GetPointLightComponent");

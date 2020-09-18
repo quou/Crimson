@@ -25,7 +25,8 @@ def OnUpdate(delta) {
 }
 ```
 
-### Per-Script Globals
+### Per-Script Constants
+All scripts have access to these, but they are different on each script
 ```cpp
 EntityHandle entity; // The ID of the entity that this script is attached to
 ```
