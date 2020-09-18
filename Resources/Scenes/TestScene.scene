@@ -10,8 +10,8 @@
     </scenesettings>
     <entity>
         <transform name="Main Camera">
-            <position x="-7.5352859497070312" y="0" z="-8.0190515518188477"/>
-            <rotation x="17.858461380004883" y="7.7061929702758789" z="66.920951843261719"/>
+            <position x="-8.679387092590332" y="1.1871368885040283" z="-5.7031030654907227"/>
+            <rotation x="17.858461380004883" y="7.7061910629272461" z="66.920944213867188"/>
             <scale x="0.99999982118606567" y="0.9999992847442627" z="0.99999886751174927"/>
         </transform>
         <script res="Resources/Scripts/Camera.chai"/>
@@ -39,7 +39,7 @@
                     <ambient x="0.99998998641967773" y="0.99999028444290161" z="1"/>
                     <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
                     <specular x="0" y="0" z="0"/>
-                    <shininess shininess="32"/>
+                    <shininess shininess="0"/>
                     <shader vertex="Resources/Shaders/Basic.vert" fragment="Resources/Shaders/BasicLit.frag"/>
                 </material>
             </model>

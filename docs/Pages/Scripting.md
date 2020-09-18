@@ -32,15 +32,15 @@ EntityHandle entity; // The ID of the entity that this script is attached to
 
 ### ECS Functions
 ```cpp
-Transform* GetTransformComponent(EntityHandle ent);
+TransformComponent* GetTransformComponent(EntityHandle ent);
 ModelComponent* GetModelComponent(EntityHandle ent);
 CameraComponent* GetCameraComponent(EntityHandle ent);
-PointLight* GetPointLightComponent(EntityHandle ent);
+PointLightComponent* GetPointLightComponent(EntityHandle ent);
 ```
 
 ### ECS Components
 ```cpp
-struct Transform {
+struct TransformComponent {
    vec3 position;
    vec3 rotation;
    vec3 scale;
@@ -58,7 +58,7 @@ struct CameraComponent {
    Crimson::Camera camera;
 }
 
-struct PointLight {
+struct PointLightComponent {
    float constant;
    float linear;
    float quadratic;

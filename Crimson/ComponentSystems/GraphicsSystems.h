@@ -19,7 +19,6 @@ namespace Crimson {
       Shader shader;
       Model model;
       Material material;
-      Texture normalMap;
    };
 
    static void Render_Internal(ECS& ecs, Camera& camera, SceneManager& sceneManager) {

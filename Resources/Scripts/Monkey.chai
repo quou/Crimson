@@ -1,6 +1,5 @@
 def OnBegin() {
-   print("This is a script!");
-   //GetTransformComponent(entity).rotation.x = 50.0f;
+   GetModelComponent(entity).material.shininess = 32;
 }
 
 def OnUpdate(float delta) {
