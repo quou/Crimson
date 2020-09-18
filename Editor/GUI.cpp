@@ -130,6 +130,24 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
          }
       }
 
+      if (ecs.HasComponent<Crimson::CameraComponent>(m_selectedEntity)) {
+         if (ImGui::CollapsingHeader("Camera")) {
+            float newfov = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetFOV();
+            ImGui::InputFloat("FOV", &newfov);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetFOV(newfov);
+
+            ImGui::Checkbox("Active", &ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->isCurrent);
+
+            float newnear = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetNear();
+            ImGui::InputFloat("Near Clipping Plane", &newnear);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetNear(newnear);
+
+            float newfar = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetFar();
+            ImGui::InputFloat("Far Clipping Plane", &newfar);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetFar(newfar);
+         }
+      }
+
       if (ecs.HasComponent<Crimson::ModelComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Model")) {
             ImGui::Text("Mesh");

@@ -9,10 +9,10 @@
         </directionallight>
     </scenesettings>
     <entity>
-        <transform name="Camera">
+        <transform name="Main Camera">
             <position x="0" y="3.3040018081665039" z="-10.676141738891602"/>
-            <rotation x="78.675003051757812" y="-0" z="0"/>
-            <scale x="1" y="0.99999970197677612" z="0.99999970197677612"/>
+            <rotation x="78.67498779296875" y="-0" z="0"/>
+            <scale x="1" y="0.99999964237213135" z="0.99999964237213135"/>
         </transform>
         <camera current="true">
             <perspective fov="45" near="0.10000000149011612" far="1000"/>
