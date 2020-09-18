@@ -1,6 +1,6 @@
 #version 330 core
 
-#include Resources/Lights.glsl
+#include Resources/Shaders/Lights.glsl
 
 struct Material {
    vec3 ambient;

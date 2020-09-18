@@ -8,7 +8,7 @@ namespace Crimson {
    }
 
    void DirectionalShadowmap::Init() {
-      shader.Init("Resources/DirectionalShadowmap.vert", "Resources/DirectionalShadowmap.frag");
+      shader.Init("Resources/Shaders/DirectionalShadowmap.vert", "Resources/Shaders/DirectionalShadowmap.frag");
 
       glGenFramebuffers(1, &m_depthFBO);
 

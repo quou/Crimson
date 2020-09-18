@@ -21,14 +21,14 @@ namespace Crimson {
 
    void SceneManager::Init() {
       std::vector<std::string> skyboxFaces;
-      skyboxFaces.push_back("Resources/skybox/right.jpg");
-      skyboxFaces.push_back("Resources/skybox/left.jpg");
-      skyboxFaces.push_back("Resources/skybox/top.jpg");
-      skyboxFaces.push_back("Resources/skybox/bottom.jpg");
-      skyboxFaces.push_back("Resources/skybox/front.jpg");
-      skyboxFaces.push_back("Resources/skybox/back.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/right.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/left.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/top.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/bottom.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/front.jpg");
+      skyboxFaces.push_back("Resources/Textures/Skybox/back.jpg");
 
-      m_skybox.Load(skyboxFaces, "Resources/Skybox.vert", "Resources/Skybox.frag");
+      m_skybox.Load(skyboxFaces, "Resources/Shaders/Skybox.vert", "Resources/Shaders/Skybox.frag");
 
       m_directionalShadowmap.Init();
    }

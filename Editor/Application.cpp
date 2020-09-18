@@ -39,7 +39,7 @@ public:
 
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
-      m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
+      m_gui.OpenScene("Resources/Scenes/TestScene.scene", m_sceneManager, m_ecs);
 
       m_sceneManager.SetCurrentCamera(&m_camera);
    }
@@ -165,7 +165,7 @@ public:
       m_gui.OpenScene(m_gui.GetCurrentScenePath(), m_sceneManager, m_ecs);
 
       m_sceneManager.SetCurrentCamera(&m_camera);
-      
+
       m_isPlaying = false;
       ImGui::StyleColorsDark();
    }
