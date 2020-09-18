@@ -13,10 +13,7 @@ function getSecondPart(str) {
 
 var checkExist = setInterval(function() {
    if ($('.language-js').length) {
-      let pres = document.getElementsByClassName('language-js')
-      for (let ii = 0; ii < pres.length; ii++) {
-          hljs.highlightBlock(pres[ii]);
-      }
+
 
       clearInterval(checkExist);
    }
@@ -59,6 +56,11 @@ $(document).ready(function() {
       });
 
       $("#menu").append("<p onclick=\"LinkEvent('" + pages[i] + "')\"><a href=\"#" + pages[i] + "\">" + pages[i] + "</a></p>");
+   }
+
+   let pres = document.getElementsByClassName('language-js')
+   for (let ii = 0; ii < pres.length; ii++) {
+       hljs.highlightBlock(pres[ii]);
    }
 
 });
