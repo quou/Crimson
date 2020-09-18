@@ -593,7 +593,11 @@ void GUI::DrawDir(const std::string& dir) {
 
       if (ImGui::TreeNodeEx(entry.path().filename().c_str(), flags, "%s", entry.path().filename().c_str())) {
          if (isDir) {
-            DrawDir(dir + std::string(entry.path().filename()));
+            std::string d = dir;
+            if (!hasEnding(d, "/")) {
+               d+="/";
+            }
+            DrawDir(d + std::string(entry.path().filename()));
          } else {
             if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
                std::string dragString = entry.path().string();
