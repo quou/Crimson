@@ -13,8 +13,6 @@ namespace Crimson {
       glm::vec3 m_forward; /* forward and up are for rotation */
       glm::vec3 m_up;
 
-      glm::vec3 m_rotation;
-
       float m_yaw;
       float m_pitch;
 

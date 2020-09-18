@@ -1,9 +1,12 @@
 #include "ScriptWrapper.h"
 
 #include "ScriptStandardFunctions.h"
+
+#include "ComponentSystems/CameraSystems.h"
 #include "ComponentSystems/Transform.h"
 #include "Graphics/Lighting/PointLight.h"
 #include "chaiscript/chaiscript.hpp"
+
 
 #include <glm/glm.hpp>
 

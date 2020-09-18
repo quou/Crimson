@@ -10,10 +10,11 @@
     </scenesettings>
     <entity>
         <transform name="Main Camera">
-            <position x="0" y="3.3040018081665039" z="-10.676141738891602"/>
-            <rotation x="78.67498779296875" y="-0" z="0"/>
-            <scale x="1" y="0.99999964237213135" z="0.99999964237213135"/>
+            <position x="-7.5352859497070312" y="0" z="-8.0190515518188477"/>
+            <rotation x="17.858461380004883" y="7.7061929702758789" z="66.920951843261719"/>
+            <scale x="0.99999982118606567" y="0.9999992847442627" z="0.99999886751174927"/>
         </transform>
+        <script res="Resources/Scripts/Camera.chai"/>
         <camera current="true">
             <perspective fov="45" near="0.10000000149011612" far="1000"/>
         </camera>

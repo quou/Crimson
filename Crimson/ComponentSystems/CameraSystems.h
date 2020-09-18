@@ -18,6 +18,7 @@ namespace Crimson {
          Camera* cam = &ecs.GetComponent<CameraComponent>(ent)->camera;
          cam->SetPosition(ecs.GetComponent<Transform>(ent)->position);
          cam->UpdatePerspective(cam->GetFOV(), (float)renderTarget.GetWidth()/(float)renderTarget.GetHeight(), cam->GetNear(), cam->GetFar());
+         cam->SetRotation(ecs.GetComponent<Transform>(ent)->rotation.y, -ecs.GetComponent<Transform>(ent)->rotation.x);
       }
    }
 }

@@ -98,7 +98,11 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ecs.HasComponent<Crimson::ScriptComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Script")) {
-            ImGui::Text("%s", ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.c_str());
+            if (!ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.empty()) {
+               ImGui::Text("%s", ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.c_str());
+            } else {
+               ImGui::Text("Drag a script here");
+            }
             if (ImGui::BeginDragDropTarget()) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
