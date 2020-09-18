@@ -10,6 +10,17 @@ function getSecondPart(str) {
     return str.split('#')[1];
 }
 
+var checkExist = setInterval(function() {
+   if ($('.language-js').length) {
+      let pres = document.getElementsByClassName('language-js')
+      for (let ii = 0; ii < pres.length; ii++) {
+          hljs.highlightBlock(pres[ii]);
+      }
+
+      clearInterval(checkExist);
+   }
+}, 100); // check every 100ms
+
 $(document).ready(function() {
    currentPage = getSecondPart(window.location.href);
    if (!currentPage) {
@@ -40,6 +51,7 @@ $(document).ready(function() {
 
       $("#menu").append("<p onclick=\"LinkEvent('" + pages[i] + "')\"><a href=\"#" + pages[i] + "\">" + pages[i] + "</a></p>");
    }
+
 });
 
 
