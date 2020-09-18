@@ -57,6 +57,7 @@ SOFTWARE.
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/ScriptSystems.h"
 #include "ComponentSystems/PrefabSystems.h"
+#include "ComponentSystems/CameraSystems.h"
 
 /* Utils */
 #include "Utils/FileUtils.h"

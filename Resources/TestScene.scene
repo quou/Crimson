@@ -9,134 +9,150 @@
         </directionallight>
     </scenesettings>
     <entity>
-        <transform name="Scene">
+        <transform name="Camera">
+            <position x="0" y="3.3040018081665039" z="-10.676141738891602"/>
+            <rotation x="78.675003051757812" y="-0" z="0"/>
+            <scale x="1" y="0.99999970197677612" z="0.99999970197677612"/>
+        </transform>
+        <camera current="true">
+            <perspective fov="45" near="0.10000000149011612" far="1000"/>
+        </camera>
+    </entity>
+    <entity>
+        <transform name="Monkies">
+            <position x="-7.460026741027832" y="1.6904915571212769" z="-2.4916200637817383"/>
+            <rotation x="0" y="-0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <prefabinstance res="Resources/Prefabs/Monkey-Brick.prefab"/>
+        <entity>
+            <transform name="Monkey1">
+                <position x="4.7183980941772461" y="-0.54249715805053711" z="0.57927358150482178"/>
+                <rotation x="0" y="-0" z="0"/>
+                <scale x="0.99999988079071045" y="1.0000002384185791" z="1.0000001192092896"/>
+            </transform>
+            <model>
+                <texture res="Resources/Bricks.jpg"/>
+                <mesh res="Resources/monkey3.obj"/>
+                <material>
+                    <ambient x="0.99998998641967773" y="0.99999028444290161" z="1"/>
+                    <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                    <specular x="0" y="0" z="0"/>
+                    <shininess shininess="32"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
+            <script res="Resources/Scripts/Monkey.chai"/>
+        </entity>
+        <entity>
+            <transform name="Monkey2">
+                <position x="1.9887197017669678" y="-0.60467171669006348" z="0.65063047409057617"/>
+                <rotation x="0" y="0" z="0"/>
+                <scale x="1.0000011920928955" y="0.99999934434890747" z="1.0000002384185791"/>
+            </transform>
+            <model>
+                <texture res="Resources/Wood.jpg"/>
+                <mesh res="Resources/monkey3.obj"/>
+                <material>
+                    <ambient x="1" y="1" z="1"/>
+                    <diffuse x="1" y="1" z="1"/>
+                    <specular x="1" y="1" z="1"/>
+                    <shininess shininess="16"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
+            <script res="Resources/Scripts/Monkey.chai"/>
+        </entity>
+    </entity>
+    <entity>
+        <transform name="Lighting">
             <position x="0" y="0" z="0"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <entity>
-            <transform name="Monkies">
-                <position x="-15.396377563476562" y="3.5342605113983154" z="-4.4387636184692383"/>
+            <transform name="Green light">
+                <position x="-10.726693153381348" y="3.3884975910186768" z="2.9345769882202148"/>
                 <rotation x="0" y="-0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <prefabinstance res="Resources/Prefabs/Monkey-Brick.prefab"/>
-            <entity>
-                <transform name="Monkey1">
-                    <position x="4.7183980941772461" y="-0.54249715805053711" z="0.57927358150482178"/>
-                    <rotation x="0" y="-0" z="0"/>
-                    <scale x="0.99999988079071045" y="1.0000002384185791" z="1.0000001192092896"/>
-                </transform>
-                <model>
-                    <texture res="Resources/Bricks.jpg"/>
-                    <mesh res="Resources/monkey3.obj"/>
-                    <material>
-                        <ambient x="0.99998998641967773" y="0.99999028444290161" z="1"/>
-                        <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <specular x="0" y="0" z="0"/>
-                        <shininess shininess="32"/>
-                        <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-                    </material>
-                </model>
-                <script res="Resources/Scripts/Monkey.chai"/>
-            </entity>
-            <entity>
-                <transform name="Monkey2">
-                    <position x="1.9887197017669678" y="-0.60467171669006348" z="0.65063047409057617"/>
-                    <rotation x="0" y="0" z="0"/>
-                    <scale x="1.0000011920928955" y="0.99999934434890747" z="1.0000002384185791"/>
-                </transform>
-                <model>
-                    <texture res="Resources/Wood.jpg"/>
-                    <mesh res="Resources/monkey3.obj"/>
-                    <material>
-                        <ambient x="1" y="1" z="1"/>
-                        <diffuse x="1" y="1" z="1"/>
-                        <specular x="1" y="1" z="1"/>
-                        <shininess shininess="16"/>
-                        <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-                    </material>
-                </model>
-                <script res="Resources/Scripts/Monkey.chai"/>
-            </entity>
+            <pointlight>
+                <point constant="1" linear="0.34999999403953552" quadratic="0.43999999761581421"/>
+                <ambient x="9.9999999747524271e-07" y="9.9998999303352321e-07" z="9.9998999303352321e-07"/>
+                <diffuse x="0" y="1" z="0"/>
+                <specular x="0" y="1" z="0"/>
+            </pointlight>
+            <script res="Resources/Scripts/Light.chai"/>
         </entity>
         <entity>
-            <transform name="Lighting">
-                <position x="0" y="0" z="0"/>
+            <transform name="White light">
+                <position x="-0.65404629707336426" y="2.8437275886535645" z="-2.2367300987243652"/>
                 <rotation x="0" y="-0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <entity>
-                <transform name="Green light">
-                    <position x="-10.726693153381348" y="3.3884975910186768" z="2.9345769882202148"/>
-                    <rotation x="0" y="-0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <pointlight>
-                    <point constant="1" linear="0.34999999403953552" quadratic="0.43999999761581421"/>
-                    <ambient x="9.9999999747524271e-07" y="9.9998999303352321e-07" z="9.9998999303352321e-07"/>
-                    <diffuse x="0" y="1" z="0"/>
-                    <specular x="0" y="1" z="0"/>
-                </pointlight>
-                <script res="Resources/Scripts/Light.chai"/>
-            </entity>
-            <entity>
-                <transform name="White light">
-                    <position x="-0.65404629707336426" y="2.8437275886535645" z="-2.2367300987243652"/>
-                    <rotation x="0" y="-0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <pointlight>
-                    <point constant="1" linear="0.44999998807907104" quadratic="0.0074999998323619366"/>
-                    <ambient x="0" y="0" z="0"/>
+            <pointlight>
+                <point constant="1" linear="0.44999998807907104" quadratic="0.0074999998323619366"/>
+                <ambient x="0" y="0" z="0"/>
+                <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                <specular x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+            </pointlight>
+        </entity>
+        <entity>
+            <transform name="Red light">
+                <position x="2.1488082408905029" y="2.3772173562974785e-08" z="3.65175461769104"/>
+                <rotation x="0" y="-0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <pointlight>
+                <point constant="1" linear="0.44999998807907104" quadratic="0.0070000002160668373"/>
+                <ambient x="0" y="0" z="0"/>
+                <diffuse x="1" y="0" z="0"/>
+                <specular x="1" y="0" z="0"/>
+            </pointlight>
+        </entity>
+    </entity>
+    <entity>
+        <transform name="Enviroment">
+            <position x="0" y="0" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <entity>
+            <transform name="Ground">
+                <position x="-4.0534148216247559" y="-1.9438194036483765" z="-2.8717708587646484"/>
+                <rotation x="0" y="-0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <model>
+                <texture res="Resources/floorboards.png"/>
+                <mesh res="Resources/ground.obj"/>
+                <material>
+                    <ambient x="1" y="0.99998998641967773" z="0.99998998641967773"/>
                     <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
                     <specular x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                </pointlight>
-            </entity>
+                    <shininess shininess="64"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
+            <script res="Resources/Scripts/TestScript.chai"/>
         </entity>
         <entity>
-            <transform name="Enviroment">
-                <position x="0" y="0" z="0"/>
-                <rotation x="0" y="0" z="0"/>
-                <scale x="1" y="1" z="1"/>
+            <transform name="Wall">
+                <position x="-0.4324648380279541" y="-0.23470842838287354" z="0.99182415008544922"/>
+                <rotation x="-90" y="-0" z="0"/>
+                <scale x="0.17499993741512299" y="4.1531624794006348" z="0.1749998927116394"/>
             </transform>
-            <entity>
-                <transform name="Ground">
-                    <position x="-4.0534148216247559" y="-1.9438194036483765" z="-2.8717708587646484"/>
-                    <rotation x="0" y="-0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <model>
-                    <texture res="Resources/floorboards.png"/>
-                    <mesh res="Resources/ground.obj"/>
-                    <material>
-                        <ambient x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <specular x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <shininess shininess="64"/>
-                        <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-                    </material>
-                </model>
-                <script res="Resources/Scripts/TestScript.chai"/>
-            </entity>
-            <entity>
-                <transform name="Wall">
-                    <position x="-0.4324648380279541" y="-0.23470842838287354" z="0.99182415008544922"/>
-                    <rotation x="-90" y="-0" z="0"/>
-                    <scale x="0.17499993741512299" y="4.1531624794006348" z="0.1749998927116394"/>
-                </transform>
-                <model>
-                    <texture res="Resources/brickwall.jpg"/>
-                    <mesh res="Resources/ground.obj"/>
-                    <material>
-                        <ambient x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
-                        <specular x="0.99998998641967773" y="1" z="0.99999183416366577"/>
-                        <shininess shininess="32"/>
-                        <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
-                    </material>
-                </model>
-            </entity>
+            <model>
+                <texture res="Resources/brickwall.jpg"/>
+                <mesh res="Resources/ground.obj"/>
+                <material>
+                    <ambient x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                    <diffuse x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                    <specular x="0.99998998641967773" y="1" z="0.99999183416366577"/>
+                    <shininess shininess="32"/>
+                    <shader vertex="Resources/Basic.vert" fragment="Resources/BasicLit.frag"/>
+                </material>
+            </model>
         </entity>
     </entity>
 </scene>

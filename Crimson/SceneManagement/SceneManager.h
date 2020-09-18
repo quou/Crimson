@@ -14,6 +14,9 @@
 
 #include "Scripting/ScriptWrapper.h"
 
+#include "Graphics/Camera.h"
+#include "ComponentSystems/CameraSystems.h"
+
 namespace Crimson {
    class Renderer;
 
@@ -28,12 +31,18 @@ namespace Crimson {
       void SerializeEntity(EntityHandle ent, tinyxml2::XMLPrinter& printer, ECS& ecs);
 
       DirectionalShadowmap m_directionalShadowmap;
+
+      Camera* m_currentCamera;
+      std::vector<CameraComponent*> m_cameras;
    public:
       void Init();
 
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
-
       inline const std::vector<EntityHandle>& GetEntities() const {return m_entities;}
+      inline Camera* GetCurrentCamera() const {return m_currentCamera;}
+
+      void SetCurrentCamera(Camera* camera);
+      void MakeCameraCurrent();
 
       void CreateEntity(const std::string& name, ECS& ecs);
       void DeleteEntity(EntityHandle entity, ECS& ecs);

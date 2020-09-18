@@ -42,6 +42,18 @@ namespace Crimson {
       m_entities.push_back(newEntity);
    }
 
+   void SceneManager::SetCurrentCamera(Camera* camera) {
+      m_currentCamera = camera;
+   }
+
+   void SceneManager::MakeCameraCurrent() {
+      for (CameraComponent* cam : m_cameras) {
+         if (cam->isCurrent) {
+            SetCurrentCamera(&cam->camera);
+         }
+      }
+   }
+
    void SceneManager::DeleteEntity(EntityHandle entity, ECS& ecs) {
       m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
 
@@ -90,6 +102,25 @@ namespace Crimson {
          scale = glm::vec3(eScale->FloatAttribute("x"), eScale->FloatAttribute("y"), eScale->FloatAttribute("z"));
 
          ecs.AddComponent<Transform>(newEntity, name, position, rotation, scale);
+      }
+
+      /* CAMERA LOADING */
+      eComponent = node->FirstChildElement("camera");
+      if (eComponent) {
+         XMLElement* ePerspective = eComponent->FirstChildElement("perspective");
+         float fov = ePerspective->FloatAttribute("fov");
+         float near = ePerspective->FloatAttribute("near");
+         float far = ePerspective->FloatAttribute("far");
+         bool isCurrent = eComponent->BoolAttribute("current");
+
+         ecs.AddComponent<CameraComponent>(newEntity)->camera = Camera(glm::vec3(0,0,0), fov, 1366/768, near, far);
+         ecs.GetComponent<CameraComponent>(newEntity)->isCurrent = isCurrent;
+
+         m_cameras.push_back(ecs.GetComponent<CameraComponent>(newEntity));
+
+         if (isCurrent) {
+            SetCurrentCamera(&ecs.GetComponent<CameraComponent>(newEntity)->camera);
+         }
       }
 
       /* MODEL LOADING */
@@ -278,6 +309,17 @@ namespace Crimson {
       if (ecs.HasComponent<ScriptComponent>(ent)) {
          printer.OpenElement("script");
             printer.PushAttribute("res", ecs.GetComponent<ScriptComponent>(ent)->scriptFile.c_str());
+         printer.CloseElement();
+      }
+
+      if (ecs.HasComponent<CameraComponent>(ent)) {
+         printer.OpenElement("camera");
+            printer.PushAttribute("current", ecs.GetComponent<CameraComponent>(ent)->isCurrent);
+            printer.OpenElement("perspective");
+               printer.PushAttribute("fov", ecs.GetComponent<CameraComponent>(ent)->camera.GetFOV());
+               printer.PushAttribute("near", ecs.GetComponent<CameraComponent>(ent)->camera.GetNear());
+               printer.PushAttribute("far", ecs.GetComponent<CameraComponent>(ent)->camera.GetFar());
+            printer.CloseElement();
          printer.CloseElement();
       }
 

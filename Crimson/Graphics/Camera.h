@@ -18,8 +18,19 @@ namespace Crimson {
       float m_yaw;
       float m_pitch;
 
+      float m_fov;
+      float m_aspect;
+      float m_near;
+      float m_far;
+
    public:
+      Camera() {}
       Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar) {
+         m_fov = fov;
+         m_aspect = aspect;
+         m_near = zNear;
+         m_far = zFar;
+
          m_perspective = glm::perspective(fov, aspect, zNear, zFar);
          m_position = pos;
 
@@ -45,6 +56,10 @@ namespace Crimson {
          m_position = newPos;
       }
 
+      void SetFOV(float fov) {m_fov = fov;}
+      void SetNear(float near) {m_near = near;}
+      void SetFar(float far) {m_far = far;}
+
       void UpdatePerspective(float fov, float aspect, float zNear, float zFar) {
          m_perspective = glm::perspective(fov, aspect, zNear, zFar);
       }
@@ -63,6 +78,10 @@ namespace Crimson {
       inline const glm::vec3& GetPosition() {return m_position;}
       inline float GetYaw() {return m_yaw;}
       inline float GetPitch() {return m_pitch;}
+
+      inline float GetFOV() const {return m_fov;}
+      inline float GetNear() const {return m_near;}
+      inline float GetFar() const {return m_far;}
 
       virtual ~Camera() {}
    };

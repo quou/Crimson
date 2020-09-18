@@ -105,16 +105,19 @@ namespace Crimson {
       }
    }
 
-   static void ShadowPass(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
-      sceneManager.GetShadowmap()->BeginRender();
-      RenderShadows_Internal(ecs, camera, sceneManager);
-      sceneManager.GetShadowmap()->EndRender();
+   static void ShadowPass(ECS& ecs, SceneManager& sceneManager) {
+      if (sceneManager.GetCurrentCamera()) {
+         sceneManager.GetShadowmap()->BeginRender();
+         RenderShadows_Internal(ecs, *sceneManager.GetCurrentCamera(), sceneManager);
+         sceneManager.GetShadowmap()->EndRender();
+      }
    }
 
-   static void RenderModels(ECS& ecs, Camera& camera, SceneManager& sceneManager) {
-      sceneManager.m_skybox.Render(camera);
-
-      Render_Internal(ecs, camera, sceneManager);
+   static void RenderModels(ECS& ecs, SceneManager& sceneManager) {
+      if (sceneManager.GetCurrentCamera()) {
+         sceneManager.m_skybox.Render(*sceneManager.GetCurrentCamera());
+         Render_Internal(ecs, *sceneManager.GetCurrentCamera(), sceneManager);
+      }
    }
 }
 #endif /* end of include guard: MODELCOMP_H */

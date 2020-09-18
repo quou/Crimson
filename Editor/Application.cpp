@@ -40,6 +40,8 @@ public:
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_gui.OpenScene("Resources/TestScene.scene", m_sceneManager, m_ecs);
+
+      m_sceneManager.SetCurrentCamera(&m_camera);
    }
 
    void OnUpdate(float delta) override {
@@ -56,6 +58,7 @@ public:
          Crimson::UpdateScripts(m_ecs, delta);
       }
 
+      Crimson::UpdateCameras(m_ecs, m_renderTarget);
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();
@@ -128,10 +131,10 @@ public:
    }
 
    void OnRender(float delta) override {
-      Crimson::ShadowPass(m_ecs, m_camera, m_sceneManager);
+      Crimson::ShadowPass(m_ecs, m_sceneManager);
       m_renderTarget.Bind();
       m_renderTarget.Clear();
-      Crimson::RenderModels(m_ecs, m_camera, m_sceneManager);
+      Crimson::RenderModels(m_ecs, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
       m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_renderTarget);
@@ -145,6 +148,8 @@ public:
       m_gui.SaveScene(m_sceneManager, m_ecs);
 
       if (m_gui.IsSaved()) {
+         m_sceneManager.MakeCameraCurrent();
+
          Crimson::CompileScripts(m_ecs);
          Crimson::InstancePrefabs(m_ecs, m_sceneManager);
          Crimson::InitScripts(m_ecs);
@@ -156,9 +161,11 @@ public:
    void Stop() {
       std::cout << "stop" << '\n';
 
+
       m_gui.OpenScene(m_gui.GetCurrentScenePath(), m_sceneManager, m_ecs);
 
-      //Crimson::DestroyScripts(m_ecs, m_scriptingEngine);
+      m_sceneManager.SetCurrentCamera(&m_camera);
+      
       m_isPlaying = false;
       ImGui::StyleColorsDark();
    }
