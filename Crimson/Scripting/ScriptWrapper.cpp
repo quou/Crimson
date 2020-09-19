@@ -23,11 +23,6 @@ namespace Crimson {
          chai->add(chaiscript::fun(&glm::vec3::y), "y");
          chai->add(chaiscript::fun(&glm::vec3::z), "z");
 
-         chai->add(chaiscript::user_type<Transform>(), "TransformComponent");
-         chai->add(chaiscript::fun(&Transform::position), "position");
-         chai->add(chaiscript::fun(&Transform::rotation), "rotation");
-         chai->add(chaiscript::fun(&Transform::scale), "scale");
-
          chai->add(chaiscript::user_type<Material>(), "Material");
          chai->add(chaiscript::fun(&Material::ambient), "ambient");
          chai->add(chaiscript::fun(&Material::diffuse), "diffuse");
@@ -47,6 +42,24 @@ namespace Crimson {
          chai->add(chaiscript::fun(&Shader::Init), "Init");
          chai->add(chaiscript::fun(&Shader::GetVertPath), "GetVertPath");
          chai->add(chaiscript::fun(&Shader::GetFragPath), "GetFragPath");
+
+         chai->add(chaiscript::user_type<Camera>(), "Camera");
+         chai->add(chaiscript::fun(&Camera::SetFOV), "SetFOV");
+         chai->add(chaiscript::fun(&Camera::SetNear), "SetNear");
+         chai->add(chaiscript::fun(&Camera::SetFar), "SetFar");
+         chai->add(chaiscript::fun(&Camera::GetFOV), "GetFOV");
+         chai->add(chaiscript::fun(&Camera::GetNear), "GetNear");
+         chai->add(chaiscript::fun(&Camera::GetFar), "GetFar");
+
+
+         chai->add(chaiscript::user_type<Transform>(), "TransformComponent");
+         chai->add(chaiscript::fun(&Transform::position), "position");
+         chai->add(chaiscript::fun(&Transform::rotation), "rotation");
+         chai->add(chaiscript::fun(&Transform::scale), "scale");
+
+         chai->add(chaiscript::user_type<CameraComponent>(), "CameraComponent");
+         chai->add(chaiscript::fun(&CameraComponent::isCurrent), "active");
+         chai->add(chaiscript::fun(&CameraComponent::camera), "camera");
 
 
          chai->add(chaiscript::user_type<ModelComponent>(), "ModelComponent");
