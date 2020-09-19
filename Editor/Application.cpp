@@ -46,6 +46,8 @@ public:
    }
 
    void OnUpdate(float delta) override {
+      m_sceneManager.Update(m_ecs);
+
       if (m_gui.GetShouldPlay() != m_isPlaying) {
          if (m_gui.GetShouldPlay()) {
             Play();

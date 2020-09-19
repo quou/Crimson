@@ -56,6 +56,8 @@ namespace Crimson {
 
       DirectionalShadowmap* GetShadowmap() {return &m_directionalShadowmap;}
 
+      void Update(ECS& ecs);
+
       Cubemap m_skybox;
    };
 }

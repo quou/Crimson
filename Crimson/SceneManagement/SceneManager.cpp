@@ -76,9 +76,16 @@ namespace Crimson {
       printer.CloseElement();
 
       XMLDocument doc;
-      std::cout << printer.CStr() << '\n';
       doc.Parse(printer.CStr());
       ParseEntities(doc.RootElement(), ecs, 0);
+   }
+
+   void SceneManager::Update(ECS& ecs) {
+      for (CameraComponent* cam : m_cameras) {
+         if (cam->isCurrent) {
+            SetCurrentCamera(&cam->camera);
+         }
+      }
    }
 
    static auto FindEntity(XMLElement* node, const char* name)  {
