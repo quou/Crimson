@@ -260,7 +260,7 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
       }
    }
 
-   if (ImGui::Button("Duplicate Selected")) { 
+   if (ImGui::Button("Duplicate Selected")) {
       if (m_selectedEntity) {
          sceneManager.DuplicateEntity(m_selectedEntity, ecs);
          m_selectedEntity = 0;
@@ -503,6 +503,13 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
 
    if (m_inspectorOpen) {DrawInspector(ecs, sceneManager);}
+
+   if (m_isSceneFocused != m_oldSceneFocused) {
+      m_oldSceneFocused = m_isSceneFocused;
+      if (m_selectedEntity) {
+         m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+      }
+   }
 
    if (m_isSceneFocused) {
       DrawGizmos(ecs, sceneManager, camera, renderTarget);

@@ -37,6 +37,8 @@ private:
    bool m_showSaveAs{false};
    bool m_showOpen{false};
 
+   bool m_oldSceneFocused{false};
+
 	ImGuizmo::MODE m_currentGizmoMode{ImGuizmo::WORLD};
    ImGuizmo::OPERATION m_currentGizmoOperation{ImGuizmo::TRANSLATE};
 
