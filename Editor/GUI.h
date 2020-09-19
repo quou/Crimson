@@ -33,6 +33,8 @@ private:
    bool m_projectOpen{true};
    bool m_sceneSettingsOpen{true};
    bool m_toolbarOpen{true};
+   bool m_sceneOpen{true};
+   bool m_gameOpen{true};
 
    bool m_showSaveAs{false};
    bool m_showOpen{false};

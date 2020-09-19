@@ -77,8 +77,12 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
             ecs.AddComponent<Crimson::ScriptComponent>(m_selectedEntity);
          }
 
-         if (ImGui::MenuItem("PointLight")) {
+         if (ImGui::MenuItem("Point Light")) {
             ecs.AddComponent<Crimson::PointLight>(m_selectedEntity);
+         }
+
+         if (ImGui::MenuItem("Camera")) {
+            ecs.AddComponent<Crimson::CameraComponent>(m_selectedEntity);
          }
 
          ImGui::EndPopup();
@@ -407,6 +411,8 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
          ImGui::MenuItem("Project Explorer", NULL, &m_projectOpen);
          ImGui::MenuItem("Scene Config", NULL, &m_sceneSettingsOpen);
          ImGui::MenuItem("Toolbar", NULL, &m_toolbarOpen);
+         ImGui::MenuItem("Scene", NULL, &m_sceneOpen);
+         ImGui::MenuItem("Game", NULL, &m_gameOpen);
          ImGui::End();
       }
 
@@ -527,8 +533,9 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    // ImGui::End();
 
 //   DrawConsole(strCout);
-   DrawGame(ecs, gameRenderTarget, camera);
-   DrawScene(ecs, sceneRenderTarget, camera);
+
+   if (m_gameOpen) {DrawGame(ecs, gameRenderTarget, camera);}
+   if (m_sceneOpen) {DrawScene(ecs, sceneRenderTarget, camera);}
 }
 
 void GUI::EndFrame() {
@@ -569,7 +576,7 @@ void GUI::DrawConsole(std::ostringstream& strCout) {
 }
 
 void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
-   ImGui::Begin("Scene");
+   ImGui::Begin("Scene", &m_sceneOpen);
    if (ImGui::IsWindowFocused()) {
       m_isSceneFocused = true;
    } else {
@@ -589,7 +596,7 @@ void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Came
 }
 
 void GUI::DrawGame(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
-   ImGui::Begin("Game");
+   ImGui::Begin("Game", &m_gameOpen);
 
    renderTarget.Resize(ImGui::GetWindowSize().x-15, ImGui::GetWindowSize().y-35);
    ImGui::Image((ImTextureID)renderTarget.GetOutput(), ImVec2(renderTarget.GetWidth(), renderTarget.GetHeight()), ImVec2(0, 1), ImVec2(1, 0));
