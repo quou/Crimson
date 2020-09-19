@@ -12,6 +12,9 @@
 #include <string>
 #include <algorithm>
 
+#include <Utils/tinyxml2.h>
+
+using namespace tinyxml2;
 
 static bool hasEnding(std::string const &fullString, std::string const &ending) {
     if (fullString.length() >= ending.length()) {
@@ -253,6 +256,13 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
    if (ImGui::Button("Delete Selected")) {
       if (m_selectedEntity) {
          sceneManager.DeleteEntity(m_selectedEntity, ecs);
+         m_selectedEntity = 0;
+      }
+   }
+
+   if (ImGui::Button("Duplicate Selected")) { 
+      if (m_selectedEntity) {
+         sceneManager.DuplicateEntity(m_selectedEntity, ecs);
          m_selectedEntity = 0;
       }
    }

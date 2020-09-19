@@ -69,6 +69,18 @@ namespace Crimson {
       ecs.DestroyEntity(entity);
    }
 
+   void SceneManager::DuplicateEntity(EntityHandle entity, ECS& ecs) {
+      XMLPrinter printer;
+      printer.OpenElement("tmp");
+      SerializeEntity(entity, printer, ecs);
+      printer.CloseElement();
+
+      XMLDocument doc;
+      std::cout << printer.CStr() << '\n';
+      doc.Parse(printer.CStr());
+      ParseEntities(doc.RootElement(), ecs, 0);
+   }
+
    static auto FindEntity(XMLElement* node, const char* name)  {
       std::vector<XMLElement*> found;
          for (
@@ -330,7 +342,7 @@ namespace Crimson {
       }
 
       if (ecs.HasComponent<Transform>(ent)) {
-         for (auto& e : ecs.GetComponent<Transform>(ent)->children) {
+         for (EntityHandle e : ecs.GetComponent<Transform>(ent)->children) {
             SerializeEntity(e, printer, ecs);
          }
       }

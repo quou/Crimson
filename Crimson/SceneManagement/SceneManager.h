@@ -46,6 +46,7 @@ namespace Crimson {
 
       void CreateEntity(const std::string& name, ECS& ecs);
       void DeleteEntity(EntityHandle entity, ECS& ecs);
+      void DuplicateEntity(EntityHandle entity, ECS& ecs);
 
       void Serialize(const std::string& fileName, ECS& ecs);
       int Deserialize(const std::string& fileName, ECS& ecs);
