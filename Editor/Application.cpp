@@ -58,7 +58,7 @@ public:
          Crimson::UpdateScripts(m_ecs, delta);
       }
 
-      Crimson::UpdateCameras(m_ecs, m_renderTarget);
+      Crimson::UpdateCameras(m_ecs, m_renderTarget.GetWidth(), m_renderTarget.GetHeight());
       m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();

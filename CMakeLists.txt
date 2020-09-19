@@ -71,7 +71,7 @@ set(CRIMSON_DEPS
    ${GL_LIB}
    glad
    SDL2main
-   SDL2
+   SDL2-static
 )
 
 add_library(Crimson ${CRIMSON_SOURCE})
@@ -79,16 +79,6 @@ target_include_directories(Crimson PUBLIC ${CRIMSON_EXT_INCLUDES} Crimson)
 target_link_libraries(Crimson ${CRIMSON_DEPS})
 
 
-# SANDBOX
-# project(Sandbox)
-#
-# set(SANDBOX_SOURCE
-#    Sandbox/Application.cpp
-# )
-#
-# add_executable(Sandbox ${SANDBOX_SOURCE})
-# target_include_directories(Sandbox PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
-# target_link_libraries(Sandbox ${CRIMSON_LIBS} Crimson)
 
 # EDITOR
 project(Editor)
@@ -101,3 +91,14 @@ set(EDITOR_SOURCE
 add_executable(Editor ${EDITOR_SOURCE})
 target_include_directories(Editor PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
 target_link_libraries(Editor ${CRIMSON_LIBS} Crimson)
+
+# RUNTIME
+project(Runtime)
+
+set(RUNTIME_SOURCE
+   Runtime/Application.cpp
+)
+
+add_executable(Runtime ${RUNTIME_SOURCE})
+target_include_directories(Runtime PUBLIC ${CRIMSON_EXT_INCLUDES} ${CRIMSON_INCLUDE_DIR})
+target_link_libraries(Runtime ${CRIMSON_LIBS} Crimson)

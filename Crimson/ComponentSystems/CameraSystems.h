@@ -13,11 +13,11 @@ namespace Crimson {
       bool isCurrent;
    };
 
-   static void UpdateCameras(ECS& ecs, RenderTarget& renderTarget) {
+   static void UpdateCameras(ECS& ecs, int renderWidth, int renderHeight) {
       for (EntityHandle ent : System<Transform, CameraComponent>(ecs)) {
          Camera* cam = &ecs.GetComponent<CameraComponent>(ent)->camera;
          cam->SetPosition(ecs.GetComponent<Transform>(ent)->position);
-         cam->UpdatePerspective(cam->GetFOV(), (float)renderTarget.GetWidth()/(float)renderTarget.GetHeight(), cam->GetNear(), cam->GetFar());
+         cam->UpdatePerspective(cam->GetFOV(), (float)renderWidth/(float)renderHeight, cam->GetNear(), cam->GetFar());
          cam->SetRotation(ecs.GetComponent<Transform>(ent)->rotation.y, -ecs.GetComponent<Transform>(ent)->rotation.x);
       }
    }
