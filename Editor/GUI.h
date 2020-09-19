@@ -83,11 +83,12 @@ public:
 
    void EndFrame();
 
-   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget);
+   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget);
    void Update(const SDL_Event& event);
 
    void DrawConsole(std::ostringstream& strCout);
    void DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
+   void DrawGame(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
 
    void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
    void SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs);

@@ -492,7 +492,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
 	}
 }
 
-void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
+void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget) {
    m_isSaved = false;
 
    ImGui_ImplOpenGL3_NewFrame();
@@ -512,7 +512,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    }
 
    if (m_isSceneFocused) {
-      DrawGizmos(ecs, sceneManager, camera, renderTarget);
+      DrawGizmos(ecs, sceneManager, camera, sceneRenderTarget);
    }
 
    DrawMainMenuBar(sceneManager, ecs);
@@ -527,7 +527,8 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    // ImGui::End();
 
 //   DrawConsole(strCout);
-   DrawScene(ecs, renderTarget, camera);
+   DrawGame(ecs, gameRenderTarget, camera);
+   DrawScene(ecs, sceneRenderTarget, camera);
 }
 
 void GUI::EndFrame() {
@@ -583,6 +584,15 @@ void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Came
    ImGuizmo::SetDrawlist();
    ImGuizmo::SetRect(m_sceneWindowPos.x, m_sceneWindowPos.y, renderTarget.GetWidth(), renderTarget.GetHeight());
    ImGuizmo::Manipulate(glm::value_ptr(camera.GetView()), glm::value_ptr(camera.GetProjection()), m_currentGizmoOperation, m_currentGizmoMode, glm::value_ptr(m_currentGizmoMatrix), NULL, NULL);
+
+   ImGui::End();
+}
+
+void GUI::DrawGame(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
+   ImGui::Begin("Game");
+
+   renderTarget.Resize(ImGui::GetWindowSize().x-15, ImGui::GetWindowSize().y-35);
+   ImGui::Image((ImTextureID)renderTarget.GetOutput(), ImVec2(renderTarget.GetWidth(), renderTarget.GetHeight()), ImVec2(0, 1), ImVec2(1, 0));
 
    ImGui::End();
 }

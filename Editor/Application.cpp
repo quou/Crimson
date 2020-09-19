@@ -22,7 +22,8 @@ private:
 
    GUI m_gui;
 
-   Crimson::RenderTarget m_renderTarget;
+   Crimson::RenderTarget m_sceneRenderTarget;
+   Crimson::RenderTarget m_gameRenderTarget;
 
    bool m_isPlaying {false};
 
@@ -58,8 +59,8 @@ public:
          Crimson::UpdateScripts(m_ecs, delta);
       }
 
-      Crimson::UpdateCameras(m_ecs, m_renderTarget.GetWidth(), m_renderTarget.GetHeight());
-      m_camera.UpdatePerspective(45.0f, (float)m_renderTarget.GetWidth()/(float)m_renderTarget.GetHeight(), 0.1f, 100.0f);
+      Crimson::UpdateCameras(m_ecs, m_sceneRenderTarget.GetWidth(), m_sceneRenderTarget.GetHeight());
+      m_camera.UpdatePerspective(45.0f, (float)m_sceneRenderTarget.GetWidth()/(float)m_sceneRenderTarget.GetHeight(), 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();
       float yaw = m_camera.GetYaw();
@@ -131,13 +132,21 @@ public:
    }
 
    void OnRender(float delta) override {
+      m_sceneManager.SetCurrentCamera(&m_camera);
       Crimson::ShadowPass(m_ecs, m_sceneManager);
-      m_renderTarget.Bind();
-      m_renderTarget.Clear();
+      m_sceneRenderTarget.Bind();
+      m_sceneRenderTarget.Clear();
+      Crimson::RenderModels(m_ecs, m_sceneManager);
+
+
+      m_sceneManager.MakeCameraCurrent();
+      Crimson::ShadowPass(m_ecs, m_sceneManager);
+      m_gameRenderTarget.Bind();
+      m_gameRenderTarget.Clear();
       Crimson::RenderModels(m_ecs, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
-      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_renderTarget);
+      m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_sceneRenderTarget, m_gameRenderTarget);
 
       m_gui.EndFrame();
    }
@@ -146,10 +155,9 @@ public:
       std::cout << "play" << '\n';
 
       m_gui.SaveScene(m_sceneManager, m_ecs);
+      ImGui::SetWindowFocus("Game");
 
       if (m_gui.IsSaved()) {
-         m_sceneManager.MakeCameraCurrent();
-
          Crimson::CompileScripts(m_ecs);
          Crimson::InstancePrefabs(m_ecs, m_sceneManager);
          Crimson::InitScripts(m_ecs);
@@ -161,10 +169,8 @@ public:
    void Stop() {
       std::cout << "stop" << '\n';
 
-
       m_gui.OpenScene(m_gui.GetCurrentScenePath(), m_sceneManager, m_ecs);
-
-      m_sceneManager.SetCurrentCamera(&m_camera);
+      ImGui::SetWindowFocus("Scene");
 
       m_isPlaying = false;
       ImGui::StyleColorsDark();
