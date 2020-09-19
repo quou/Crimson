@@ -78,7 +78,7 @@ add_library(Crimson ${CRIMSON_SOURCE})
 target_include_directories(Crimson PUBLIC ${CRIMSON_EXT_INCLUDES} Crimson)
 target_link_libraries(Crimson ${CRIMSON_DEPS})
 
-
+add_executable(ProjectManager ProjectManager/Application.cpp)
 
 # EDITOR
 project(Editor)
