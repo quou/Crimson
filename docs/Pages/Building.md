@@ -12,4 +12,4 @@ How to build the engine from source.
  - Acquire the source from [the GitHub repository](https://github.com/georgelam6/Crimson)
  - Build the CMake project (using the CMake GUI or by running `cmake .` from the root folder)
  - Build the project
- - The editor executable, as well as the Crimson library will be located in the `bin` folder.
+ - The editor and runtime executables, as well as the Crimson library will be located in the `bin` folder.
