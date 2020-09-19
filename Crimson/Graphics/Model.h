@@ -42,7 +42,7 @@ namespace Crimson {
       Model(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount);
 
       void Load(const std::string& fileName);
-      void Load(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount);
+      void LoadFromData(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount);
 
       inline std::string GetRes() const {return m_res;}
 

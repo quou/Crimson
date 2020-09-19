@@ -14,10 +14,10 @@ namespace Crimson {
    }
 
    Model::Model(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount) {
-      Load(vertices, vertexCount, indices, indexCount);
+      LoadFromData(vertices, vertexCount, indices, indexCount);
    }
 
-   void Model::Load(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount) {
+   void Model::LoadFromData(Vertex* vertices, unsigned int vertexCount, unsigned int* indices, unsigned int indexCount) {
       m_drawCount = vertexCount;
 
       IndexedModel model;

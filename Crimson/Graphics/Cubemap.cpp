@@ -73,7 +73,7 @@ namespace Crimson {
          {glm::vec3(1.0f, -1.0f, 1.0f), glm::vec2(0,0), glm::vec3(0,0,0)},
       };
 
-      m_skyModel.Load(skyboxVertices, 64, skyboxIndices, 36);
+      m_skyModel.LoadFromData(skyboxVertices, 64, skyboxIndices, 36);
    }
 
    void Cubemap::Render(Camera& camera) {

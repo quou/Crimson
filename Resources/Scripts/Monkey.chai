@@ -1,5 +1,6 @@
 def OnBegin() {
-   GetModelComponent(entity).material.shininess = 32;
+   GetModelComponent(entity).mesh.Load("Resources/Models/torus.obj");
+   GetModelComponent(entity).texture.Load("Resources/Textures/Bricks.jpg");
 }
 
 def OnUpdate(float delta) {

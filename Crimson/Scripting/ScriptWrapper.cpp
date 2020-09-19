@@ -34,6 +34,20 @@ namespace Crimson {
          chai->add(chaiscript::fun(&Material::specular), "specular");
          chai->add(chaiscript::fun(&Material::shininess), "shininess");
 
+         chai->add(chaiscript::user_type<Model>(), "Mesh");
+         chai->add(chaiscript::fun(&Model::Load), "Load");
+         chai->add(chaiscript::fun(&Model::GetRes), "GetRes");
+
+         chai->add(chaiscript::user_type<Texture>(), "Texture");
+         chai->add(chaiscript::fun(&Texture::Load), "Load");
+         chai->add(chaiscript::fun(&Texture::GetRes), "GetRes");
+         chai->add(chaiscript::fun(&Texture::IsLoaded), "IsLoaded");
+
+         chai->add(chaiscript::user_type<Shader>(), "Shader");
+         chai->add(chaiscript::fun(&Shader::Init), "Init");
+         chai->add(chaiscript::fun(&Shader::GetVertPath), "GetVertPath");
+         chai->add(chaiscript::fun(&Shader::GetFragPath), "GetFragPath");
+
 
          chai->add(chaiscript::user_type<ModelComponent>(), "ModelComponent");
          chai->add(chaiscript::fun(&ModelComponent::model), "mesh");

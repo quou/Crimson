@@ -55,7 +55,7 @@ struct ModelComponent {
 };
 
 struct CameraComponent {
-   bool current;
+   bool active;
    Crimson::Camera camera;
 }
 
