@@ -52,7 +52,7 @@ SOFTWARE.
 #include "SceneManagement/SceneManager.h"
 
 /* ECS */
-#include "SLECS.h"
+#include "ECS.h"
 #include "ComponentSystems/GraphicsSystems.h"
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/ScriptSystems.h"

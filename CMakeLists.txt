@@ -40,7 +40,6 @@ set(IMGUI_SOURCE
 
 set(CRIMSON_SOURCE
    ${IMGUI_SOURCE}
-   Crimson/SLECS.cpp
    Crimson/Graphics/Display.cpp
    Crimson/Graphics/Renderer.cpp
    Crimson/Graphics/Shader.cpp
@@ -51,6 +50,7 @@ set(CRIMSON_SOURCE
    Crimson/Graphics/Lighting/DirectionalShadowmap.cpp
    Crimson/Scripting/ScriptStandardFunctions.cpp
    Crimson/Scripting/ScriptWrapper.cpp
+   Crimson/ComponentSystems/GraphicsSystems.cpp
    Crimson/Utils/obj_loader.cpp
    Crimson/Utils/stb_image.c
    Crimson/Utils/tinyxml2.cpp

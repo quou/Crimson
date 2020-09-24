@@ -1,9 +1,17 @@
+import("Keyboard");
+
 def OnBegin() {
-   GetModelComponent(entity).mesh.Load("Resources/Models/torus.obj");
-   GetModelComponent(entity).texture.Load("Resources/Textures/Bricks.jpg");
+   if (HasModelComponent(entity)) {
+      GetModelComponent(entity).mesh.Load("Resources/Models/torus.obj");
+      GetModelComponent(entity).texture.Load("Resources/Textures/Bricks.jpg");
+   }
 }
 
 def OnUpdate(float delta) {
    GetTransformComponent(entity).position.x += 1 * delta;
    GetTransformComponent(entity).rotation.y += 100.0f  * delta;
+
+   /* if (Keyboard.WasKeyPressed("A")) {
+      print("hi");
+   } */
 }

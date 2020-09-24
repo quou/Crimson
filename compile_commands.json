@@ -51,11 +51,6 @@
 },
 {
   "directory": "/home/george/Documents/Crimson",
-  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/SLECS.cpp.o -c /home/george/Documents/Crimson/Crimson/SLECS.cpp",
-  "file": "/home/george/Documents/Crimson/Crimson/SLECS.cpp"
-},
-{
-  "directory": "/home/george/Documents/Crimson",
   "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Graphics/Display.cpp.o -c /home/george/Documents/Crimson/Crimson/Graphics/Display.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Graphics/Display.cpp"
 },
@@ -103,6 +98,11 @@
   "directory": "/home/george/Documents/Crimson",
   "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/Scripting/ScriptWrapper.cpp.o -c /home/george/Documents/Crimson/Crimson/Scripting/ScriptWrapper.cpp",
   "file": "/home/george/Documents/Crimson/Crimson/Scripting/ScriptWrapper.cpp"
+},
+{
+  "directory": "/home/george/Documents/Crimson",
+  "command": "/usr/bin/c++   -I/home/george/Documents/Crimson/Extern/SDL/include -I/home/george/Documents/Crimson/Extern/glad/include -I/home/george/Documents/Crimson/Extern/glm -I/home/george/Documents/Crimson/Extern/imgui -I/home/george/Documents/Crimson/Extern/imgui/examples -I/home/george/Documents/Crimson/Crimson  -g   -std=gnu++17 -o CMakeFiles/Crimson.dir/Crimson/ComponentSystems/GraphicsSystems.cpp.o -c /home/george/Documents/Crimson/Crimson/ComponentSystems/GraphicsSystems.cpp",
+  "file": "/home/george/Documents/Crimson/Crimson/ComponentSystems/GraphicsSystems.cpp"
 },
 {
   "directory": "/home/george/Documents/Crimson",

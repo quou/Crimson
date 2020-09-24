@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 
 #include "ComponentSystems/Transform.h"
 #include "ComponentSystems/GraphicsSystems.h"
@@ -35,10 +36,7 @@ namespace Crimson {
 
    void SceneManager::CreateEntity(const std::string& name, ECS& ecs) {
       EntityHandle newEntity = ecs.CreateEntity();
-      ecs.AddComponent<Transform>(newEntity, name);
-      ecs.GetComponent<Transform>(newEntity)->position = glm::vec3(0,0,0);
-      ecs.GetComponent<Transform>(newEntity)->rotation = glm::vec3(0,0,0);
-      ecs.GetComponent<Transform>(newEntity)->scale = glm::vec3(1,1,1);
+      ecs.AddComponent<Transform>(newEntity, Transform{name, glm::vec3(0), glm::vec3(0), glm::vec3(1)});
       m_entities.push_back(newEntity);
    }
 
@@ -58,12 +56,13 @@ namespace Crimson {
       m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
 
       if (ecs.HasComponent<Transform>(entity)) {
-         if (ecs.GetComponent<Transform>(entity)->parent) {
-            ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.erase(std::remove(ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.begin(), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.end(), entity), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity)->parent)->children.end());
+         if (ecs.GetComponent<Transform>(entity).parent) {
+            ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity).parent).children.erase(std::remove(ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity).parent).children.begin(), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity).parent).children.end(), entity), ecs.GetComponent<Transform>(ecs.GetComponent<Transform>(entity).parent).children.end());
          }
-         for (EntityHandle ent : ecs.GetComponent<Transform>(entity)->children) {
+         for (EntityHandle ent : ecs.GetComponent<Transform>(entity).children) {
             DeleteEntity(ent, ecs);
          }
+         ecs.RemoveComponent<Transform>(entity);
       }
 
       ecs.DestroyEntity(entity);
@@ -120,7 +119,7 @@ namespace Crimson {
          XMLElement* eScale = eComponent->FirstChildElement("scale");
          scale = glm::vec3(eScale->FloatAttribute("x"), eScale->FloatAttribute("y"), eScale->FloatAttribute("z"));
 
-         ecs.AddComponent<Transform>(newEntity, name, position, rotation, scale);
+         ecs.AddComponent<Transform>(newEntity, Transform{name, position, rotation, scale});
       }
 
       /* CAMERA LOADING */
@@ -132,20 +131,20 @@ namespace Crimson {
          float far = ePerspective->FloatAttribute("far");
          bool isCurrent = eComponent->BoolAttribute("current");
 
-         ecs.AddComponent<CameraComponent>(newEntity)->camera = Camera(glm::vec3(0,0,0), fov, 1366/768, near, far);
-         ecs.GetComponent<CameraComponent>(newEntity)->isCurrent = isCurrent;
+         ecs.AddComponent<CameraComponent>(newEntity, CameraComponent()).camera = Camera(glm::vec3(0,0,0), fov, 1366/768, near, far);
+         ecs.GetComponent<CameraComponent>(newEntity).isCurrent = isCurrent;
 
-         m_cameras.push_back(ecs.GetComponent<CameraComponent>(newEntity));
+         m_cameras.push_back(&ecs.GetComponent<CameraComponent>(newEntity));
 
          if (isCurrent) {
-            SetCurrentCamera(&ecs.GetComponent<CameraComponent>(newEntity)->camera);
+            SetCurrentCamera(&ecs.GetComponent<CameraComponent>(newEntity).camera);
          }
       }
 
       /* MODEL LOADING */
       eComponent = node->FirstChildElement("model");
       if (eComponent) {
-         ecs.AddComponent<ModelComponent>(newEntity);
+         ecs.AddComponent<ModelComponent>(newEntity, ModelComponent());
 
          XMLElement* eTexture = eComponent->FirstChildElement("texture");
          std::string texRes = eTexture->Attribute("res");
@@ -167,10 +166,10 @@ namespace Crimson {
          std::string vertPath = eShader->Attribute("vertex");
          std::string fragPath = eShader->Attribute("fragment");
 
-         ecs.GetComponent<ModelComponent>(newEntity)->shader.Init(vertPath, fragPath);
-         ecs.GetComponent<ModelComponent>(newEntity)->texture.Load(texRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->model.Load(meshRes);
-         ecs.GetComponent<ModelComponent>(newEntity)->material = {matAmbient, matDiffuse, matSpecular, matShininess};
+         ecs.GetComponent<ModelComponent>(newEntity).shader.Init(vertPath, fragPath);
+         ecs.GetComponent<ModelComponent>(newEntity).texture.Load(texRes);
+         ecs.GetComponent<ModelComponent>(newEntity).model.Load(meshRes);
+         ecs.GetComponent<ModelComponent>(newEntity).material = {matAmbient, matDiffuse, matSpecular, matShininess};
       }
 
       /* POINT LIGHT LOADING */
@@ -188,19 +187,19 @@ namespace Crimson {
          float linear = ePoint->FloatAttribute("linear");
          float quadratic = ePoint->FloatAttribute("quadratic");
 
-         ecs.AddComponent<PointLight>(newEntity, constant, linear, quadratic, ambient, diffuse, specular);
+         ecs.AddComponent<PointLight>(newEntity, PointLight{constant, linear, quadratic, ambient, diffuse, specular});
       }
 
       /* SCRIPT LOADING */
       eComponent = node->FirstChildElement("script");
       if (eComponent) {
-         ecs.AddComponent<ScriptComponent>(newEntity, eComponent->Attribute("res"));
+         ecs.AddComponent<ScriptComponent>(newEntity, ScriptComponent{eComponent->Attribute("res")});
       }
 
       /* PREFAB LOADING */
       eComponent = node->FirstChildElement("prefabinstance");
       if (eComponent) {
-         ecs.AddComponent<PrefabInstancerComponent>(newEntity, eComponent->Attribute("res"));
+         ecs.AddComponent<PrefabInstancerComponent>(newEntity, PrefabInstancerComponent{eComponent->Attribute("res")});
       }
 
       m_entities.push_back(newEntity);
@@ -212,10 +211,10 @@ namespace Crimson {
       printer.OpenElement("entity");
 
       if (ecs.HasComponent<Transform>(ent)) {
-         std::string name = ecs.GetComponent<Transform>(ent)->name;
-         glm::vec3 position = ecs.GetComponent<Transform>(ent)->position;
-         glm::vec3 rotation = ecs.GetComponent<Transform>(ent)->rotation;
-         glm::vec3 scale = ecs.GetComponent<Transform>(ent)->scale;
+         std::string name = ecs.GetComponent<Transform>(ent).name;
+         glm::vec3 position = ecs.GetComponent<Transform>(ent).position;
+         glm::vec3 rotation = ecs.GetComponent<Transform>(ent).rotation;
+         glm::vec3 scale = ecs.GetComponent<Transform>(ent).scale;
 
          printer.OpenElement("transform");
             printer.PushAttribute("name", name.c_str());
@@ -241,14 +240,14 @@ namespace Crimson {
       }
 
       if (ecs.HasComponent<ModelComponent>(ent)) {
-         std::string vertPath = ecs.GetComponent<ModelComponent>(ent)->shader.GetVertPath();
-         std::string fragPath = ecs.GetComponent<ModelComponent>(ent)->shader.GetFragPath();
-         std::string texRes = ecs.GetComponent<ModelComponent>(ent)->texture.GetRes();
-         std::string meshRes = ecs.GetComponent<ModelComponent>(ent)->model.GetRes();
-         glm::vec3 matAmbient = ecs.GetComponent<ModelComponent>(ent)->material.ambient;
-         glm::vec3 matDiffuse = ecs.GetComponent<ModelComponent>(ent)->material.diffuse;
-         glm::vec3 matSpecular = ecs.GetComponent<ModelComponent>(ent)->material.specular;
-         float matShininess = ecs.GetComponent<ModelComponent>(ent)->material.shininess;
+         std::string vertPath = ecs.GetComponent<ModelComponent>(ent).shader.GetVertPath();
+         std::string fragPath = ecs.GetComponent<ModelComponent>(ent).shader.GetFragPath();
+         std::string texRes = ecs.GetComponent<ModelComponent>(ent).texture.GetRes();
+         std::string meshRes = ecs.GetComponent<ModelComponent>(ent).model.GetRes();
+         glm::vec3 matAmbient = ecs.GetComponent<ModelComponent>(ent).material.ambient;
+         glm::vec3 matDiffuse = ecs.GetComponent<ModelComponent>(ent).material.diffuse;
+         glm::vec3 matSpecular = ecs.GetComponent<ModelComponent>(ent).material.specular;
+         float matShininess = ecs.GetComponent<ModelComponent>(ent).material.shininess;
 
          printer.OpenElement("model");
             printer.OpenElement("texture");
@@ -291,12 +290,12 @@ namespace Crimson {
       }
 
       if (ecs.HasComponent<PointLight>(ent)) {
-         glm::vec3 ambient = ecs.GetComponent<PointLight>(ent)->ambient;
-         glm::vec3 diffuse = ecs.GetComponent<PointLight>(ent)->diffuse;
-         glm::vec3 specular = ecs.GetComponent<PointLight>(ent)->specular;
-         float constant = ecs.GetComponent<PointLight>(ent)->constant;
-         float linear = ecs.GetComponent<PointLight>(ent)->linear;
-         float quadratic = ecs.GetComponent<PointLight>(ent)->quadratic;
+         glm::vec3 ambient = ecs.GetComponent<PointLight>(ent).ambient;
+         glm::vec3 diffuse = ecs.GetComponent<PointLight>(ent).diffuse;
+         glm::vec3 specular = ecs.GetComponent<PointLight>(ent).specular;
+         float constant = ecs.GetComponent<PointLight>(ent).constant;
+         float linear = ecs.GetComponent<PointLight>(ent).linear;
+         float quadratic = ecs.GetComponent<PointLight>(ent).quadratic;
 
          printer.OpenElement("pointlight");
             printer.OpenElement("point");
@@ -327,29 +326,29 @@ namespace Crimson {
 
       if (ecs.HasComponent<ScriptComponent>(ent)) {
          printer.OpenElement("script");
-            printer.PushAttribute("res", ecs.GetComponent<ScriptComponent>(ent)->scriptFile.c_str());
+            printer.PushAttribute("res", ecs.GetComponent<ScriptComponent>(ent).scriptFile.c_str());
          printer.CloseElement();
       }
 
       if (ecs.HasComponent<CameraComponent>(ent)) {
          printer.OpenElement("camera");
-            printer.PushAttribute("current", ecs.GetComponent<CameraComponent>(ent)->isCurrent);
+            printer.PushAttribute("current", ecs.GetComponent<CameraComponent>(ent).isCurrent);
             printer.OpenElement("perspective");
-               printer.PushAttribute("fov", ecs.GetComponent<CameraComponent>(ent)->camera.GetFOV());
-               printer.PushAttribute("near", ecs.GetComponent<CameraComponent>(ent)->camera.GetNear());
-               printer.PushAttribute("far", ecs.GetComponent<CameraComponent>(ent)->camera.GetFar());
+               printer.PushAttribute("fov", ecs.GetComponent<CameraComponent>(ent).camera.GetFOV());
+               printer.PushAttribute("near", ecs.GetComponent<CameraComponent>(ent).camera.GetNear());
+               printer.PushAttribute("far", ecs.GetComponent<CameraComponent>(ent).camera.GetFar());
             printer.CloseElement();
          printer.CloseElement();
       }
 
       if (ecs.HasComponent<PrefabInstancerComponent>(ent)) {
          printer.OpenElement("prefabinstance");
-            printer.PushAttribute("res", ecs.GetComponent<PrefabInstancerComponent>(ent)->prefabPath.c_str());
+            printer.PushAttribute("res", ecs.GetComponent<PrefabInstancerComponent>(ent).prefabPath.c_str());
          printer.CloseElement();
       }
 
       if (ecs.HasComponent<Transform>(ent)) {
-         for (EntityHandle e : ecs.GetComponent<Transform>(ent)->children) {
+         for (EntityHandle e : ecs.GetComponent<Transform>(ent).children) {
             SerializeEntity(e, printer, ecs);
          }
       }
@@ -363,8 +362,8 @@ namespace Crimson {
          auto entity = ParseEntity(el, ecs);
 
          if (parent && entity) {
-            AddChild(ecs.GetComponent<Transform>(parent), entity);
-            AddParent(ecs.GetComponent<Transform>(entity), parent);
+            AddChild(&ecs.GetComponent<Transform>(parent), entity);
+            AddParent(&ecs.GetComponent<Transform>(entity), parent);
          }
 
          ParseEntities(el, ecs, entity);
@@ -406,7 +405,7 @@ namespace Crimson {
       printer.CloseElement();
 
       for (EntityHandle ent : m_entities) {
-         if (!ecs.GetComponent<Transform>(ent)->parent) {
+         if (!ecs.GetComponent<Transform>(ent).parent) {
             SerializeEntity(ent, printer, ecs);
          }
       }

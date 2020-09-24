@@ -2,28 +2,14 @@
 #define SCRIPTSYSTEMS
 
 #include "Scripting/ScriptWrapper.h"
-#include "SLECS.h"
+#include "ECS.h"
 
 namespace Crimson {
-   static void CompileScripts(ECS& ecs) {
-      int count = 1;
-      for (EntityHandle ent : System<ScriptComponent>(ecs)) {
-         Scripting::Execute(ecs, ent, ecs.GetComponent<ScriptComponent>(ent));
-         count++;
-      }
-   }
+   class ScriptSystem : public System {
+   private:
+   public:
 
-   static void InitScripts(ECS& ecs) {
-      for (EntityHandle ent : System<ScriptComponent>(ecs)) {
-         Scripting::CallBeginFunction(ecs.GetComponent<ScriptComponent>(ent));
-      }
-   }
-
-   static void UpdateScripts(ECS& ecs, float delta) {
-      for (EntityHandle ent : System<ScriptComponent>(ecs)) {
-         Scripting::CallUpdateFunction(ecs.GetComponent<ScriptComponent>(ent), delta);
-      }
-   }
+   };
 }
 
 #endif /* end of include guard: SCRIPTSYSTEMS */

@@ -2,15 +2,13 @@
 #define SCRIPTWRAPPER_H
 
 #include "ScriptComponent.h"
+#include "Input/Keyboard.h"
 
-#include "SLECS.h"
+#include "ECS.h"
 
 namespace Crimson {
    namespace Scripting {
-      void Execute(ECS& ecs, EntityHandle ent, ScriptComponent* scriptComponent);
-
-      void CallUpdateFunction(ScriptComponent* scriptComponent, float delta);
-      void CallBeginFunction(ScriptComponent* scriptComponent);
+      
    }
 }
 

@@ -44,22 +44,22 @@ private:
 	ImGuizmo::MODE m_currentGizmoMode{ImGuizmo::WORLD};
    ImGuizmo::OPERATION m_currentGizmoOperation{ImGuizmo::TRANSLATE};
 
-   EntityHandle m_selectedEntity {0};
+   Crimson::EntityHandle m_selectedEntity {0};
 
    glm::mat4 m_currentGizmoMatrix;
 
-   void DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager);
-   void DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager);
-   void DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager);
-   void DrawSceneSettings(ECS& ecs, Crimson::SceneManager& sceneManager);
-   void DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawHierarchy(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawInspector(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawProject(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawSceneSettings(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager);
+   void DrawToolbar(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager);
 
-   void DrawEntityHierarchy(ECS& ecs, EntityHandle ent);
+   void DrawEntityHierarchy(Crimson::ECS& ecs, Crimson::EntityHandle ent);
    void DrawDir(const std::string& dir);
 
-   void DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget);
+   void DrawGizmos(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget);
 
-   void DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs);
+   void DrawMainMenuBar(Crimson::SceneManager& sceneManager, Crimson::ECS& ecs);
 
    std::string m_currentScenePath;
 
@@ -85,15 +85,15 @@ public:
 
    void EndFrame();
 
-   void Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget);
+   void Render(SDL_Window* window, Crimson::ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget);
    void Update(const SDL_Event& event);
 
    void DrawConsole(std::ostringstream& strCout);
-   void DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
-   void DrawGame(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
+   void DrawScene(Crimson::ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
+   void DrawGame(Crimson::ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera);
 
-   void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs);
-   void SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs);
+   void OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, Crimson::ECS& ecs);
+   void SaveScene(Crimson::SceneManager& sceneManager, Crimson::ECS& ecs);
 
    inline std::string GetCurrentScenePath() {return m_currentScenePath;}
 

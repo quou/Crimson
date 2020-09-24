@@ -4,10 +4,8 @@
 
 #include <glad/glad.h>
 
-#include "ComponentSystems/Transform.h"
-
 #include "Scripting/ScriptWrapper.h"
-#include "ComponentSystems/ScriptSystems.h"
+#include "ComponentSystems/PrefabSystems.h"
 
 namespace Crimson {
    Uint64 NOW = SDL_GetPerformanceCounter();
@@ -20,23 +18,59 @@ namespace Crimson {
       m_renderer.Init();
 
       m_sceneManager.Init();
+
+      m_ecs.Init();
+
+      m_ecs.RegisterComponent<CameraComponent>();
+      m_ecs.RegisterComponent<ModelComponent>();
+      m_ecs.RegisterComponent<Transform>();
+      m_ecs.RegisterComponent<ScriptComponent>();
+      m_ecs.RegisterComponent<PrefabInstancerComponent>();
+      m_ecs.RegisterComponent<PointLight>();
+
+      Signature camSig;
+      camSig.set(m_ecs.GetComponentType<Transform>());
+      camSig.set(m_ecs.GetComponentType<CameraComponent>());
+
+      Signature graphicsSig;
+      graphicsSig.set(m_ecs.GetComponentType<ModelComponent>());
+      graphicsSig.set(m_ecs.GetComponentType<Transform>());
+
+      Signature lightSig;
+      lightSig.set(m_ecs.GetComponentType<Transform>());
+      lightSig.set(m_ecs.GetComponentType<PointLight>());
+
+      Signature transformSig;
+      transformSig.set(m_ecs.GetComponentType<Transform>());
+
+      Signature scriptSig;
+      scriptSig.set(m_ecs.GetComponentType<ScriptComponent>());
+
+
+      m_cameraSystem = m_ecs.RegisterSystem<CameraSystem>();
+      m_ecs.SetSystemSignature<CameraSystem>(camSig);
+
+      m_scriptSystem = m_ecs.RegisterSystem<ScriptSystem>();
+      m_ecs.SetSystemSignature<ScriptSystem>(scriptSig);
+
+      m_transformSystem = m_ecs.RegisterSystem<TransformSystem>();
+      m_ecs.SetSystemSignature<TransformSystem>(transformSig);
+
+      m_lightingSystem = m_ecs.RegisterSystem<LightingSystem>();
+      m_ecs.SetSystemSignature<LightingSystem>(lightSig);
+
+      m_graphicsSystem = m_ecs.RegisterSystem<GraphicsSystem>();
+      m_ecs.SetSystemSignature<GraphicsSystem>(graphicsSig);
    }
 
    void Application::Init() {
-      for (EntityHandle ent : System<Transform>(m_ecs)) {
-         Transform* t = m_ecs.GetComponent<Transform>(ent);
-
-         t->worldPosition = t->position;
-         t->worldScale = t->scale;
-         t->worldRotation = t->rotation;
-      }
-
+      m_transformSystem->Init(m_ecs);
 
       OnBegin();
    }
 
    void Application::Update(float delta) {
-      UpdateTransforms(m_ecs);
+      m_transformSystem->Update(m_ecs);
    }
 
    void Application::Render() {

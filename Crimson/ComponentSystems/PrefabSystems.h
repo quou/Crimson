@@ -6,18 +6,18 @@
 
 #include "SceneManagement/SceneManager.h"
 
-#include "SLECS.h"
+#include "ECS.h"
 
 namespace Crimson {
    struct PrefabInstancerComponent {
       std::string prefabPath;
    };
-
+/*
    static void InstancePrefab(PrefabInstancerComponent* instancer, ECS& ecs, SceneManager& sceneManager) {
       sceneManager.InstantiatePrefab(instancer->prefabPath, ecs);
    }
 
-   /* THIS FUNCTION CAUSES AN INFINITE LOOP FOR AN UNKNOWN REASON */
+    THIS FUNCTION CAUSES AN INFINITE LOOP FOR AN UNKNOWN REASON
    static void InstancePrefabs(ECS& ecs, SceneManager& sceneManager) {
      for (EntityHandle ent : System<PrefabInstancerComponent>(ecs)) {
         PrefabInstancerComponent* i = ecs.GetComponent<PrefabInstancerComponent>(ent);
@@ -26,6 +26,7 @@ namespace Crimson {
          //sceneManager.InstantiatePrefab(ecs.GetComponent<PrefabInstancerComponent>(ent)->prefabPath, ecs);
       }
    }
+   */
 }
 
 #endif /* end of include guard: PREFABSYSTEMS_H */

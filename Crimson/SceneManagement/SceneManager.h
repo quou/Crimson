@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "SLECS.h"
+#include "ECS.h"
 #include "Utils/tinyxml2.h"
 
 #include "Graphics/Cubemap.h"
@@ -39,7 +39,7 @@ namespace Crimson {
 
       inline SceneSettings* GetConfig() {return &m_sceneSettings;}
       inline const std::vector<EntityHandle>& GetEntities() const {return m_entities;}
-      inline Camera* GetCurrentCamera() const {return m_currentCamera;}
+      inline Camera* GetCurrentCamera() const { return m_currentCamera; }
 
       void SetCurrentCamera(Camera* camera);
       void MakeCameraCurrent();

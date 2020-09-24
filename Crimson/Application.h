@@ -5,7 +5,12 @@
 #include "Graphics/Renderer.h"
 #include "Input/Keyboard.h"
 #include "SceneManagement/SceneManager.h"
-#include "SLECS.h"
+#include "ECS.h"
+
+#include "ComponentSystems/Transform.h"
+#include "ComponentSystems/GraphicsSystems.h"
+#include "ComponentSystems/ScriptSystems.h"
+#include "ComponentSystems/CameraSystems.h"
 
 #include <iostream>
 #include <sstream>
@@ -47,6 +52,12 @@ namespace Crimson {
       Keyboard m_keyboard;
       ECS m_ecs;
       SceneManager m_sceneManager;
+
+      std::shared_ptr<CameraSystem> m_cameraSystem;
+      std::shared_ptr<GraphicsSystem> m_graphicsSystem;
+      std::shared_ptr<TransformSystem> m_transformSystem;
+      std::shared_ptr<ScriptSystem> m_scriptSystem;
+      std::shared_ptr<LightingSystem> m_lightingSystem;
 
    public:
       void Run();

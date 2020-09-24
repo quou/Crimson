@@ -7,7 +7,7 @@
 #include <string>
 #include <algorithm>
 
-#include "SLECS.h"
+#include "ECS.h"
 
 namespace Crimson {
    struct Transform {
@@ -74,20 +74,33 @@ namespace Crimson {
       return posMatrix * rotMatrix * scaleMatrix;
    }
 
-   static void UpdateTransforms(ECS& ecs) {
-      for (EntityHandle ent : System<Transform>(ecs)) {
-         Transform* t = ecs.GetComponent<Transform>(ent);
+   class TransformSystem : public System {
+   public:
+      inline void Init(ECS& ecs) {
+         for (const auto& ent : m_entities) {
+            Transform* t = &ecs.GetComponent<Transform>(ent);
 
-         if (t->parent) {
-            t->worldPosition = ecs.GetComponent<Transform>(t->parent)->worldPosition + t->position;
-            t->worldScale = ecs.GetComponent<Transform>(t->parent)->worldScale * t->scale;
-            t->worldRotation = ecs.GetComponent<Transform>(t->parent)->worldRotation + t->rotation;
-         } else {
             t->worldPosition = t->position;
             t->worldScale = t->scale;
             t->worldRotation = t->rotation;
          }
       }
-   }
+
+      inline void Update(ECS& ecs) {
+         for (const auto& ent : m_entities) {
+            Transform* t = &ecs.GetComponent<Transform>(ent);
+
+            if (t->parent) {
+               t->worldPosition = ecs.GetComponent<Transform>(t->parent).worldPosition + t->position;
+               t->worldScale = ecs.GetComponent<Transform>(t->parent).worldScale * t->scale;
+               t->worldRotation = ecs.GetComponent<Transform>(t->parent).worldRotation + t->rotation;
+            } else {
+               t->worldPosition = t->position;
+               t->worldScale = t->scale;
+               t->worldRotation = t->rotation;
+            }
+         }
+      }
+   };
 }
 #endif /* end of include guard: TRANSFORM_H */

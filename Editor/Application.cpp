@@ -32,12 +32,6 @@ public:
       m_camera(glm::vec3(0,0,-5), 45.0f, 1366/768, 0.0f, 1000.0f) {}
 
    void OnBegin() override {
-      std::cout << "Light ID: " <<  GetComponentID<Crimson::PointLight>() << '\n';
-      std::cout << "Model ID: " <<  GetComponentID<Crimson::ModelComponent>() << '\n';
-      std::cout << "Transform ID: " <<  GetComponentID<Crimson::Transform>() << '\n';
-      std::cout << "Prefab ID: " <<  GetComponentID<Crimson::PrefabInstancerComponent>() << '\n';
-
-
       m_gui.Init(GetSDLWindow(), GetSDLGLContext());
 
       m_gui.OpenScene("Resources/Scenes/TestScene.scene", m_sceneManager, m_ecs);
@@ -58,10 +52,10 @@ public:
       }
 
       if (m_isPlaying) {
-         Crimson::UpdateScripts(m_ecs, delta);
+         // update scripts
       }
 
-      Crimson::UpdateCameras(m_ecs, m_sceneRenderTarget.GetWidth(), m_sceneRenderTarget.GetHeight());
+      m_cameraSystem->Update(m_ecs, m_gameRenderTarget.GetWidth(), m_gameRenderTarget.GetHeight());
       m_camera.UpdatePerspective(45.0f, (float)m_sceneRenderTarget.GetWidth()/(float)m_sceneRenderTarget.GetHeight(), 0.1f, 100.0f);
 
       float pitch = m_camera.GetPitch();
@@ -134,18 +128,20 @@ public:
    }
 
    void OnRender(float delta) override {
-      m_sceneManager.SetCurrentCamera(&m_camera);
-      Crimson::ShadowPass(m_ecs, m_sceneManager);
-      m_sceneRenderTarget.Bind();
+      m_gameRenderTarget.Clear();
       m_sceneRenderTarget.Clear();
-      Crimson::RenderModels(m_ecs, m_sceneManager);
+
+      m_sceneManager.SetCurrentCamera(&m_camera);
+      m_graphicsSystem->RenderShadows(m_ecs, m_sceneManager);
+      m_sceneRenderTarget.Bind();
+      m_lightingSystem->Update(m_ecs);
+      m_graphicsSystem->Render(m_ecs, m_sceneManager);
 
 
       m_sceneManager.MakeCameraCurrent();
-      Crimson::ShadowPass(m_ecs, m_sceneManager);
+      m_graphicsSystem->RenderShadows(m_ecs, m_sceneManager);
       m_gameRenderTarget.Bind();
-      m_gameRenderTarget.Clear();
-      Crimson::RenderModels(m_ecs, m_sceneManager);
+      m_graphicsSystem->Render(m_ecs, m_sceneManager);
 
       GetDisplay()->BindAsRenderTarget();
       m_gui.Render(GetSDLWindow(), m_ecs, m_sceneManager, m_camera, m_sceneRenderTarget, m_gameRenderTarget);
@@ -160,9 +156,7 @@ public:
       ImGui::SetWindowFocus("Game");
 
       if (m_gui.IsSaved()) {
-         Crimson::CompileScripts(m_ecs);
-         Crimson::InstancePrefabs(m_ecs, m_sceneManager);
-         Crimson::InitScripts(m_ecs);
+         /* execute scripts */
       }
       m_isPlaying = true;
       ImGui::StyleColorsClassic();

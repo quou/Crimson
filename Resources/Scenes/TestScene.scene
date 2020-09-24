@@ -14,14 +14,13 @@
             <rotation x="-7.3485302925109863" y="23.345468521118164" z="-5.1039175987243652"/>
             <scale x="0.99999910593032837" y="0.99999868869781494" z="0.9999992847442627"/>
         </transform>
-        <script res="Resources/Scripts/Camera.chai"/>
         <camera current="true">
             <perspective fov="45" near="0.10000000149011612" far="1000"/>
         </camera>
     </entity>
     <entity>
         <transform name="Monkies">
-            <position x="-7.460026741027832" y="1.3521041870117188" z="-2.4916200637817383"/>
+            <position x="-7.460026741027832" y="4.2622442245483398" z="-1.2230367660522461"/>
             <rotation x="0" y="-0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -62,7 +61,6 @@
                     <shader vertex="Resources/Shaders/Basic.vert" fragment="Resources/Shaders/BasicLit.frag"/>
                 </material>
             </model>
-            <script res="Resources/Scripts/Monkey.chai"/>
         </entity>
     </entity>
     <entity>
@@ -83,7 +81,6 @@
                 <diffuse x="0" y="1" z="0"/>
                 <specular x="0" y="1" z="0"/>
             </pointlight>
-            <script res="Resources/Scripts/Light.chai"/>
         </entity>
         <entity>
             <transform name="White light">
@@ -111,6 +108,19 @@
                 <specular x="1" y="0" z="0"/>
             </pointlight>
         </entity>
+        <entity>
+            <transform name="Green light #2">
+                <position x="3.1423654556274414" y="0.62959253787994385" z="-1.8120818138122559"/>
+                <rotation x="0" y="-0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <pointlight>
+                <point constant="1" linear="0.44999998807907104" quadratic="0.070000000298023224"/>
+                <ambient x="0" y="0" z="0"/>
+                <diffuse x="0" y="1" z="0.23529410362243652"/>
+                <specular x="0" y="0" z="0"/>
+            </pointlight>
+        </entity>
     </entity>
     <entity>
         <transform name="Enviroment">
@@ -135,7 +145,6 @@
                     <shader vertex="Resources/Shaders/Basic.vert" fragment="Resources/Shaders/BasicLit.frag"/>
                 </material>
             </model>
-            <script res="Resources/Scripts/TestScript.chai"/>
         </entity>
         <entity>
             <transform name="Wall">

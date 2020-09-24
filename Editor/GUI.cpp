@@ -24,24 +24,24 @@ static bool hasEnding(std::string const &fullString, std::string const &ending) 
     }
 }
 
-void GUI::DrawHierarchy(ECS& ecs, Crimson::SceneManager& sceneManager) {
+void GUI::DrawHierarchy(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Hierarchy", &m_hierarchyOpen);
 
-   for (EntityHandle ent : sceneManager.GetEntities()) {
-      if (!ecs.GetComponent<Crimson::Transform>(ent)->parent) {
+   for (Crimson::EntityHandle ent : sceneManager.GetEntities()) {
+      if (!ecs.GetComponent<Crimson::Transform>(ent).parent) {
          DrawEntityHierarchy(ecs, ent);
       }
    }
    ImGui::End();
 }
 
-void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
+void GUI::DrawInspector(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Inspector", &m_inspectorOpen);
    if (m_selectedEntity && !m_shouldPlay && ecs.HasComponent<Crimson::Transform>(m_selectedEntity)) {
       char buf[256];
-      strcpy(buf, ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name.c_str());
+      strcpy(buf, ecs.GetComponent<Crimson::Transform>(m_selectedEntity).name.c_str());
       ImGui::InputText("Name", buf, 256);
-      ecs.GetComponent<Crimson::Transform>(m_selectedEntity)->name = buf;
+      ecs.GetComponent<Crimson::Transform>(m_selectedEntity).name = buf;
 
       if (ImGui::RadioButton("Translate", m_currentGizmoOperation == ImGuizmo::TRANSLATE))
          m_currentGizmoOperation = ImGuizmo::TRANSLATE;
@@ -66,30 +66,30 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
       if (ImGui::BeginPopup("add_component_popup")) {
 
          if (ImGui::MenuItem("Model")) {
-            ecs.AddComponent<Crimson::ModelComponent>(m_selectedEntity);
+            ecs.AddComponent<Crimson::ModelComponent>(m_selectedEntity, Crimson::ModelComponent());
          }
 
          if (ImGui::MenuItem("Prefab Instancer")) {
-            ecs.AddComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity);
+            ecs.AddComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity, Crimson::PrefabInstancerComponent());
          }
 
          if (ImGui::MenuItem("Script")) {
-            ecs.AddComponent<Crimson::ScriptComponent>(m_selectedEntity);
+            ecs.AddComponent<Crimson::ScriptComponent>(m_selectedEntity, Crimson::ScriptComponent());
          }
 
          if (ImGui::MenuItem("Point Light")) {
-            ecs.AddComponent<Crimson::PointLight>(m_selectedEntity);
+            ecs.AddComponent<Crimson::PointLight>(m_selectedEntity, Crimson::PointLight());
          }
 
          if (ImGui::MenuItem("Camera")) {
-            ecs.AddComponent<Crimson::CameraComponent>(m_selectedEntity);
+            ecs.AddComponent<Crimson::CameraComponent>(m_selectedEntity, Crimson::CameraComponent());
          }
 
          ImGui::EndPopup();
       }
 
       if (ImGui::CollapsingHeader("Transform")) {
-         Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
+         Crimson::Transform* t = &ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
          m_newpos[0] = t->position.x;m_newpos[1] = t->position.y;m_newpos[2] = t->position.z;
          m_newrot[0] = t->rotation.x;m_newrot[1] = t->rotation.y;m_newrot[2] = t->rotation.z;
          m_newscale[0] = t->scale.x;m_newscale[1] = t->scale.y;m_newscale[2] = t->scale.z;
@@ -105,8 +105,8 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ecs.HasComponent<Crimson::ScriptComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Script")) {
-            if (!ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.empty()) {
-               ImGui::Text("%s", ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile.c_str());
+            if (!ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity).scriptFile.empty()) {
+               ImGui::Text("%s", ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity).scriptFile.c_str());
             } else {
                ImGui::Text("Drag a script here");
             }
@@ -114,7 +114,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
                   if (hasEnding(toSet, ".chai")) {
-                     ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity)->scriptFile = toSet;
+                     ecs.GetComponent<Crimson::ScriptComponent>(m_selectedEntity).scriptFile = toSet;
                   } else {
                      std::cout << "Invalid script file. Only use .chai files for scripts" << '\n';
                   }
@@ -126,12 +126,12 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ecs.HasComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Prefab Instancer")) {
-            ImGui::Text("%s", ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)->prefabPath.c_str());
+            ImGui::Text("%s", ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity).prefabPath.c_str());
             if (ImGui::BeginDragDropTarget()) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
                   if (hasEnding(toSet, ".prefab")) {
-                     ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity)->prefabPath = toSet;
+                     ecs.GetComponent<Crimson::PrefabInstancerComponent>(m_selectedEntity).prefabPath = toSet;
                   } else {
                      std::cout << "Invalid prefab file. Only use .prefab files for prefabs" << '\n';
                   }
@@ -143,19 +143,19 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ecs.HasComponent<Crimson::CameraComponent>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Camera")) {
-            float newfov = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetFOV();
+            float newfov = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.GetFOV();
             ImGui::InputFloat("FOV", &newfov);
-            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetFOV(newfov);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.SetFOV(newfov);
 
-            ImGui::Checkbox("Active", &ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->isCurrent);
+            ImGui::Checkbox("Active", &ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).isCurrent);
 
-            float newnear = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetNear();
+            float newnear = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.GetNear();
             ImGui::InputFloat("Near Clipping Plane", &newnear);
-            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetNear(newnear);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.SetNear(newnear);
 
-            float newfar = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.GetFar();
+            float newfar = ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.GetFar();
             ImGui::InputFloat("Far Clipping Plane", &newfar);
-            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity)->camera.SetFar(newfar);
+            ecs.GetComponent<Crimson::CameraComponent>(m_selectedEntity).camera.SetFar(newfar);
          }
       }
 
@@ -166,7 +166,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
                   if (hasEnding(toSet, ".obj")) {
-                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->model.Load(toSet);
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).model.Load(toSet);
                   } else {
                      std::cout << "Invalid mesh file. Only use .obj files for meshes" << '\n';
                   }
@@ -178,7 +178,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
             if (ImGui::BeginDragDropTarget()) {
                if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                   std::string toSet = static_cast<const char*>(payload->Data);
-                  ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->texture.Load(toSet);
+                  ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).texture.Load(toSet);
                }
                ImGui::EndDragDropTarget();
             }
@@ -189,7 +189,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                if (ImGui::BeginDragDropTarget()) {
                   if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                      std::string toSet = static_cast<const char*>(payload->Data);
-                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.Init(toSet, ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.GetFragPath());
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).shader.Init(toSet, ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).shader.GetFragPath());
                   }
                   ImGui::EndDragDropTarget();
                }
@@ -198,13 +198,13 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
                if (ImGui::BeginDragDropTarget()) {
                   if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("File")) {
                      std::string toSet = static_cast<const char*>(payload->Data);
-                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.Init(ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->shader.GetVertPath(), toSet);
+                     ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).shader.Init(ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).shader.GetVertPath(), toSet);
 
                   }
                   ImGui::EndDragDropTarget();
                }
 
-               Crimson::Material* mat = &ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity)->material;
+               Crimson::Material* mat = &ecs.GetComponent<Crimson::ModelComponent>(m_selectedEntity).material;
 
                float newCol[3] = {mat->ambient.x, mat->ambient.y, mat->ambient.z};
                ImGui::ColorEdit3("Ambient Color", newCol);
@@ -227,7 +227,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
 
       if (ecs.HasComponent<Crimson::PointLight>(m_selectedEntity)) {
          if (ImGui::CollapsingHeader("Point Light")) {
-            Crimson::PointLight* l = ecs.GetComponent<Crimson::PointLight>(m_selectedEntity);
+            Crimson::PointLight* l = &ecs.GetComponent<Crimson::PointLight>(m_selectedEntity);
 
             ImGui::InputFloat("Constant", &l->constant);
             ImGui::InputFloat("Linear", &l->linear);
@@ -250,7 +250,7 @@ void GUI::DrawInspector(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::End();
 }
 
-void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
+void GUI::DrawToolbar(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Toolbox", &m_toolbarOpen);
 
    ImGui::Columns(3, NULL, false);
@@ -289,68 +289,68 @@ void GUI::DrawToolbar(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::End();
 }
 
-void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
+void GUI::DrawEntityHierarchy(Crimson::ECS& ecs, Crimson::EntityHandle ent) {
    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
    if (m_selectedEntity == ent) {
       flags |= ImGuiTreeNodeFlags_Selected;
    }
 
-   if (ecs.GetComponent<Crimson::Transform>(ent)->children.size() == 0) {
+   if (ecs.GetComponent<Crimson::Transform>(ent).children.size() == 0) {
       flags |= ImGuiTreeNodeFlags_Leaf;
    }
 
-   if (ImGui::TreeNodeEx((EntityHandle*)ent, flags, "%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str())) {
+   if (ImGui::TreeNodeEx((Crimson::EntityHandle*)ent, flags, "%s", ecs.GetComponent<Crimson::Transform>(ent).name.c_str())) {
       if (ImGui::IsItemClicked()) {
          m_selectedEntity = ent;
-         m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(ent));
+         m_currentGizmoMatrix = Crimson::GetModelFromTransform(ecs.GetComponent<Crimson::Transform>(ent));
       }
       if (ImGui::BeginDragDropTarget()) {
          if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent")) {
-            EntityHandle draggedEntity = *static_cast<EntityHandle*>(payload->Data);
+            Crimson::EntityHandle draggedEntity = *static_cast<Crimson::EntityHandle*>(payload->Data);
 
-            if (ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent) {
-               Crimson::RemoveChild(ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent), draggedEntity);
-               ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent = 0;
+            if (ecs.GetComponent<Crimson::Transform>(draggedEntity).parent) {
+               Crimson::RemoveChild(&ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity).parent), draggedEntity);
+               ecs.GetComponent<Crimson::Transform>(draggedEntity).parent = 0;
             }
 
-            Crimson::AddChild(ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
-            Crimson::AddParent(ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
+            Crimson::AddChild(&ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
+            Crimson::AddParent(&ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
          }
          ImGui::EndDragDropTarget();
       }
       if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent).name.c_str());
 
          ImGui::SetDragDropPayload("Reparent", &ent, sizeof(ent));
 
          ImGui::EndDragDropSource();
       }
 
-      for (EntityHandle e : ecs.GetComponent<Crimson::Transform>(ent)->children) {
+      for (Crimson::EntityHandle e : ecs.GetComponent<Crimson::Transform>(ent).children) {
          DrawEntityHierarchy(ecs, e);
       }
       ImGui::TreePop();
    } else {
       if (ImGui::IsItemClicked()) {
          m_selectedEntity = ent;
-         m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(ent));
+         m_currentGizmoMatrix = Crimson::GetModelFromTransform(ecs.GetComponent<Crimson::Transform>(ent));
       }
       if (ImGui::BeginDragDropTarget()) {
          if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent")) {
-            EntityHandle draggedEntity = *static_cast<EntityHandle*>(payload->Data);
+            Crimson::EntityHandle draggedEntity = *static_cast<Crimson::EntityHandle*>(payload->Data);
 
-            if (ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent) {
-               Crimson::RemoveChild(ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent), draggedEntity);
-               ecs.GetComponent<Crimson::Transform>(draggedEntity)->parent = 0;
+            if (ecs.GetComponent<Crimson::Transform>(draggedEntity).parent) {
+               Crimson::RemoveChild(&ecs.GetComponent<Crimson::Transform>(ecs.GetComponent<Crimson::Transform>(draggedEntity).parent), draggedEntity);
+               ecs.GetComponent<Crimson::Transform>(draggedEntity).parent = 0;
             }
 
-            Crimson::AddChild(ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
-            Crimson::AddParent(ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
+            Crimson::AddChild(&ecs.GetComponent<Crimson::Transform>(ent), draggedEntity);
+            Crimson::AddParent(&ecs.GetComponent<Crimson::Transform>(draggedEntity), ent);
          }
          ImGui::EndDragDropTarget();
       }
       if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent)->name.c_str());
+         ImGui::Text("%s", ecs.GetComponent<Crimson::Transform>(ent).name.c_str());
 
          ImGui::SetDragDropPayload("Reparent", &ent, sizeof(ent));
 
@@ -359,10 +359,10 @@ void GUI::DrawEntityHierarchy(ECS& ecs, EntityHandle ent) {
    }
 }
 
-void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
+void GUI::DrawGizmos(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& renderTarget) {
    if (m_selectedEntity && !m_shouldPlay) {
       ImGuizmo::Enable(true);
-      Crimson::Transform* t = ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
+      Crimson::Transform* t = &ecs.GetComponent<Crimson::Transform>(m_selectedEntity);
 
       float matrixTranslation[3], matrixRotation[3], matrixScale[3];
       ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(m_currentGizmoMatrix), matrixTranslation, matrixRotation, matrixScale);
@@ -372,7 +372,7 @@ void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Cam
       t->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
 
       if (t->parent) {
-         t->position = t->worldPosition - ecs.GetComponent<Crimson::Transform>(t->parent)->worldPosition;
+         t->position = t->worldPosition - ecs.GetComponent<Crimson::Transform>(t->parent).worldPosition;
       } else {
          t->position = t->worldPosition;
       }
@@ -382,7 +382,7 @@ void GUI::DrawGizmos(ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Cam
    }
 }
 
-void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
+void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, Crimson::ECS& ecs) {
    if (ImGui::BeginMainMenuBar()) {
       if (ImGui::BeginMenu("File")) {
          if (ImGui::MenuItem("Open")) {
@@ -443,7 +443,7 @@ void GUI::DrawMainMenuBar(Crimson::SceneManager& sceneManager, ECS& ecs) {
    }
 }
 
-void GUI::SaveScene(Crimson::SceneManager& sceneManager, ECS& ecs) {
+void GUI::SaveScene(Crimson::SceneManager& sceneManager, Crimson::ECS& ecs) {
    if (!m_currentScenePath.empty()) {
       sceneManager.Serialize(m_currentScenePath, ecs);
       m_isSaved = true;
@@ -498,7 +498,7 @@ void GUI::Init(SDL_Window* window, const SDL_GLContext glContext) {
 	}
 }
 
-void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget) {
+void GUI::Render(SDL_Window* window, Crimson::ECS& ecs, Crimson::SceneManager& sceneManager, Crimson::Camera& camera, Crimson::RenderTarget& sceneRenderTarget, Crimson::RenderTarget& gameRenderTarget) {
    m_isSaved = false;
 
    ImGui_ImplOpenGL3_NewFrame();
@@ -513,7 +513,7 @@ void GUI::Render(SDL_Window* window, ECS& ecs, Crimson::SceneManager& sceneManag
    if (m_isSceneFocused != m_oldSceneFocused) {
       m_oldSceneFocused = m_isSceneFocused;
       if (m_selectedEntity) {
-         m_currentGizmoMatrix = Crimson::GetModelFromTransform(*ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
+         m_currentGizmoMatrix = Crimson::GetModelFromTransform(ecs.GetComponent<Crimson::Transform>(m_selectedEntity));
       }
    }
 
@@ -551,7 +551,7 @@ void GUI::EndFrame() {
    }
 }
 
-void GUI::OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, ECS& ecs) {
+void GUI::OpenScene(const std::string& fileName, Crimson::SceneManager& sceneManager, Crimson::ECS& ecs) {
    m_selectedEntity = 0;
    if (sceneManager.Deserialize(fileName, ecs)) {
       m_currentScenePath = fileName;
@@ -575,7 +575,7 @@ void GUI::DrawConsole(std::ostringstream& strCout) {
    }
 }
 
-void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
+void GUI::DrawScene(Crimson::ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
    ImGui::Begin("Scene", &m_sceneOpen);
    if (ImGui::IsWindowFocused()) {
       m_isSceneFocused = true;
@@ -595,7 +595,7 @@ void GUI::DrawScene(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Came
    ImGui::End();
 }
 
-void GUI::DrawGame(ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
+void GUI::DrawGame(Crimson::ECS& ecs, Crimson::RenderTarget& renderTarget, Crimson::Camera& camera) {
    ImGui::Begin("Game", &m_gameOpen);
 
    renderTarget.Resize(ImGui::GetWindowSize().x-15, ImGui::GetWindowSize().y-35);
@@ -651,7 +651,7 @@ void GUI::DrawDir(const std::string& dir) {
    }
 }
 
-void GUI::DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager) {
+void GUI::DrawProject(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Project Explorer", &m_projectOpen);
 
    if (ImGui::TreeNode("Resources")) {
@@ -662,7 +662,7 @@ void GUI::DrawProject(ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::End();
 }
 
-void GUI::DrawSceneSettings(ECS& ecs, Crimson::SceneManager& sceneManager) {
+void GUI::DrawSceneSettings(Crimson::ECS& ecs, Crimson::SceneManager& sceneManager) {
    ImGui::Begin("Scene Config", &m_sceneSettingsOpen);
 
    if (ImGui::CollapsingHeader("Lighting")) {

@@ -16,20 +16,17 @@ public:
    void OnBegin() override {
       m_sceneManager.Deserialize("Resources/Scenes/TestScene.scene", m_ecs);
       m_sceneManager.MakeCameraCurrent();
-      Crimson::CompileScripts(m_ecs);
-      Crimson::InstancePrefabs(m_ecs, m_sceneManager);
-      Crimson::InitScripts(m_ecs);
    }
 
    void OnUpdate(float delta) override {
-      Crimson::UpdateScripts(m_ecs, delta);
-      Crimson::UpdateCameras(m_ecs, GetDisplay()->GetSize().first, GetDisplay()->GetSize().second);
+      m_cameraSystem->Update(m_ecs, GetDisplay()->GetSize().first, GetDisplay()->GetSize().second);
    }
 
    void OnRender(float delta) override {
-      Crimson::ShadowPass(m_ecs, m_sceneManager);
+      m_lightingSystem->Update(m_ecs);
+      m_graphicsSystem->RenderShadows(m_ecs, m_sceneManager);
       GetDisplay()->BindAsRenderTarget();
-      Crimson::RenderModels(m_ecs, m_sceneManager);
+      m_graphicsSystem->Render(m_ecs, m_sceneManager);
    }
 
    virtual ~App() {
