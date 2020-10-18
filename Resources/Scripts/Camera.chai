@@ -1,7 +1,0 @@
-def OnBegin() {
-
-}
-
-def OnUpdate(float delta) {
-   GetTransformComponent(entity).rotation.y+=5*delta;
-}
