@@ -4,9 +4,11 @@ SDL2ConfigVersion.cmake
 cmake_install.cmake
 CMakeFiles
 bin
+bin-int
 *.a
 *.dll
 *.exe
 *.lib
 *.so
 imgui.ini
+ccls-cache
