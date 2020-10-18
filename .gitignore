@@ -11,4 +11,4 @@ bin-int
 *.lib
 *.so
 imgui.ini
-ccls-cache
+.ccls-cache

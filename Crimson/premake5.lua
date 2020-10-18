@@ -17,7 +17,12 @@ project "Crimson"
 	}
 
 	includedirs {
-		"Source"
+		"Source",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links {
+		"GLFW"
 	}
 
 
