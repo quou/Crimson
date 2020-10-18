@@ -1,0 +1,31 @@
+{
+"arguments": [
+   "g++",
+   "-c",
+   "-I../Crimson/Source",
+   "-m64",
+   "-g",
+   "-std=c++17",
+   "-o",
+   "../bin-int/Debug-linux-x86_64/Game/Game.o",
+   "Source/Game.cpp"
+],
+"directory": "/home/george/Documents/Crimson/Game",
+"file": "Source/Game.cpp"
+},
+{
+"arguments": [
+   "g++",
+   "-c",
+   "-D_CRT_SECURE_NO_WARNINGS",
+   "-ISource",
+   "-m64",
+   "-g",
+   "-std=c++17",
+   "-o",
+   "../bin-int/Debug-linux-x86_64/Crimson/Print.o",
+   "Source/Print.cpp"
+],
+"directory": "/home/george/Documents/Crimson/Crimson",
+"file": "Source/Print.cpp"
+}
