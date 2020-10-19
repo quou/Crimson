@@ -1,3 +1,5 @@
+require "premake-extensions/compiledb"
+
 workspace "Crimson"
 	architecture "x64"
 	startproject "Game"

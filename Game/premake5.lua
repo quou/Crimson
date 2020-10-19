@@ -21,6 +21,10 @@ project "Game"
 		"Crimson"
 	}
 
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"

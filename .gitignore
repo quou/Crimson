@@ -12,3 +12,4 @@ bin-int
 *.so
 imgui.ini
 .ccls-cache
+compile_commands.json
