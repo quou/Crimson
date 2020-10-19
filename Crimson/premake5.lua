@@ -18,21 +18,15 @@ project "Crimson"
 
 	includedirs {
 		"Source",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links {
-		ExternalDependencies.GLFW
+		ExternalDependencies.GLFW,
+		ExternalDependencies.Glad,
+		ExternalDependencies.OpenGL
 	}
-
-	filter "system:windows"
-		links {
-			"opengl32.lib"
-		}
-	filter "system:linux"
-		links {
-			"GL"
-		}
 
 
 	filter "configurations:Debug"

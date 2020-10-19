@@ -18,6 +18,8 @@ project "Game"
 
 	links {
 		ExternalDependencies.GLFW,
+		ExternalDependencies.Glad,
+		ExternalDependencies.OpenGL,
 		"Crimson"
 	}
 

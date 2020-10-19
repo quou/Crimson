@@ -2,9 +2,12 @@
 
 #include <tuple>
 
+struct GLFWwindow;
+
 namespace Crimson {
 	class Game {
-	private:
+	private: 
+		GLFWwindow* m_window;
 	protected:
 		virtual void OnInit() = 0;
 		virtual void OnUpdate(float delta) = 0;
