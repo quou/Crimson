@@ -17,21 +17,16 @@ project "Crimson"
 	}
 
 	includedirs {
-		"Source",
-		"%{IncludeDir.GLFW}"
-	}
-
-	links {
-		"GLFW"
+		"Source"
 	}
 
 	filter "system:windows"
 		links {
-			"opengl32"
+			"opengl32.lib"
 		}
 	filter "system:linux"
 		links {
-			"GL"
+			"libGL.so"
 		}
 
 

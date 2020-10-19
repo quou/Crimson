@@ -1,210 +1,17 @@
 [
 	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/context.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/context.o",
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Game.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Game.o",
 		"arguments": [
-			"gcc",
+			"g++",
 			"-m64",
-			"-fPIC",
 			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/init.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/init.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/input.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/input.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/monitor.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/monitor.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/vulkan.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/vulkan.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/window.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/window.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_init.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_init.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_monitor.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_monitor.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_window.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_window.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/xkb_unicode.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/xkb_unicode.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/posix_time.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/posix_time.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/posix_thread.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/posix_thread.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/glx_context.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/glx_context.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/egl_context.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/egl_context.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/osmesa_context.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/osmesa_context.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
-		]
-	},
-	{
-		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/linux_joystick.c",
-		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/linux_joystick.o",
-		"arguments": [
-			"gcc",
-			"-m64",
-			"-fPIC",
-			"-g",
-			"-D_GLFW_X11",
-			"-L/usr/lib64"
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-ISource",
+			"-L/usr/lib64",
+			"-llibGL.so"
 		]
 	},
 	{
@@ -218,10 +25,8 @@
 			"-std=c++17",
 			"-D_CRT_SECURE_NO_WARNINGS",
 			"-ISource",
-			"-IDependencies/GLFW/include",
 			"-L/usr/lib64",
-			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
-			"-lGL"
+			"-llibGL.so"
 		]
 	},
 	{
@@ -235,7 +40,6 @@
 			"-std=c++17",
 			"-D_CRT_SECURE_NO_WARNINGS",
 			"-I../Crimson/Source",
-			"-I../Crimson/Dependencies/GLFW/include",
 			"-L/usr/lib64",
 			"../bin/Debug-linux-x86_64/Crimson/libCrimson.a"
 		]

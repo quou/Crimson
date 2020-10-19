@@ -1,9 +1,18 @@
 #include <Crimson.h>
 
+class Game : public Crimson::Game {
+private:
+	void OnInit() override {
+
+	}
+
+	void OnUpdate(float delta) override {
+
+	}
+public:
+};
+
 int main(void) {
-	Crimson::Log(CR_LOGTYPE_WARNING, "%d\n", 10);
-
-	CR_ASSERT(false, "%s\n", "Hello there");
-
-	CR_LOG_ERROR("%d\n", 3);
+	Game game;
+	game.Run("Game", {1366, 768});
 }

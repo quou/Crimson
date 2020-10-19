@@ -13,8 +13,7 @@ project "Game"
 	}
 
 	includedirs {
-		"../Crimson/Source",
-		"../Crimson/%{IncludeDir.GLFW}"
+		"../Crimson/Source"
 	}
 
 	links {
