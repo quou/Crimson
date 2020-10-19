@@ -4,6 +4,6 @@
 
 namespace Crimson {
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
-		CR_LOG_INFO("%s\n", "Game start");
+		CR_LOG("%s\n", "Game start");
 	}
 }
