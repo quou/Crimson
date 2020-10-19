@@ -22,10 +22,7 @@ project "Crimson"
 	}
 
 	links {
-		"pthread",
-		"X11",
-		"dl",
-		"GLFW"
+		ExternalDependencies.GLFW
 	}
 
 	filter "system:windows"
@@ -34,7 +31,7 @@ project "Crimson"
 		}
 	filter "system:linux"
 		links {
-			"libGL.so"
+			"GL"
 		}
 
 

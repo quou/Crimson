@@ -17,6 +17,7 @@ project "Game"
 	}
 
 	links {
+		ExternalDependencies.GLFW,
 		"Crimson"
 	}
 

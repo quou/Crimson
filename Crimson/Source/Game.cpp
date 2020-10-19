@@ -6,7 +6,6 @@
 
 namespace Crimson {
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
-		glfwInit();
-		CR_LOG("%s\n", "Game start");
+		CR_ASSERT(glfwInit(), "%s", "Unable to initialise GLFW"); 
 	}
 }

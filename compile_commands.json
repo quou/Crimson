@@ -225,7 +225,7 @@
 			"-lpthread",
 			"-lX11",
 			"-ldl",
-			"-llibGL.so",
+			"-lGL",
 			"-Wl,--end-group"
 		]
 	},
@@ -247,7 +247,7 @@
 			"-lpthread",
 			"-lX11",
 			"-ldl",
-			"-llibGL.so",
+			"-lGL",
 			"-Wl,--end-group"
 		]
 	},
@@ -263,7 +263,13 @@
 			"-D_CRT_SECURE_NO_WARNINGS",
 			"-I../Crimson/Source",
 			"-L/usr/lib64",
-			"../bin/Debug-linux-x86_64/Crimson/libCrimson.a"
+			"-Wl,--start-group",
+			"../Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"../bin/Debug-linux-x86_64/Crimson/libCrimson.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-Wl,--end-group"
 		]
 	}
 ]
