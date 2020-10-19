@@ -208,9 +208,9 @@
 		]
 	},
 	{
-		"file": "/home/george/Documents/Crimson/Crimson/Source/Print.cpp",
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Logger.cpp",
 		"directory": "/home/george/Documents/Crimson/Crimson",
-		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Print.o",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Logger.o",
 		"arguments": [
 			"g++",
 			"-m64",
