@@ -17,7 +17,15 @@ project "Crimson"
 	}
 
 	includedirs {
-		"Source"
+		"Source",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links {
+		"pthread",
+		"X11",
+		"dl",
+		"GLFW"
 	}
 
 	filter "system:windows"
