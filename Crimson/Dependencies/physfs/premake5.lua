@@ -3,12 +3,12 @@ project "PhysFS"
 	language "C"
 	staticruntime "on"
 
-	targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files {
 		"src/*.h",
-		"src/**.cpp"	
+		"src/**.cpp"
 	}
 
 	filter "configurations:Debug"
