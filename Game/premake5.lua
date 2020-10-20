@@ -13,7 +13,8 @@ project "Game"
 	}
 
 	includedirs {
-		"../Crimson/Source"
+		"../Crimson/Source",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links {
@@ -21,6 +22,7 @@ project "Game"
 		ExternalDependencies.Glad,
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
+		ExternalDependencies.ImGui,
 		"Crimson"
 	}
 

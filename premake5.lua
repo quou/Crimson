@@ -26,10 +26,12 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Dependencies/glfw/include"
 IncludeDir["Glad"] = "Dependencies/glad/include"
 IncludeDir["PhysFS"] = "Dependencies/physfs/src"
+IncludeDir["ImGui"] = "Dependencies/imgui/include"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
 ExternalDependencies["OpenGL"] = {}
+ExternalDependencies["ImGui"] = {"ImGui"}
 ExternalDependencies["Glad"] = {"Glad"}
 ExternalDependencies["PhysFS"] = {"PhysFS"}
 
@@ -51,6 +53,7 @@ group "Dependencies"
 	include "Crimson/Dependencies/glfw"
 	include "Crimson/Dependencies/glad"
 	include "Crimson/Dependencies/physfs"
+	include "Crimson/Dependencies/imgui"
 group ""
 
 include "Crimson"

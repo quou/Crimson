@@ -11,7 +11,9 @@ project "Crimson"
 		"Source/**.h",
 		"Source/**.cpp",
 		"Source/Renderer3D/**.h",
-		"Source/Renderer3D/**.cpp"
+		"Source/Renderer3D/**.cpp",
+		"Source/ImGuiLayer/**.h",
+		"Source/ImGuiLayer/**.cpp"
 	}
 
 	defines {
@@ -22,7 +24,8 @@ project "Crimson"
 		"Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.PhysFS}"
+		"%{IncludeDir.PhysFS}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links {
@@ -30,6 +33,7 @@ project "Crimson"
 		ExternalDependencies.Glad,
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
+		ExternalDependencies.ImGui,
 	}
 
 

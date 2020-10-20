@@ -1,13 +1,18 @@
-project "PhysFS"
+project "ImGui"
 	kind "StaticLib"
-	language "C"
+	language "C++"
+	cppdialect "C++11"
 	staticruntime "On"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	includedirs {
+		"include"
+	}
+
 	files {
-		"src/**.h",
+		"include/**.h",
 		"src/**.cpp"
 	}
 
