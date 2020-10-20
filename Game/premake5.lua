@@ -20,6 +20,7 @@ project "Game"
 		ExternalDependencies.GLFW,
 		ExternalDependencies.Glad,
 		ExternalDependencies.OpenGL,
+		ExternalDependencies.PhysFS,
 		"Crimson"
 	}
 

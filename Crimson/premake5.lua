@@ -10,6 +10,8 @@ project "Crimson"
 	files {
 		"Source/**.h",
 		"Source/**.cpp",
+		"Source/Renderer3D/**.h",
+		"Source/Renderer3D/**.cpp"
 	}
 
 	defines {
@@ -19,20 +21,28 @@ project "Crimson"
 	includedirs {
 		"Source",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.PhysFS}"
 	}
 
 	links {
 		ExternalDependencies.GLFW,
 		ExternalDependencies.Glad,
-		ExternalDependencies.OpenGL
+		ExternalDependencies.OpenGL,
+		ExternalDependencies.PhysFS,
 	}
 
 
 	filter "configurations:Debug"
 		runtime "Debug"
+		defines {
+			"DEBUG"
+		}
 		symbols "on"
 
 	filter "configurations:Release"
 		runtime "Release"
+		defines {
+			"RELEASE"
+		}
 		optimize "on"

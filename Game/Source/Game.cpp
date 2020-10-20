@@ -3,7 +3,8 @@
 class Game : public Crimson::Game {
 private:
 	void OnInit() override {
-
+		Crimson::AssetManager assetManager;
+		CR_PRINTF("%s\n", assetManager.LoadText("Source/Game.cpp").c_str());
 	}
 
 	void OnUpdate(float delta) override {

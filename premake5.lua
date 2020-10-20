@@ -25,11 +25,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Dependencies/glfw/include"
 IncludeDir["Glad"] = "Dependencies/glad/include"
+IncludeDir["PhysFS"] = "Dependencies/physfs/src"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
 ExternalDependencies["OpenGL"] = {}
 ExternalDependencies["Glad"] = {"Glad"}
+ExternalDependencies["PhysFS"] = {"PhysFS"}
 
 if os.host() == "linux" then
 	ExternalDependencies["GLFW"] = {
@@ -45,10 +47,10 @@ elseif os.host() == "windows" then
 end
 
 
-
 group "Dependencies"
 	include "Crimson/Dependencies/glfw"
 	include "Crimson/Dependencies/glad"
+	include "Crimson/Dependencies/physfs"
 group ""
 
 include "Crimson"
