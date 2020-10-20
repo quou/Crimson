@@ -14,7 +14,7 @@ project "Game"
 
 	includedirs {
 		"../Crimson/Source",
-		"%{IncludeDir.ImGui}"
+		"../Crimson/Dependencies/imgui/include"
 	}
 
 	links {

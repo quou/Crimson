@@ -12,8 +12,8 @@ project "Crimson"
 		"Source/**.cpp",
 		"Source/Renderer3D/**.h",
 		"Source/Renderer3D/**.cpp",
-		"Source/ImGuiLayer/**.h",
-		"Source/ImGuiLayer/**.cpp"
+		"Source/ImGuiImpl/**.h",
+		"Source/ImGuiImpl/**.cpp"
 	}
 
 	defines {
