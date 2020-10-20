@@ -14,7 +14,8 @@ project "Game"
 
 	includedirs {
 		"../Crimson/Source",
-		"../Crimson/Dependencies/imgui/include"
+		"../Crimson/Dependencies/imgui/include",
+		"../Crimson/Dependencies/glm/include"
 	}
 
 	links {

@@ -13,20 +13,20 @@ workspace "Crimson"
 		"MultiProcessorCompile"
 	}
 
-	defines {
-		"GLFW_INCLUDE_NONE"
-	}
+	-- defines {
+	-- 	"GLFW_INCLUDE_NONE"
+	-- }
 
 	linkgroups "On"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- Relative to Crimson
 IncludeDir = {}
 IncludeDir["GLFW"] = "Dependencies/glfw/include"
 IncludeDir["Glad"] = "Dependencies/glad/include"
 IncludeDir["PhysFS"] = "Dependencies/physfs/src"
 IncludeDir["ImGui"] = "Dependencies/imgui/include"
+IncludeDir["GLM"] = "Dependencies/glm"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
