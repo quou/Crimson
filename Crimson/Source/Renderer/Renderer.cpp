@@ -32,7 +32,7 @@ namespace Crimson {
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void Renderer::DrawMesh(std::shared_ptr<Shader> shader, std::shared_ptr<Mesh> mesh) {
+	void Renderer::DrawMesh(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
 		shader->Bind();
 
 		glm::mat4 model(1.0f);

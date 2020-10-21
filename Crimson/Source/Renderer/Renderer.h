@@ -14,7 +14,7 @@ namespace Crimson {
 
 		void Clear();
 
-		void DrawMesh(std::shared_ptr<Shader> shader, std::shared_ptr<Mesh> mesh);
+		void DrawMesh(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
 	};
 
 }
