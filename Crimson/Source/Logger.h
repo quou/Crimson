@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cassert>
+#include <stdlib.h>
 
 enum LogType {
 	CR_LOGTYPE_INFO,
@@ -11,7 +11,6 @@ enum LogType {
 
 namespace Crimson {
 	void Log(LogType logType, const char* fmt, ...);
-	void Assert(bool condition, const char* fmt, ...);
 }
 
 #define CR_LOG(fmt, args)(Crimson::Log(CR_LOGTYPE_INFO, fmt, args))
@@ -19,4 +18,4 @@ namespace Crimson {
 #define CR_LOG_ERROR(fmt, ...)(Crimson::Log(CR_LOGTYPE_ERROR, fmt, __VA_ARGS__))
 #define CR_LOG_FATAL_ERROR(fmt, ...)(Crimson::Log(CR_LOGTYPE_FATAL_ERROR, fmt, __VA_ARGS__))
 #define CR_LOG_WARNING(fmt, ...)(Crimson::Log(CR_LOGTYPE_WARNING, fmt, __VA_ARGS__))
-#define CR_ASSERT(condition, fmt, ...)(Crimson::Assert(condition, fmt, __VA_ARGS__))
+#define CR_ASSERT(condition, fmt, ...)if (!(condition)) { CR_LOG_FATAL_ERROR(fmt, __VA_ARGS__); abort();}

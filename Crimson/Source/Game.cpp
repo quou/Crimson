@@ -9,23 +9,22 @@
 
 namespace Crimson {
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
-		CR_ASSERT(glfwInit(), "%s\n", "Unable to initialise GLFW");
+		CR_ASSERT(glfwInit(), "%s", "Unable to initialise GLFW");
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		m_window = glfwCreateWindow(windowSize.first, windowSize.second, windowTitle, NULL, NULL);
-		CR_ASSERT(m_window != NULL, "%s\n", "Unable to create window");
+		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");
 
 		glfwMakeContextCurrent(m_window);
 
-		CR_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "%s\n", "Unable to initialise OpenGL");
+		CR_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "%s", "Unable to initialise OpenGL");
 
-		CR_LOG("%s\n", "Initialisation successful");
-		CR_LOG("Using OpenGL version %s\n", glGetString(GL_VERSION));
-		CR_LOG("Renderer: %s\n", glGetString( GL_RENDERER));
+		CR_LOG("%s", "Initialisation successful");
 
-		// glEnable(GL_DEBUG_OUTPUT);
-		// glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		// glDebugMessageCallback(glDebugOutput, nullptr);
-		// glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+		m_renderer = std::make_shared<Renderer>();
 
 		ImGuiImpl::Init(m_window);
 
@@ -35,7 +34,7 @@ namespace Crimson {
 		}
 
 		while (!glfwWindowShouldClose(m_window)) {
-			glClear(GL_COLOR_BUFFER_BIT);
+			m_renderer->Clear();
 			ImGuiImpl::BeginFrame();
 
 			OnUpdate(1.0f);
@@ -49,10 +48,13 @@ namespace Crimson {
 
 			glfwPollEvents();
 		}
+		
+		OnExit();
 
 		for (auto& l : m_layers) {
 			l.reset();
 		}
+
 
 		ImGuiImpl::Quit();
 

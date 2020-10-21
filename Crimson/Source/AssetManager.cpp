@@ -39,7 +39,7 @@ namespace Crimson {
 
 			fileSize = PHYSFS_fileLength(file);
 
-			imageData = (char*)malloc(fileSize);
+			imageData = (unsigned char*)malloc(fileSize);
 			size_t bytesRead = PHYSFS_readBytes(file, imageData, fileSize);
 
 			imageData[bytesRead];

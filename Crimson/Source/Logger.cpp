@@ -33,10 +33,10 @@ namespace Crimson {
 		time (&rawtime);
 		timeinfo = localtime(&rawtime);
 
-		strftime(buffer,sizeof(buffer),"[%d-%m-%Y %H:%M:%S] ",timeinfo);
+		strftime(buffer,sizeof(buffer),"\033[0;36m[%d-%m-%Y %H:%M:%S]\033[0m ",timeinfo);
 		std::string timeStr(buffer);
 
-		std::string absFormat = timeStr + std::string(type) + std::string(fmt);
+		std::string absFormat = timeStr + std::string(type) + std::string(fmt) + "\n";
 
 		va_list argptr;
 		va_start(argptr, fmt);
@@ -44,29 +44,5 @@ namespace Crimson {
 		vprintf(absFormat.c_str(), argptr);
 
 		va_end(argptr);
-	}
-
-	void Assert(bool condition, const char* fmt, ...) {
-		if (!condition) {
-			va_list argptr;
-			va_start(argptr, fmt);
-
-			time_t rawtime;
-			struct tm * timeinfo;
-			char buffer[80];
-
-			time (&rawtime);
-			timeinfo = localtime(&rawtime);
-
-			strftime(buffer,sizeof(buffer),"[%d-%m-%Y %H:%M:%S] ",timeinfo);
-			std::string timeStr(buffer);
-
-			std::string absFormat = timeStr + "\033[1;31mfatal error: \033[0m" + std::string(fmt);
-
-			vprintf(absFormat.c_str(), argptr);
-
-			va_end(argptr);
-		}
-		assert(condition);
 	}
 }

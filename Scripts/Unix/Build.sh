@@ -3,4 +3,4 @@
 cd ../../
 ./premake5 gmake
 
-bear make
+bear make -j12 config=debug
