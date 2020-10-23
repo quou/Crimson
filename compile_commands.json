@@ -1,20 +1,726 @@
 [
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-I../Crimson/Source",
-            "-I../Crimson/Dependencies/imgui/include",
-            "-I../Crimson/Dependencies/glm",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Game/Game.o",
-            "Source/Game.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Game",
-        "file": "Source/Game.cpp"
-    }
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/context.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/context.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/init.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/init.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/input.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/input.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/monitor.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/monitor.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/vulkan.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/vulkan.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/window.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/window.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_init.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_init.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_monitor.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_monitor.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/x11_window.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/x11_window.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/xkb_unicode.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/xkb_unicode.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/posix_time.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/posix_time.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/posix_thread.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/posix_thread.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/glx_context.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/glx_context.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/egl_context.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/egl_context.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/osmesa_context.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/osmesa_context.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/src/linux_joystick.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/linux_joystick.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-fPIC",
+			"-g",
+			"-D_GLFW_X11",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/glad/src/glad.c",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glad",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/glad/bin/Debug-linux-x86_64/Glad/glad.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-Iinclude",
+			"-s",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs/src/physfs_platform_winrt.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/physfs_platform_winrt.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-g",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs/src/physfs_platform_haiku.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/physfs_platform_haiku.o",
+		"arguments": [
+			"gcc",
+			"-m64",
+			"-g",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/src/imgui.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/imgui.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++11",
+			"-Iinclude",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/src/imgui_draw.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/imgui_draw.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++11",
+			"-Iinclude",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/src/imgui_demo.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/imgui_demo.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++11",
+			"-Iinclude",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/src/imgui_widgets.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+		"output": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/imgui_widgets.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++11",
+			"-Iinclude",
+			"-L/usr/lib64"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Game.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Game.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Logger.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Logger.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/AssetManager.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/AssetManager.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Renderer/Renderer.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Renderer.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Renderer/Texture.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Texture.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Renderer/Shader.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Shader.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Renderer/Renderer3D/Mesh.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/Mesh.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/ImGuiImpl/imgui_impl_glfw.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/imgui_impl_glfw.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/ImGuiImpl/ImGuiImpl.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/ImGuiImpl.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/ImGuiImpl/imgui_impl_opengl3.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/imgui_impl_opengl3.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Utils/tinyxml2.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/tinyxml2.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Utils/stb_image.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/stb_image.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Crimson/Source/Utils/obj_loader.cpp",
+		"directory": "/home/george/Documents/Crimson/Crimson",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Crimson/obj_loader.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-DGLFW_INCLUDE_NONE",
+			"-DDEBUG",
+			"-ISource",
+			"-IDependencies/glfw/include",
+			"-IDependencies/glad/include",
+			"-IDependencies/physfs/src",
+			"-IDependencies/imgui/include",
+			"-IDependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	},
+	{
+		"file": "/home/george/Documents/Crimson/Game/Source/Game.cpp",
+		"directory": "/home/george/Documents/Crimson/Game",
+		"output": "/home/george/Documents/Crimson/bin/Debug-linux-x86_64/Game/Game.o",
+		"arguments": [
+			"g++",
+			"-m64",
+			"-g",
+			"-std=c++17",
+			"-D_CRT_SECURE_NO_WARNINGS",
+			"-I../Crimson/Source",
+			"-I../Crimson/Dependencies/imgui/include",
+			"-I../Crimson/Dependencies/glm",
+			"-L/usr/lib64",
+			"-Wl,--start-group",
+			"../Crimson/Dependencies/glfw/bin/Debug-linux-x86_64/GLFW/libGLFW.a",
+			"../Crimson/Dependencies/glad/bin/Debug-linux-x86_64/Glad/libGlad.a",
+			"../Crimson/Dependencies/physfs/bin/Debug-linux-x86_64/PhysFS/libPhysFS.a",
+			"../Crimson/Dependencies/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a",
+			"../bin/Debug-linux-x86_64/Crimson/libCrimson.a",
+			"-lpthread",
+			"-lX11",
+			"-ldl",
+			"-lGL",
+			"-Wl,--end-group"
+		]
+	}
 ]

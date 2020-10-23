@@ -2,5 +2,6 @@
 
 cd ../../
 ./premake5 gmake
+./premake5 compiledb
 
-bear make -j12 config=debug
+make -j12 config=debug
