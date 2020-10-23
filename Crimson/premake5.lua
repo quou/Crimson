@@ -10,10 +10,6 @@ project "Crimson"
 	files {
 		"Source/**.h",
 		"Source/**.cpp",
-		"Source/Renderer3D/**.h",
-		"Source/Renderer3D/**.cpp",
-		"Source/ImGuiImpl/**.h",
-		"Source/ImGuiImpl/**.cpp"
 	}
 
 	defines {

@@ -3,14 +3,9 @@
 #include <map>
 #include <string>
 
-namespace Crimson {
-	struct Surface {
-		int width;
-		int height;
-		int componentCount;
-		unsigned char* pixels;
-	};
+#include "Renderer/Surface.h"
 
+namespace Crimson {
 	class AssetManager {
 	private:
 		std::map<std::string, std::string> m_textFiles;

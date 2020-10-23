@@ -111,7 +111,7 @@ namespace Crimson {
 	}
 
 	void Shader::SetInt(const char* name, int value) {
-	   glUniform1f(glGetUniformLocation(m_ID, name), value);
+	   glUniform1i(glGetUniformLocation(m_ID, name), value);
 	}
 
 	void Shader::SetVec2(const char* name, glm::vec2 value) {

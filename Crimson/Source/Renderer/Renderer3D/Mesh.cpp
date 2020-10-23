@@ -2,8 +2,20 @@
 
 #include <glad/glad.h>
 
+#include "Utils/obj_loader.h"
+
+#include "Logger.h"
+
 namespace Crimson {
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
+		LoadFromData(vertices, indices);
+	}
+
+	Mesh::Mesh(const char* obj) {
+		LoadFromWavefront(obj);
+	}
+
+	void Mesh::LoadFromData(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
 		m_vertices = vertices;
 		m_indices = indices;
 
@@ -30,6 +42,15 @@ namespace Crimson {
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
 		glBindVertexArray(0);
+	}
+
+	void Mesh::LoadFromWavefront(const char* obj) {
+		IndexedModel model = OBJModel(obj).ToIndexedModel();
+		std::vector<Vertex> verts;
+		for (unsigned int i = 0; i < model.positions.size(); i++) {
+			verts.push_back(Vertex{model.positions[i], model.normals[i], model.texCoords[i]});
+		}
+		LoadFromData(verts, model.indices);
 	}
 
 	void Mesh::Draw() {

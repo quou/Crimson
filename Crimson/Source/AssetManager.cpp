@@ -4,7 +4,8 @@
 
 #include <physfs.h>
 
-#include "stb_image.h"
+#include "Utils/stb_image.h"
+
 
 namespace Crimson {
 	AssetManager::AssetManager() {
@@ -65,7 +66,7 @@ namespace Crimson {
 
 			int x,y;
 			int n = 4;
-			unsigned char* pixels = stbi_load_from_memory(imageData, fileSize, &x, &y, &n, 4);
+			unsigned char* pixels = stbi_load_from_memory(imageData, fileSize, &x, &y, &n, 0);
 			if (pixels == NULL) {
 				CR_LOG_ERROR("Failed to load file: %s. Reason for failure: %s\n", filePath.c_str(), stbi_failure_reason());
 				return NULL;

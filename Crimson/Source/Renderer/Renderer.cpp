@@ -26,23 +26,30 @@ namespace Crimson {
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(GLErrorCallback, nullptr);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	}
 
 	void Renderer::Clear() {
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::DrawMesh(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
+	void Renderer::Draw(const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
 		shader->Bind();
 
-		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f));
 		glm::mat4 view(1.0f);
-		glm::mat4 projection = glm::perspective(45.0f, 1366.0f/768.0f, 0.0f, 100.0f);
+		glm::mat4 projection = glm::perspective(45.0f, 1366.0f/768.0f, 0.01f, 100.0f);
 
-		shader->SetMat4("u_model", model);
+		shader->SetMat4("u_model", transform.GetModel());
 		shader->SetMat4("u_view", view);
 		shader->SetMat4("u_projection", projection);
+
+		shader->SetInt("u_albedo", 0);
 
 		mesh->Draw();
 	}

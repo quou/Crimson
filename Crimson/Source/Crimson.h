@@ -10,6 +10,7 @@
 // Rendering
 #include "Renderer/Renderer.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
 #include "Renderer/Renderer3D/Mesh.h"
 
 #include "Game.h"
