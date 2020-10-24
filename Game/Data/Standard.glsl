@@ -27,10 +27,11 @@ in vec2 v_texCoords;
 
 uniform sampler2D u_albedo;
 
+uniform vec3 u_color = vec3(1, 1, 1);
+
 void main()
 {
-	gl_FragColor = texture2D(u_albedo, v_texCoords);
-//	gl_FragColor = vec4(1,1,1,1);
+	gl_FragColor = texture2D(u_albedo, v_texCoords) * vec4(u_color, 1.0f);
 }
 
 #end FRAGMENT

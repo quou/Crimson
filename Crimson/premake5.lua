@@ -23,7 +23,8 @@ project "Crimson"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.PhysFS}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.GLM}"
+		"%{IncludeDir.GLM}",
+		"%{IncludeDir.Lua}",
 	}
 
 	links {
@@ -32,6 +33,7 @@ project "Crimson"
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
 		ExternalDependencies.ImGui,
+		ExternalDependencies.Lua
 	}
 
 

@@ -27,6 +27,7 @@ IncludeDir["Glad"] = "Dependencies/glad/include"
 IncludeDir["PhysFS"] = "Dependencies/physfs/src"
 IncludeDir["ImGui"] = "Dependencies/imgui/include"
 IncludeDir["GLM"] = "Dependencies/glm"
+IncludeDir["Lua"] = "Dependencies/lua/src"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
@@ -34,6 +35,7 @@ ExternalDependencies["OpenGL"] = {}
 ExternalDependencies["ImGui"] = {"ImGui"}
 ExternalDependencies["Glad"] = {"Glad"}
 ExternalDependencies["PhysFS"] = {"PhysFS"}
+ExternalDependencies["Lua"] = {"Lua"}
 
 if os.host() == "linux" then
 	ExternalDependencies["GLFW"] = {
@@ -54,6 +56,7 @@ group "Dependencies"
 	include "Crimson/Dependencies/glad"
 	include "Crimson/Dependencies/physfs"
 	include "Crimson/Dependencies/imgui"
+	include "Crimson/Dependencies/lua"
 group ""
 
 include "Crimson"

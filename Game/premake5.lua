@@ -24,6 +24,7 @@ project "Game"
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
 		ExternalDependencies.ImGui,
+		ExternalDependencies.Lua,
 		"Crimson"
 	}
 

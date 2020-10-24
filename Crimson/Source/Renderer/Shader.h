@@ -16,12 +16,12 @@ namespace Crimson {
 
 	   Shader& Bind();
 
-	   void SetFloat(const char* name, float value);
-	   void SetInt(const char* name, int value);
-	   void SetVec2(const char* name, glm::vec2 value);
-	   void SetVec3(const char* name, glm::vec3 value);
-	   void SetVec4(const char* name, glm::vec4 value);
-	   void SetMat4(const char* name, glm::mat4 value);
+	   void SetFloat(const std::string& name, float value);
+	   void SetInt(const std::string& name, int value);
+	   void SetVec2(const std::string& name, glm::vec2 value);
+	   void SetVec3(const std::string& name, glm::vec3 value);
+	   void SetVec4(const std::string& name, glm::vec4 value);
+	   void SetMat4(const std::string& name, glm::mat4 value);
 
 	   ~Shader();
 	};

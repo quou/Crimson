@@ -12,5 +12,6 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
 #include "Renderer/Renderer3D/Mesh.h"
+#include "Renderer/Material.h"
 
 #include "Game.h"

@@ -15,7 +15,7 @@ class Game : public Crimson::Game {
 public:
 	Crimson::AssetManager m_assetManager;
 
-	std::shared_ptr<Crimson::Shader> m_shader;
+	std::shared_ptr<Crimson::Material> m_material;
 	std::shared_ptr<Crimson::Texture> m_texture;
 	std::shared_ptr<Crimson::Mesh> m_mesh;
 
@@ -24,7 +24,7 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_shader = std::make_shared<Crimson::Shader>(m_assetManager.LoadText("Data/Standard.glsl"));
+		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.lua"), m_assetManager.LoadText("Data/Standard.glsl"));
 		m_texture = std::make_shared<Crimson::Texture>(m_assetManager.LoadSurface("Data/Wood.jpg"));
 
 		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/Monkey.obj").c_str());
@@ -36,18 +36,23 @@ private:
 
 	void OnUpdate(float delta) override {
 		m_texture->Bind(0);
-		m_renderer->Draw(m_transform, m_shader, m_mesh);
+		m_renderer->Draw(m_transform, m_material->m_shader, m_mesh);
 
 		ImGui::Begin("Transform");
 		ImGui::InputFloat("Rotation X", &m_transform.rotation.x);
 		ImGui::InputFloat("Rotation Y", &m_transform.rotation.y);
 		ImGui::InputFloat("Rotation Z", &m_transform.rotation.z);
+
+		static float newscale = 1.0f;
+		ImGui::InputFloat("Scale", &newscale);
+		m_transform.scale = glm::vec3(newscale);
+
 		ImGui::End();
 	}
 
 	void OnExit() override {
 		m_texture.reset();
-		m_shader.reset();
+		m_material.reset();
 		m_mesh.reset();
 	}
 public:

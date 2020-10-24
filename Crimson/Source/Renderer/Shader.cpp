@@ -106,27 +106,27 @@ namespace Crimson {
 	   return *this;
 	}
 
-	void Shader::SetFloat(const char* name, float value) {
-	   glUniform1f(glGetUniformLocation(m_ID, name), value);
+	void Shader::SetFloat(const std::string& name, float value) {
+	   glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
 	}
 
-	void Shader::SetInt(const char* name, int value) {
-	   glUniform1i(glGetUniformLocation(m_ID, name), value);
+	void Shader::SetInt(const std::string& name, int value) {
+	   glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
 	}
 
-	void Shader::SetVec2(const char* name, glm::vec2 value) {
-	   glUniform2f(glGetUniformLocation(m_ID, name), value.x, value.y);
+	void Shader::SetVec2(const std::string& name, glm::vec2 value) {
+	   glUniform2f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y);
 	}
 
-	void Shader::SetVec3(const char* name, glm::vec3 value) {
-	   glUniform3f(glGetUniformLocation(m_ID, name), value.x, value.y, value.z);
+	void Shader::SetVec3(const std::string& name, glm::vec3 value) {
+	   glUniform3f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z);
 	}
 
-	void Shader::SetVec4(const char* name, glm::vec4 value) {
-	   glUniform4f(glGetUniformLocation(m_ID, name), value.x, value.y, value.z, value.w);
+	void Shader::SetVec4(const std::string& name, glm::vec4 value) {
+	   glUniform4f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z, value.w);
 	}
 
-	void Shader::SetMat4(const char* name, glm::mat4 value) {
-	   glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, false, glm::value_ptr(value));
+	void Shader::SetMat4(const std::string& name, glm::mat4 value) {
+	   glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, false, glm::value_ptr(value));
 	}
 }
