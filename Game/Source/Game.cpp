@@ -24,7 +24,7 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.lua"), m_assetManager.LoadText("Data/Standard.glsl"));
+		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.lua"), m_assetManager);
 		m_texture = std::make_shared<Crimson::Texture>(m_assetManager.LoadSurface("Data/Wood.jpg"));
 
 		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/Monkey.obj").c_str());

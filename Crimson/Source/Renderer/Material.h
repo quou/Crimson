@@ -8,13 +8,15 @@
 struct lua_State;
 
 namespace Crimson {
+	class AssetManager;
+
 	class Material {
 	private:
 		lua_State* L;
 	public:
 		std::shared_ptr<Shader> m_shader;
 
-		Material(const std::string& config, const std::string& shader);
+		Material(const std::string& config, AssetManager& assetManager);
 		~Material();
 
 		void Bind();

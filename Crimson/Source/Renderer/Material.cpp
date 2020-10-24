@@ -12,6 +12,7 @@ extern "C" {
 }
 
 #include "Logger.h"
+#include "AssetManager.h"
 
 bool CheckLua(lua_State* L, int r) {
 	if (r != LUA_OK) {
@@ -21,45 +22,22 @@ bool CheckLua(lua_State* L, int r) {
 	return true;
 }
 
-static std::vector<std::pair<std::string, std::string>> ParseUniforms(const std::string& shader) {
-	std::vector<std::pair<std::string, std::string>> result;
-
-	std::stringstream ss(shader);
-	std::string line;
-
-	while (std::getline(ss, line)) {
-		std::vector<std::string> lineSplit;
-		std::string currentSub;
-		for (char c : line) {
-			if (c == ' ' || c == ';') {
-				if (!currentSub.empty()) {
-					lineSplit.push_back(currentSub);
-				}
-				currentSub = "";
-			} else {
-				currentSub += c;
-			}
-		}
-
-		if (lineSplit.size() > 0) {
-			if (lineSplit[0] == "uniform") {
-				result.push_back({lineSplit[1], lineSplit[2]});
-			}
-		}
-	}
-
-	return result;
-}
-
 namespace Crimson {
-	Material::Material(const std::string& config, const std::string& shader) {
-		m_shader = std::make_shared<Shader>(shader);
+	Material::Material(const std::string& config, AssetManager& assetManager) {
 
 		L = luaL_newstate();
 
 		if (!CheckLua(L, luaL_dostring(L, config.c_str()))) {
 			return;
 		}
+
+		lua_getglobal(L, "shader");
+		if (lua_isstring(L, -1)) {
+			m_shader = std::make_shared<Shader>(assetManager.LoadText(lua_tostring(L, -1)));
+		} else {
+			return;
+		}
+		lua_pop(L, 1);
 
 		m_shader->Bind();
 
@@ -68,15 +46,10 @@ namespace Crimson {
 
 		lua_pushnil(L);
 		while (lua_next(L, -2) != 0) {
-			CR_PRINTF("%s, %s\n",
-				lua_tostring(L, -2),
-				lua_typename(L, lua_type(L, -1)));
-
 			if (lua_isnumber(L, -1)) {
 				m_shader->SetFloat("u_" + std::string(lua_tostring(L, -2)), lua_tonumber(L, -1));
 			} else if (lua_istable(L, -1)) {
 				int size = lua_rawlen(L, -1);
-				CR_PRINTF("%d\n", size);
 
 				if (size == 2) {
 					lua_pushnil(L);

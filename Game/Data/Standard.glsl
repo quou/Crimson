@@ -11,8 +11,7 @@ uniform mat4 u_model;
 uniform mat4 u_view;
 uniform mat4 u_projection;
 
-void main()
-{
+void main() {
 	gl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0f);
 	v_texCoords = vec2(a_texCoords.x, a_texCoords.y);
 }
@@ -29,8 +28,7 @@ uniform sampler2D u_albedo;
 
 uniform vec3 u_color = vec3(1, 1, 1);
 
-void main()
-{
+void main() {
 	gl_FragColor = texture2D(u_albedo, v_texCoords) * vec4(u_color, 1.0f);
 }
 

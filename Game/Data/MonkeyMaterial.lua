@@ -1,6 +1,6 @@
 -- CRIMSON MATERIAL
 
--- USES SHADER: Standard.glsl
+shader = "Data/Standard.glsl"
 
 material = {
     color = {0.3, 1, 0.2},
