@@ -23,6 +23,8 @@ namespace Crimson {
 		virtual void OnInit() = 0;
 		virtual void OnUpdate(float delta) = 0;
 		virtual void OnExit() = 0;
+
+		std::pair<int, int> GetWindowSize();
 	public:
 		void Run(const char* windowTitle, std::pair<int, int> windowSize);
 

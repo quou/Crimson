@@ -39,15 +39,15 @@ namespace Crimson {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::Draw(const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
+	void Renderer::Draw(const Camera& camera, const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
 		shader->Bind();
 
 		glm::mat4 view(1.0f);
 		glm::mat4 projection = glm::perspective(45.0f, 1366.0f/768.0f, 0.01f, 100.0f);
 
 		shader->SetMat4("u_model", transform.GetModel());
-		shader->SetMat4("u_view", view);
-		shader->SetMat4("u_projection", projection);
+		shader->SetMat4("u_view", camera.GetView());
+		shader->SetMat4("u_projection", camera.projection);
 
 		shader->SetInt("u_albedo", 0);
 

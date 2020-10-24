@@ -6,6 +6,7 @@
 #include "Shader.h"
 
 #include "Transform.h"
+#include "Renderer3D/Camera.h"
 
 namespace Crimson {
 
@@ -13,10 +14,10 @@ namespace Crimson {
 	private:
 	public:
 		Renderer();
-		
+
 		void Clear();
 
-		void Draw(const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
+		void Draw(const Camera& camera, const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
 	};
 
 }

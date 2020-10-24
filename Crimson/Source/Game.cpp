@@ -8,6 +8,10 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 
 namespace Crimson {
+	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
+		glViewport(0, 0, width, height);
+	}
+
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
 		CR_ASSERT(glfwInit(), "%s", "Unable to initialise GLFW");
 
@@ -19,6 +23,8 @@ namespace Crimson {
 		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");
 
 		glfwMakeContextCurrent(m_window);
+
+		glfwSetFramebufferSizeCallback(m_window, FramebufferSizeCallback);
 
 		CR_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "%s", "Unable to initialise OpenGL");
 
@@ -48,7 +54,7 @@ namespace Crimson {
 
 			glfwPollEvents();
 		}
-		
+
 		OnExit();
 
 		for (auto& l : m_layers) {
@@ -59,5 +65,11 @@ namespace Crimson {
 		ImGuiImpl::Quit();
 
 		glfwTerminate();
+	}
+
+	std::pair<int, int> Game::GetWindowSize() {
+		std::pair<int, int> result;
+		glfwGetWindowSize(m_window, &result.first, &result.second);
+		return result;
 	}
 }
