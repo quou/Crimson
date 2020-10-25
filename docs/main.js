@@ -1,8 +1,6 @@
 
 let pages = [
-   "Home",
-   "Building",
-   "Scripting"
+   "Home"
 ]
 
 let currentPage = pages[0];
