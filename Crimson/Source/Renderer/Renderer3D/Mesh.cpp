@@ -6,13 +6,22 @@
 
 #include "Logger.h"
 
+#include <algorithm>
+#include <initializer_list>
+
+extern "C" {
+	#include <lua.h>
+	#include <lauxlib.h>
+	#include <lualib.h>
+}
+
 namespace Crimson {
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
 		LoadFromData(vertices, indices);
 	}
 
-	Mesh::Mesh(const char* obj) {
-		LoadFromWavefront(obj);
+	Mesh::Mesh(const char* lua) {
+		LoadFromLua(lua);
 	}
 
 	void Mesh::LoadFromData(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
@@ -44,13 +53,93 @@ namespace Crimson {
 		glBindVertexArray(0);
 	}
 
-	void Mesh::LoadFromWavefront(const char* obj) {
-		IndexedModel model = OBJModel(obj).ToIndexedModel();
+	void Mesh::LoadFromLua(const char* lua) {
 		std::vector<Vertex> verts;
-		for (unsigned int i = 0; i < model.positions.size(); i++) {
-			verts.push_back(Vertex{model.positions[i], model.normals[i], model.texCoords[i]});
+		std::vector<unsigned int> indices;
+
+		lua_State* L = luaL_newstate();
+
+		int r = luaL_dostring(L, lua);
+		if (r != LUA_OK) {
+			CR_LOG_ERROR("%s", lua_tostring(L, -1));
+			lua_close(L);
+			return;
 		}
-		LoadFromData(verts, model.indices);
+
+		Vertex currentVertex;
+
+		lua_getglobal(L, "positions");
+		unsigned int positionsSize = lua_rawlen(L, -1);
+		lua_pop(L, 1);
+
+		lua_getglobal(L, "normals");
+		unsigned int normalsSize = lua_rawlen(L, -1);
+		lua_pop(L, 1);
+
+		lua_getglobal(L, "texCoords");
+		unsigned int texCoordsSize = lua_rawlen(L, -1);
+		lua_pop(L, 1);
+
+		unsigned int size = std::max({positionsSize, normalsSize, texCoordsSize});
+		verts.resize(size);
+
+		unsigned int texIt = 0;
+		unsigned int posIt = 0;
+		for (auto& vertex : verts) {
+			// position
+			lua_getglobal(L, "positions");
+			lua_rawgeti(L, -1, posIt+1);
+			vertex.position.x = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+
+			lua_rawgeti(L, -1, posIt+2);
+			vertex.position.y = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+
+			lua_rawgeti(L, -1, posIt+3);
+			vertex.position.z = lua_tonumber(L, -1);
+			lua_pop(L, 2);
+
+			// normal
+			lua_getglobal(L, "normals");
+			lua_rawgeti(L, -1, posIt+1);
+			vertex.normal.x = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+
+			lua_rawgeti(L, -1, posIt+2);
+			vertex.normal.y = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+
+			lua_rawgeti(L, -1, posIt+3);
+			vertex.normal.z = lua_tonumber(L, -1);
+			lua_pop(L, 2);
+
+			// texCoords
+			lua_getglobal(L, "texCoords");
+			lua_rawgeti(L, -1, texIt+1);
+			vertex.texCoords.x = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+
+			lua_rawgeti(L, -1, texIt+2);
+			vertex.texCoords.y = lua_tonumber(L, -1);
+			lua_pop(L, 2);
+			texIt+=2;
+			posIt+=3;
+		}
+		lua_pop(L, 1);
+
+		lua_getglobal(L, "indices");
+		size = lua_rawlen(L, -1);
+		for (unsigned int i = 0; i < size; i++) {
+			lua_rawgeti(L, -1, i+1);
+			indices.push_back(lua_tointeger(L, -1));
+			lua_pop(L, 1);
+		}
+		lua_pop(L, 1);
+
+		lua_close(L);
+
+		LoadFromData(verts, indices);
 	}
 
 	void Mesh::Draw() {

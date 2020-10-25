@@ -3,32 +3,6 @@
         "arguments": [
             "cc",
             "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/linit.o",
-            "src/linit.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/linit.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lmathlib.o",
-            "src/lmathlib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lmathlib.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
             "-D_GLFW_X11",
             "-m64",
             "-fPIC",
@@ -44,16 +18,92 @@
         "arguments": [
             "cc",
             "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/liolib.o",
+            "src/liolib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/liolib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lmem.o",
+            "src/lmem.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lmem.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/obj_loader.o",
+            "Source/Utils/obj_loader.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Utils/obj_loader.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
             "-D_GLFW_X11",
             "-m64",
             "-fPIC",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/x11_init.o",
-            "src/x11_init.c"
+            "bin-int/Debug-linux-x86_64/GLFW/init.o",
+            "src/init.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/x11_init.c"
+        "file": "src/init.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/ltablib.o",
+            "src/ltablib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/ltablib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lstate.o",
+            "src/lstate.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lstate.c"
     },
     {
         "arguments": [
@@ -77,11 +127,433 @@
             "-m64",
             "-g",
             "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lapi.o",
+            "src/lapi.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lapi.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/ldblib.o",
+            "src/ldblib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/ldblib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/x11_window.o",
+            "src/x11_window.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/x11_window.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/xkb_unicode.o",
+            "src/xkb_unicode.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/xkb_unicode.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/PhysFS/physfs_platform_haiku.o",
+            "src/physfs_platform_haiku.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs",
+        "file": "src/physfs_platform_haiku.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/llex.o",
+            "src/llex.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/llex.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lmathlib.o",
+            "src/lmathlib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lmathlib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/x11_monitor.o",
+            "src/x11_monitor.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/x11_monitor.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lparser.o",
+            "src/lparser.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lparser.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/egl_context.o",
+            "src/egl_context.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/egl_context.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lauxlib.o",
+            "src/lauxlib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lauxlib.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Iinclude",
+            "-m64",
+            "-g",
+            "-std=c++11",
+            "-o",
+            "bin-int/Debug-linux-x86_64/ImGui/imgui_draw.o",
+            "src/imgui_draw.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+        "file": "src/imgui_draw.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/imgui_impl_opengl3.o",
+            "Source/ImGuiImpl/imgui_impl_opengl3.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/ImGuiImpl/imgui_impl_opengl3.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/ltable.o",
+            "src/ltable.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/ltable.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/ldump.o",
+            "src/ldump.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/ldump.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lstrlib.o",
+            "src/lstrlib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lstrlib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lcode.o",
+            "src/lcode.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lcode.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
             "bin-int/Debug-linux-x86_64/Lua/loadlib.o",
             "src/loadlib.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
         "file": "src/loadlib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lobject.o",
+            "src/lobject.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lobject.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/ltm.o",
+            "src/ltm.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/ltm.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lbaselib.o",
+            "src/lbaselib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lbaselib.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Iinclude",
+            "-m64",
+            "-g",
+            "-std=c++11",
+            "-o",
+            "bin-int/Debug-linux-x86_64/ImGui/imgui_demo.o",
+            "src/imgui_demo.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+        "file": "src/imgui_demo.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lgc.o",
+            "src/lgc.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lgc.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/Logger.o",
+            "Source/Logger.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Logger.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Iinclude",
+            "-m64",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Glad/glad.o",
+            "src/glad.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glad",
+        "file": "src/glad.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/imgui_impl_glfw.o",
+            "Source/ImGuiImpl/imgui_impl_glfw.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/ImGuiImpl/imgui_impl_glfw.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lcorolib.o",
+            "src/lcorolib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lcorolib.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/tinyxml2.o",
+            "Source/Utils/tinyxml2.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Utils/tinyxml2.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Iinclude",
+            "-m64",
+            "-g",
+            "-std=c++11",
+            "-o",
+            "bin-int/Debug-linux-x86_64/ImGui/imgui_widgets.o",
+            "src/imgui_widgets.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+        "file": "src/imgui_widgets.cpp"
     },
     {
         "arguments": [
@@ -122,94 +594,124 @@
     },
     {
         "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/Shader.o",
-            "Source/Renderer/Shader.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Renderer/Shader.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/stb_image.o",
-            "Source/Utils/stb_image.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Utils/stb_image.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-D_GLFW_X11",
-            "-m64",
-            "-fPIC",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/x11_monitor.o",
-            "src/x11_monitor.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/x11_monitor.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-D_GLFW_X11",
-            "-m64",
-            "-fPIC",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/x11_window.o",
-            "src/x11_window.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/x11_window.c"
-    },
-    {
-        "arguments": [
             "cc",
             "-c",
             "-m64",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lapi.o",
-            "src/lapi.c"
+            "bin-int/Debug-linux-x86_64/Lua/lutf8lib.o",
+            "src/lutf8lib.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lapi.c"
+        "file": "src/lutf8lib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lfunc.o",
+            "src/lfunc.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lfunc.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/x11_init.o",
+            "src/x11_init.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/x11_init.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lstring.o",
+            "src/lstring.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lstring.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lua.o",
+            "src/lua.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lua.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/context.o",
+            "src/context.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/context.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/vulkan.o",
+            "src/vulkan.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/vulkan.c"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/LightScene.o",
+            "Source/Renderer/Renderer3D/LightScene.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Renderer/Renderer3D/LightScene.cpp"
     },
     {
         "arguments": [
@@ -237,6 +739,56 @@
     },
     {
         "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/ImGuiImpl.o",
+            "Source/ImGuiImpl/ImGuiImpl.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/ImGuiImpl/ImGuiImpl.cpp"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lzio.o",
+            "src/lzio.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lzio.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/luac.o",
+            "src/luac.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/luac.c"
+    },
+    {
+        "arguments": [
             "cc",
             "-c",
             "-D_GLFW_X11",
@@ -249,6 +801,47 @@
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
         "file": "src/monitor.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-D_GLFW_X11",
+            "-m64",
+            "-fPIC",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/GLFW/osmesa_context.o",
+            "src/osmesa_context.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
+        "file": "src/osmesa_context.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/loslib.o",
+            "src/loslib.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/loslib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-m64",
+            "-g",
+            "-o",
+            "bin-int/Debug-linux-x86_64/Lua/lopcodes.o",
+            "src/lopcodes.c"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lopcodes.c"
     },
     {
         "arguments": [
@@ -292,391 +885,11 @@
             "-g",
             "-std=c++17",
             "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/tinyxml2.o",
-            "Source/Utils/tinyxml2.cpp"
+            "../bin-int/Debug-linux-x86_64/Crimson/stb_image.o",
+            "Source/Utils/stb_image.cpp"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Utils/tinyxml2.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/luac.o",
-            "src/luac.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/luac.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lcode.o",
-            "src/lcode.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lcode.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lauxlib.o",
-            "src/lauxlib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lauxlib.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lcorolib.o",
-            "src/lcorolib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lcorolib.c"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-Iinclude",
-            "-m64",
-            "-g",
-            "-std=c++11",
-            "-o",
-            "bin-int/Debug-linux-x86_64/ImGui/imgui_draw.o",
-            "src/imgui_draw.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
-        "file": "src/imgui_draw.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-D_GLFW_X11",
-            "-m64",
-            "-fPIC",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/vulkan.o",
-            "src/vulkan.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/vulkan.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/llex.o",
-            "src/llex.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/llex.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lstring.o",
-            "src/lstring.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lstring.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lstrlib.o",
-            "src/lstrlib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lstrlib.c"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/Material.o",
-            "Source/Renderer/Material.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Renderer/Material.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lstate.o",
-            "src/lstate.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lstate.c"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-Iinclude",
-            "-m64",
-            "-g",
-            "-std=c++11",
-            "-o",
-            "bin-int/Debug-linux-x86_64/ImGui/imgui_demo.o",
-            "src/imgui_demo.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
-        "file": "src/imgui_demo.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/imgui_impl_opengl3.o",
-            "Source/ImGuiImpl/imgui_impl_opengl3.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/ImGuiImpl/imgui_impl_opengl3.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-I../Crimson/Source",
-            "-I../Crimson/Dependencies/imgui/include",
-            "-I../Crimson/Dependencies/glm",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Game/Game.o",
-            "Source/Game.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Game",
-        "file": "Source/Game.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-Iinclude",
-            "-m64",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Glad/glad.o",
-            "src/glad.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glad",
-        "file": "src/glad.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ldblib.o",
-            "src/ldblib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ldblib.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lctype.o",
-            "src/lctype.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lctype.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lvm.o",
-            "src/lvm.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lvm.c"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/Logger.o",
-            "Source/Logger.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Logger.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/liolib.o",
-            "src/liolib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/liolib.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lopcodes.o",
-            "src/lopcodes.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lopcodes.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ldump.o",
-            "src/ldump.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ldump.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ltable.o",
-            "src/ltable.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ltable.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ltablib.o",
-            "src/ltablib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ltablib.c"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/Game.o",
-            "Source/Game.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Game.cpp"
+        "file": "Source/Utils/stb_image.cpp"
     },
     {
         "arguments": [
@@ -711,24 +924,11 @@
             "-g",
             "-std=c++17",
             "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/Mesh.o",
-            "Source/Renderer/Renderer3D/Mesh.cpp"
+            "../bin-int/Debug-linux-x86_64/Crimson/Material.o",
+            "Source/Renderer/Material.cpp"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Renderer/Renderer3D/Mesh.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ldo.o",
-            "src/ldo.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ldo.c"
+        "file": "Source/Renderer/Material.cpp"
     },
     {
         "arguments": [
@@ -750,26 +950,24 @@
             "-m64",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lobject.o",
-            "src/lobject.c"
+            "bin-int/Debug-linux-x86_64/Lua/lctype.o",
+            "src/lctype.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lobject.c"
+        "file": "src/lctype.c"
     },
     {
         "arguments": [
             "cc",
             "-c",
-            "-D_GLFW_X11",
             "-m64",
-            "-fPIC",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/linux_joystick.o",
-            "src/linux_joystick.c"
+            "bin-int/Debug-linux-x86_64/Lua/linit.o",
+            "src/linit.c"
         ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/linux_joystick.c"
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/linit.c"
     },
     {
         "arguments": [
@@ -789,76 +987,11 @@
             "-g",
             "-std=c++17",
             "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/obj_loader.o",
-            "Source/Utils/obj_loader.cpp"
+            "../bin-int/Debug-linux-x86_64/Crimson/Mesh.o",
+            "Source/Renderer/Renderer3D/Mesh.cpp"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/Utils/obj_loader.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lgc.o",
-            "src/lgc.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lgc.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lua.o",
-            "src/lua.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lua.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lmem.o",
-            "src/lmem.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lmem.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/ltm.o",
-            "src/ltm.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/ltm.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/loslib.o",
-            "src/loslib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/loslib.c"
+        "file": "Source/Renderer/Renderer3D/Mesh.cpp"
     },
     {
         "arguments": [
@@ -877,18 +1010,84 @@
     },
     {
         "arguments": [
-            "cc",
+            "g++",
             "-c",
-            "-D_GLFW_X11",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
             "-m64",
-            "-fPIC",
             "-g",
+            "-std=c++17",
             "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/context.o",
-            "src/context.c"
+            "../bin-int/Debug-linux-x86_64/Crimson/Shader.o",
+            "Source/Renderer/Shader.cpp"
         ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/context.c"
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Renderer/Shader.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Iinclude",
+            "-m64",
+            "-g",
+            "-std=c++11",
+            "-o",
+            "bin-int/Debug-linux-x86_64/ImGui/imgui.o",
+            "src/imgui.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
+        "file": "src/imgui.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-DGLFW_INCLUDE_NONE",
+            "-DDEBUG",
+            "-ISource",
+            "-IDependencies/glfw/include",
+            "-IDependencies/glad/include",
+            "-IDependencies/physfs/src",
+            "-IDependencies/imgui/include",
+            "-IDependencies/glm",
+            "-IDependencies/lua/src",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Crimson/Game.o",
+            "Source/Game.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Crimson",
+        "file": "Source/Game.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-D_CRT_SECURE_NO_WARNINGS",
+            "-I../Crimson/Source",
+            "-I../Crimson/Dependencies/imgui/include",
+            "-I../Crimson/Dependencies/glm",
+            "-m64",
+            "-g",
+            "-std=c++17",
+            "-o",
+            "../bin-int/Debug-linux-x86_64/Game/Game.o",
+            "Source/Game.cpp"
+        ],
+        "directory": "/home/george/Documents/Crimson/Game",
+        "file": "Source/Game.cpp"
     },
     {
         "arguments": [
@@ -897,26 +1096,24 @@
             "-m64",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lparser.o",
-            "src/lparser.c"
+            "bin-int/Debug-linux-x86_64/Lua/ldo.o",
+            "src/ldo.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lparser.c"
+        "file": "src/ldo.c"
     },
     {
         "arguments": [
             "cc",
             "-c",
-            "-D_GLFW_X11",
             "-m64",
-            "-fPIC",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/xkb_unicode.o",
-            "src/xkb_unicode.c"
+            "bin-int/Debug-linux-x86_64/Lua/lvm.o",
+            "src/lvm.c"
         ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/xkb_unicode.c"
+        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
+        "file": "src/lvm.c"
     },
     {
         "arguments": [
@@ -937,142 +1134,6 @@
         "arguments": [
             "cc",
             "-c",
-            "-D_GLFW_X11",
-            "-m64",
-            "-fPIC",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/egl_context.o",
-            "src/egl_context.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/egl_context.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/PhysFS/physfs_platform_haiku.o",
-            "src/physfs_platform_haiku.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/physfs",
-        "file": "src/physfs_platform_haiku.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-Iinclude",
-            "-m64",
-            "-g",
-            "-std=c++11",
-            "-o",
-            "bin-int/Debug-linux-x86_64/ImGui/imgui_widgets.o",
-            "src/imgui_widgets.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
-        "file": "src/imgui_widgets.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/imgui_impl_glfw.o",
-            "Source/ImGuiImpl/imgui_impl_glfw.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/ImGuiImpl/imgui_impl_glfw.cpp"
-    },
-    {
-        "arguments": [
-            "g++",
-            "-c",
-            "-Iinclude",
-            "-m64",
-            "-g",
-            "-std=c++11",
-            "-o",
-            "bin-int/Debug-linux-x86_64/ImGui/imgui.o",
-            "src/imgui.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/imgui",
-        "file": "src/imgui.cpp"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-D_GLFW_X11",
-            "-m64",
-            "-fPIC",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/init.o",
-            "src/init.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/init.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lzio.o",
-            "src/lzio.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lzio.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lfunc.o",
-            "src/lfunc.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lfunc.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lutf8lib.o",
-            "src/lutf8lib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lutf8lib.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
             "-m64",
             "-g",
             "-o",
@@ -1084,30 +1145,6 @@
     },
     {
         "arguments": [
-            "g++",
-            "-c",
-            "-D_CRT_SECURE_NO_WARNINGS",
-            "-DGLFW_INCLUDE_NONE",
-            "-DDEBUG",
-            "-ISource",
-            "-IDependencies/glfw/include",
-            "-IDependencies/glad/include",
-            "-IDependencies/physfs/src",
-            "-IDependencies/imgui/include",
-            "-IDependencies/glm",
-            "-IDependencies/lua/src",
-            "-m64",
-            "-g",
-            "-std=c++17",
-            "-o",
-            "../bin-int/Debug-linux-x86_64/Crimson/ImGuiImpl.o",
-            "Source/ImGuiImpl/ImGuiImpl.cpp"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson",
-        "file": "Source/ImGuiImpl/ImGuiImpl.cpp"
-    },
-    {
-        "arguments": [
             "cc",
             "-c",
             "-D_GLFW_X11",
@@ -1115,23 +1152,10 @@
             "-fPIC",
             "-g",
             "-o",
-            "bin-int/Debug-linux-x86_64/GLFW/osmesa_context.o",
-            "src/osmesa_context.c"
+            "bin-int/Debug-linux-x86_64/GLFW/linux_joystick.o",
+            "src/linux_joystick.c"
         ],
         "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/glfw",
-        "file": "src/osmesa_context.c"
-    },
-    {
-        "arguments": [
-            "cc",
-            "-c",
-            "-m64",
-            "-g",
-            "-o",
-            "bin-int/Debug-linux-x86_64/Lua/lbaselib.o",
-            "src/lbaselib.c"
-        ],
-        "directory": "/home/george/Documents/Crimson/Crimson/Dependencies/lua",
-        "file": "src/lbaselib.c"
+        "file": "src/linux_joystick.c"
     }
 ]

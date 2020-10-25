@@ -16,4 +16,7 @@
 #include "Renderer/Renderer3D/Camera.h"
 #include "Renderer/Renderer3D/LightScene.h"
 
+// Utils
+#include "Utils/MeshConverter.h"
+
 #include "Game.h"
