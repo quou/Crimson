@@ -29,6 +29,7 @@ void main() {
 
 uniform int u_ambientLightCount = 0;
 uniform int u_directionalLightCount = 0;
+uniform int u_pointLightCount = 0;
 
 struct AmbientLight {
 	float intensity;
@@ -37,6 +38,17 @@ struct AmbientLight {
 
 struct DirectionalLight {
    vec3 direction;
+	vec3 color;
+	float intensity;
+};
+
+struct PointLight {
+	vec3 position;
+
+	float constant;
+	float linear;
+	float quadratic;
+
 	vec3 color;
 	float intensity;
 };
@@ -55,6 +67,7 @@ uniform float u_shininess = 1.0f;
 uniform vec3 u_cameraPosition;
 uniform AmbientLight u_ambientLights[100];
 uniform DirectionalLight u_directionalLights[100];
+uniform PointLight u_pointLights[100];
 
 vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
    vec3 lightDirection = normalize(-light.direction);
@@ -69,13 +82,32 @@ vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
    return diffuse + specular;
 }
 
+vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
+	vec3 lightDir = normalize(light.position - v_fragPos);
+
+	float diff = max(dot(normal, lightDir), 0.0);
+
+	vec3 reflectDir = reflect(-lightDir, normal);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_shininess) * light.intensity;
+
+	float distance = length(light.position - v_fragPos);
+   float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+
+	vec3 diffuse = light.color * diff * u_color * light.intensity;
+   vec3 specular = light.color * spec * u_color * u_smoothness;
+   diffuse *= attenuation;
+   specular *= attenuation;
+
+	return diffuse + specular;
+}
+
 void main() {
 	vec3 norm = normalize(v_normal);
    vec3 viewDir = normalize(u_cameraPosition - v_fragPos);
 
 	vec3 lightingResult = vec3(1);
 
-	if (u_ambientLightCount > 0 || u_directionalLightCount > 0) {
+	if (u_ambientLightCount > 0 || u_directionalLightCount > 0 || u_pointLightCount > 0) {
 		lightingResult = vec3(0);
 	}
 
@@ -85,6 +117,10 @@ void main() {
 
 	for (int i = 0; i < u_directionalLightCount; i++) {
 		lightingResult += CalculateDirectionalLight(u_directionalLights[i], norm, viewDir);
+	}
+
+	for (int i = 0; i < u_pointLightCount; i++) {
+		lightingResult += CalculatePointLight(u_pointLights[i], norm, viewDir);
 	}
 
 

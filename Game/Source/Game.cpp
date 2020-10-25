@@ -38,9 +38,11 @@ private:
 		m_transform.rotation = glm::vec3(0, 45, 0);
 		m_transform.scale = glm::vec3(1, 1, 1);
 
-		m_lightScene.m_ambientLights.push_back({0.1f, glm::vec3(1,1,1)});
+		m_lightScene.m_ambientLights.push_back({glm::vec3(1,1,1), 0.1f});
 		m_lightScene.m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
 		m_lightScene.m_directionalLights.push_back({glm::vec3(1,1,1), glm::vec3(1,0,0), 0.4f});
+
+		m_lightScene.m_pointLights.push_back({glm::vec3(2.0f, 0, 2.5f), 1.0f, 0.09f, 0.032f, glm::vec3(0, 1, 0), 1.0f});
 	}
 
 	void OnUpdate(float delta) override {
@@ -70,9 +72,9 @@ private:
 
 		ImGui::Separator();
 		ImGui::Text("Light");
-		ImGui::DragFloat("Direction X", &m_lightScene.m_directionalLights[0].direction.x, 0.05f, -1.0f, 1.0f);
-		ImGui::DragFloat("Direction Y", &m_lightScene.m_directionalLights[0].direction.y, 0.05f, -1.0f, 1.0f);
-		ImGui::DragFloat("Direction Z", &m_lightScene.m_directionalLights[0].direction.z, 0.05f, -1.0f, 1.0f);
+		ImGui::DragFloat("Direction X", &m_lightScene.m_pointLights[0].position.x, 0.05f, -100.0f, 100.0f);
+		ImGui::DragFloat("Direction Y", &m_lightScene.m_pointLights[0].position.y, 0.05f, -100.0f, 100.0f);
+		ImGui::DragFloat("Direction Z", &m_lightScene.m_pointLights[0].position.z, 0.05f, -100.0f, 100.0f);
 
 		ImGui::End();
 
