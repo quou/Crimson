@@ -21,6 +21,7 @@ public:
 
 	Crimson::Transform m_transform;
 	Crimson::Camera m_camera;
+	Crimson::LightScene m_lightScene;
 private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
@@ -31,15 +32,20 @@ private:
 		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/Monkey.obj").c_str());
 
 		m_camera = Crimson::Camera(GetWindowSize(), 45.0f);
-		m_camera.position = glm::vec3(0, 0, 0);
+		m_camera.position = glm::vec3(0, 0, -5);
 
-		m_transform.position = glm::vec3(0, 0, -5);
+		m_transform.position = glm::vec3(0, 0, 0);
 		m_transform.rotation = glm::vec3(0, 45, 0);
 		m_transform.scale = glm::vec3(1, 1, 1);
+
+		m_lightScene.m_ambientLights.push_back({0.1f, glm::vec3(1,1,1)});
+		m_lightScene.m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
+		m_lightScene.m_directionalLights.push_back({glm::vec3(1,1,1), glm::vec3(1,0,0), 0.4f});
 	}
 
 	void OnUpdate(float delta) override {
 		m_texture->Bind(0);
+		m_lightScene.Apply(m_camera, m_material->m_shader);
 		m_renderer->Draw(m_camera, m_transform, m_material->m_shader, m_mesh);
 
 		ImGui::Begin("Test window");
@@ -61,6 +67,12 @@ private:
 		ImGui::DragFloat("Camera Rotation X", &m_camera.rotation.x);
 		ImGui::DragFloat("Camera Rotation Y", &m_camera.rotation.y);
 		ImGui::DragFloat("Camera Rotation Z", &m_camera.rotation.z);
+
+		ImGui::Separator();
+		ImGui::Text("Light");
+		ImGui::DragFloat("Direction X", &m_lightScene.m_directionalLights[0].direction.x, 0.05f, -1.0f, 1.0f);
+		ImGui::DragFloat("Direction Y", &m_lightScene.m_directionalLights[0].direction.y, 0.05f, -1.0f, 1.0f);
+		ImGui::DragFloat("Direction Z", &m_lightScene.m_directionalLights[0].direction.z, 0.05f, -1.0f, 1.0f);
 
 		ImGui::End();
 

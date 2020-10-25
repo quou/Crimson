@@ -14,5 +14,6 @@
 #include "Renderer/Material.h"
 #include "Renderer/Renderer3D/Mesh.h"
 #include "Renderer/Renderer3D/Camera.h"
+#include "Renderer/Renderer3D/LightScene.h"
 
 #include "Game.h"
