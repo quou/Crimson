@@ -26,10 +26,10 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.lua"), m_assetManager);
+		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.mat"), m_assetManager);
 		m_texture = std::make_shared<Crimson::Texture>(m_assetManager.LoadSurface("Data/Wood.jpg"));
 
-		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/MonkeyMesh.lua").c_str());
+		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/MonkeyMesh.mesh").c_str());
 
 		m_camera = Crimson::Camera(GetWindowSize(), 45.0f);
 		m_camera.position = glm::vec3(0, 0, -5);
