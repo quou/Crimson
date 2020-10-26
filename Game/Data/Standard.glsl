@@ -59,25 +59,28 @@ in vec3 v_normal;
 
 uniform sampler2D u_albedo;
 
-/* material */
-uniform vec3 u_color = vec3(1);
-uniform float u_smoothness = 1.0f;
-uniform float u_shininess = 1.0f;
+struct Material {
+	vec3 color;
+	float smoothness;
+	float shininess;
+};
 
 uniform vec3 u_cameraPosition;
 uniform AmbientLight u_ambientLights[100];
 uniform DirectionalLight u_directionalLights[100];
 uniform PointLight u_pointLights[100];
 
+uniform Material u_material;
+
 vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
    vec3 lightDirection = normalize(-light.direction);
    float diff = max(dot(normal, lightDirection), 0.0);
-   vec3 diffuse = light.color * (diff * u_color) * light.intensity;
+   vec3 diffuse = light.color * (diff * u_material.color) * light.intensity;
 
    vec3 reflectDir = reflect(lightDirection, normal);
 
-   float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_shininess) * light.intensity;
-   vec3 specular = light.color * (spec * u_color) * u_smoothness;
+   float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess) * light.intensity;
+   vec3 specular = light.color * (spec * u_material.color) * u_material.smoothness;
 
    return diffuse + specular;
 }
@@ -88,13 +91,13 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
 	float diff = max(dot(normal, lightDir), 0.0);
 
 	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_shininess) * light.intensity;
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess) * light.intensity;
 
 	float distance = length(light.position - v_fragPos);
    float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
-	vec3 diffuse = light.color * diff * u_color * light.intensity;
-   vec3 specular = light.color * spec * u_color * u_smoothness;
+	vec3 diffuse = light.color * diff * u_material.color * light.intensity;
+   vec3 specular = light.color * spec * u_material.color * u_material.smoothness;
    diffuse *= attenuation;
    specular *= attenuation;
 
@@ -124,7 +127,7 @@ void main() {
 	}
 
 
-	gl_FragColor = texture2D(u_albedo, v_texCoords) * vec4(u_color, 1.0f) * vec4(lightingResult, 1.0f);
+	gl_FragColor = texture2D(u_albedo, v_texCoords) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
 }
 
 #end FRAGMENT

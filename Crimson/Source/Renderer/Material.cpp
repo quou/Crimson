@@ -47,7 +47,7 @@ namespace Crimson {
 		lua_pushnil(L);
 		while (lua_next(L, -2) != 0) {
 			if (lua_isnumber(L, -1)) {
-				m_shader->SetFloat("u_" + std::string(lua_tostring(L, -2)), lua_tonumber(L, -1));
+				m_shader->SetFloat("u_material." + std::string(lua_tostring(L, -2)), lua_tonumber(L, -1));
 			} else if (lua_istable(L, -1)) {
 				int size = lua_rawlen(L, -1);
 
@@ -69,7 +69,7 @@ namespace Crimson {
 
 					lua_pop(L, 1);
 
-					m_shader->SetVec2("u_" + std::string(lua_tostring(L, -2)), v);
+					m_shader->SetVec2("u_material." + std::string(lua_tostring(L, -2)), v);
 				} else if (size == 3) {
 					lua_pushnil(L);
 					glm::vec3 v;
@@ -94,7 +94,7 @@ namespace Crimson {
 
 					lua_pop(L, 1);
 
-					m_shader->SetVec3("u_" + std::string(lua_tostring(L, -2)), v);
+					m_shader->SetVec3("u_material." + std::string(lua_tostring(L, -2)), v);
 				} else if (size == 4) {
 					lua_pushnil(L);
 					glm::vec4 v;
@@ -125,7 +125,7 @@ namespace Crimson {
 
 					lua_pop(L, 1);
 
-					m_shader->SetVec3("u_" + std::string(lua_tostring(L, -2)), v);
+					m_shader->SetVec3("u_material." + std::string(lua_tostring(L, -2)), v);
 				} else if (size > 4) {
 					CR_LOG_ERROR("%s", "Vectors of size 5+ are not supported");
 				} else if (size == 1) {
