@@ -1,4 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 img {
    max-width: 100%;
    height: auto;
+}
+
+h1, h2, h3 {
+	font-family: 'Roboto Slab', serif;
+}
+
+p {
+	font-family: 'Roboto', sans-serif;
+}
+
+code {
+	font-family: 'Roboto Mono', monospace;
 }
