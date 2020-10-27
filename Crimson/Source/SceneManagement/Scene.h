@@ -13,17 +13,18 @@ namespace Crimson {
 	private:
 		entt::registry m_registry;
 
-
 		friend class Entity;
 	public:
 		Scene();
 		~Scene();
-		
+
 		std::shared_ptr<LightScene> m_lightScene;
 
 		Entity CreateEntity();
 
 		void Update(float delta);
+
+		void UpdateViewport(std::pair<int, int> size);
 	};
 
 }

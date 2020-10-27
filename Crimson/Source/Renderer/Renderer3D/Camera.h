@@ -7,6 +7,8 @@
 
 namespace Crimson {
 	class Camera {
+	private:
+		float m_fov;
 	public:
 		glm::mat4 projection;
 		glm::vec3 position{0, 0, 0};
@@ -15,11 +17,17 @@ namespace Crimson {
 		Camera() {}
 
 		Camera(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) {
+			m_fov = fov;
 			projection = glm::perspective(fov, (float)size.first/(float)size.second, near, far);
 		}
 
 		inline void UpdateProjection(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) {
+			m_fov = fov;
 			projection = glm::perspective(fov, (float)size.first/(float)size.second, near, far);
+		}
+
+		inline void UpdateProjection(std::pair<int, int> size, float near=0.01f, float far=100.0f) {
+			projection = glm::perspective(m_fov, (float)size.first/(float)size.second, near, far);
 		}
 
 		inline glm::mat4 GetView() const {

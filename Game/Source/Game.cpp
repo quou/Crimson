@@ -32,13 +32,11 @@ private:
 		Crimson::Entity cam = m_scene->CreateEntity();
 		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 0, -5);
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
-
-
-		const float timeStep = 1.0f / 60.0f;
 	}
 
 	void OnUpdate(float delta) override {
 		m_scene->Update(delta);
+		m_scene->UpdateViewport(GetWindowSize());
 
 		ImGui::Begin("hi");
 		ImGui::End();

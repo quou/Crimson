@@ -40,6 +40,15 @@ namespace Crimson {
 		}
 	}
 
+	void Scene::UpdateViewport(std::pair<int, int> size) {
+		auto view = m_registry.view<TransformComponent, CameraComponent>();
+		for (auto ent : view) {
+			auto [transform, camera] = view.get<TransformComponent, CameraComponent>(ent);
+
+			camera.camera.UpdateProjection(size);
+		}
+	}
+
 	Entity Scene::CreateEntity() {
 		Entity ent = {m_registry.create(), this};
 		ent.AddComponent<TransformComponent>();
