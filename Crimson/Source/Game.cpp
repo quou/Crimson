@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 
 #include "ImGuiImpl/ImGuiImpl.h"
+#include "Renderer/Renderer.h"
 
 namespace Crimson {
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
@@ -31,7 +32,7 @@ namespace Crimson {
 
 		CR_LOG("%s", "Initialisation successful");
 
-		m_renderer = std::make_shared<Renderer>();
+		Renderer::Init();
 
 		ImGuiImpl::Init(m_window);
 
@@ -41,7 +42,7 @@ namespace Crimson {
 		}
 
 		while (!glfwWindowShouldClose(m_window)) {
-			m_renderer->Clear();
+			Renderer::Clear();
 			ImGuiImpl::BeginFrame();
 
 			OnUpdate(1.0f);

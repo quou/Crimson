@@ -8,8 +8,6 @@ struct GLFWwindow;
 
 #include "Layer.h"
 
-#include "Renderer/Renderer.h"
-
 namespace Crimson {
 	class Game {
 	private:
@@ -18,8 +16,6 @@ namespace Crimson {
 		std::vector<std::shared_ptr<Layer>> m_layers;
 
 	protected:
-		std::shared_ptr<Renderer> m_renderer;
-
 		virtual void OnInit() = 0;
 		virtual void OnUpdate(float delta) = 0;
 		virtual void OnExit() = 0;

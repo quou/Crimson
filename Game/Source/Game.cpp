@@ -15,76 +15,37 @@ class Game : public Crimson::Game {
 public:
 	Crimson::AssetManager m_assetManager;
 
-	std::shared_ptr<Crimson::Material> m_material;
-	std::shared_ptr<Crimson::Texture> m_texture;
-	std::shared_ptr<Crimson::Mesh> m_mesh;
-
-	Crimson::Transform m_transform;
-	Crimson::Camera m_camera;
-	Crimson::LightScene m_lightScene;
+	std::shared_ptr<Crimson::Scene> m_scene;
 private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_material = std::make_shared<Crimson::Material>(m_assetManager.LoadText("Data/MonkeyMaterial.mat"), m_assetManager);
-		m_texture = std::make_shared<Crimson::Texture>(m_assetManager.LoadSurface("Data/Wood.jpg"));
+		m_scene = std::make_shared<Crimson::Scene>();
+		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.1f});
+		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
 
-		m_mesh = std::make_shared<Crimson::Mesh>(m_assetManager.LoadText("Data/MonkeyMesh.mesh").c_str());
+		Crimson::Entity testEnt = m_scene->CreateEntity();
+		testEnt.GetComponent<Crimson::TransformComponent>().rotation.y = 45.0f;
+		testEnt.AddComponent<Crimson::MeshFilterComponent>(m_assetManager.LoadText("Data/MonkeyMesh.mesh").c_str());
+		testEnt.AddComponent<Crimson::MaterialComponent>(m_assetManager.LoadText("Data/MonkeyMaterial.mat"), m_assetManager);
 
-		m_camera = Crimson::Camera(GetWindowSize(), 45.0f);
-		m_camera.position = glm::vec3(0, 0, -5);
+		Crimson::Entity cam = m_scene->CreateEntity();
+		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 0, -5);
+		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
-		m_transform.position = glm::vec3(0, 0, 0);
-		m_transform.rotation = glm::vec3(0, 45, 0);
-		m_transform.scale = glm::vec3(1, 1, 1);
 
-		m_lightScene.m_ambientLights.push_back({glm::vec3(1,1,1), 0.1f});
-		m_lightScene.m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
-		m_lightScene.m_directionalLights.push_back({glm::vec3(1,1,1), glm::vec3(1,0,0), 0.4f});
-
-		m_lightScene.m_pointLights.push_back({glm::vec3(2.0f, 0, 2.5f), 1.0f, 0.09f, 0.032f, glm::vec3(0, 1, 0), 1.0f});
+		const float timeStep = 1.0f / 60.0f;
 	}
 
 	void OnUpdate(float delta) override {
-		m_texture->Bind(0);
-		m_lightScene.Apply(m_camera, m_material->m_shader);
-		m_renderer->Draw(m_camera, m_transform, m_material->m_shader, m_mesh);
+		m_scene->Update(delta);
 
-		ImGui::Begin("Test window");
-		ImGui::Text("Monkey");
-		ImGui::DragFloat("Rotation X", &m_transform.rotation.x);
-		ImGui::DragFloat("Rotation Y", &m_transform.rotation.y);
-		ImGui::DragFloat("Rotation Z", &m_transform.rotation.z);
-
-		static float newscale = 1.0f;
-		ImGui::DragFloat("Scale", &newscale);
-		m_transform.scale = glm::vec3(newscale);
-
-		ImGui::Separator();
-		ImGui::Text("Camera");
-		ImGui::DragFloat("Position X", &m_camera.position.x);
-		ImGui::DragFloat("Position Y", &m_camera.position.y);
-		ImGui::DragFloat("Position Z", &m_camera.position.z);
-
-		ImGui::DragFloat("Camera Rotation X", &m_camera.rotation.x);
-		ImGui::DragFloat("Camera Rotation Y", &m_camera.rotation.y);
-		ImGui::DragFloat("Camera Rotation Z", &m_camera.rotation.z);
-
-		ImGui::Separator();
-		ImGui::Text("Light");
-		ImGui::DragFloat("Direction X", &m_lightScene.m_pointLights[0].position.x, 0.05f, -100.0f, 100.0f);
-		ImGui::DragFloat("Direction Y", &m_lightScene.m_pointLights[0].position.y, 0.05f, -100.0f, 100.0f);
-		ImGui::DragFloat("Direction Z", &m_lightScene.m_pointLights[0].position.z, 0.05f, -100.0f, 100.0f);
-
+		ImGui::Begin("hi");
 		ImGui::End();
-
-		m_camera.UpdateProjection(GetWindowSize(), 45.0f);
 	}
 
 	void OnExit() override {
-		m_texture.reset();
-		m_material.reset();
-		m_mesh.reset();
+		m_scene.reset();
 	}
 public:
 };

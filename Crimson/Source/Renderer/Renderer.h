@@ -5,19 +5,21 @@
 #include "Renderer3D/Mesh.h"
 #include "Shader.h"
 
-#include "Transform.h"
 #include "Renderer3D/Camera.h"
 
 namespace Crimson {
 
+	class Material;
+	class LightScene;
+
 	class Renderer {
 	private:
 	public:
-		Renderer();
+		static void Init();
 
-		void Clear();
+		static void Clear();
 
-		void Draw(const Camera& camera, const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
+		static void Draw(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material, Mesh& mesh);
 	};
 
 }

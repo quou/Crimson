@@ -39,6 +39,14 @@ namespace Crimson {
 		}
 		lua_pop(L, 1);
 
+		lua_getglobal(L, "albedo");
+		if (lua_isstring(L, -1)) {
+			m_albedo = std::make_shared<Texture>(assetManager.LoadSurface(lua_tostring(L, -1)));
+		} else {
+			return;
+		}
+		lua_pop(L, 1);
+
 		m_shader->Bind();
 
 		lua_getglobal(L, "material");

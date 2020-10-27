@@ -6,6 +6,9 @@
 
 #include "Logger.h"
 
+#include "Material.h"
+#include "Renderer3D/LightScene.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Crimson {
@@ -18,7 +21,7 @@ namespace Crimson {
 		}
 	}
 
-	Renderer::Renderer() {
+	void Renderer::Init() {
 		CR_LOG("Using OpenGL version %s", glGetString(GL_VERSION));
 		CR_LOG("Renderer: %s", glGetString( GL_RENDERER));
 
@@ -44,18 +47,24 @@ namespace Crimson {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::Draw(const Camera& camera, const Transform& transform, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh) {
-		shader->Bind();
+	void Renderer::Draw(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material, Mesh& mesh) {
+		material.m_albedo->Bind(0);
 
-		glm::mat4 view(1.0f);
+		material.m_shader->Bind();
+		lightScene.Apply(*material.m_shader);
+
+		material.m_shader->SetInt("u_albedo", 0);
+		material.m_shader->SetVec3("u_cameraPosition", camera.position);
+
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -5));
 		glm::mat4 projection = glm::perspective(45.0f, 1366.0f/768.0f, 0.01f, 100.0f);
 
-		shader->SetMat4("u_model", transform.GetModel());
-		shader->SetMat4("u_view", camera.GetView());
-		shader->SetMat4("u_projection", camera.projection);
+		material.m_shader->SetMat4("u_model", transform);
+		material.m_shader->SetMat4("u_view", camera.GetView());
+		material.m_shader->SetMat4("u_projection", camera.projection);
 
-		shader->SetInt("u_albedo", 0);
+		material.m_shader->SetInt("u_albedo", 0);
 
-		mesh->Draw();
+		mesh.Draw();
 	}
 }

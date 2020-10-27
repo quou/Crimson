@@ -25,6 +25,8 @@ project "Crimson"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.GLM}",
 		"%{IncludeDir.Lua}",
+		"%{IncludeDir.ReactPhysics3D}",
+		"%{IncludeDir.Entt}",
 	}
 
 	links {
@@ -33,6 +35,7 @@ project "Crimson"
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
 		ExternalDependencies.ImGui,
+		ExternalDependencies.ReactPhysics3D,
 		ExternalDependencies.Lua
 	}
 

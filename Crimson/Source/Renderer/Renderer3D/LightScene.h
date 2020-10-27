@@ -16,6 +16,6 @@ namespace Crimson {
 		std::vector<DirectionalLight> m_directionalLights;
 		std::vector<PointLight> m_pointLights;
 
-		void Apply(const Camera& camera, const std::shared_ptr<Shader>& shader);
+		void Apply(Shader& shader);
 	};
 }

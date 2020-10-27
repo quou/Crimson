@@ -2,6 +2,8 @@
 
 shader = "Data/Standard.glsl"
 
+albedo = "Data/Wood.jpg"
+
 material = {
     color = {1, 1, 1},
 	 smoothness = 1,

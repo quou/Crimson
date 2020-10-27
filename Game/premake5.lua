@@ -15,7 +15,9 @@ project "Game"
 	includedirs {
 		"../Crimson/Source",
 		"../Crimson/Dependencies/imgui/include",
-		"../Crimson/Dependencies/glm"
+		"../Crimson/Dependencies/glm",
+		"../Crimson/Dependencies/entt/include",
+		"../Crimson/Dependencies/reactphysics3d/include"
 	}
 
 	links {
@@ -25,6 +27,7 @@ project "Game"
 		ExternalDependencies.PhysFS,
 		ExternalDependencies.ImGui,
 		ExternalDependencies.Lua,
+		ExternalDependencies.ReactPhysics3D,
 		"Crimson"
 	}
 
