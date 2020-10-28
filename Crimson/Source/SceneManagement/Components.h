@@ -6,6 +6,7 @@
 #include "Renderer/Renderer3D/Mesh.h"
 #include "Renderer/Renderer3D/Camera.h"
 #include "Renderer/Material.h"
+#include "Physics/Rigidbody.h"
 
 namespace Crimson {
 	struct TransformComponent {
@@ -43,5 +44,11 @@ namespace Crimson {
 		bool active;
 
 		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) : camera(size, fov, near, far) {}
+	};
+
+	struct PhysicsComponent {
+		Rigidbody* rigidbody;
+
+		PhysicsComponent(Rigidbody* rb) :rigidbody(rb) {}
 	};
 }

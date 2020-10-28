@@ -7,13 +7,21 @@
 namespace Crimson {
 	Scene::Scene() {
 		m_lightScene = std::make_shared<LightScene>();
+		m_physicsScene = std::make_shared<PhysicsScene>();
 	}
 
 	Scene::~Scene() {
+		auto view = m_registry.view<PhysicsComponent>();
+		for (auto ent : view) {
+			PhysicsComponent physics = view.get<PhysicsComponent>(ent);
 
+			delete physics.rigidbody;
+		}
 	}
 
 	void Scene::Update(float delta) {
+		m_physicsScene->Update(delta);
+
 		Camera* mainCamera;
 		{
 			auto view = m_registry.view<TransformComponent, CameraComponent>();
@@ -37,6 +45,14 @@ namespace Crimson {
 
 				Renderer::Draw(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path), *m_assetManager.LoadMesh(mesh.path));
 			}
+		}
+
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
+		for (auto ent : view) {
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+
+			transform.position = physics.rigidbody->GetPosition();
+			transform.rotation = physics.rigidbody->GetRotation();
 		}
 	}
 

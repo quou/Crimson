@@ -4,6 +4,7 @@
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer3D/LightScene.h"
+#include "Physics/PhysicsScene.h"
 #include "AssetManager.h"
 
 namespace Crimson {
@@ -22,12 +23,17 @@ namespace Crimson {
 		~Scene();
 
 		std::shared_ptr<LightScene> m_lightScene;
+		std::shared_ptr<PhysicsScene> m_physicsScene;
 
 		Entity CreateEntity();
 
 		void Update(float delta);
 
 		void UpdateViewport(std::pair<int, int> size);
+
+		inline PhysicsScene* GetPhysicsScene() {
+			return &*m_physicsScene;
+		}
 	};
 
 }
