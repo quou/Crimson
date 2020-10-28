@@ -16,6 +16,10 @@
 #include "Renderer/Renderer3D/Camera.h"
 #include "Renderer/Renderer3D/LightScene.h"
 
+// Physics
+#include "Physics/PhysicsScene.h"
+#include "Physics/Rigidbody.h"
+
 // Scene management
 #include "SceneManagement/Scene.h"
 #include "SceneManagement/Components.h"
@@ -23,5 +27,6 @@
 
 // Utils
 #include "Utils/MeshConverter.h"
+
 
 #include "Game.h"

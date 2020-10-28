@@ -24,6 +24,7 @@ bool CheckLua(lua_State* L, int r) {
 
 namespace Crimson {
 	Material::Material(const std::string& config, AssetManager& assetManager) {
+		lua_State* L;
 
 		L = luaL_newstate();
 
@@ -145,9 +146,10 @@ namespace Crimson {
 
 			lua_pop(L, 1);
 		}
+		
+		lua_close(L);
 	}
 
 	Material::~Material() {
-		lua_close(L);
 	}
 }

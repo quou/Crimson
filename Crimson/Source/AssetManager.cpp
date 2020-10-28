@@ -3,6 +3,7 @@
 #include "Logger.h"
 
 #include <physfs.h>
+#include <tuple>
 
 #include "Utils/stb_image.h"
 
@@ -18,6 +19,14 @@ namespace Crimson {
 	AssetManager::~AssetManager() {
 		for (auto& surface : m_textures) {
 			stbi_image_free(surface.second.pixels);
+		}
+
+		for (auto& m : m_meshes) {
+			delete m.second;
+		}
+
+		for (auto& m : m_materials) {
+			delete m.second;
 		}
 
 	#ifdef RELEASE
@@ -120,6 +129,20 @@ namespace Crimson {
 			free(buffer);
 		}
 		return m_textFiles[filePath];
+	}
+
+	Mesh* AssetManager::LoadMesh(const std::string& filePath) {
+		if (m_meshes.count(filePath) == 0) {
+			m_meshes[filePath] = new Mesh(LoadText(filePath).c_str());
+		}
+		return m_meshes[filePath];
+	}
+
+	Material* AssetManager::LoadMaterial(const std::string& filePath) {
+		if (m_materials.count(filePath) == 0) {
+			m_materials[filePath] = new Material(LoadText(filePath).c_str(), *this);
+		}
+		return m_materials[filePath];
 	}
 
 }

@@ -13,7 +13,6 @@ namespace Crimson {
 
 	class Material {
 	private:
-		lua_State* L;
 	public:
 		std::shared_ptr<Shader> m_shader;
 		std::shared_ptr<Texture> m_albedo;

@@ -12,6 +12,7 @@ namespace Crimson {
 		entt::entity m_entityHandle;
 		Scene* m_scene;
 	public:
+		Entity() {}
 		Entity(entt::entity entityHandle, Scene* scene);
 		Entity(const Entity& other) = default;
 

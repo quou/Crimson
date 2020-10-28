@@ -27,15 +27,15 @@ namespace Crimson {
 	};
 
 	struct MeshFilterComponent {
-		Mesh mesh;
+		std::string path;
 
-		MeshFilterComponent(const char* lua) : mesh(lua) {}
+		MeshFilterComponent(const std::string& p) : path(p) {}
 	};
 
 	struct MaterialComponent {
-		Material material;
+		std::string path;
 
-		MaterialComponent(const std::string& config, AssetManager& assetManager) : material(config, assetManager) {}
+		MaterialComponent(const std::string& p) : path(p) {}
 	};
 
 	struct CameraComponent {

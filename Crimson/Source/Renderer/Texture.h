@@ -2,8 +2,6 @@
 
 #include <tuple>
 
-#include "AssetManager.h"
-
 #include "Surface.h"
 
 namespace Crimson {

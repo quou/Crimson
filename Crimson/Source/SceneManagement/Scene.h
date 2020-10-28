@@ -4,6 +4,7 @@
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer3D/LightScene.h"
+#include "AssetManager.h"
 
 namespace Crimson {
 
@@ -14,6 +15,8 @@ namespace Crimson {
 		entt::registry m_registry;
 
 		friend class Entity;
+
+		AssetManager m_assetManager;
 	public:
 		Scene();
 		~Scene();

@@ -35,7 +35,7 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
 
-				Renderer::Draw(*mainCamera, *m_lightScene, transform.GetTransform(), material.material, mesh.mesh);
+				Renderer::Draw(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path), *m_assetManager.LoadMesh(mesh.path));
 			}
 		}
 	}
