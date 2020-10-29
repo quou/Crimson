@@ -22,7 +22,7 @@ private:
 		AddLayer<ImGuiLayer>();
 
 		m_scene = std::make_shared<Crimson::Scene>();
-		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.1f});
+		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.05f});
 		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
 		m_scene->m_lightScene->m_pointLights.push_back({glm::vec3(-3.5f,0,0), 1.0f, 0.09f, 0.032f, glm::vec3(1,0,0), 1.0f});
 
@@ -40,6 +40,8 @@ private:
 		Crimson::Entity cam = m_scene->CreateEntity();
 		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 0, -5);
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
+
+		m_scene->Init();
 	}
 
 	void OnUpdate(float delta) override {

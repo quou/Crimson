@@ -27,6 +27,7 @@ namespace Crimson {
 
 		Entity CreateEntity();
 
+		void Init();
 		void Update(float delta);
 
 		void UpdateViewport(std::pair<int, int> size);

@@ -28,6 +28,7 @@ project "Game"
 		ExternalDependencies.ImGui,
 		ExternalDependencies.Lua,
 		ExternalDependencies.ReactPhysics3D,
+		ExternalDependencies.AngelScript,
 		"Crimson"
 	}
 

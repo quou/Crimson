@@ -8,7 +8,7 @@ project "PhysFS"
 
 	files {
 		"src/**.h",
-		"src/**.cpp"
+		"src/**.c"
 	}
 
 	filter "configurations:Debug"

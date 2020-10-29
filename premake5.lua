@@ -30,6 +30,8 @@ IncludeDir["GLM"] = "Dependencies/glm"
 IncludeDir["Lua"] = "Dependencies/lua/src"
 IncludeDir["ReactPhysics3D"] = "Dependencies/reactphysics3d/include"
 IncludeDir["Entt"] = "Dependencies/entt/include"
+IncludeDir["AngelScript"] = "Dependencies/angelscript/angelscript/include"
+IncludeDir["AngelScriptAddOns"] = "Dependencies/angelscript/add_on"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
@@ -39,6 +41,7 @@ ExternalDependencies["Glad"] = {"Glad"}
 ExternalDependencies["PhysFS"] = {"PhysFS"}
 ExternalDependencies["Lua"] = {"Lua"}
 ExternalDependencies["ReactPhysics3D"] = {"ReactPhysics3D"}
+ExternalDependencies["AngelScript"] = {"AngelScript"}
 
 if os.host() == "linux" then
 	ExternalDependencies["GLFW"] = {
@@ -61,6 +64,7 @@ group "Dependencies"
 	include "Crimson/Dependencies/imgui"
 	include "Crimson/Dependencies/lua"
 	include "Crimson/Dependencies/reactphysics3d"
+	include "Crimson/Dependencies/angelscript"
 group ""
 
 include "Crimson"

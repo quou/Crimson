@@ -27,6 +27,8 @@ project "Crimson"
 		"%{IncludeDir.Lua}",
 		"%{IncludeDir.ReactPhysics3D}",
 		"%{IncludeDir.Entt}",
+		"%{IncludeDir.AngelScript}",
+		"%{IncludeDir.AngelScriptAddOns}",
 	}
 
 	links {
@@ -35,8 +37,9 @@ project "Crimson"
 		ExternalDependencies.OpenGL,
 		ExternalDependencies.PhysFS,
 		ExternalDependencies.ImGui,
+		ExternalDependencies.Lua,
 		ExternalDependencies.ReactPhysics3D,
-		ExternalDependencies.Lua
+		ExternalDependencies.AngelScript,
 	}
 
 

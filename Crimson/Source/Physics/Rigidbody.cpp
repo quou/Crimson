@@ -62,6 +62,15 @@ namespace Crimson {
 		m_isKinematic = set;
 	}
 
+	void Rigidbody::SetTransform(glm::vec3 position, glm::vec3 rotation) {
+		rp3d::Vector3 p(position.x, position.y, position.z);
+		rp3d::Quaternion o = rp3d::Quaternion::identity();
+		o.x = rotation.x; o.y = rotation.y; o.z = rotation.z;
+
+		rp3d::Transform transform(p, o);
+
+		m_body->setTransform(transform);
+	}
 
 	float Rigidbody::GetMass() const {
 		return m_body->getMass();

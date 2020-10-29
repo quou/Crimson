@@ -19,6 +19,10 @@ namespace Crimson {
 		}
 	}
 
+	void Scene::Init() {
+		
+	}
+
 	void Scene::Update(float delta) {
 		m_physicsScene->Update(delta);
 

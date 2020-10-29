@@ -31,5 +31,7 @@ namespace Crimson {
 
 		float GetMass() const;
 		void SetMass(float mass);
+
+		void SetTransform(glm::vec3 position, glm::vec3 rotation);
 	};
 }
