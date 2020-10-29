@@ -19,7 +19,7 @@ A WIP 3D game engine written in C++ 17
  - Node-based shader creation
 
 ## Dependencies
-All dependencies are included in `[Crimson/Dependencies](https://github.com/georgelam6/Crimson/tree/master/Crimson/Dependencies)` and are automatically built by Premake
+All dependencies are included in [Crimson/Dependencies](https://github.com/georgelam6/Crimson/tree/master/Crimson/Dependencies) and are automatically built by Premake
  - [AngelScript](https://www.angelcode.com/angelscript/)
  - [Dear ImGui](https://github.com/ocornut/imgui)
  - [GLFW](https://www.glfw.org/)
