@@ -5,6 +5,7 @@ namespace Crimson {
 		shader.SetInt("u_ambientLightCount", m_ambientLights.size());
 		shader.SetInt("u_directionalLightCount", m_directionalLights.size());
 		shader.SetInt("u_pointLightCount", m_pointLights.size());
+		shader.SetFloat("u_gamma", m_gamma);
 
 		int i = 0;
 		for (auto& light : m_ambientLights) {

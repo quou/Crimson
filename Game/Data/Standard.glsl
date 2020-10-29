@@ -27,9 +27,13 @@ void main() {
 
 #version 330 core
 
+out vec4 FragColor;
+
 uniform int u_ambientLightCount = 0;
 uniform int u_directionalLightCount = 0;
 uniform int u_pointLightCount = 0;
+
+uniform float u_gamma = 2.2;
 
 struct AmbientLight {
 	float intensity;
@@ -126,8 +130,11 @@ void main() {
 		lightingResult += CalculatePointLight(u_pointLights[i], norm, viewDir);
 	}
 
+	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma));
 
-	gl_FragColor = texture2D(u_albedo, v_texCoords) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
+	FragColor = vec4(diffuseColor, 1.0f) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
+
+	FragColor.rgb = pow(FragColor.rgb, vec3(1.0/u_gamma));
 }
 
 #end FRAGMENT

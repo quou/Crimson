@@ -12,6 +12,8 @@
 namespace Crimson {
 	class LightScene {
 	public:
+		float m_gamma{2.2f};
+
 		std::vector<AmbientLight> m_ambientLights;
 		std::vector<DirectionalLight> m_directionalLights;
 		std::vector<PointLight> m_pointLights;
