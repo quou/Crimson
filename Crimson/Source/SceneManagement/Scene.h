@@ -6,6 +6,7 @@
 #include "Renderer/Renderer3D/LightScene.h"
 #include "Physics/PhysicsScene.h"
 #include "AssetManager.h"
+#include "Scripting/ScriptManager.h"
 
 namespace Crimson {
 
@@ -17,6 +18,8 @@ namespace Crimson {
 
 		friend class Entity;
 
+		
+
 	public:
 		AssetManager m_assetManager;
 		Scene();
@@ -24,6 +27,7 @@ namespace Crimson {
 
 		std::shared_ptr<LightScene> m_lightScene;
 		std::shared_ptr<PhysicsScene> m_physicsScene;
+		std::shared_ptr<ScriptManager> m_scriptManager;
 
 		Entity CreateEntity();
 

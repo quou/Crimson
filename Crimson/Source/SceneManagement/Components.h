@@ -51,4 +51,10 @@ namespace Crimson {
 
 		PhysicsComponent(Rigidbody* rb) :rigidbody(rb) {}
 	};
+
+	struct ScriptComponent {
+		std::string className;
+
+		ScriptComponent(const std::string& className) : className(className) {}
+	};
 }

@@ -41,13 +41,19 @@ namespace Crimson {
 			l->OnInit();
 		}
 
+		float oldTimeSinceStart;
+
 		while (!glfwWindowShouldClose(m_window)) {
+			float timeSinceStart = glfwGetTime();
+			float delta = timeSinceStart - oldTimeSinceStart;
+			oldTimeSinceStart = timeSinceStart;
+
 			Renderer::Clear();
 			ImGuiImpl::BeginFrame();
 
-			OnUpdate(1.0f);
+			OnUpdate(delta);
 			for (auto& l : m_layers) {
-				l->OnUpdate(1.0f);
+				l->OnUpdate(delta);
 			}
 
 			ImGuiImpl::EndFrame();

@@ -30,6 +30,7 @@ private:
 		testEnt.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
 		testEnt.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
 		testEnt.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
+		testEnt.AddComponent<Crimson::ScriptComponent>("TestBehaviour");
 
 		testEnt2 = m_scene->CreateEntity();
 		testEnt2.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, -2, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
@@ -42,11 +43,6 @@ private:
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
 		m_scene->Init();
-
-		Crimson::ScriptManager s;
-		s.AddScript(m_scene->m_assetManager.LoadText("Data/TestScript.as"));
-		s.Compile();
-		s.Init();
 	}
 
 	void OnUpdate(float delta) override {

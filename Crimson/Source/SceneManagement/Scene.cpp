@@ -8,6 +8,7 @@ namespace Crimson {
 	Scene::Scene() {
 		m_lightScene = std::make_shared<LightScene>();
 		m_physicsScene = std::make_shared<PhysicsScene>();
+		m_scriptManager = std::make_shared<ScriptManager>();
 	}
 
 	Scene::~Scene() {
@@ -20,10 +21,21 @@ namespace Crimson {
 	}
 
 	void Scene::Init() {
-		
+		m_scriptManager->AddScript(m_assetManager.LoadText("Data/TestScript.as"));
+
+		auto view = m_registry.view<ScriptComponent>();
+		for (auto ent : view) {
+			auto script = view.get<ScriptComponent>(ent);
+
+			m_scriptManager->AddBehaviour(script.className);
+		}
+
+		m_scriptManager->Compile(m_assetManager);
+		m_scriptManager->Init();
 	}
 
 	void Scene::Update(float delta) {
+		m_scriptManager->Update(delta);
 		m_physicsScene->Update(delta);
 
 		Camera* mainCamera;
