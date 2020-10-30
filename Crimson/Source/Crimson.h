@@ -20,6 +20,9 @@
 #include "Physics/PhysicsScene.h"
 #include "Physics/Rigidbody.h"
 
+// Scripting
+#include "Scripting/ScriptManager.h"
+
 // Scene management
 #include "SceneManagement/Scene.h"
 #include "SceneManagement/Components.h"

@@ -17,8 +17,8 @@ namespace Crimson {
 
 		friend class Entity;
 
-		AssetManager m_assetManager;
 	public:
+		AssetManager m_assetManager;
 		Scene();
 		~Scene();
 

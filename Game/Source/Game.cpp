@@ -42,6 +42,11 @@ private:
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
 		m_scene->Init();
+
+		Crimson::ScriptManager s;
+		s.AddScript(m_scene->m_assetManager.LoadText("Data/TestScript.as"));
+		s.Compile();
+		s.Init();
 	}
 
 	void OnUpdate(float delta) override {
