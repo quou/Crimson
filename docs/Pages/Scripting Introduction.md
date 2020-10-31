@@ -1,4 +1,4 @@
-# Scripting
+# Scripting Introduction
 
 Crimson uses AngelScript for powerful and fast scripting
 
