@@ -1,7 +1,7 @@
 
 let pages = [
    "Home",
-	"Scripting"
+	"Scripting Introduction"
 ]
 
 let currentPage = pages[0];
@@ -24,12 +24,15 @@ var checkExist = setInterval(function() {
 $(document).ready(function() {
    currentPage = getSecondPart(window.location.href);
    if (!currentPage) {
-      currentPage = pages[0];
+      currentPage = pages[0].replace(" ", "_").toLowerCase();
    }
 
    for (let i = 0; i < pages.length; i++) {
       let md;
       md = window.markdownit({html: true}).use(window.markdownitFootnote);
+
+		let pageID = pages[i].replace(" ", "_").toLowerCase();
+
       // Load the Markdown file with jQuery.
       $.ajax({
         url: "Pages/" + pages[i] + ".md",
@@ -41,17 +44,16 @@ $(document).ready(function() {
           html = md.render(markdown);
           // Print the HTML to #content using jQuery.
           let style = "";
-          if (pages[i] != currentPage) {
+          if (pageID != currentPage) {
              style = "\"display:none;\""
           }
 
-          $("#content").append("<div style=" + style + " class=\"page\" id=\"" + pages[i] + "\">" + html + "</div>");
+          $("#content").append("<div style=" + style + " class=\"page\" id=\"" + pageID + "\">" + html + "</div>");
         }
       });
 
-      $("#menu").append("<p onclick=\"LinkEvent('" + pages[i] + "')\"><a href=\"#" + pages[i] + "\">" + pages[i] + "</a></p>");
+      $("#menu").append("<p onclick=\"LinkEvent('" + pageID + "')\"><a href=\"#" + pageID + "\">" + pages[i] + "</a></p>");
    }
-
 });
 
 
