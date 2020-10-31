@@ -22,5 +22,7 @@ namespace Crimson {
 		Mesh* LoadMesh(const std::string& filePath);
 		Material* LoadMaterial(const std::string& filePath);
 		~AssetManager();
+
+		std::vector<std::pair<std::string, std::string>> GetFilesFromDir(const std::string& dir);
 	};
 }

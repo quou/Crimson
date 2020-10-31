@@ -8,12 +8,17 @@
 
 #include "Logger.h"
 #include "AssetManager.h"
+#include "SceneManagement/Components.h"
+#include "SceneManagement/Entity.h"
+#include "SceneManagement/Scene.h"
 
 
 namespace Crimson {
 	/* A base class that behaviour scripts will inherit from */
 	static const char* g_behaviourBase = R"(
 		abstract class CrimsonBehaviour {
+			Entity m_entity;
+
 			void OnInit() {}
 			void OnUpdate(float delta) {}
 		}
@@ -37,6 +42,77 @@ namespace Crimson {
 		return std::to_string(val);
 	}
 
+	static std::string scriptToString(glm::vec2 val) {
+		return std::to_string(val.x) + ", " + std::to_string(val.y);
+	}
+
+	static std::string scriptToString(glm::vec3 val) {
+		return std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z);
+	}
+
+	static std::string scriptToString(glm::vec4 val) {
+		return std::to_string(val.x) + ", " + std::to_string(val.y) + ", " + std::to_string(val.z) + ", " + std::to_string(val.w);
+	}
+
+	void vec2_Constructor(void *memory) {
+     new(memory) glm::vec2();
+   }
+
+   void vec2_ConstructorXY(void *memory, float xy) {
+     new(memory) glm::vec2(xy);
+   }
+
+   void vec2_ConstructorX_Y(void *memory, float x, float y) {
+     new(memory) glm::vec2(x,y);
+   }
+
+   void vec3_Constructor(void *memory) {
+     new(memory) glm::vec3();
+   }
+
+   void vec3_ConstructorXYZ(void *memory, float xy) {
+     new(memory) glm::vec3(xy);
+   }
+
+   void vec3_ConstructorX_Y_Z(void *memory, float x, float y, float z) {
+     new(memory) glm::vec3(x,y,z);
+   }
+
+   void vec4_Constructor(void *memory) {
+     new(memory) glm::vec4();
+   }
+
+   void vec4_ConstructorXYZW(void *memory, float xy) {
+     new(memory) glm::vec4(xy);
+   }
+
+   void vec4_ConstructorX_Y_Z_W(void *memory, float x, float y, float z, float w) {
+     new(memory) glm::vec4(x,y,z,w);
+   }
+
+	static TransformComponent& Entity_GetTransformComponent(Entity* ent) {
+		return ent->GetComponent<TransformComponent>();
+	}
+
+   template <typename T>
+   void RegisterVector(asIScriptEngine* engine, const std::string& asTypename) {
+      const char* asTypenamePtr = asTypename.c_str();
+
+      int r;
+
+      r = engine->RegisterObjectType(asTypenamePtr, sizeof(T), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<T>()); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opAddAssign(const " + asTypename + " &in) const").c_str(), asMETHODPR(T, operator+=, (const T&), T&), asCALL_THISCALL); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opSubAssign(const " + asTypename + " &in) const").c_str(), asMETHODPR(T, operator-=, (const T&), T&), asCALL_THISCALL); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opMulAssign(const " + asTypename + " &in) const").c_str(), asMETHODPR(T, operator*=, (const T&), T&), asCALL_THISCALL); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opDivAssign(const " + asTypename + " &in) const").c_str(), asMETHODPR(T, operator/=, (const T&), T&), asCALL_THISCALL); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opAssign(const " + asTypename + " &in) const").c_str(), asMETHODPR(T, operator=, (const T&), T&), asCALL_THISCALL); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opAdd(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator+, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opSub(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator-, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opMul(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator*, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opDiv(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator/, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opEquals(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator/, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+   }
+
 	static int IncludeCallback(const char *include, const char *from, CScriptBuilder *builder, void *userParam) {
       if (std::string(include) == "Crimson" || std::string(include) == "Crimson.as") {
          builder->AddSectionFromMemory("Crimson", g_behaviourBase);
@@ -58,7 +134,43 @@ namespace Crimson {
 		int r;
 
 		r = m_asEngine->RegisterGlobalFunction("void print(const string& in)", asFUNCTION(scriptPrint), asCALL_CDECL); assert(r >= 0);
-		r = m_asEngine->RegisterGlobalFunction("string to_string(double)", asFUNCTION(scriptToString), asCALL_CDECL); assert(r >= 0);
+
+		RegisterVector<glm::vec2>(m_asEngine, "vec2");
+      r = m_asEngine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec2_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec2_ConstructorXY), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float, float)", asFUNCTION(vec2_ConstructorX_Y), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec2", "float x", asOFFSET(glm::vec2,x)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec2", "float y", asOFFSET(glm::vec2,y)); assert( r >= 0 );
+
+      RegisterVector<glm::vec3>(m_asEngine, "vec3");
+      r = m_asEngine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec3_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec3_ConstructorXYZ), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float, float, float)", asFUNCTION(vec3_ConstructorX_Y_Z), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec3", "float x", asOFFSET(glm::vec3,x)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec3", "float y", asOFFSET(glm::vec3,y)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec3", "float z", asOFFSET(glm::vec3,z)); assert( r >= 0 );
+
+      RegisterVector<glm::vec4>(m_asEngine, "vec4");
+      r = m_asEngine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec4_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec4_ConstructorXYZW), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(vec4_ConstructorX_Y_Z_W), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec4", "float x", asOFFSET(glm::vec4,x)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec4", "float y", asOFFSET(glm::vec4,y)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec4", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
+      r = m_asEngine->RegisterObjectProperty("vec4", "float w", asOFFSET(glm::vec4,w)); assert( r >= 0 );
+
+		r = m_asEngine->RegisterGlobalFunction("string to_string(double)", asFUNCTIONPR(scriptToString, (double), std::string), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("string to_string(vec2)", asFUNCTIONPR(scriptToString, (glm::vec2), std::string), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("string to_string(vec3)", asFUNCTIONPR(scriptToString, (glm::vec3), std::string), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("string to_string(vec4)", asFUNCTIONPR(scriptToString, (glm::vec4), std::string), asCALL_CDECL); assert(r >= 0);
+
+		r = m_asEngine->RegisterObjectType("TransformComponent", sizeof(TransformComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+      r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 position", asOFFSET(TransformComponent,position)); assert(r >= 0);
+      r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 scale", asOFFSET(TransformComponent,scale)); assert(r >= 0);
+      r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
+
+		r = m_asEngine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
 
 	ScriptManager::~ScriptManager() {
@@ -101,32 +213,35 @@ namespace Crimson {
 
 		m_asModule = m_asEngine->GetModule("CrimsonBehaviours");
 
-		m_objects.clear();
-		for (const auto& c : m_classNames) {
-			asITypeInfo* type = m_asModule->GetTypeInfoByDecl(c.c_str());
-			if (!type) {
-				CR_LOG_ERROR("Class '%s' doesn't exist in the current module", c.c_str());
-				continue;
-			}
-
-			asIScriptFunction* factory = type->GetFactoryByDecl(std::string(c + " @" + c + "()").c_str());
-			if (!factory) {
-				CR_LOG_ERROR("Class '%s' doesn't exist in the current module", c.c_str());
-				continue;
-			}
-
-			m_asContext->Prepare(factory);
-			m_asContext->Execute();
-
-			asIScriptObject* obj = *(asIScriptObject**)m_asContext->GetAddressOfReturnValue();
-			obj->AddRef();
-
-			m_objects.push_back({obj, type});
-		}
-
 		m_compilationSuccess = true;
 
 		Flush();
+	}
+
+	void ScriptManager::SetupEntity(entt::entity ent, Scene* scene) {
+		Entity e(ent, scene);
+		std::string c = e.GetComponent<ScriptComponent>().className.c_str();
+
+		asITypeInfo* type = m_asModule->GetTypeInfoByDecl(c.c_str());
+		if (!type) {
+			CR_LOG_ERROR("Class '%s' doesn't exist in the current module", c.c_str());
+			return;
+		}
+
+		asIScriptFunction* factory = type->GetFactoryByDecl(std::string(c + " @" + c + "()").c_str());
+		if (!factory) {
+			CR_LOG_ERROR("Class '%s' doesn't exist in the current module", c.c_str());
+			return;
+		}
+
+		m_asContext->Prepare(factory);
+		m_asContext->Execute();
+
+		asIScriptObject* obj = *(asIScriptObject**)m_asContext->GetAddressOfReturnValue();
+		*(Entity*)obj->GetAddressOfProperty(0) = e;
+		obj->AddRef();
+
+		m_objects.push_back({obj, type});
 	}
 
 	void ScriptManager::Init() {

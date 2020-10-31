@@ -4,6 +4,8 @@
 
 #include "Components.h"
 
+#include <filesystem>
+
 namespace Crimson {
 	Scene::Scene() {
 		m_lightScene = std::make_shared<LightScene>();
@@ -21,16 +23,22 @@ namespace Crimson {
 	}
 
 	void Scene::Init() {
-		m_scriptManager->AddScript(m_assetManager.LoadText("Data/TestScript.as"));
+		for (auto& p : m_assetManager.GetFilesFromDir("Data")) {
+			if (p.second == ".as") {
+				m_scriptManager->AddScript(m_assetManager.LoadText(p.first));
+			}
+		}
+
+		m_scriptManager->Compile(m_assetManager);
 
 		auto view = m_registry.view<ScriptComponent>();
 		for (auto ent : view) {
 			auto script = view.get<ScriptComponent>(ent);
 
-			m_scriptManager->AddBehaviour(script.className);
+			//m_scriptManager->AddBehaviour(script.className);
+			m_scriptManager->SetupEntity(ent, this);
 		}
 
-		m_scriptManager->Compile(m_assetManager);
 		m_scriptManager->Init();
 	}
 

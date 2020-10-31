@@ -4,6 +4,7 @@
 
 #include <physfs.h>
 #include <tuple>
+#include <filesystem>
 
 #include "Utils/stb_image.h"
 
@@ -143,6 +144,27 @@ namespace Crimson {
 			m_materials[filePath] = new Material(LoadText(filePath).c_str(), *this);
 		}
 		return m_materials[filePath];
+	}
+
+	std::vector<std::pair<std::string, std::string>> AssetManager::GetFilesFromDir(const std::string& dir) {
+		std::vector<std::pair<std::string, std::string>> result;
+
+#ifdef RELEASE
+
+		
+
+#else
+
+		std::string path = dir;
+		for (const auto& entry : std::filesystem::directory_iterator(path)) {
+			if (!entry.is_directory()) {
+				result.push_back({entry.path().string(), entry.path().extension().string()});
+			}
+		}
+
+#endif
+
+		return result;
 	}
 
 }

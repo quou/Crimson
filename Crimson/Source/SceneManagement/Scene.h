@@ -12,13 +12,15 @@ namespace Crimson {
 
 	class Entity;
 
+	typedef entt::entity EntityHandle;
+
 	class Scene {
 	private:
 		entt::registry m_registry;
 
 		friend class Entity;
 
-		
+
 
 	public:
 		AssetManager m_assetManager;
