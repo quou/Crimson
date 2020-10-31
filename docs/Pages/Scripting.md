@@ -7,17 +7,21 @@ Example script:
 #include "Crimson"
 
 class ExampleBehaviour : CrimsonBehaviour {
-	private int m_counter;
+	private float m_counter;
 
+	// Called before the first frame
 	void OnInit() {
 		print("Hello, there");
 	}
 
+	// Called once per frame
 	void OnUpdate(float delta) {
 		m_entity.GetTransformComponent().position.x += 2.0f * delta;
 
-		print(to_string(m_counter));
-		m_counter++;
+		m_counter += delta;
+		if (m_counter > 10) {
+			Destroy(); // Simply a wrapper around m_entity.Destroy()
+		}
 	}
 }
 
