@@ -8,9 +8,15 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "Renderer/Renderer.h"
 
+#include "Input.h"
+
 namespace Crimson {
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
+	}
+
+	static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		Input::IKeyCallback(key, scancode, action, mods);
 	}
 
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
@@ -27,6 +33,7 @@ namespace Crimson {
 		glfwMakeContextCurrent(m_window);
 
 		glfwSetFramebufferSizeCallback(m_window, FramebufferSizeCallback);
+		glfwSetKeyCallback(m_window, KeyCallback);
 
 		CR_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "%s", "Unable to initialise OpenGL");
 

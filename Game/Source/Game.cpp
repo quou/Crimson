@@ -18,23 +18,25 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
+		Crimson::Input::RegisterKey("jump", CR_KEY_SPACE);
+
 		m_scene = std::make_shared<Crimson::Scene>();
 		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.05f});
 		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
 		m_scene->m_lightScene->m_pointLights.push_back({glm::vec3(-3.5f,0,0), 1.0f, 0.09f, 0.032f, glm::vec3(1,0,0), 1.0f});
 
 		auto monkey = m_scene->CreateEntity();
-	//	monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
+		//monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
 		monkey.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
 		monkey.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
 		monkey.AddComponent<Crimson::ScriptComponent>("Monkey");
 
-		// auto floor = m_scene->CreateEntity();
-		// floor.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, -2, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
-		// floor.GetComponent<Crimson::PhysicsComponent>().rigidbody->SetKinematic(true);
-		// floor.AddComponent<Crimson::MeshFilterComponent>("Data/CubeMesh.mesh");
-		// floor.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
-		// floor.AddComponent<Crimson::ScriptComponent>("TestBehaviour");
+		auto floor = m_scene->CreateEntity();
+		floor.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, -2, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
+		floor.GetComponent<Crimson::PhysicsComponent>().rigidbody->SetKinematic(true);
+		floor.AddComponent<Crimson::MeshFilterComponent>("Data/CubeMesh.mesh");
+		floor.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
+		floor.AddComponent<Crimson::ScriptComponent>("TestBehaviour");
 
 
 		Crimson::Entity cam = m_scene->CreateEntity();
@@ -47,6 +49,10 @@ private:
 	void OnUpdate(float delta) override {
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(GetWindowSize());
+
+		if (Crimson::Input::GetKey("jump").pressed) {
+			CR_LOG("%s", "hi");
+		}
 	}
 
 	void OnExit() override {

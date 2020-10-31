@@ -6,6 +6,7 @@
 #include "AssetManager.h"
 #include "Layer.h"
 #include "Transform.h"
+#include "Input.h"
 
 // Rendering
 #include "Renderer/Renderer.h"
