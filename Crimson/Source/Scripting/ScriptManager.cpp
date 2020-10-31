@@ -46,6 +46,14 @@ namespace Crimson {
 		return std::to_string(val);
 	}
 
+	static std::string scriptToString(bool val) {
+		if (val) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+
 	static std::string scriptToString(glm::vec2 val) {
 		return std::to_string(val.x) + ", " + std::to_string(val.y);
 	}
@@ -164,6 +172,7 @@ namespace Crimson {
       r = m_asEngine->RegisterObjectProperty("vec4", "float w", asOFFSET(glm::vec4,w)); assert( r >= 0 );
 
 		r = m_asEngine->RegisterGlobalFunction("string to_string(double)", asFUNCTIONPR(scriptToString, (double), std::string), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("string to_string(bool)", asFUNCTIONPR(scriptToString, (bool), std::string), asCALL_CDECL); assert(r >= 0);
 		r = m_asEngine->RegisterGlobalFunction("string to_string(vec2)", asFUNCTIONPR(scriptToString, (glm::vec2), std::string), asCALL_CDECL); assert(r >= 0);
 		r = m_asEngine->RegisterGlobalFunction("string to_string(vec3)", asFUNCTIONPR(scriptToString, (glm::vec3), std::string), asCALL_CDECL); assert(r >= 0);
 		r = m_asEngine->RegisterGlobalFunction("string to_string(vec4)", asFUNCTIONPR(scriptToString, (glm::vec4), std::string), asCALL_CDECL); assert(r >= 0);
@@ -260,9 +269,9 @@ namespace Crimson {
 			if (!ent->IsValid()) {
 				obj.first->Release();
 				m_objects.erase(m_objects.begin() + i);
-				return;
+				continue;
 			}
-			
+
 			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnInit()");
 			if (!func) {
 				CR_LOG_WARNING("%s", "No 'void OnInit' function");
@@ -290,7 +299,7 @@ namespace Crimson {
 			if (!ent->IsValid()) {
 				obj.first->Release();
 				m_objects.erase(m_objects.begin() + i);
-				return;
+				continue;
 			}
 
 			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnUpdate(float)");
