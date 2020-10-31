@@ -19,6 +19,10 @@ namespace Crimson {
 		abstract class CrimsonBehaviour {
 			Entity m_entity;
 
+			void Destroy() {
+				m_entity.Destroy();
+			}
+
 			void OnInit() {}
 			void OnUpdate(float delta) {}
 		}
@@ -170,6 +174,8 @@ namespace Crimson {
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
 
 		r = m_asEngine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Entity", "bool IsValid()", asMETHOD(Entity, IsValid), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
 
@@ -247,7 +253,16 @@ namespace Crimson {
 	void ScriptManager::Init() {
 		if (!m_compilationSuccess) {return;}
 
-		for (auto obj : m_objects) {
+		for (int i = 0; i < m_objects.size(); i++) {
+			auto& obj = m_objects[i];
+
+			Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+			if (!ent->IsValid()) {
+				obj.first->Release();
+				m_objects.erase(m_objects.begin() + i);
+				return;
+			}
+			
 			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnInit()");
 			if (!func) {
 				CR_LOG_WARNING("%s", "No 'void OnInit' function");
@@ -268,7 +283,16 @@ namespace Crimson {
 	void ScriptManager::Update(float delta) {
 		if (!m_compilationSuccess) {return;}
 
-		for (auto obj : m_objects) {
+		for (int i = 0; i < m_objects.size(); i++) {
+			auto& obj = m_objects[i];
+
+			Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+			if (!ent->IsValid()) {
+				obj.first->Release();
+				m_objects.erase(m_objects.begin() + i);
+				return;
+			}
+
 			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnUpdate(float)");
 			if (!func) {
 				CR_LOG_WARNING("%s", "No 'void OnUpdate(float)' function");

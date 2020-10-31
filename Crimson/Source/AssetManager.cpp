@@ -151,12 +151,12 @@ namespace Crimson {
 
 #ifdef RELEASE
 
-		
+
 
 #else
 
 		std::string path = dir;
-		for (const auto& entry : std::filesystem::directory_iterator(path)) {
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
 			if (!entry.is_directory()) {
 				result.push_back({entry.path().string(), entry.path().extension().string()});
 			}

@@ -16,6 +16,9 @@ namespace Crimson {
 		Entity(entt::entity entityHandle, Scene* scene);
 		Entity(const Entity& other) = default;
 
+		void Destroy();
+		bool IsValid();
+
 		template <typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
 			CR_ASSERT(!HasComponent<T>(), "%s", "Entity already has component");
