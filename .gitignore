@@ -8,6 +8,7 @@ bin-int
 *.a
 *.dll
 *.exe
+!premake5.exe
 *.lib
 *.so
 imgui.ini
