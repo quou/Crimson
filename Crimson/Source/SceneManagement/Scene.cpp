@@ -1,8 +1,9 @@
 #include "Scene.h"
 
 #include "Entity.h"
-
 #include "Components.h"
+
+#include "Input.h"
 
 #include <filesystem>
 
@@ -11,6 +12,9 @@ namespace Crimson {
 		m_lightScene = std::make_shared<LightScene>();
 		m_physicsScene = std::make_shared<PhysicsScene>();
 		m_scriptManager = std::make_shared<ScriptManager>();
+
+		Input::Init();
+		Input::LoadConfig(m_assetManager.LoadText("Data/InputConfig.conf").c_str());
 	}
 
 	Scene::~Scene() {

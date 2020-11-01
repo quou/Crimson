@@ -19,9 +19,6 @@ namespace Crimson {
 		entt::registry m_registry;
 
 		friend class Entity;
-
-
-
 	public:
 		AssetManager m_assetManager;
 		Scene();
