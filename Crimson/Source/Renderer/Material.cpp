@@ -151,6 +151,30 @@ namespace Crimson {
 			lua_close(L);
 	}
 
+	void Material::SetFloat(const std::string& name, float value) {
+		m_shader->SetFloat(name, value);
+	}
+
+	void Material::SetInt(const std::string& name, int value) {
+		m_shader->SetInt(name, value);
+	}
+
+	void Material::SetVec2(const std::string& name, glm::vec2 value) {
+		m_shader->SetVec2(name, value);
+	}
+
+	void Material::SetVec3(const std::string& name, glm::vec3 value) {
+		m_shader->SetVec3(name, value);
+	}
+
+	void Material::SetVec4(const std::string& name, glm::vec4 value) {
+		m_shader->SetVec4(name, value);
+	}
+
+	void Material::SetMat4(const std::string& name, glm::mat4 value) {
+		m_shader->SetMat4(name, value);
+	}
+
 	Material::~Material() {
 	}
 }
