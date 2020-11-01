@@ -55,6 +55,8 @@ namespace Crimson {
 	struct ScriptComponent {
 		std::string className;
 
+		unsigned int id;
+
 		ScriptComponent(const std::string& className) : className(className) {}
 	};
 }
