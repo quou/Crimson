@@ -210,7 +210,7 @@ namespace Crimson {
 
 	ScriptManager::~ScriptManager() {
 		for (auto obj : m_objects) {
-			obj.first->Release();
+			obj.second.first->Release();
 		}
 
 		m_asContext->Release();
@@ -256,6 +256,7 @@ namespace Crimson {
 
 	void ScriptManager::SetupEntity(entt::entity ent, Scene* scene) {
 		if (!m_compilationSuccess) {return;}
+		m_currentID++;
 
 		Entity e(ent, scene);
 		std::string c = e.GetComponent<ScriptComponent>().className.c_str();
@@ -279,30 +280,28 @@ namespace Crimson {
 		*(Entity*)obj->GetAddressOfProperty(0) = e;
 		obj->AddRef();
 
-		m_objects.push_back({obj, type});
+		m_objects[m_currentID] = {obj, type};
 	}
 
 	void ScriptManager::Init() {
 		if (!m_compilationSuccess) {return;}
 
-		for (int i = 0; i < m_objects.size(); i++) {
-			auto& obj = m_objects[i];
-
-			Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+		for (auto obj : m_objects) {
+			Entity* ent = (Entity*)obj.second.first->GetAddressOfProperty(0);
 			if (!ent->IsValid()) {
-				obj.first->Release();
-				m_objects.erase(m_objects.begin() + i);
+				obj.second.first->Release();
+				m_objects.erase(obj.first);
 				continue;
 			}
 
-			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnInit()");
+			asIScriptFunction* func = obj.second.second->GetMethodByDecl("void OnInit()");
 			if (!func) {
 				CR_LOG_WARNING("%s", "No 'void OnInit' function");
 				continue;
 			}
 
 			m_asContext->Prepare(func);
-			m_asContext->SetObject(obj.first);
+			m_asContext->SetObject(obj.second.first);
 			int r = m_asContext->Execute();
 
 			if (r == asEXECUTION_EXCEPTION) {
@@ -315,17 +314,15 @@ namespace Crimson {
 	void ScriptManager::Update(float delta) {
 		if (!m_compilationSuccess) {return;}
 
-		for (int i = 0; i < m_objects.size(); i++) {
-			auto& obj = m_objects[i];
-
-			Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+		for (auto obj : m_objects) {
+			Entity* ent = (Entity*)obj.second.first->GetAddressOfProperty(0);
 			if (!ent->IsValid()) {
-				obj.first->Release();
-				m_objects.erase(m_objects.begin() + i);
+				obj.second.first->Release();
+				m_objects.erase(obj.first);
 				continue;
 			}
 
-			asIScriptFunction* func = obj.second->GetMethodByDecl("void OnUpdate(float)");
+			asIScriptFunction* func = obj.second.second->GetMethodByDecl("void OnUpdate(float)");
 			if (!func) {
 				CR_LOG_WARNING("%s", "No 'void OnUpdate(float)' function");
 				continue;
@@ -333,7 +330,7 @@ namespace Crimson {
 
 			m_asContext->Prepare(func);
 			m_asContext->SetArgFloat(0, delta);
-			m_asContext->SetObject(obj.first);
+			m_asContext->SetObject(obj.second.first);
 			int r = m_asContext->Execute();
 
 			if (r == asEXECUTION_EXCEPTION) {
