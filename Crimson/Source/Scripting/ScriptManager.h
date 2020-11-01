@@ -44,6 +44,6 @@ namespace Crimson {
 
 		void Init();
 		void Update(float delta);
-		void Contact(unsigned int id);
+		void Contact(unsigned int id, Entity& other);
 	};
 }

@@ -5,13 +5,14 @@ class TestBehaviour : CrimsonBehaviour {
 
 	void OnInit() {
 		print(to_string(m_testVec));
+		m_entity.GetTransformComponent().tag = "Cube";
 	}
 
 	void OnUpdate(float delta) {
 		//print(to_string(delta));
 	}
 
-	void OnContact() {
-		print("[Cube] Collision");
+	void OnContact(Entity other) {
+		print("[Cube]" + other.GetTransformComponent().tag);
 	}
 };

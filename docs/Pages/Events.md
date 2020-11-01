@@ -17,5 +17,5 @@ void OnUpdate(float delta);
 ## OnContact
 Called when the entity collides with something. This event will not be called on entities that don't have a `PhysicsComponent`.
 ```cpp
-void OnContact();
+void OnContact(Entity other);
 ```

@@ -5,6 +5,8 @@ class Monkey : CrimsonBehaviour {
 
 	void OnInit() {
 		print("Monkey says hello");
+
+		m_entity.GetTransformComponent().tag = "Monkey";
 	}
 
 	void OnUpdate(float delta) {
@@ -21,7 +23,7 @@ class Monkey : CrimsonBehaviour {
 		}
 	}
 
-	void OnContact() {
-		print("[Monkey] Collision");
+	void OnContact(Entity other) {
+		print("[Monkey]" + other.GetTransformComponent().tag);
 	}
 }

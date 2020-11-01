@@ -37,7 +37,7 @@ namespace Crimson {
 		// Events
 		void Init();
 		void Update(float delta);
-		void Contact(rp3d::CollisionBody* body);
+		void Contact(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 
 		void UpdateViewport(std::pair<int, int> size);
 

@@ -24,7 +24,7 @@ namespace Crimson {
 		}
 	}
 
-	void PhysicsScene::Contact(rp3d::CollisionBody* body) {
-		m_scene->Contact(body);
+	void PhysicsScene::Contact(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		m_scene->Contact(body, other);
 	}
 }

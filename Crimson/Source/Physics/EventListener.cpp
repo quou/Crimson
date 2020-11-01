@@ -17,8 +17,7 @@ namespace Crimson {
 			// For each contact point of the contact pair
 			for (uint c = 0; c < contactPair.getNbContactPoints(); c++) {
 				rp3d::CollisionCallback::ContactPoint contactPoint = contactPair.getContactPoint(c);
-				m_physicsScene->Contact(contactPair.getCollider1()->getBody());
-				m_physicsScene->Contact(contactPair.getCollider2()->getBody());
+				m_physicsScene->Contact(contactPair.getCollider1()->getBody(), contactPair.getCollider2()->getBody());
 			}
 		}
 	}

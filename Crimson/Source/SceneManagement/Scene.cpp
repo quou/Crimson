@@ -99,15 +99,22 @@ namespace Crimson {
 		return ent;
 	}
 
-	void Scene::Contact(rp3d::CollisionBody* body) {
+	void Scene::Contact(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
 		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+
+		Entity currentEnt, otherEnt;
+
 		for (auto ent : view) {
 			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
 
 			if (physics.rigidbody->m_body == body) {
-				m_scriptManager->Contact(script.id);
-				break;
+				currentEnt = Entity(ent, this);
+			} else if (physics.rigidbody->m_body == other) {
+				otherEnt = Entity(ent, this);
 			}
 		}
+
+		m_scriptManager->Contact(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		m_scriptManager->Contact(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
 	}
 }

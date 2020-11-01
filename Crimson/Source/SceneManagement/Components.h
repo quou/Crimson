@@ -14,6 +14,8 @@ namespace Crimson {
 		glm::vec3 rotation;
 		glm::vec3 scale = glm::vec3(1);
 
+		std::string tag;
+
 		glm::mat4 GetTransform() {
 			glm::mat4 rotxMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1,0,0));
 			glm::mat4 rotyMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0,1,0));

@@ -191,6 +191,7 @@ namespace Crimson {
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 position", asOFFSET(TransformComponent,position)); assert(r >= 0);
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 scale", asOFFSET(TransformComponent,scale)); assert(r >= 0);
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
+      r = m_asEngine->RegisterObjectProperty("TransformComponent", "string tag", asOFFSET(TransformComponent,tag)); assert(r >= 0);
 
 		r = m_asEngine->RegisterObjectType("ScriptComponent", sizeof(ScriptComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
@@ -341,7 +342,7 @@ namespace Crimson {
 		}
 	}
 
-	void ScriptManager::Contact(unsigned int id) {
+	void ScriptManager::Contact(unsigned int id, Entity& other) {
 		if (!m_compilationSuccess) {return;}
 
 		if (m_objects.count(id) == 0) {
@@ -357,12 +358,13 @@ namespace Crimson {
 			return;
 		}
 
-		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContact()");
+		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContact(Entity)");
 		if (!func) {
 			return;
 		}
 
 		m_asContext->Prepare(func);
+		m_asContext->SetArgObject(0, &other);
 		m_asContext->SetObject(obj.first);
 		int r = m_asContext->Execute();
 
