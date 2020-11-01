@@ -61,7 +61,7 @@ namespace Crimson {
 
 		int r = luaL_dostring(L, lua);
 		if (r != LUA_OK) {
-			CR_LOG_ERROR("%s", lua_tostring(L, -1));
+			CR_LOG_ERROR("Error loading mesh: %s", lua_tostring(L, -1));
 			lua_close(L);
 			return;
 		}

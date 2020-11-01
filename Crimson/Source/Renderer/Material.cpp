@@ -16,7 +16,7 @@ extern "C" {
 
 bool CheckLua(lua_State* L, int r) {
 	if (r != LUA_OK) {
-		CR_LOG_ERROR("%s", lua_tostring(L, -1));
+		CR_LOG_ERROR("Error loading material: %s", lua_tostring(L, -1));
 		return false;
 	}
 	return true;
@@ -29,14 +29,14 @@ namespace Crimson {
 		L = luaL_newstate();
 
 		if (!CheckLua(L, luaL_dostring(L, config.c_str()))) {
-			return;
+			goto end;
 		}
 
 		lua_getglobal(L, "shader");
 		if (lua_isstring(L, -1)) {
 			m_shader = std::make_shared<Shader>(assetManager.LoadText(lua_tostring(L, -1)));
 		} else {
-			return;
+			goto end;
 		}
 		lua_pop(L, 1);
 
@@ -44,14 +44,14 @@ namespace Crimson {
 		if (lua_isstring(L, -1)) {
 			m_albedo = std::make_shared<Texture>(assetManager.LoadSurface(lua_tostring(L, -1)));
 		} else {
-			return;
+			goto end;
 		}
 		lua_pop(L, 1);
 
 		m_shader->Bind();
 
 		lua_getglobal(L, "material");
-		if (!lua_istable(L, -1)) {return;};
+		if (!lua_istable(L, -1)) {goto end;};
 
 		lua_pushnil(L);
 		while (lua_next(L, -2) != 0) {
@@ -146,8 +146,9 @@ namespace Crimson {
 
 			lua_pop(L, 1);
 		}
-		
-		lua_close(L);
+
+		end:
+			lua_close(L);
 	}
 
 	Material::~Material() {
