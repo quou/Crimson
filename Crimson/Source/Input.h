@@ -224,10 +224,14 @@ namespace Crimson {
       	return INSTANCE;
    	}
 
+		static void Init();
+
 		static void IKeyCallback(int key, int scancode, int action, int mods);
 
 		static void RegisterKey(std::string name, int keycode);
 
-		static const Key GetKey(std::string name);
+		static const Key& GetKey(std::string name);
+
+		static void LoadConfig(const char* lua);
 	};
 }

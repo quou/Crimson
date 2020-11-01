@@ -18,8 +18,6 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		Crimson::Input::RegisterKey("jump", CR_KEY_SPACE);
-
 		m_scene = std::make_shared<Crimson::Scene>();
 		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.05f});
 		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
@@ -49,10 +47,6 @@ private:
 	void OnUpdate(float delta) override {
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(GetWindowSize());
-
-		if (Crimson::Input::GetKey("jump").pressed) {
-			CR_LOG("%s", "hi");
-		}
 	}
 
 	void OnExit() override {

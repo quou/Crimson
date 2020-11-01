@@ -12,6 +12,8 @@
 #include "SceneManagement/Entity.h"
 #include "SceneManagement/Scene.h"
 
+#include "Input.h"
+
 
 namespace Crimson {
 	/* A base class that behaviour scripts will inherit from */
@@ -21,6 +23,10 @@ namespace Crimson {
 
 			void Destroy() {
 				m_entity.Destroy();
+			}
+
+			TransformComponent& GetTransformComponent() {
+				return m_entity.GetTransformComponent();
 			}
 
 			void OnInit() {}
@@ -106,6 +112,10 @@ namespace Crimson {
 		return ent->GetComponent<TransformComponent>();
 	}
 
+	static ScriptComponent& Entity_GetScriptComponent(Entity* ent) {
+		return ent->GetComponent<ScriptComponent>();
+	}
+
    template <typename T>
    void RegisterVector(asIScriptEngine* engine, const std::string& asTypename) {
       const char* asTypenamePtr = asTypename.c_str();
@@ -182,10 +192,20 @@ namespace Crimson {
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 scale", asOFFSET(TransformComponent,scale)); assert(r >= 0);
       r = m_asEngine->RegisterObjectProperty("TransformComponent", "vec3 rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
 
+		r = m_asEngine->RegisterObjectType("ScriptComponent", sizeof(ScriptComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+
 		r = m_asEngine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "bool IsValid()", asMETHOD(Entity, IsValid), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Entity", "ScriptComponent& GetScriptComponent()", asFUNCTION(Entity_GetScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		m_asEngine->SetDefaultNamespace("Input");
+
+		r = m_asEngine->RegisterObjectType("Button", sizeof(Key), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("Button", "bool pressed", asOFFSET(Key,pressed)); assert(r >= 0);
+
+		r = m_asEngine->RegisterGlobalFunction("const Button& GetButton(string)", asFUNCTION(Input::GetKey), asCALL_CDECL); assert(r >= 0);
 	}
 
 	ScriptManager::~ScriptManager() {
@@ -222,9 +242,10 @@ namespace Crimson {
 
 		r = builder.BuildModule();
 		if (r < 0) {
+			// Erorr building
+			Flush();
 			return;
 		}
-
 
 		m_asModule = m_asEngine->GetModule("CrimsonBehaviours");
 
@@ -234,6 +255,8 @@ namespace Crimson {
 	}
 
 	void ScriptManager::SetupEntity(entt::entity ent, Scene* scene) {
+		if (!m_compilationSuccess) {return;}
+
 		Entity e(ent, scene);
 		std::string c = e.GetComponent<ScriptComponent>().className.c_str();
 
