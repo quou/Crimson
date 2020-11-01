@@ -100,12 +100,12 @@ namespace Crimson {
 	}
 
 	void Scene::Contact(rp3d::CollisionBody* body) {
-		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
+		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
 		for (auto ent : view) {
-			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
 
 			if (physics.rigidbody->m_body == body) {
-				CR_LOG("%s", "collision");
+				m_scriptManager->Contact(script.id);
 				break;
 			}
 		}

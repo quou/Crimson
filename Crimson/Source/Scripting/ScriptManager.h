@@ -41,7 +41,9 @@ namespace Crimson {
 
 		void Compile(AssetManager& assetManager);
 		void SetupEntity(entt::entity ent, Scene* scene);
+
 		void Init();
 		void Update(float delta);
+		void Contact(unsigned int id);
 	};
 }

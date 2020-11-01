@@ -21,7 +21,7 @@ class Monkey : CrimsonBehaviour {
 		}
 	}
 
-	void Collision() {
-		print("hi from angelscript");
+	void OnContact() {
+		print("[Monkey] Collision");
 	}
 }

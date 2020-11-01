@@ -10,4 +10,8 @@ class TestBehaviour : CrimsonBehaviour {
 	void OnUpdate(float delta) {
 		//print(to_string(delta));
 	}
+
+	void OnContact() {
+		print("[Cube] Collision");
+	}
 };
