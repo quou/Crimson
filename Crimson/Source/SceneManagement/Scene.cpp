@@ -10,7 +10,7 @@
 namespace Crimson {
 	Scene::Scene() {
 		m_lightScene = std::make_shared<LightScene>();
-		m_physicsScene = std::make_shared<PhysicsScene>();
+		m_physicsScene = std::make_shared<PhysicsScene>(this);
 		m_scriptManager = std::make_shared<ScriptManager>();
 
 		Input::Init();
@@ -97,5 +97,17 @@ namespace Crimson {
 		Entity ent = {m_registry.create(), this};
 		ent.AddComponent<TransformComponent>();
 		return ent;
+	}
+
+	void Scene::Contact(rp3d::CollisionBody* body) {
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
+		for (auto ent : view) {
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+
+			if (physics.rigidbody->m_body == body) {
+				CR_LOG("%s", "collision");
+				break;
+			}
+		}
 	}
 }

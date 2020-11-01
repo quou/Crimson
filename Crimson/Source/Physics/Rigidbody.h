@@ -16,6 +16,8 @@ namespace Crimson {
 		std::vector<rp3d::Collider*> m_colliders;
 		bool m_isKinematic;
 		rp3d::RigidBody* m_body;
+
+		friend class Scene;
 	public:
 		Rigidbody(PhysicsScene* scene, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& rotation = glm::vec3(0.0f));
 		~Rigidbody();

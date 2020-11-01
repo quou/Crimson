@@ -10,7 +10,7 @@ class Monkey : CrimsonBehaviour {
 	void OnUpdate(float delta) {
 		if (Input::GetButton("up").pressed) {
 			m_entity.GetTransformComponent().position.y += m_speed * delta;
-		} else if (Input::GetButton("down").pressed) { sd
+		} else if (Input::GetButton("down").pressed) {
 			m_entity.GetTransformComponent().position.y -= m_speed * delta;
 		}
 
@@ -19,5 +19,9 @@ class Monkey : CrimsonBehaviour {
 		} else if (Input::GetButton("left").pressed) {
 			m_entity.GetTransformComponent().position.x -= m_speed * delta;
 		}
+	}
+
+	void Collision() {
+		print("hi from angelscript");
 	}
 }

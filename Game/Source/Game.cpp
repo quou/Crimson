@@ -24,7 +24,7 @@ private:
 		m_scene->m_lightScene->m_pointLights.push_back({glm::vec3(-3.5f,0,0), 1.0f, 0.09f, 0.032f, glm::vec3(1,0,0), 1.0f});
 
 		auto monkey = m_scene->CreateEntity();
-		//monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
+		monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
 		monkey.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
 		monkey.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
 		monkey.AddComponent<Crimson::ScriptComponent>("Monkey");

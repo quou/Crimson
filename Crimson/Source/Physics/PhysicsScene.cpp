@@ -1,8 +1,11 @@
 #include "PhysicsScene.h"
 
+#include "SceneManagement/Scene.h"
+
 namespace Crimson {
-	PhysicsScene::PhysicsScene() {
+	PhysicsScene::PhysicsScene(Scene* scene) : m_scene(scene), m_eventListener(this) {
 		m_world = m_common.createPhysicsWorld();
+		m_world->setEventListener(&m_eventListener);
 	}
 
 	PhysicsScene::~PhysicsScene() {
@@ -19,5 +22,9 @@ namespace Crimson {
 
 			m_accumulator -= delta;
 		}
+	}
+
+	void PhysicsScene::Contact(rp3d::CollisionBody* body) {
+		m_scene->Contact(body);
 	}
 }
