@@ -9,9 +9,10 @@ A WIP 3D game engine written in C++ 17
  - Physics
  - Lua-based mesh & material loading (Allows for custom shaders without needing to edit C++)
  - Asset management, loads assets from a folder during debug, and from an archive in debug
+ - AngelScript scripting
+ - Input system
 
 ## Work-in-Progress
- - AngelScript scripting
  - Level editor
  - Asset packer
  - Web & Android runtime support
