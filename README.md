@@ -29,7 +29,7 @@ A WIP 3D game engine written in C++ 17
 ~/Crimson$ make -j6 config=release
 ```
 
-## Windows (MSVC)
+### Windows (MSVC)
 Run `Scripts/Windows/Build.bat` to generate a Visual Studio project (includes dependencies).
 
 ## Dependencies
