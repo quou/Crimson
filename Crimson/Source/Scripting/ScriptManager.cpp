@@ -14,7 +14,6 @@
 
 #include "Input.h"
 
-
 namespace Crimson {
 	/* A base class that behaviour scripts will inherit from */
 	static const char* g_behaviourBase = R"(
@@ -108,12 +107,24 @@ namespace Crimson {
      new(memory) glm::vec4(x,y,z,w);
    }
 
+	void Rigidbody_Constructor(void *memory) {
+		new(memory) Rigidbody();
+	}
+
+	void Rigidbody_Destructor(void *memory) {
+		((Rigidbody*)memory)->~Rigidbody();
+	}
+
 	static TransformComponent& Entity_GetTransformComponent(Entity* ent) {
 		return ent->GetComponent<TransformComponent>();
 	}
 
 	static ScriptComponent& Entity_GetScriptComponent(Entity* ent) {
 		return ent->GetComponent<ScriptComponent>();
+	}
+
+	static PhysicsComponent& Entity_GetPhysicsComponent(Entity* ent) {
+		return ent->GetComponent<PhysicsComponent>();
 	}
 
    template <typename T>
@@ -195,11 +206,33 @@ namespace Crimson {
 
 		r = m_asEngine->RegisterObjectType("ScriptComponent", sizeof(ScriptComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
+		r = m_asEngine->RegisterObjectType("Rigidbody", sizeof(Rigidbody), asOBJ_VALUE); assert(r >= 0);
+		r = m_asEngine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(Rigidbody_Constructor), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = m_asEngine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Rigidbody_Destructor), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void AddBoxCollider(const vec3& in)", asMETHOD(Rigidbody, AddBoxCollider), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void AddSphereCollider(float radius)", asMETHOD(Rigidbody, AddSphereCollider), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "vec3 GetPosition()", asMETHOD(Rigidbody, GetPosition), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "vec3 GetRotation()", asMETHOD(Rigidbody, GetRotation), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "bool GetKinematic()", asMETHOD(Rigidbody, GetKinematic), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void GetKinematic(bool set)", asMETHOD(Rigidbody, SetKinematic), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "float GetMass()", asMETHOD(Rigidbody, GetMass), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetMass(float mass)", asMETHOD(Rigidbody, SetMass), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForce(vec3 force)", asMETHOD(Rigidbody, ApplyForce), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForceAtPosition(vec3, vec3)", asMETHOD(Rigidbody, ApplyForceAtPosition), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyTorque(vec3)", asMETHOD(Rigidbody, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetCOG(vec3)", asMETHOD(Rigidbody, SetCOG), asCALL_THISCALL); assert(r >= 0);
+
+
+		r = m_asEngine->RegisterObjectType("PhysicsComponent", sizeof(PhysicsComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &rigidbody", asOFFSET(PhysicsComponent,rigidbody)); assert(r >= 0);
+
+
 		r = m_asEngine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "bool IsValid()", asMETHOD(Entity, IsValid), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Entity", "ScriptComponent& GetScriptComponent()", asFUNCTION(Entity_GetScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Entity", "PhysicsComponent& GetPhysicsComponent()", asFUNCTION(Entity_GetPhysicsComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		m_asEngine->SetDefaultNamespace("Input");
 

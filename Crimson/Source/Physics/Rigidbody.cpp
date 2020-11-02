@@ -2,6 +2,8 @@
 
 #include "PhysicsScene.h"
 
+#include <glm/gtc/quaternion.hpp>
+
 namespace Crimson {
 	Rigidbody::Rigidbody(PhysicsScene* scene, const glm::vec3& position, const glm::vec3& rotation) : m_scene(scene) {
 		rp3d::Vector3 p(position.x, position.y, position.z);
@@ -28,10 +30,15 @@ namespace Crimson {
 	}
 
 	glm::vec3 Rigidbody::GetRotation() {
-		return glm::vec3(
+		glm::quat q(
 			m_body->getTransform().getOrientation().x,
 			m_body->getTransform().getOrientation().y,
-			m_body->getTransform().getOrientation().z);
+			m_body->getTransform().getOrientation().z,
+			m_body->getTransform().getOrientation().w);
+
+		glm::vec3 result = glm::degrees(glm::eulerAngles(q));
+
+		return glm::vec3(result.y, result.z, result.x);
 	}
 
 	void Rigidbody::AddBoxCollider(const glm::vec3& halfExtents) {
@@ -60,6 +67,22 @@ namespace Crimson {
 		}
 
 		m_isKinematic = set;
+	}
+
+	void Rigidbody::ApplyForce(glm::vec3 force) {
+		m_body->applyForceToCenterOfMass(rp3d::Vector3(force.x, force.y, force.z));
+	}
+
+	void Rigidbody::SetCOG(glm::vec3 cog) {
+		m_body->setLocalCenterOfMass(rp3d::Vector3(cog.x, cog.y, cog.z));
+	}
+
+	void Rigidbody::ApplyForceAtPosition(glm::vec3 position, glm::vec3 force) {
+		m_body->applyForceAtLocalPosition(rp3d::Vector3(force.x, force.y, force.z), rp3d::Vector3(position.x, position.y, position.z));
+	}
+
+	void Rigidbody::ApplyTorque(glm::vec3 torque) {
+		m_body->applyTorque(rp3d::Vector3(torque.x, torque.y, torque.z));
 	}
 
 	void Rigidbody::SetTransform(glm::vec3 position, glm::vec3 rotation) {

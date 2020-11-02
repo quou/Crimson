@@ -19,11 +19,17 @@ namespace Crimson {
 
 		friend class Scene;
 	public:
+		Rigidbody() {}
 		Rigidbody(PhysicsScene* scene, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& rotation = glm::vec3(0.0f));
 		~Rigidbody();
 
 		void AddBoxCollider(const glm::vec3& halfExtents);
 		void AddSphereCollider(float radius);
+
+		void SetCOG(glm::vec3 cog);
+		void ApplyForce(glm::vec3 force);
+		void ApplyForceAtPosition(glm::vec3 position, glm::vec3 force);
+		void ApplyTorque(glm::vec3 torque);
 
 		glm::vec3 GetPosition();
 		glm::vec3 GetRotation();
