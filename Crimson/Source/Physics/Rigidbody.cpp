@@ -3,13 +3,19 @@
 #include "PhysicsScene.h"
 
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 namespace Crimson {
 	Rigidbody::Rigidbody(PhysicsScene* scene, const glm::vec3& position, const glm::vec3& rotation) : m_scene(scene) {
 		rp3d::Vector3 p(position.x, position.y, position.z);
-		
-		rp3d::Quaternion o = rp3d::Quaternion::identity();
-		o.x = rotation.x; o.y = rotation.y; o.z = rotation.z;
+
+		glm::quat q = glm::toQuat(glm::orientate3(glm::vec3(
+			glm::radians(rotation.y),
+			glm::radians(rotation.z),
+			glm::radians(rotation.x))));
+
+		rp3d::Quaternion o(q.x, q.y, q.z, q.w);
 
 		rp3d::Transform transform(p, o);
 
