@@ -6,23 +6,34 @@ Example script:
 ```cpp
 #include "Crimson"
 
-class ExampleBehaviour : CrimsonBehaviour {
-	private float m_counter;
+class Monkey : CrimsonBehaviour {
+	private float m_speed = 3.0f;
 
 	// Called before the first frame
 	void OnInit() {
-		print("Hello, there");
+		print("Monkey says hello");
+
+		m_entity.GetTransformComponent().tag = "Monkey";
 	}
 
 	// Called once per frame
 	void OnUpdate(float delta) {
-		m_entity.GetTransformComponent().position.x += 2.0f * delta;
+		if (Input::GetButton("up").pressed) {
+			m_entity.GetTransformComponent().position.y += m_speed * delta;
+		} else if (Input::GetButton("down").pressed) {
+			m_entity.GetTransformComponent().position.y -= m_speed * delta;
+		}
 
-		m_counter += delta;
-		if (m_counter > 10) {
-			Destroy(); // Simply a wrapper around m_entity.Destroy()
+		if (Input::GetButton("right").pressed) {
+			m_entity.GetTransformComponent().position.x += m_speed * delta;
+		} else if (Input::GetButton("left").pressed) {
+			m_entity.GetTransformComponent().position.x -= m_speed * delta;
 		}
 	}
-}
 
+	// Called when there is a collision
+	void OnContact(Entity other) {
+		print("[Monkey]" + other.GetTransformComponent().tag);
+	}
+}
 ```
