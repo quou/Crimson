@@ -8,7 +8,7 @@ A WIP 3D game engine written in C++ 17
  - ECS
  - Physics
  - Lua-based mesh & material loading (Allows for custom shaders without needing to edit C++)
- - Asset management, loads assets from a folder during debug, and from an archive in debug
+ - Asset management (loads assets from a folder during debug, and from an archive in debug, never loading a single asset twice)
  - AngelScript scripting
  - Input system
 
@@ -18,6 +18,19 @@ A WIP 3D game engine written in C++ 17
  - Web & Android runtime support
  - Node-based scripting
  - Node-based shader creation
+ - Physics-based rendering
+ - Prefab system
+ - Scriptable editor extensions
+
+## Building
+### Unix-based systems (make)
+```
+~/Crimson$ ./Scripts/Unix/Build.sh
+~/Crimson$ make -j6 config=release
+```
+
+## Windows (MSVC)
+Run `Scripts/Windows/Build.bat` to generate a Visual Studio project (includes dependencies).
 
 ## Dependencies
 All dependencies are included in [`Crimson/Dependencies`](https://github.com/georgelam6/Crimson/tree/master/Crimson/Dependencies) and are automatically built by Premake
