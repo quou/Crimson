@@ -31,6 +31,10 @@ namespace Crimson {
 		void ApplyForceAtPosition(glm::vec3 position, glm::vec3 force);
 		void ApplyTorque(glm::vec3 torque);
 		void EnableGravity(bool enable);
+		float GetMass() const;
+		void SetMass(float mass);
+		void SetBounciness(float bounciness);
+		void SetFriction(float friction);
 
 		glm::vec3 GetPosition();
 		glm::vec3 GetRotation();
@@ -38,8 +42,6 @@ namespace Crimson {
 		inline bool GetKinematic() const {return m_isKinematic;}
 		void SetKinematic(bool set);
 
-		float GetMass() const;
-		void SetMass(float mass);
 
 		void SetTransform(glm::vec3 position, glm::vec3 rotation);
 	};

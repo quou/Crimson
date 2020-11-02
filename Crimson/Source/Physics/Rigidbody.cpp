@@ -96,6 +96,22 @@ namespace Crimson {
 		m_body->enableGravity(enable);
 	}
 
+	void Rigidbody::SetBounciness(float bounciness) {
+		for (int i = 0; i < m_body->getNbColliders(); i++) {
+			auto& mat = m_body->getCollider(i)->getMaterial();
+			mat.setBounciness(bounciness);
+			m_body->getCollider(i)->setMaterial(mat);
+		}
+	}
+
+	void Rigidbody::SetFriction(float friction) {
+		for (int i = 0; i < m_body->getNbColliders(); i++) {
+			auto& mat = m_body->getCollider(i)->getMaterial();
+			mat.setFrictionCoefficient(friction);
+			m_body->getCollider(i)->setMaterial(mat);
+		}
+	}
+
 	void Rigidbody::SetTransform(glm::vec3 position, glm::vec3 rotation) {
 		rp3d::Vector3 p(position.x, position.y, position.z);
 		rp3d::Quaternion o = rp3d::Quaternion::identity();

@@ -214,7 +214,7 @@ namespace Crimson {
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "vec3 GetPosition()", asMETHOD(Rigidbody, GetPosition), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "vec3 GetRotation()", asMETHOD(Rigidbody, GetRotation), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "bool GetKinematic()", asMETHOD(Rigidbody, GetKinematic), asCALL_THISCALL); assert(r >= 0);
-		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void GetKinematic(bool set)", asMETHOD(Rigidbody, SetKinematic), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetKinematic(bool set)", asMETHOD(Rigidbody, SetKinematic), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "float GetMass()", asMETHOD(Rigidbody, GetMass), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetMass(float mass)", asMETHOD(Rigidbody, SetMass), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForce(vec3 force)", asMETHOD(Rigidbody, ApplyForce), asCALL_THISCALL); assert(r >= 0);
@@ -222,6 +222,8 @@ namespace Crimson {
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyTorque(vec3)", asMETHOD(Rigidbody, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetCOG(vec3)", asMETHOD(Rigidbody, SetCOG), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void EnableGravity(bool)", asMETHOD(Rigidbody, EnableGravity), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetFriction(float)", asMETHOD(Rigidbody, SetFriction), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetBounciness(float)", asMETHOD(Rigidbody, SetBounciness), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = m_asEngine->RegisterObjectType("PhysicsComponent", sizeof(PhysicsComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
