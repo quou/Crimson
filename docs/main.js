@@ -23,6 +23,15 @@ var checkExist = setInterval(function() {
    }
 }, 100); // check every 100ms
 
+window.onhashchange = function() {
+	$("#" + currentPage).hide();
+	currentPage = getSecondPart(window.location.href);
+	if (!currentPage) {
+		currentPage = pages[0].replace(" ", "_").toLowerCase();
+	}
+	$("#" + currentPage).show();
+}
+
 $(document).ready(function() {
    currentPage = getSecondPart(window.location.href);
    if (!currentPage) {
