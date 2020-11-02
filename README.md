@@ -23,6 +23,8 @@ A WIP 3D game engine written in C++ 17
  - Scriptable editor extensions
 
 ## Building
+Installation of dependencies isn't required, they are all built and linked on the fly
+
 ### Unix-based systems (make)
 ```
 ~/Crimson$ ./Scripts/Unix/Build.sh
