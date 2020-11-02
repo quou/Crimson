@@ -7,6 +7,7 @@ class Monkey : CrimsonBehaviour {
 		print("Monkey says hello");
 
 		m_entity.GetTransformComponent().tag = "Monkey";
+		m_entity.GetPhysicsComponent().rigidbody.EnableGravity(false);
 	}
 
 	void OnUpdate(float delta) {

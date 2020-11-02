@@ -7,6 +7,7 @@
 namespace Crimson {
 	Rigidbody::Rigidbody(PhysicsScene* scene, const glm::vec3& position, const glm::vec3& rotation) : m_scene(scene) {
 		rp3d::Vector3 p(position.x, position.y, position.z);
+		
 		rp3d::Quaternion o = rp3d::Quaternion::identity();
 		o.x = rotation.x; o.y = rotation.y; o.z = rotation.z;
 
@@ -83,6 +84,10 @@ namespace Crimson {
 
 	void Rigidbody::ApplyTorque(glm::vec3 torque) {
 		m_body->applyTorque(rp3d::Vector3(torque.x, torque.y, torque.z));
+	}
+
+	void Rigidbody::EnableGravity(bool enable) {
+		m_body->enableGravity(enable);
 	}
 
 	void Rigidbody::SetTransform(glm::vec3 position, glm::vec3 rotation) {

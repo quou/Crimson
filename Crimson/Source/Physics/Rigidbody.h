@@ -30,6 +30,7 @@ namespace Crimson {
 		void ApplyForce(glm::vec3 force);
 		void ApplyForceAtPosition(glm::vec3 position, glm::vec3 force);
 		void ApplyTorque(glm::vec3 torque);
+		void EnableGravity(bool enable);
 
 		glm::vec3 GetPosition();
 		glm::vec3 GetRotation();

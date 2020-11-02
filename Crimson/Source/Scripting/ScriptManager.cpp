@@ -221,6 +221,7 @@ namespace Crimson {
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForceAtPosition(vec3, vec3)", asMETHOD(Rigidbody, ApplyForceAtPosition), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyTorque(vec3)", asMETHOD(Rigidbody, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetCOG(vec3)", asMETHOD(Rigidbody, SetCOG), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void EnableGravity(bool)", asMETHOD(Rigidbody, EnableGravity), asCALL_THISCALL); assert(r >= 0);
 
 
 		r = m_asEngine->RegisterObjectType("PhysicsComponent", sizeof(PhysicsComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
