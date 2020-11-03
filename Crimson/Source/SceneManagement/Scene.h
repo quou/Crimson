@@ -25,7 +25,7 @@ namespace Crimson {
 		friend class Entity;
 	public:
 		AssetManager m_assetManager;
-		Scene();
+		Scene(bool release);
 		~Scene();
 
 		std::shared_ptr<LightScene> m_lightScene;

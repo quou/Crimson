@@ -10,11 +10,11 @@
 
 
 namespace Crimson {
-	AssetManager::AssetManager() {
-	#ifdef RELEASE
-		PHYSFS_init(NULL);
-		PHYSFS_mount("data.pck", "/", 1);
-	#endif
+	AssetManager::AssetManager(bool loadFromArchive) : m_loadFromArchive(loadFromArchive) {
+		if (loadFromArchive) {
+			PHYSFS_init(NULL);
+			PHYSFS_mount("data.pck", "/", 1);
+		}
 	}
 
 	AssetManager::~AssetManager() {
@@ -30,10 +30,10 @@ namespace Crimson {
 			delete m.second;
 		}
 
-	#ifdef RELEASE
-		PHYSFS_unmount("data.pck");
-		PHYSFS_deinit();
-	#endif
+		if (m_loadFromArchive) {
+			PHYSFS_unmount("data.pck");
+			PHYSFS_deinit();
+		}
 	}
 
 	static std::string GetExtension(const std::string& fname) {
@@ -81,38 +81,36 @@ namespace Crimson {
 			unsigned char* imageData;
 			size_t fileSize;
 
-	#ifdef RELEASE
-			PHYSFS_file* file = PHYSFS_openRead(filePath.c_str());
-			if (file == NULL) {
-				CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
-				return NULL;
+			if (m_loadFromArchive) {
+				PHYSFS_file* file = PHYSFS_openRead(filePath.c_str());
+				if (file == NULL) {
+					CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
+					return NULL;
+				}
+
+				fileSize = PHYSFS_fileLength(file);
+
+				imageData = (unsigned char*)malloc(fileSize);
+				size_t bytesRead = PHYSFS_readBytes(file, imageData, fileSize);
+
+				PHYSFS_close(file);
+			} else {
+				FILE* file = fopen(filePath.c_str(), "rb");
+				if (file == NULL) {
+					CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
+					return NULL;
+				}
+
+				fseek(file, 0L, SEEK_END);
+				fileSize = ftell(file);
+				rewind(file);
+
+				imageData = (unsigned char*)malloc(fileSize);
+
+				size_t bytesRead = fread(imageData, sizeof(char), fileSize, file);
+
+				fclose(file);
 			}
-
-			fileSize = PHYSFS_fileLength(file);
-
-			imageData = (unsigned char*)malloc(fileSize);
-			size_t bytesRead = PHYSFS_readBytes(file, imageData, fileSize);
-
-			imageData[bytesRead];
-
-			PHYSFS_close(file);
-	#else
-			FILE* file = fopen(filePath.c_str(), "rb");
-			if (file == NULL) {
-				CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
-				return NULL;
-			}
-
-			fseek(file, 0L, SEEK_END);
-			fileSize = ftell(file);
-			rewind(file);
-
-			imageData = (unsigned char*)malloc(fileSize);
-
-			size_t bytesRead = fread(imageData, sizeof(char), fileSize, file);
-
-			fclose(file);
-	#endif
 
 			int x,y;
 			int n = 4;
@@ -131,40 +129,40 @@ namespace Crimson {
 		if (m_textFiles.count(filePath) == 0) {
 			char* buffer;
 
-	#ifdef RELEASE
-			PHYSFS_file* file = PHYSFS_openRead(filePath.c_str());
-			if (file == NULL) {
-				CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
-				return "";
+			if (m_loadFromArchive) {
+				PHYSFS_file* file = PHYSFS_openRead(filePath.c_str());
+				if (file == NULL) {
+					CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
+					return "";
+				}
+
+				size_t fileSize = PHYSFS_fileLength(file);
+
+				buffer = (char*)malloc(fileSize + 1);
+				size_t bytesRead = PHYSFS_readBytes(file, buffer, fileSize);
+
+				buffer[bytesRead] = '\0';
+
+				PHYSFS_close(file);
+			} else {
+				FILE* file = fopen(filePath.c_str(), "r");
+				if (file == NULL) {
+					CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
+					return "";
+				}
+
+				fseek(file, 0L, SEEK_END);
+				size_t fileSize = ftell(file);
+				rewind(file);
+
+				buffer = (char*)malloc(fileSize + 1);
+
+				size_t bytesRead = fread(buffer, sizeof(char), fileSize, file);
+
+				buffer[bytesRead] = '\0';
+
+				fclose(file);
 			}
-
-			size_t fileSize = PHYSFS_fileLength(file);
-
-			buffer = (char*)malloc(fileSize + 1);
-			size_t bytesRead = PHYSFS_readBytes(file, buffer, fileSize);
-
-			buffer[bytesRead] = '\0';
-
-			PHYSFS_close(file);
-	#else
-			FILE* file = fopen(filePath.c_str(), "r");
-			if (file == NULL) {
-				CR_LOG_ERROR("Failed to load file: %s.\n", filePath.c_str());
-				return "";
-			}
-
-			fseek(file, 0L, SEEK_END);
-			size_t fileSize = ftell(file);
-			rewind(file);
-
-			buffer = (char*)malloc(fileSize + 1);
-
-			size_t bytesRead = fread(buffer, sizeof(char), fileSize, file);
-
-			buffer[bytesRead] = '\0';
-
-			fclose(file);
-	#endif
 
 			m_textFiles[filePath] = buffer;
 			free(buffer);
@@ -189,20 +187,16 @@ namespace Crimson {
 	std::vector<std::pair<std::string, std::string>> AssetManager::GetFilesFromDir(const std::string& dir) {
 		std::vector<std::pair<std::string, std::string>> result;
 
-#ifdef RELEASE
-
-		result = GetDirReleaseMode(dir);
-
-#else
-
-		std::string path = dir;
-		for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
-			if (!entry.is_directory()) {
-				result.push_back({entry.path().string(), entry.path().extension().string()});
+		if (m_loadFromArchive) {
+			result = GetDirReleaseMode(dir);
+		} else {
+			std::string path = dir;
+			for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
+				if (!entry.is_directory()) {
+					result.push_back({entry.path().string(), entry.path().extension().string()});
+				}
 			}
 		}
-
-#endif
 
 		return result;
 	}

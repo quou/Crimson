@@ -18,7 +18,7 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_scene = std::make_shared<Crimson::Scene>();
+		m_scene = std::make_shared<Crimson::Scene>(false);
 		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.05f});
 		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
 		m_scene->m_lightScene->m_pointLights.push_back({glm::vec3(-3.5f,0,0), 1.0f, 0.09f, 0.032f, glm::vec3(1,0,0), 1.0f});

@@ -8,7 +8,7 @@
 #include <filesystem>
 
 namespace Crimson {
-	Scene::Scene() {
+	Scene::Scene(bool release) : m_assetManager(release) {
 		m_lightScene = std::make_shared<LightScene>();
 		m_physicsScene = std::make_shared<PhysicsScene>(this);
 		m_scriptManager = std::make_shared<ScriptManager>();

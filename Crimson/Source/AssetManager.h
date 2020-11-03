@@ -15,8 +15,10 @@ namespace Crimson {
 		std::map<std::string, Surface> m_textures;
 		std::map<std::string, Mesh*> m_meshes;
 		std::map<std::string, Material*> m_materials;
+
+		bool m_loadFromArchive;
 	public:
-		AssetManager();
+		AssetManager(bool loadFromArchive);
 		Surface* LoadSurface(const std::string& filePath);
 		std::string LoadText(const std::string& filePath);
 		Mesh* LoadMesh(const std::string& filePath);
