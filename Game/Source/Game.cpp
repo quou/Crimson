@@ -25,9 +25,13 @@ private:
 		mainLight.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.05f);
 		mainLight.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
 
-		auto pointLight = m_scene->CreateEntity();
-		pointLight.GetComponent<Crimson::TransformComponent>().position = glm::vec3(-3.5f, 0, 0);
-		pointLight.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,0,1), 1.0f);
+		auto pinkLight = m_scene->CreateEntity();
+		pinkLight.GetComponent<Crimson::TransformComponent>().position = glm::vec3(-3.5f, 0, 0);
+		pinkLight.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,0,1), 1.0f);
+
+		auto greenLight = m_scene->CreateEntity();
+		greenLight.GetComponent<Crimson::TransformComponent>().position.x = 3.5f;
+		greenLight.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(0,1,0), 1.0f);
 
 		auto monkey = m_scene->CreateEntity();
 		monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0), glm::vec3(0, 180, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
