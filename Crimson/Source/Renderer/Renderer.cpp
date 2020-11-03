@@ -47,7 +47,7 @@ namespace Crimson {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::Draw(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material, Mesh& mesh) {
+	void Renderer::ShaderPass(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material) {
 		material.m_albedo->Bind(0);
 
 		material.m_shader->Bind();
@@ -64,7 +64,9 @@ namespace Crimson {
 		material.m_shader->SetMat4("u_projection", camera.projection);
 
 		material.m_shader->SetInt("u_albedo", 0);
+	}
 
+	void Renderer::Draw(Mesh& mesh) {
 		mesh.Draw();
 	}
 }

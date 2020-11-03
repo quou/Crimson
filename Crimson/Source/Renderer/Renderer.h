@@ -19,7 +19,8 @@ namespace Crimson {
 
 		static void Clear();
 
-		static void Draw(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material, Mesh& mesh);
+		static void ShaderPass(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material);
+		static void Draw(Mesh& mesh);
 	};
 
 }

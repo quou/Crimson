@@ -34,13 +34,15 @@ private:
 		greenLight.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(0,1,0), 1.0f);
 
 		auto monkey = m_scene->CreateEntity();
-		monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0), glm::vec3(0, 180, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
+		monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, -3.5f), glm::vec3(0, 180, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
 		monkey.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
 		monkey.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
 		monkey.AddComponent<Crimson::ScriptComponent>("Monkey");
 
 		auto floor = m_scene->CreateEntity();
-		floor.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, -2, 0))).rigidbody->AddBoxCollider(glm::vec3(1));
+		floor.GetComponent<Crimson::TransformComponent>().scale = glm::vec3(10.0f, 0.5f, 10.0f);
+		floor.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, -2, 0)));
+		floor.GetComponent<Crimson::PhysicsComponent>().rigidbody->AddBoxCollider(glm::vec3(10.0f, 0.5f, 10.0f));
 		floor.GetComponent<Crimson::PhysicsComponent>().rigidbody->SetKinematic(true);
 		floor.AddComponent<Crimson::MeshFilterComponent>("Data/CubeMesh.mesh");
 		floor.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
