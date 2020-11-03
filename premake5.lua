@@ -69,3 +69,4 @@ group ""
 
 include "Crimson"
 include "Game"
+include "Editor"
