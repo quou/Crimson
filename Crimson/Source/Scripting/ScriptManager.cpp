@@ -386,7 +386,7 @@ namespace Crimson {
 		}
 	}
 
-	void ScriptManager::Contact(unsigned int id, Entity& other) {
+	void ScriptManager::ContactStay(unsigned int id, Entity& other) {
 		if (!m_compilationSuccess) {return;}
 
 		if (m_objects.count(id) == 0) {
@@ -402,7 +402,71 @@ namespace Crimson {
 			return;
 		}
 
-		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContact(Entity)");
+		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContactStay(Entity)");
+		if (!func) {
+			return;
+		}
+
+		m_asContext->Prepare(func);
+		m_asContext->SetArgObject(0, &other);
+		m_asContext->SetObject(obj.first);
+		int r = m_asContext->Execute();
+
+		if (r == asEXECUTION_EXCEPTION) {
+			CR_LOG_ERROR("An exception '%s' occurred.", m_asContext->GetExceptionString());
+			return;
+		}
+	}
+
+	void ScriptManager::ContactEnter(unsigned int id, Entity& other) {
+		if (!m_compilationSuccess) {return;}
+
+		if (m_objects.count(id) == 0) {
+			CR_LOG_ERROR("%s", "Invalid script ID");
+			return;
+		}
+
+		auto obj = m_objects[id];
+		Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+		if (!ent->IsValid()) {
+			obj.second->Release();
+			m_objects.erase(id);
+			return;
+		}
+
+		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContactEnter(Entity)");
+		if (!func) {
+			return;
+		}
+
+		m_asContext->Prepare(func);
+		m_asContext->SetArgObject(0, &other);
+		m_asContext->SetObject(obj.first);
+		int r = m_asContext->Execute();
+
+		if (r == asEXECUTION_EXCEPTION) {
+			CR_LOG_ERROR("An exception '%s' occurred.", m_asContext->GetExceptionString());
+			return;
+		}
+	}
+
+	void ScriptManager::ContactExit(unsigned int id, Entity& other) {
+		if (!m_compilationSuccess) {return;}
+
+		if (m_objects.count(id) == 0) {
+			CR_LOG_ERROR("%s", "Invalid script ID");
+			return;
+		}
+
+		auto obj = m_objects[id];
+		Entity* ent = (Entity*)obj.first->GetAddressOfProperty(0);
+		if (!ent->IsValid()) {
+			obj.second->Release();
+			m_objects.erase(id);
+			return;
+		}
+
+		asIScriptFunction* func = obj.second->GetMethodByDecl("void OnContactExit(Entity)");
 		if (!func) {
 			return;
 		}

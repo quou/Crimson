@@ -99,7 +99,7 @@ namespace Crimson {
 		return ent;
 	}
 
-	void Scene::Contact(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+	void Scene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
 		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
 
 		Entity currentEnt, otherEnt;
@@ -114,7 +114,45 @@ namespace Crimson {
 			}
 		}
 
-		m_scriptManager->Contact(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
-		m_scriptManager->Contact(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		m_scriptManager->ContactStay(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		m_scriptManager->ContactStay(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+	}
+
+	void Scene::ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+
+		Entity currentEnt, otherEnt;
+
+		for (auto ent : view) {
+			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
+
+			if (physics.rigidbody->m_body == body) {
+				currentEnt = Entity(ent, this);
+			} else if (physics.rigidbody->m_body == other) {
+				otherEnt = Entity(ent, this);
+			}
+		}
+
+		m_scriptManager->ContactEnter(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		m_scriptManager->ContactEnter(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+	}
+
+	void Scene::ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+
+		Entity currentEnt, otherEnt;
+
+		for (auto ent : view) {
+			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
+
+			if (physics.rigidbody->m_body == body) {
+				currentEnt = Entity(ent, this);
+			} else if (physics.rigidbody->m_body == other) {
+				otherEnt = Entity(ent, this);
+			}
+		}
+
+		m_scriptManager->ContactExit(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		m_scriptManager->ContactExit(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
 	}
 }

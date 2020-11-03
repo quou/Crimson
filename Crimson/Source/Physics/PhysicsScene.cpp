@@ -6,6 +6,7 @@ namespace Crimson {
 	PhysicsScene::PhysicsScene(Scene* scene) : m_scene(scene), m_eventListener(this) {
 		m_world = m_common.createPhysicsWorld();
 		m_world->setEventListener(&m_eventListener);
+		m_world->enableSleeping(false);
 	}
 
 	PhysicsScene::~PhysicsScene() {
@@ -24,7 +25,15 @@ namespace Crimson {
 		}
 	}
 
-	void PhysicsScene::Contact(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
-		m_scene->Contact(body, other);
+	void PhysicsScene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		m_scene->ContactStay(body, other);
+	}
+
+	void PhysicsScene::ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		m_scene->ContactEnter(body, other);
+	}
+
+	void PhysicsScene::ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
+		m_scene->ContactExit(body, other);
 	}
 }

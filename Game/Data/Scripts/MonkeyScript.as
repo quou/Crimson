@@ -9,7 +9,7 @@ class Monkey : CrimsonBehaviour {
 		m_entity.GetTransformComponent().tag = "Monkey";
 
 		m_entity.GetPhysicsComponent().rigidbody.EnableGravity(true);
-		m_entity.GetPhysicsComponent().rigidbody.SetBounciness(0.0f);
+		m_entity.GetPhysicsComponent().rigidbody.SetBounciness(0.1f);
 		m_entity.GetPhysicsComponent().rigidbody.SetFriction(1.0f);
 	}
 
@@ -31,7 +31,11 @@ class Monkey : CrimsonBehaviour {
 		m_entity.GetPhysicsComponent().rigidbody.ApplyForce(move);
 	}
 
-	void OnContact(Entity other) {
-		print("[Monkey]" + other.GetTransformComponent().tag);
+	void OnContactEnter(Entity other) {
+		print("Monkey entered " + other.GetTransformComponent().tag);
+	}
+
+	void OnContactExit(Entity other) {
+		print("Monkey exited " + other.GetTransformComponent().tag);
 	}
 }

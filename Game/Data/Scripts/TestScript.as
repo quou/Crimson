@@ -6,7 +6,7 @@ class TestBehaviour : CrimsonBehaviour {
 	void OnInit() {
 		print(to_string(m_testVec));
 		m_entity.GetTransformComponent().tag = "Cube";
-		m_entity.GetPhysicsComponent().rigidbody.SetBounciness(0.0f);
+		m_entity.GetPhysicsComponent().rigidbody.SetBounciness(0.1f);
 		m_entity.GetPhysicsComponent().rigidbody.SetFriction(1.0f);
 	}
 
@@ -14,7 +14,7 @@ class TestBehaviour : CrimsonBehaviour {
 		//print(to_string(delta));
 	}
 
-	void OnContact(Entity other) {
-		print("[Cube]" + other.GetTransformComponent().tag);
+	void OnContactEnter(Entity other) {
+		print("Cube entered " + other.GetTransformComponent().tag);
 	}
 };
