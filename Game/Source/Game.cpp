@@ -19,9 +19,15 @@ private:
 		AddLayer<ImGuiLayer>();
 
 		m_scene = std::make_shared<Crimson::Scene>(false);
-		m_scene->m_lightScene->m_ambientLights.push_back({glm::vec3(1,1,1), 0.05f});
-		m_scene->m_lightScene->m_directionalLights.push_back({glm::vec3(-1,-1,-1), glm::vec3(1,1,1), 1.0f});
-		m_scene->m_lightScene->m_pointLights.push_back({glm::vec3(-3.5f,0,0), 1.0f, 0.09f, 0.032f, glm::vec3(1,0,0), 1.0f});
+
+		auto mainLight = m_scene->CreateEntity();
+		mainLight.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-1,-1,-1);
+		mainLight.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.05f);
+		mainLight.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+
+		auto pointLight = m_scene->CreateEntity();
+		pointLight.GetComponent<Crimson::TransformComponent>().position = glm::vec3(-3.5f, 0, 0);
+		pointLight.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,0,1), 1.0f);
 
 		auto monkey = m_scene->CreateEntity();
 		monkey.AddComponent<Crimson::PhysicsComponent>(new Crimson::Rigidbody(m_scene->GetPhysicsScene(), glm::vec3(0, 4, 0), glm::vec3(0, 180, 0))).rigidbody->AddBoxCollider(glm::vec3(1));

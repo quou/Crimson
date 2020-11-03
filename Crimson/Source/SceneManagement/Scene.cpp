@@ -67,6 +67,34 @@ namespace Crimson {
 		}
 
 		if (mainCamera) {
+			m_lightScene->m_ambientLights.clear();
+			m_lightScene->m_directionalLights.clear();
+			m_lightScene->m_pointLights.clear();
+			{
+				auto view = m_registry.view<TransformComponent, AmbientLightComponent>();
+				for (auto ent : view) {
+					auto [t, l] = view.get<TransformComponent, AmbientLightComponent>(ent);
+
+					m_lightScene->m_ambientLights.push_back(AmbientLight{l.color, l.intensity});
+				}
+			}
+			{
+				auto view = m_registry.view<TransformComponent, DirectionalLightComponent>();
+				for (auto ent : view) {
+					auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
+
+					m_lightScene->m_directionalLights.push_back(DirectionalLight{t.rotation, l.color, l.intensity});
+				}
+			}
+			{
+				auto view = m_registry.view<TransformComponent, PointLightComponent>();
+				for (auto ent : view) {
+					auto [t, l] = view.get<TransformComponent, PointLightComponent>(ent);
+
+					m_lightScene->m_pointLights.push_back(PointLight{t.position, l.constant, l.linear, l.quadratic, l.color, l.intensity});
+				}
+			}
+
 			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 			for (auto ent : view) {
 				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);

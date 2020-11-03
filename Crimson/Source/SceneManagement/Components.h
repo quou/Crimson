@@ -61,4 +61,32 @@ namespace Crimson {
 
 		ScriptComponent(const std::string& className) : className(className) {}
 	};
+
+	struct AmbientLightComponent {
+		glm::vec3 color;
+		float intensity;
+
+		AmbientLightComponent(glm::vec3 color, float intensity) :
+		color(color), intensity(intensity) {}
+	};
+
+	struct DirectionalLightComponent {
+		glm::vec3 color;
+		float intensity;
+
+		DirectionalLightComponent(glm::vec3 color, float intensity) :
+		color(color), intensity(intensity) {}
+	};
+
+	struct PointLightComponent {
+		float constant;
+		float linear;
+		float quadratic;
+
+		glm::vec3 color;
+		float intensity;
+
+		PointLightComponent(float constant, float linear, float quadratic, glm::vec3 color, float intensity) :
+		constant(constant), linear(linear), quadratic(quadratic), color(color), intensity(intensity) {}
+	};
 }
