@@ -36,6 +36,46 @@ namespace Crimson {
 	#endif
 	}
 
+	static std::string GetExtension(const std::string& fname) {
+		auto idx = fname.rfind('.');
+		std::string extension;
+
+		if(idx != std::string::npos) {
+			extension = fname.substr(idx+1);
+		}
+
+		return "." + extension;
+	}
+
+	static std::vector<std::pair<std::string, std::string>> GetDirReleaseMode(const std::string& dir) {
+		std::vector<std::pair<std::string, std::string>> result;
+
+		char **rc = PHYSFS_enumerateFiles(dir.c_str());
+		char **i;
+		for (i = rc; *i != NULL; i++) {
+			PHYSFS_Stat stat;
+			std::string fname = dir + "/" + *i;
+			PHYSFS_stat(fname.c_str(), &stat);
+
+			std::pair<std::string, std::string> currentEntry;
+
+			if (stat.filetype == PHYSFS_FILETYPE_DIRECTORY) {
+				auto a = result;
+				auto b = GetDirReleaseMode(fname);
+				a.insert(a.end(), b.begin(), b.end());
+				result = a;
+			} else {
+				currentEntry.first = fname;
+				currentEntry.second = GetExtension(fname);
+				result.push_back(currentEntry);
+			}
+
+		}
+		PHYSFS_freeList(rc);
+
+		return result;
+	}
+
 	Surface* AssetManager::LoadSurface(const std::string& filePath) {
 		if (m_textFiles.count(filePath) == 0) {
 			unsigned char* imageData;
@@ -151,7 +191,7 @@ namespace Crimson {
 
 #ifdef RELEASE
 
-
+		result = GetDirReleaseMode(dir);
 
 #else
 
