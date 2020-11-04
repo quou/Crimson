@@ -1,28 +1,19 @@
 #include <Crimson.h>
 
-class ImGuiLayer : public Crimson::Layer {
-public:
-	void OnInit() override {
-
-	}
-
-	void OnUpdate(float delta) override {
-		ImGui::Begin("Welcome");
-
-		ImGui::Text("Welcome to the Crimson editor!");
-
-		ImGui::End();
-	}
-};
+#include "EditorLayer.h"
 
 class Game : public Crimson::Game {
 public:
 	std::shared_ptr<Crimson::Scene> m_scene;
+
+	std::shared_ptr<Crimson::RenderTarget> m_renderTarget;
 private:
 	void OnInit() override {
-		AddLayer<ImGuiLayer>();
-
 		m_scene = std::make_shared<Crimson::Scene>(false);
+
+		m_renderTarget = std::make_shared<Crimson::RenderTarget>(GetWindowSize());
+
+		AddLayer<EditorLayer>(m_renderTarget.get());
 
 		auto mainLight = m_scene->CreateEntity();
 		mainLight.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-1,-1,-1);
@@ -61,11 +52,14 @@ private:
 	}
 
 	void OnUpdate(float delta) override {
+		m_renderTarget->Bind();
 		m_scene->Update(delta);
-		m_scene->UpdateViewport(GetWindowSize());
+		m_scene->UpdateViewport(m_renderTarget->GetSize());
+		m_renderTarget->Unbind();
 	}
 
 	void OnExit() override {
+		m_renderTarget.reset();
 		m_scene.reset();
 	}
 public:
