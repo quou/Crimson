@@ -50,35 +50,15 @@ namespace Crimson {
 	   glShaderSource(vertex, 1, &vertexSourcePtr, NULL);
 	   glCompileShader(vertex);
 
-	   int r;
-	   char eLog[1024];
-	   glGetShaderiv(vertex, GL_COMPILE_STATUS, &r);
-	   if (!r) {
-	      glGetShaderInfoLog(vertex, 1024, NULL, eLog);
-	      std::cout << "Error compiling the vertex shader of " << m_ID << ": " << eLog << std::endl;
-	   }
-
 	   unsigned int fragment = glCreateShader(GL_FRAGMENT_SHADER);
 	   glShaderSource(fragment, 1, &fragmentSourcePtr, NULL);
 	   glCompileShader(fragment);
-
-	   glGetShaderiv(fragment, GL_COMPILE_STATUS, &r);
-	   if (!r) {
-	      glGetShaderInfoLog(fragment, 1024, NULL, eLog);
-	      std::cout << "Error compiling the fragment shader of " << m_ID << ": " << eLog << std::endl;
-	   }
 
 	   unsigned int geometry;
 	   if (hasGeometry) {
 	      geometry = glCreateShader(GL_GEOMETRY_SHADER);
 	      glShaderSource(geometry, 1, &geometrySourcePtr, NULL);
 	      glCompileShader(geometry);
-
-	      glGetShaderiv(geometry, GL_COMPILE_STATUS, &r);
-	      if (!r) {
-	         glGetShaderInfoLog(geometry, 1024, NULL, eLog);
-	         std::cout << "Error compiling the geometry shader of " << m_ID << ": " << eLog << std::endl;
-	      }
 	   }
 
 	   m_ID = glCreateProgram();
