@@ -16,7 +16,7 @@ extern "C" {
 }
 
 namespace Crimson {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
+	Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
 		LoadFromData(vertices, indices);
 	}
 
@@ -24,7 +24,7 @@ namespace Crimson {
 		LoadFromLua(lua);
 	}
 
-	void Mesh::LoadFromData(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
+	void Mesh::LoadFromData(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
 		m_vertices = vertices;
 		m_indices = indices;
 

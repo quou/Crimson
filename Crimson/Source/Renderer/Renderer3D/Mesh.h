@@ -13,10 +13,10 @@ namespace Crimson {
 		std::vector<Vertex> m_vertices;
 		std::vector<unsigned int> m_indices;
 
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+		Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 		Mesh(const char* lua);
 
-		void LoadFromData(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+		void LoadFromData(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 		void LoadFromLua(const char* lua);
 
 		void Draw();
