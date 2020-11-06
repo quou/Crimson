@@ -14,34 +14,6 @@ public:
 class Game : public Crimson::Game {
 public:
 	std::shared_ptr<Crimson::Scene> m_scene;
-
-	std::shared_ptr<Crimson::Mesh> m_quadMesh;
-	std::shared_ptr<Crimson::Shader> m_quadShader;
-
-	const char* shaderCode = R"(
-#begin VERTEX
-
-#version 330 core
-
-layout (location = 0) in vec3 a_pos;
-layout (location = 2) in vec2 a_texCoords;
-
-void main() {
-	gl_Position = vec4(a_pos, 1.0);
-}
-
-#end VERTEX
-
-#begin FRAGMENT
-
-#version 330 core
-
-void main() {
-	gl_FragColor = vec4(1);
-}
-
-#end FRAGMENT
-	)";
 private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
@@ -81,21 +53,6 @@ private:
 		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 0, -5);
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
-		m_quadMesh = std::make_shared<Crimson::Mesh>(
-			std::vector<Crimson::Vertex> {
-				{glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0), glm::vec2(0.0f, 0.0f)},
-				{glm::vec3( 1.0f, -1.0f, 0.0f), glm::vec3(0), glm::vec2(1.0f, 0.0f)},
-				{glm::vec3( 1.0f,  1.0f, 0.0f), glm::vec3(0), glm::vec2(1.0f, 1.0f)},
-				{glm::vec3(-1.0f,  1.0f, 0.0f), glm::vec3(0), glm::vec2(0.0f, 1.0f)},
-			},
-			std::vector<unsigned int> {
-				0, 1, 2,
-				2, 3, 0
-			}
-		);
-
-		m_quadShader = std::make_shared<Crimson::Shader>(shaderCode);
-
 		m_scene->Init();
 	}
 
@@ -103,14 +60,9 @@ private:
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(GetWindowSize());
 		m_scene->Render();
-
-		// m_quadShader->Bind();
-		// m_quadMesh->Draw();
 	}
 
 	void OnExit() override {
-		m_quadShader.reset();
-		m_quadMesh.reset();
 		m_scene.reset();
 	}
 public:
