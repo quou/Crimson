@@ -9,7 +9,7 @@ void EditorLayer::OnInit() {
 	style.Alpha = 1.0f;
 	style.FrameRounding = 0.0f;
 	style.WindowRounding = 0.0f;
-	style.WindowMinSize = ImVec2(300, 600);
+	style.WindowMinSize = ImVec2(300, 350);
 
 	ImVec4* colors = style.Colors;
 	colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 0.95f);
@@ -74,6 +74,7 @@ void EditorLayer::OnInit() {
 	style.TabBorderSize = 1.0f;
 	style.TabRounding = 0.0f;
 	style.WindowRounding = 0.0f;
+	style.WindowMenuButtonPosition = ImGuiDir_None;
 
 
 	ImGuiIO& io = ImGui::GetIO();
@@ -87,9 +88,10 @@ void EditorLayer::OnUpdate(float delta) {
 
 	ImGui::Begin("Scene Viewport");
 
-	m_renderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 35});
+	if (!ImGui::IsWindowCollapsed()) {
+		m_renderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
 
-	ImGui::Image((ImTextureID)m_renderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 35), ImVec2(0, 0), ImVec2(1, -1));
-
+		ImGui::Image((ImTextureID)m_renderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
+	}
 	ImGui::End();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Crimson {
 	struct AmbientLight {
@@ -12,6 +13,12 @@ namespace Crimson {
 	   glm::vec3 direction;
 		glm::vec3 color;
 		float intensity;
+
+		inline glm::mat4 CalculateTransform() {
+			glm::mat4 projection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 1000.0f);
+
+			return projection * glm::lookAt(-direction*10.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		}
 	};
 
 	struct PointLight {

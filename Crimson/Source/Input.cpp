@@ -18,6 +18,10 @@ namespace Crimson {
 		RegisterKey("down", CR_KEY_DOWN);
 		RegisterKey("left", CR_KEY_LEFT);
 		RegisterKey("right", CR_KEY_RIGHT);
+		RegisterKey("w", CR_KEY_W);
+		RegisterKey("a", CR_KEY_A);
+		RegisterKey("s", CR_KEY_S);
+		RegisterKey("d", CR_KEY_D);
 	}
 
 	void Input::IKeyCallback(int key, int scancode, int action, int mods) {

@@ -40,30 +40,66 @@ namespace Crimson {
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	}
 
 	void Renderer::Clear() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void Renderer::ShadowPass(LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
+		int oldViewport[4];
+
+		glGetIntegerv(GL_VIEWPORT, oldViewport);
+		glCullFace(GL_FRONT);
+
+		lightScene.m_shadowmapShader->Bind();
+
+		lightScene.BindShadowmapForWrite();
+
+		int i = 0;
+		for (auto& light : lightScene.m_directionalLights) {
+
+			glViewport(i*1024,0,1024,1024);
+			glScissor(i*1024,0,1024,1024);
+			glEnable(GL_SCISSOR_TEST);
+			glClear(GL_DEPTH_BUFFER_BIT);
+
+			int ii = 0;
+			for (auto mesh : meshes) {
+				lightScene.m_shadowmapShader->SetMat4("u_model", transforms[ii]);
+				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform());
+				Draw(*mesh);
+
+				ii++;
+			}
+
+			i++;
+		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glCullFace(GL_BACK);
+		glDisable(GL_SCISSOR_TEST);
+
+		glViewport(0, 0, oldViewport[2], oldViewport[3]);
+	}
+
 	void Renderer::ShaderPass(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material) {
 		material.m_albedo->Bind(0);
+		lightScene.BindShadowmapForRead(1);
 
 		material.m_shader->Bind();
 		lightScene.Apply(*material.m_shader);
 
 		material.m_shader->SetInt("u_albedo", 0);
+		material.m_shader->SetInt("u_directionalShadowmaps", 1);
+
 		material.m_shader->SetVec3("u_cameraPosition", camera.position);
 
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -5));
-		glm::mat4 projection = glm::perspective(45.0f, 1366.0f/768.0f, 0.01f, 100.0f);
 
 		material.m_shader->SetMat4("u_model", transform);
 		material.m_shader->SetMat4("u_view", camera.GetView());
 		material.m_shader->SetMat4("u_projection", camera.projection);
-
-		material.m_shader->SetInt("u_albedo", 0);
 	}
 
 	void Renderer::Draw(Mesh& mesh) {

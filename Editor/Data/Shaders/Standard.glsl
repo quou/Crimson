@@ -44,6 +44,9 @@ struct DirectionalLight {
    vec3 direction;
 	vec3 color;
 	float intensity;
+
+	mat4 transform;
+	int index;
 };
 
 struct PointLight {
@@ -62,6 +65,7 @@ in vec3 v_fragPos;
 in vec3 v_normal;
 
 uniform sampler2D u_albedo;
+uniform sampler2D u_directionalShadowmaps;
 
 struct Material {
 	vec3 color;
@@ -71,10 +75,34 @@ struct Material {
 
 uniform vec3 u_cameraPosition;
 uniform AmbientLight u_ambientLights[100];
-uniform DirectionalLight u_directionalLights[100];
+uniform DirectionalLight u_directionalLights[10];
 uniform PointLight u_pointLights[100];
 
 uniform Material u_material;
+
+float CalculateDirectionalShadow(DirectionalLight light) {
+	vec4 lightSpacePos = light.transform * vec4(v_fragPos, 1.0);
+
+	vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
+
+	projCoords = (projCoords * 0.5) + 0.5;
+
+	vec2 texPos = projCoords.xy;
+
+	float widthPixel = 1.0f / (1024.0 * 10.0);
+	float heightPixel = 1.0f / 1024.0;
+
+	vec4 source = vec4(1024.0 * light.index, 0.0, 1024.0, 1024.0);
+
+	float startX = source.x, startY = source.y, width = source.z, height = source.w;
+	vec2 coords = vec2(widthPixel * startX + width * widthPixel * texPos.x, heightPixel * startY + height * heightPixel * texPos.y);
+
+	float closestDepth = texture(u_directionalShadowmaps, coords).r;
+	float currentDepth = projCoords.z;
+	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+
+	return shadow;
+}
 
 vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
    vec3 lightDirection = normalize(-light.direction);
@@ -86,7 +114,7 @@ vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
    float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess) * light.intensity;
    vec3 specular = light.color * (spec * u_material.color) * u_material.smoothness;
 
-   return diffuse + specular;
+   return (1.0 - CalculateDirectionalShadow(light)) * (diffuse + specular);
 }
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {

@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "Components.h"
 
+#include "Renderer/RenderTarget.h"
+
 #include "Input.h"
 
 #include <filesystem>
@@ -50,6 +52,16 @@ namespace Crimson {
 		m_scriptManager->Update(delta);
 		m_physicsScene->Update(delta);
 
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
+		for (auto ent : view) {
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+
+			transform.position = physics.rigidbody->GetPosition();
+			transform.rotation = physics.rigidbody->GetRotation();
+		}
+	}
+
+	void Scene::Render(RenderTarget& renderTarget) {
 		Camera* mainCamera;
 		{
 			auto view = m_registry.view<TransformComponent, CameraComponent>();
@@ -94,7 +106,24 @@ namespace Crimson {
 					m_lightScene->m_pointLights.push_back(PointLight{t.position, l.constant, l.linear, l.quadratic, l.color, l.intensity});
 				}
 			}
+		}
 
+		{
+			std::vector<Mesh*> meshes;
+			std::vector<glm::mat4> transforms;
+			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+			for (auto ent : view) {
+				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+
+				meshes.push_back(m_assetManager.LoadMesh(mesh.path));
+				transforms.push_back(transform.GetTransform());
+
+			}
+			Renderer::ShadowPass(*m_lightScene, transforms, meshes);
+		}
+
+		{
+			renderTarget.Bind();
 			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 			for (auto ent : view) {
 				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
@@ -102,14 +131,7 @@ namespace Crimson {
 				Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
 				Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
 			}
-		}
-
-		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
-		for (auto ent : view) {
-			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
-
-			transform.position = physics.rigidbody->GetPosition();
-			transform.rotation = physics.rigidbody->GetRotation();
+			renderTarget.Unbind();
 		}
 	}
 

@@ -26,6 +26,7 @@ namespace Crimson {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
 		m_window = glfwCreateWindow(windowSize.first, windowSize.second, windowTitle, NULL, NULL);
 		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");

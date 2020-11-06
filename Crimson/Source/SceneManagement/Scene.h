@@ -15,6 +15,7 @@ namespace rp3d = ::reactphysics3d;
 namespace Crimson {
 
 	class Entity;
+	class RenderTarget;
 
 	typedef entt::entity EntityHandle;
 
@@ -34,9 +35,12 @@ namespace Crimson {
 
 		Entity CreateEntity();
 
+		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}
+
 		// Events
 		void Init();
 		void Update(float delta);
+		void Render(RenderTarget& renderTarget);
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
