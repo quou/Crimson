@@ -62,6 +62,28 @@ namespace Crimson {
 	}
 
 	void Scene::Render(RenderTarget& renderTarget) {
+		Camera* mainCamera = GetMainCamera();
+
+		if (mainCamera) {
+			ApplyLighting();
+			RenderShadows();
+			renderTarget.Bind();
+			RenderMeshes(mainCamera);
+			renderTarget.Unbind();
+		}
+	}
+
+	void Scene::Render() {
+		Camera* mainCamera = GetMainCamera();
+
+		if (mainCamera) {
+			ApplyLighting();
+			RenderShadows();
+			RenderMeshes(mainCamera);
+		}
+	}
+
+	Camera* Scene::GetMainCamera() {
 		Camera* mainCamera;
 		{
 			auto view = m_registry.view<TransformComponent, CameraComponent>();
@@ -78,60 +100,60 @@ namespace Crimson {
 			}
 		}
 
-		if (mainCamera) {
-			m_lightScene->m_ambientLights.clear();
-			m_lightScene->m_directionalLights.clear();
-			m_lightScene->m_pointLights.clear();
-			{
-				auto view = m_registry.view<TransformComponent, AmbientLightComponent>();
-				for (auto ent : view) {
-					auto [t, l] = view.get<TransformComponent, AmbientLightComponent>(ent);
+		return mainCamera;
+	}
 
-					m_lightScene->m_ambientLights.push_back(AmbientLight{l.color, l.intensity});
-				}
-			}
-			{
-				auto view = m_registry.view<TransformComponent, DirectionalLightComponent>();
-				for (auto ent : view) {
-					auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
+	void Scene::ApplyLighting() {
+		m_lightScene->m_ambientLights.clear();
+		m_lightScene->m_directionalLights.clear();
+		m_lightScene->m_pointLights.clear();
+		{
+			auto view = m_registry.view<TransformComponent, AmbientLightComponent>();
+			for (auto ent : view) {
+				auto [t, l] = view.get<TransformComponent, AmbientLightComponent>(ent);
 
-					m_lightScene->m_directionalLights.push_back(DirectionalLight{t.rotation, l.color, l.intensity});
-				}
-			}
-			{
-				auto view = m_registry.view<TransformComponent, PointLightComponent>();
-				for (auto ent : view) {
-					auto [t, l] = view.get<TransformComponent, PointLightComponent>(ent);
-
-					m_lightScene->m_pointLights.push_back(PointLight{t.position, l.constant, l.linear, l.quadratic, l.color, l.intensity});
-				}
+				m_lightScene->m_ambientLights.push_back(AmbientLight{l.color, l.intensity});
 			}
 		}
-
 		{
-			std::vector<Mesh*> meshes;
-			std::vector<glm::mat4> transforms;
-			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+			auto view = m_registry.view<TransformComponent, DirectionalLightComponent>();
 			for (auto ent : view) {
-				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+				auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
 
-				meshes.push_back(m_assetManager.LoadMesh(mesh.path));
-				transforms.push_back(transform.GetTransform());
-
+				m_lightScene->m_directionalLights.push_back(DirectionalLight{t.rotation, l.color, l.intensity});
 			}
-			Renderer::ShadowPass(*m_lightScene, transforms, meshes);
 		}
-
 		{
-			renderTarget.Bind();
-			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+			auto view = m_registry.view<TransformComponent, PointLightComponent>();
 			for (auto ent : view) {
-				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+				auto [t, l] = view.get<TransformComponent, PointLightComponent>(ent);
 
-				Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
-				Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
+				m_lightScene->m_pointLights.push_back(PointLight{t.position, l.constant, l.linear, l.quadratic, l.color, l.intensity});
 			}
-			renderTarget.Unbind();
+		}
+	}
+
+	void Scene::RenderShadows() {
+		std::vector<Mesh*> meshes;
+		std::vector<glm::mat4> transforms;
+		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+		for (auto ent : view) {
+			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+
+			meshes.push_back(m_assetManager.LoadMesh(mesh.path));
+			transforms.push_back(transform.GetTransform());
+
+		}
+		Renderer::ShadowPass(*m_lightScene, transforms, meshes);
+	}
+
+	void Scene::RenderMeshes(Camera* mainCamera) {
+		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+		for (auto ent : view) {
+			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+
+			Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
+			Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
 		}
 	}
 

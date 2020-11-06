@@ -24,6 +24,13 @@ namespace Crimson {
 		entt::registry m_registry;
 
 		friend class Entity;
+
+		Camera* GetMainCamera();
+
+		void ApplyLighting();
+		void RenderShadows();
+		void RenderMeshes(Camera* mainCamera);
+
 	public:
 		AssetManager m_assetManager;
 		Scene(bool release);
@@ -41,6 +48,7 @@ namespace Crimson {
 		void Init();
 		void Update(float delta);
 		void Render(RenderTarget& renderTarget);
+		void Render();
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);

@@ -85,12 +85,19 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 
 	vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
 
-	projCoords * 0.5 + 0.5;
+	projCoords = (projCoords * 0.5) + 0.5;
 
-	projCoords.x /= 10;
-	projCoords.x *= light.index;
+	vec2 texPos = projCoords.xy;
 
-	float closestDepth = texture(u_directionalShadowmaps, projCoords.xy).r;
+	float widthPixel = 1.0f / (1024.0 * 10.0);
+	float heightPixel = 1.0f / 1024.0;
+
+	vec4 source = vec4(1024.0 * light.index, 0.0, 1024.0, 1024.0);
+
+	float startX = source.x, startY = source.y, width = source.z, height = source.w;
+	vec2 coords = vec2(widthPixel * startX + width * widthPixel * texPos.x, heightPixel * startY + height * heightPixel * texPos.y);
+
+	float closestDepth = texture(u_directionalShadowmaps, coords).r;
 	float currentDepth = projCoords.z;
 	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
 
