@@ -166,9 +166,9 @@ namespace Crimson {
 		}
 	}
 
-	Entity Scene::CreateEntity() {
+	Entity Scene::CreateEntity(const std::string& name) {
 		Entity ent = {m_registry.create(), this};
-		ent.AddComponent<TransformComponent>();
+		ent.AddComponent<TransformComponent>().name = name;
 		return ent;
 	}
 

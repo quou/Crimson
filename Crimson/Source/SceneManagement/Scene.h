@@ -40,7 +40,19 @@ namespace Crimson {
 		std::shared_ptr<PhysicsScene> m_physicsScene;
 		std::shared_ptr<ScriptManager> m_scriptManager;
 
-		Entity CreateEntity();
+		template <class T>
+		std::vector<Entity> GetEntitiesWithComponent() {
+			std::vector<Entity> result;
+
+			auto view = m_registry.view<T>();
+			for (auto ent : view) {
+				result.emplace_back(ent, this);
+			}
+
+			return result;
+		}
+
+		Entity CreateEntity(const std::string& name = "Unnamed Entity");
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}
 

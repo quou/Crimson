@@ -14,6 +14,7 @@ namespace Crimson {
 		glm::vec3 rotation;
 		glm::vec3 scale = glm::vec3(1);
 
+		std::string name;
 		std::string tag;
 
 		glm::mat4 GetTransform() {

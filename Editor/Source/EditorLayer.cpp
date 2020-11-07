@@ -2,7 +2,9 @@
 
 #include <imgui.h>
 
-EditorLayer::EditorLayer(Crimson::RenderTarget* renderTarget) : m_renderTarget(renderTarget) {}
+EditorLayer::EditorLayer(Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
+ : m_renderTarget(renderTarget),
+  	m_sceneHierarchyPanel(scene) {}
 
 void EditorLayer::OnInit() {
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -85,6 +87,8 @@ void EditorLayer::OnInit() {
 
 void EditorLayer::OnUpdate(float delta) {
 	ImGui::DockSpaceOverViewport();
+
+	m_sceneHierarchyPanel.Render();
 
 	ImGui::Begin("Scene Viewport");
 
