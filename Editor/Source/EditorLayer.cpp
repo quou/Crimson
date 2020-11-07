@@ -89,6 +89,7 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::DockSpaceOverViewport();
 
 	m_sceneHierarchyPanel.Render();
+	m_assetManagerPanel.Render();
 
 	ImGui::Begin("Scene Viewport");
 

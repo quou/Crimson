@@ -3,6 +3,7 @@
 #include <Crimson.h>
 
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/AssetManagerPanel.h"
 
 class EditorLayer : public Crimson::Layer {
 private:
@@ -12,6 +13,7 @@ private:
 
 	// Panels
 	SceneHierarchyPanel m_sceneHierarchyPanel;
+	AssetManagerPanel m_assetManagerPanel;
 public:
 	EditorLayer(Crimson::RenderTarget* renderTarget, Crimson::Scene* scene);
 
