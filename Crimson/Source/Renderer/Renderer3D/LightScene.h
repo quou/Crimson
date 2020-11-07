@@ -56,6 +56,6 @@ void main() {}
 		LightScene();
 		~LightScene();
 
-		void Apply(Shader& shader);
+		void Apply(Camera& camera, Shader& shader);
 	};
 }

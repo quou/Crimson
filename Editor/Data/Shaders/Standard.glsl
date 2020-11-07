@@ -46,6 +46,7 @@ struct DirectionalLight {
 	float intensity;
 
 	mat4 transform;
+	mat4 transformLightSpace;
 	int index;
 };
 
@@ -82,9 +83,7 @@ uniform Material u_material;
 
 float CalculateDirectionalShadow(DirectionalLight light) {
 	vec4 lightSpacePos = light.transform * vec4(v_fragPos, 1.0);
-
 	vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
-
 	projCoords = (projCoords * 0.5) + 0.5;
 
 	vec2 texPos = projCoords.xy;
@@ -100,6 +99,10 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 	float closestDepth = texture(u_directionalShadowmaps, coords).r;
 	float currentDepth = projCoords.z;
 	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+
+	if (projCoords.z > 1.0) {
+		shadow = 0.0;
+	}
 
 	return shadow;
 }

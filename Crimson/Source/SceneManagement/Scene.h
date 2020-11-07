@@ -28,7 +28,7 @@ namespace Crimson {
 		Camera* GetMainCamera();
 
 		void ApplyLighting();
-		void RenderShadows();
+		void RenderShadows(Camera* mainCamera);
 		void RenderMeshes(Camera* mainCamera);
 
 	public:

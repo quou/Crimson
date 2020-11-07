@@ -58,6 +58,7 @@ private:
 		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(-0.7f, 0.0f, -20.5f);
 		cam.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(14.5f, -25.0f, 0.0f);
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
+		cam.AddComponent<Crimson::ScriptComponent>("KeyControl");
 
 		m_scene->Init();
 	}
@@ -66,6 +67,10 @@ private:
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(m_renderTarget->GetSize());
 		m_scene->Render(*m_renderTarget);
+
+		ImGui::Begin("Shadowmaps");
+		ImGui::Image((ImTextureID)m_scene->GetShadowmap(), ImVec2(3000, 300), ImVec2(0, 0), ImVec2(1, -1));
+		ImGui::End();
    }
 
 	void OnExit() override {

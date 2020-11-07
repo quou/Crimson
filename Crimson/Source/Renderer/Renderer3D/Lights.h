@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Camera.h"
+
 namespace Crimson {
 	struct AmbientLight {
 		glm::vec3 color;
@@ -14,10 +16,18 @@ namespace Crimson {
 		glm::vec3 color;
 		float intensity;
 
-		inline glm::mat4 CalculateTransform() {
-			glm::mat4 projection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 1000.0f);
+		inline glm::mat4 CalculateTransform(Camera& camera) {
+			glm::mat4 projection = glm::ortho(-25.0f, 25.0f, -25.0f, 25.0f, 0.1f, 100.0f);
 
-			return projection * glm::lookAt(-direction*10.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			glm::mat4 view = glm::translate(glm::mat4(1.0f), camera.position);
+
+			return projection * view * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		inline glm::mat4 CalculateTransform() {
+			glm::mat4 projection = glm::ortho(-25.0f, 25.0f, -25.0f, 25.0f, 0.1f, 100.0f);
+
+			return projection * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 	};
 

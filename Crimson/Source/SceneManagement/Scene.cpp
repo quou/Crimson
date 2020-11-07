@@ -66,7 +66,7 @@ namespace Crimson {
 
 		if (mainCamera) {
 			ApplyLighting();
-			RenderShadows();
+			RenderShadows(mainCamera);
 			renderTarget.Bind();
 			RenderMeshes(mainCamera);
 			renderTarget.Unbind();
@@ -78,7 +78,7 @@ namespace Crimson {
 
 		if (mainCamera) {
 			ApplyLighting();
-			RenderShadows();
+			RenderShadows(mainCamera);
 			RenderMeshes(mainCamera);
 		}
 	}
@@ -133,7 +133,7 @@ namespace Crimson {
 		}
 	}
 
-	void Scene::RenderShadows() {
+	void Scene::RenderShadows(Camera* mainCamera) {
 		std::vector<Mesh*> meshes;
 		std::vector<glm::mat4> transforms;
 		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
@@ -144,7 +144,7 @@ namespace Crimson {
 			transforms.push_back(transform.GetTransform());
 
 		}
-		Renderer::ShadowPass(*m_lightScene, transforms, meshes);
+		Renderer::ShadowPass(*mainCamera, *m_lightScene, transforms, meshes);
 	}
 
 	void Scene::RenderMeshes(Camera* mainCamera) {

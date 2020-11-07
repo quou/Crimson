@@ -46,7 +46,7 @@ namespace Crimson {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::ShadowPass(LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
+	void Renderer::ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
 		int oldViewport[4];
 
 		glGetIntegerv(GL_VIEWPORT, oldViewport);
@@ -67,7 +67,7 @@ namespace Crimson {
 			int ii = 0;
 			for (auto mesh : meshes) {
 				lightScene.m_shadowmapShader->SetMat4("u_model", transforms[ii]);
-				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform());
+				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform(camera));
 				Draw(*mesh);
 
 				ii++;
@@ -83,12 +83,12 @@ namespace Crimson {
 		glViewport(0, 0, oldViewport[2], oldViewport[3]);
 	}
 
-	void Renderer::ShaderPass(const Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material) {
+	void Renderer::ShaderPass(Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material) {
 		material.m_albedo->Bind(0);
 		lightScene.BindShadowmapForRead(1);
 
 		material.m_shader->Bind();
-		lightScene.Apply(*material.m_shader);
+		lightScene.Apply(camera, *material.m_shader);
 
 		material.m_shader->SetInt("u_albedo", 0);
 		material.m_shader->SetInt("u_directionalShadowmaps", 1);
