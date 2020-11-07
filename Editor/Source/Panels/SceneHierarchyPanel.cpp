@@ -175,10 +175,23 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		}
 	}
 
+	if (ent.HasComponent<Crimson::AmbientLightComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::AmbientLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Ambient Light")) {
+
+			DrawFloatControl("Intensity", &ent.GetComponent<Crimson::AmbientLightComponent>().intensity, 0.01f);
+			DrawColorControl("Color", ent.GetComponent<Crimson::AmbientLightComponent>().color);
+
+			ImGui::TreePop();
+		}
+	}
+
 	if (ent.HasComponent<Crimson::PointLightComponent>()) {
 		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Point Light")) {
 
 			DrawFloatControl("Intensity", &ent.GetComponent<Crimson::PointLightComponent>().intensity, 0.01f);
+			DrawFloatControl("Constant", &ent.GetComponent<Crimson::PointLightComponent>().constant, 0.01f);
+			DrawFloatControl("Linear", &ent.GetComponent<Crimson::PointLightComponent>().linear, 0.0001f);
+			DrawFloatControl("Quadratic", &ent.GetComponent<Crimson::PointLightComponent>().quadratic, 0.00001f);
 			DrawColorControl("Color", ent.GetComponent<Crimson::PointLightComponent>().color);
 
 			ImGui::TreePop();
