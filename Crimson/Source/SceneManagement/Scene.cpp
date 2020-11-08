@@ -32,7 +32,8 @@ namespace Crimson {
 		}
 		auto& trans = r.get<TransformComponent>(ent);
 
-		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, trans.rotation);
+		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, glm::vec3(trans.rotation.x, trans.rotation.y+180, trans.rotation.z));
+
 		if (phys.collisionType == PhysicsComponent::CollisionType::SPHERE) {
 			phys.context->AddSphereCollider(r.get<SphereColliderComponent>(ent).radius);
 		} else if (phys.collisionType == PhysicsComponent::CollisionType::BOX) {
@@ -40,11 +41,11 @@ namespace Crimson {
 		}
 
 		phys.context->EnableGravity(phys.useGravity);
-		phys.context->SetKinematic(phys.isKinematic);
 		phys.context->SetMass(phys.mass);
 		phys.context->SetCOG(phys.cog);
 		phys.context->SetBounciness(phys.bounciness);
 		phys.context->SetFriction(phys.friction);
+		phys.context->SetKinematic(phys.isKinematic);
 	}
 
 	Scene::Scene(bool release) : m_assetManager(release) {

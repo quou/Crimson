@@ -33,7 +33,6 @@ private:
 
 		auto monkey = m_scene->CreateEntity("Monkey");
 		monkey.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 5, 0);
-		monkey.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(0, -180, 0);
 		monkey.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1.0f));
 		monkey.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
 		monkey.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
@@ -49,7 +48,7 @@ private:
 		floor.GetComponent<Crimson::TransformComponent>().scale = glm::vec3(10.0f, 0.5f, 10.0f);
 		floor.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0.0f, -2.0f, 0.0f);
 		floor.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(10.0f, 0.5f, 10.0f));
-		floor.AddComponent<Crimson::PhysicsComponent>(true, 0.0f, 0.3f, 0.1f, true, glm::vec3(0));
+		floor.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, true, glm::vec3(0));
 		floor.AddComponent<Crimson::MeshFilterComponent>("Data/CubeMesh.mesh");
 		floor.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
 		floor.AddComponent<Crimson::ScriptComponent>("TestBehaviour");
