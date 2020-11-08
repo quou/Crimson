@@ -10,6 +10,7 @@ project "Crimson"
 	files {
 		"Source/**.h",
 		"Source/**.cpp",
+		"Source/**.c"
 	}
 
 	defines {

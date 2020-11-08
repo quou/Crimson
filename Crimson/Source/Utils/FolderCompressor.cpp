@@ -38,4 +38,8 @@ namespace Crimson {
 
 		mz_zip_writer_end(&archive);
 	}
+
+	void CopyFile(const std::string& source, const std::string& destination) {
+		std::filesystem::copy(source, destination);
+	}
 }

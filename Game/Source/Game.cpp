@@ -3,7 +3,7 @@
 class ImGuiLayer : public Crimson::Layer {
 public:
 	void OnInit() {
-
+		ImGui::GetIO().IniFilename = "";
 	}
 
 	void OnUpdate(float delta) {

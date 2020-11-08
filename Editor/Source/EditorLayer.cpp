@@ -2,6 +2,8 @@
 
 #include <imgui.h>
 
+#include <Utils/tinyfiledialogs.h>
+
 EditorLayer::EditorLayer(Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
  : m_renderTarget(renderTarget),
   	m_sceneHierarchyPanel(scene) {}
@@ -85,6 +87,10 @@ void EditorLayer::OnInit() {
 	io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Regular.ttf", 14.0f);
 }
 
+static void ExportProgressCallback(int progress) {
+
+}
+
 void EditorLayer::OnUpdate(float delta) {
 	ImGui::DockSpaceOverViewport();
 
@@ -95,7 +101,9 @@ void EditorLayer::OnUpdate(float delta) {
 
 	if (ImGui::BeginMenu("File")) {
 		if (ImGui::MenuItem("Open...")) {
+			const char* const acceptedExtensions[] = {"*.cscn"};
 
+			tinyfd_openFileDialog("Open Scene", "", 0, acceptedExtensions, "Crimson Scene files", 0);
 		}
 
 		if (ImGui::MenuItem("Save")) {
@@ -109,7 +117,20 @@ void EditorLayer::OnUpdate(float delta) {
 		ImGui::Separator();
 
 		if (ImGui::MenuItem("Export Runtime")) {
-			Crimson::CompressFolder("Data/", "Data.pck");
+			const char* folder = tinyfd_selectFolderDialog("Export Runtime", "");
+
+			if (folder) {
+				#ifdef _WIN32
+					remove(std::string(std::string(folder) + "/" + "Game.exe").c_str());
+					Crimson::CopyFile("Game.exe", std::string(std::string(folder) + "/" + "Game.exe"));
+				#else
+					remove(std::string(std::string(folder) + "/" + "Game").c_str());
+					Crimson::CopyFile("Game", std::string(std::string(folder) + "/" + "Game"));
+				#endif
+
+				remove(std::string(std::string(folder) + "/" + "Data.pck").c_str());
+				Crimson::CompressFolder("Data", std::string(std::string(folder) + "/" + "Data.pck").c_str());
+			}
 		}
 
 		ImGui::EndMenu();
