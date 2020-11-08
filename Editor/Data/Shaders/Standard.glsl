@@ -100,7 +100,7 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 	float currentDepth = projCoords.z;
 	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
 
-	if (projCoords.z > 1.0) {
+	if (projCoords.z > 1.0 || projCoords.x >= 1.0 || projCoords.y >= 1.0) {
 		shadow = 0.0;
 	}
 
