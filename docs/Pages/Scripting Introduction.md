@@ -30,7 +30,7 @@ class Monkey : CrimsonBehaviour {
 			move.x = -m_moveForce;
 		}
 
-		m_entity.GetPhysicsComponent().rigidbody.ApplyForce(move);
+		m_entity.GetPhysicsComponent().ApplyForce(move);
 	}
 
 	void OnContact(Entity other) {
