@@ -10,8 +10,6 @@ class Monkey : CrimsonBehaviour {
 	private float m_moveForce = 20.0f;
 
 	void OnInit() {
-		m_entity.GetTransformComponent().tag = "Monkey";
-
 		print("Monkey says hello");
 	}
 
@@ -33,8 +31,8 @@ class Monkey : CrimsonBehaviour {
 		m_entity.GetPhysicsComponent().ApplyForce(move);
 	}
 
-	void OnContact(Entity other) {
-		print("Monkey collided with an object with tag: " + other.GetTransformComponent().tag);
+	void OnContactEnter(Entity other) {
+		print(m_entity.GetTransformComponent().name + " entered " + other.GetTransformComponent().name);
 	}
 }
 ```
