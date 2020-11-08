@@ -91,6 +91,32 @@ void EditorLayer::OnUpdate(float delta) {
 	m_sceneHierarchyPanel.Render();
 	m_assetManagerPanel.Render();
 
+	ImGui::BeginMainMenuBar();
+
+	if (ImGui::BeginMenu("File")) {
+		if (ImGui::MenuItem("Open...")) {
+
+		}
+
+		if (ImGui::MenuItem("Save")) {
+
+		}
+
+		if (ImGui::MenuItem("Save As...")) {
+
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::MenuItem("Export Runtime")) {
+
+		}
+
+		ImGui::EndMenu();
+	}
+
+	ImGui::EndMainMenuBar();
+
 	ImGui::Begin("Scene Viewport");
 
 	if (!ImGui::IsWindowCollapsed()) {

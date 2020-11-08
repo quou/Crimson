@@ -5,8 +5,6 @@ class TestBehaviour : CrimsonBehaviour {
 
 	void OnInit() {
 		print(to_string(m_testVec));
-		m_entity.GetPhysicsComponent().rigidbody.SetBounciness(0.1f);
-		m_entity.GetPhysicsComponent().rigidbody.SetFriction(1.0f);
 	}
 
 	void OnUpdate(float delta) {

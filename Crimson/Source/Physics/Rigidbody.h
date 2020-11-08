@@ -33,11 +33,16 @@ namespace Crimson {
 		void EnableGravity(bool enable);
 		float GetMass() const;
 		void SetMass(float mass);
+
 		void SetBounciness(float bounciness);
 		void SetFriction(float friction);
+		float GetBounciness();
+		float GetFriction();
 
 		glm::vec3 GetPosition();
 		glm::vec3 GetRotation();
+
+		inline glm::vec3 GetCOG() {return glm::vec3(m_body->getLocalCenterOfMass().x, m_body->getLocalCenterOfMass().y, m_body->getLocalCenterOfMass().z);}
 
 		inline bool GetKinematic() const {return m_isKinematic;}
 		void SetKinematic(bool set);

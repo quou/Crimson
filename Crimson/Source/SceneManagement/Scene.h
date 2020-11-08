@@ -31,6 +31,8 @@ namespace Crimson {
 		void RenderShadows(Camera* mainCamera);
 		void RenderMeshes(Camera* mainCamera);
 
+		void PhysicsComponentCreate(entt::registry& r, entt::entity ent);
+
 	public:
 		AssetManager m_assetManager;
 		Scene(bool release);

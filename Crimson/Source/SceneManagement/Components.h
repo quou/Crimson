@@ -49,10 +49,47 @@ namespace Crimson {
 		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) : camera(size, fov, near, far) {}
 	};
 
-	struct PhysicsComponent {
-		Rigidbody* rigidbody;
+	struct BoxColliderComponent {
+		glm::vec3 extents;
 
-		PhysicsComponent(Rigidbody* rb) :rigidbody(rb) {}
+		BoxColliderComponent(const glm::vec3& extents) : extents(extents) {}
+	};
+
+	struct SphereColliderComponent {
+		float radius;
+
+		SphereColliderComponent(float radius) : radius(radius) {}
+	};
+
+	struct PhysicsComponent {
+		bool useGravity;
+		float mass;
+		float friction;
+		float bounciness;
+		bool isKinematic;
+		glm::vec3 cog;
+
+		enum class CollisionType {
+			SPHERE,
+			BOX
+		} collisionType;
+
+		Rigidbody* context;
+
+		void ApplyForce(const glm::vec3& force) {
+			context->ApplyForce(force);
+		}
+
+		void ApplyForceAtPosition(const glm::vec3& position, const glm::vec3& force) {
+			context->ApplyForceAtPosition(position, force);
+		}
+
+		void ApplyTorque(const glm::vec3& torque) {
+			context->ApplyTorque(torque);
+		}
+
+		PhysicsComponent(bool useGravity, float mass, float friction, float bounciness, bool isKinematic, glm::vec3 cog) :
+			useGravity(useGravity), mass(mass), friction(friction), bounciness(bounciness), isKinematic(isKinematic), cog(cog) {}
 	};
 
 	struct ScriptComponent {

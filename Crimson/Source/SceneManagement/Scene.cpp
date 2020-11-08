@@ -10,6 +10,43 @@
 #include <filesystem>
 
 namespace Crimson {
+	static void PhysicsComponentDestroy(entt::registry& r, entt::entity ent) {
+		delete r.get<PhysicsComponent>(ent).context;
+	}
+
+	void Scene::PhysicsComponentCreate(entt::registry& r, entt::entity ent) {
+		if (!r.has<TransformComponent>(ent)) {
+			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a transform");
+			abort();
+		}
+
+		auto& phys = r.get<PhysicsComponent>(ent);
+
+		if (r.has<SphereColliderComponent>(ent)) {
+			phys.collisionType = PhysicsComponent::CollisionType::SPHERE;
+		} else if (r.has<BoxColliderComponent>(ent)) {
+			phys.collisionType = PhysicsComponent::CollisionType::BOX;
+		} else {
+			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a collider");
+			abort();
+		}
+		auto& trans = r.get<TransformComponent>(ent);
+
+		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, trans.rotation);
+		if (phys.collisionType == PhysicsComponent::CollisionType::SPHERE) {
+			phys.context->AddSphereCollider(r.get<SphereColliderComponent>(ent).radius);
+		} else if (phys.collisionType == PhysicsComponent::CollisionType::BOX) {
+			phys.context->AddBoxCollider(r.get<BoxColliderComponent>(ent).extents);
+		}
+
+		phys.context->EnableGravity(phys.useGravity);
+		phys.context->SetKinematic(phys.isKinematic);
+		phys.context->SetMass(phys.mass);
+		phys.context->SetCOG(phys.cog);
+		phys.context->SetBounciness(phys.bounciness);
+		phys.context->SetFriction(phys.friction);
+	}
+
 	Scene::Scene(bool release) : m_assetManager(release) {
 		m_lightScene = std::make_shared<LightScene>();
 		m_physicsScene = std::make_shared<PhysicsScene>(this);
@@ -17,6 +54,9 @@ namespace Crimson {
 
 		Input::Init();
 		Input::LoadConfig(m_assetManager.LoadText("Data/InputConfig.conf").c_str());
+
+		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
+		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
 	}
 
 	Scene::~Scene() {
@@ -24,9 +64,10 @@ namespace Crimson {
 		for (auto ent : view) {
 			PhysicsComponent physics = view.get<PhysicsComponent>(ent);
 
-			delete physics.rigidbody;
+			delete physics.context;
 		}
 	}
+
 
 	void Scene::Init() {
 		for (auto& p : m_assetManager.GetFilesFromDir("Data")) {
@@ -56,8 +97,29 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
-			transform.position = physics.rigidbody->GetPosition();
-			transform.rotation = physics.rigidbody->GetRotation();
+			auto b = physics.context->m_body;
+
+			if (b->isGravityEnabled() != physics.useGravity) {
+				physics.context->EnableGravity(physics.useGravity);
+			}
+			if (physics.context->m_isKinematic != physics.isKinematic) {
+				physics.context->SetKinematic(physics.isKinematic);
+			}
+			if (b->getMass() != physics.mass) {
+				physics.context->SetMass(physics.mass);
+			}
+			if (physics.context->GetCOG() != physics.cog) {
+				physics.context->SetCOG(physics.cog);
+			}
+			if (physics.context->GetBounciness() != physics.friction) {
+				physics.context->SetBounciness(physics.bounciness);
+			}
+			if (physics.context->GetFriction() != physics.friction) {
+				physics.context->SetFriction(physics.friction);
+			}
+
+			transform.position = physics.context->GetPosition();
+			transform.rotation = physics.context->GetRotation();
 		}
 	}
 
@@ -180,9 +242,9 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
 
-			if (physics.rigidbody->m_body == body) {
+			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
-			} else if (physics.rigidbody->m_body == other) {
+			} else if (physics.context->m_body == other) {
 				otherEnt = Entity(ent, this);
 			}
 		}
@@ -199,9 +261,9 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
 
-			if (physics.rigidbody->m_body == body) {
+			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
-			} else if (physics.rigidbody->m_body == other) {
+			} else if (physics.context->m_body == other) {
 				otherEnt = Entity(ent, this);
 			}
 		}
@@ -218,9 +280,9 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
 
-			if (physics.rigidbody->m_body == body) {
+			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
-			} else if (physics.rigidbody->m_body == other) {
+			} else if (physics.context->m_body == other) {
 				otherEnt = Entity(ent, this);
 			}
 		}

@@ -96,6 +96,22 @@ namespace Crimson {
 		m_body->enableGravity(enable);
 	}
 
+	float Rigidbody::GetBounciness() {
+		for (int i = 0; i < m_body->getNbColliders(); i++) {
+			auto& mat = m_body->getCollider(i)->getMaterial();
+			return mat.getBounciness();
+		}
+		return 0.0f;
+	}
+
+	float Rigidbody::GetFriction() {
+		for (int i = 0; i < m_body->getNbColliders(); i++) {
+			auto& mat = m_body->getCollider(i)->getMaterial();
+			return mat.getFrictionCoefficient();
+		}
+		return 0.0f;
+	}
+
 	void Rigidbody::SetBounciness(float bounciness) {
 		for (int i = 0; i < m_body->getNbColliders(); i++) {
 			auto& mat = m_body->getCollider(i)->getMaterial();

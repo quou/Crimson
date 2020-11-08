@@ -226,7 +226,7 @@ namespace Crimson {
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetKinematic(bool set)", asMETHOD(Rigidbody, SetKinematic), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "float GetMass()", asMETHOD(Rigidbody, GetMass), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetMass(float mass)", asMETHOD(Rigidbody, SetMass), asCALL_THISCALL); assert(r >= 0);
-		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForce(vec3 force)", asMETHOD(Rigidbody, ApplyForce), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForce(vec3)", asMETHOD(Rigidbody, ApplyForce), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyForceAtPosition(vec3, vec3)", asMETHOD(Rigidbody, ApplyForceAtPosition), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void ApplyTorque(vec3)", asMETHOD(Rigidbody, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = m_asEngine->RegisterObjectMethod("Rigidbody", "void SetCOG(vec3)", asMETHOD(Rigidbody, SetCOG), asCALL_THISCALL); assert(r >= 0);
@@ -236,7 +236,16 @@ namespace Crimson {
 
 
 		r = m_asEngine->RegisterObjectType("PhysicsComponent", sizeof(PhysicsComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
-		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &rigidbody", asOFFSET(PhysicsComponent,rigidbody)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "vec3 cog", asOFFSET(PhysicsComponent,cog)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "bool useGravity", asOFFSET(PhysicsComponent,useGravity)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "float mass", asOFFSET(PhysicsComponent,mass)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "float friction", asOFFSET(PhysicsComponent,friction)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "float bounciness", asOFFSET(PhysicsComponent,bounciness)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "bool isKinematic", asOFFSET(PhysicsComponent,isKinematic)); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("PhysicsComponent", "void ApplyForce(const vec3 &in)", asMETHOD(PhysicsComponent, ApplyForce), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("PhysicsComponent", "void ApplyForceAtPosition(const vec3 &in, const vec3 &in)", asMETHOD(PhysicsComponent, ApplyForceAtPosition), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectMethod("PhysicsComponent", "void ApplyTorque(const vec3 &in)", asMETHOD(PhysicsComponent, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
+		r = m_asEngine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &context", asOFFSET(PhysicsComponent,context)); assert(r >= 0);
 
 
 		r = m_asEngine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
