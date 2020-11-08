@@ -11,10 +11,10 @@ A WIP 3D game engine written in C++ 17
  - Asset management (loads assets from a folder during debug, and from an archive in debug, never loading a single asset twice)
  - AngelScript scripting
  - Input system
+ - Asset packer
 
 ## Work-in-Progress
  - Level editor
- - Asset packer
  - Web & Android runtime support
  - Node-based scripting
  - Node-based shader creation

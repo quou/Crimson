@@ -17,7 +17,8 @@ project "Editor"
 		"../Crimson/Dependencies/imgui/include",
 		"../Crimson/Dependencies/glm",
 		"../Crimson/Dependencies/entt/include",
-		"../Crimson/Dependencies/reactphysics3d/include"
+		"../Crimson/Dependencies/reactphysics3d/include",
+		"../Crimson/Dependencies/minizip"
 	}
 
 	links {
@@ -29,6 +30,7 @@ project "Editor"
 		ExternalDependencies.Lua,
 		ExternalDependencies.ReactPhysics3D,
 		ExternalDependencies.AngelScript,
+		ExternalDependencies.Minizip,
 		"Crimson"
 	}
 

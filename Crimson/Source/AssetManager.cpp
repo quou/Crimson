@@ -13,7 +13,7 @@ namespace Crimson {
 	AssetManager::AssetManager(bool loadFromArchive) : m_loadFromArchive(loadFromArchive) {
 		if (loadFromArchive) {
 			PHYSFS_init(NULL);
-			PHYSFS_mount("data.pck", "/", 1);
+			PHYSFS_mount("Data.pck", "/", 1);
 		}
 	}
 

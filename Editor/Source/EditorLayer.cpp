@@ -109,7 +109,7 @@ void EditorLayer::OnUpdate(float delta) {
 		ImGui::Separator();
 
 		if (ImGui::MenuItem("Export Runtime")) {
-
+			Crimson::CompressFolder("Data/", "Data.pck");
 		}
 
 		ImGui::EndMenu();

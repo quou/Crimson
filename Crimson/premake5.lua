@@ -29,6 +29,7 @@ project "Crimson"
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.AngelScript}",
 		"%{IncludeDir.AngelScriptAddOns}",
+		"%{IncludeDir.Minizip}",
 	}
 
 	links {
@@ -40,6 +41,7 @@ project "Crimson"
 		ExternalDependencies.Lua,
 		ExternalDependencies.ReactPhysics3D,
 		ExternalDependencies.AngelScript,
+		ExternalDependencies.Minizip,
 	}
 
 

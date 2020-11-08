@@ -18,7 +18,7 @@ private:
 	void OnInit() override {
 		AddLayer<ImGuiLayer>();
 
-		m_scene = std::make_shared<Crimson::Scene>(false);
+		m_scene = std::make_shared<Crimson::Scene>(true);
 
 		auto mainLight = m_scene->CreateEntity("Main light");
 		mainLight.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-1,-1,-1);
