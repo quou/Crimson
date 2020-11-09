@@ -106,6 +106,25 @@ static void DrawFloatControl(const std::string& label, float* val, float step = 
 	ImGui::PopID();
 }
 
+static void DrawTextLabel(const std::string& label, const std::string& text, float colWidth = 100.0f) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+	ImGui::Text("%s", text.c_str());
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+}
+
 static void DrawColorControl(const std::string& label, glm::vec3& value, float colWidth = 100.0f) {
 	ImGui::PushID(label.c_str());
 
@@ -139,11 +158,69 @@ void SceneHierarchyPanel::Render() {
 		m_selectedEntity = Crimson::Entity();
 	}
 
+	// Right click on blank space
+	if (ImGui::BeginPopupContextWindow(0, 1, false)) {
+		if (ImGui::BeginMenu("Create...")) {
+			if (ImGui::MenuItem("Empty Entity")) {
+				m_scene->CreateEntity("New Entity");
+			}
+
+			if (ImGui::MenuItem("Cube")) {
+				auto e = m_scene->CreateEntity("Cube");
+				e.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				e.AddComponent<Crimson::MaterialComponent>("Default");
+			}
+
+			if (ImGui::MenuItem("Sun")) {
+				auto e = m_scene->CreateEntity("Sun");
+				e.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+				e.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+			}
+
+			if (ImGui::MenuItem("Lamp")) {
+				auto e = m_scene->CreateEntity("Lamp");
+				e.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,1,1), 1.0f);
+			}
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndPopup();
+	}
+
 	ImGui::End();
 
 	ImGui::Begin("Properties");
 	if (m_selectedEntity) {
 		DrawComponents(m_selectedEntity);
+
+		if (ImGui::Button("Add Component")) {
+			ImGui::OpenPopup("AddComponent");
+		}
+
+		if (ImGui::BeginPopup("AddComponent")) {
+			if (ImGui::MenuItem("Point Light")) {
+				m_selectedEntity.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,1,1), 1.0f);
+			}
+
+			if (ImGui::MenuItem("Ambient Light")) {
+				m_selectedEntity.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+			}
+
+			if (ImGui::MenuItem("Directional Light")) {
+				m_selectedEntity.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+			}
+
+			if (ImGui::MenuItem("Mesh Filter")) {
+				m_selectedEntity.AddComponent<Crimson::MeshFilterComponent>("Cube");
+			}
+
+			if (ImGui::MenuItem("Material")) {
+				m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
+			}
+
+			ImGui::EndPopup();
+		}
 	}
 	ImGui::End();
 }
@@ -197,6 +274,42 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			ImGui::TreePop();
 		}
 	}
+
+	if (ent.HasComponent<Crimson::MeshFilterComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Mesh Filter")) {
+			auto& mesh = ent.GetComponent<Crimson::MeshFilterComponent>();
+
+			DrawTextLabel("Mesh", mesh.path);
+
+			if (ImGui::BeginDragDropTarget()) {
+            if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mesh")) {
+               std::string toSet = static_cast<const char*>(payload->Data);
+               mesh.path = toSet;
+            }
+            ImGui::EndDragDropTarget();
+         }
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::MaterialComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Material")) {
+			auto& mat = ent.GetComponent<Crimson::MaterialComponent>();
+
+			DrawTextLabel("Config", mat.path);
+
+			if (ImGui::BeginDragDropTarget()) {
+            if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mat")) {
+               std::string toSet = static_cast<const char*>(payload->Data);
+               mat.path = toSet;
+            }
+            ImGui::EndDragDropTarget();
+         }
+
+			ImGui::TreePop();
+		}
+	}
 }
 
 void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
@@ -217,7 +330,23 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		}
 	}
 
+	bool entityDeleted = false;
+	if (ImGui::BeginPopupContextItem()) {
+		if (ImGui::MenuItem("Destroy Entity")) {
+			entityDeleted = true;
+		}
+
+		ImGui::EndPopup();
+	}
+
 	if (opened) {
 		ImGui::TreePop();
+	}
+
+	if (entityDeleted) {
+		m_scene->DestroyEntity(ent);
+		if (m_selectedEntity == ent) {
+			m_selectedEntity = Crimson::Entity();
+		}
 	}
 }

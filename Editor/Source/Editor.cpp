@@ -35,7 +35,7 @@ private:
 		monkey.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0, 5, 0);
 		monkey.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1.0f));
 		monkey.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
-		monkey.AddComponent<Crimson::MeshFilterComponent>("Data/MonkeyMesh.mesh");
+		monkey.AddComponent<Crimson::MeshFilterComponent>("Cube");
 		monkey.AddComponent<Crimson::MaterialComponent>("Data/MonkeyMaterial.mat");
 		monkey.AddComponent<Crimson::ScriptComponent>("Monkey");
 

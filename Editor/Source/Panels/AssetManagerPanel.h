@@ -5,6 +5,7 @@
 struct DirectoryEntry {
 	std::string name;
 	std::string extension;
+	std::string absPath;
 
 	bool isDirectory;
 	std::vector<DirectoryEntry> subEntries;

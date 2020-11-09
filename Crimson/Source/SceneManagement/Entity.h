@@ -11,6 +11,8 @@ namespace Crimson {
 	private:
 		entt::entity m_entityHandle;
 		Scene* m_scene;
+
+		friend class Scene;
 	public:
 		Entity();
 		Entity(entt::entity entityHandle, Scene* scene);
@@ -21,7 +23,10 @@ namespace Crimson {
 
 		template <typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
-			CR_ASSERT(!HasComponent<T>(), "%s", "Entity already has component");
+			if (HasComponent<T>()) {
+				CR_LOG_ERROR("%s", "Entity already has component");
+				return GetComponent<T>();
+			}
 
 			return m_scene->m_registry.emplace<T>(m_entityHandle, std::forward<Args>(args)...);
 		}

@@ -84,7 +84,9 @@ namespace Crimson {
 	}
 
 	void Renderer::ShaderPass(Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material) {
-		material.m_albedo->Bind(0);
+		if (material.m_albedo) {
+			material.m_albedo->Bind(0);
+		}
 		lightScene.BindShadowmapForRead(1);
 
 		material.m_shader->Bind();

@@ -24,6 +24,10 @@ bool CheckLua(lua_State* L, int r) {
 
 namespace Crimson {
 	Material::Material(const std::string& config, AssetManager& assetManager) {
+		Load(config, assetManager);
+	}
+
+	void Material::Load(const std::string& config, AssetManager& assetManager) {
 		lua_State* L;
 
 		L = luaL_newstate();
@@ -36,6 +40,7 @@ namespace Crimson {
 		if (lua_isstring(L, -1)) {
 			m_shader = std::make_shared<Shader>(assetManager.LoadText(lua_tostring(L, -1)));
 		} else {
+			CR_LOG_FATAL_ERROR("Unable to load shader for material: %s", lua_tostring(L, -1));
 			goto end;
 		}
 		lua_pop(L, 1);
@@ -43,8 +48,6 @@ namespace Crimson {
 		lua_getglobal(L, "albedo");
 		if (lua_isstring(L, -1)) {
 			m_albedo = std::make_shared<Texture>(assetManager.LoadSurface(lua_tostring(L, -1)));
-		} else {
-			goto end;
 		}
 		lua_pop(L, 1);
 
@@ -150,6 +153,7 @@ namespace Crimson {
 		end:
 			lua_close(L);
 	}
+
 
 	void Material::SetFloat(const std::string& name, float value) {
 		m_shader->SetFloat(name, value);

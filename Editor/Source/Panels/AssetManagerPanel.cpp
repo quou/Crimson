@@ -6,7 +6,7 @@ static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
 
 	for (const auto& entry : std::filesystem::directory_iterator(directory)) {
-		DirectoryEntry e = {entry.path().stem().string(), entry.path().extension().string(), entry.is_directory()};
+		DirectoryEntry e = {entry.path().stem().string(), entry.path().extension().string(), entry.path().string(), entry.is_directory()};
 
 		if (entry.is_directory()) {
 			e.subEntries = GetFiles(entry.path().string());
@@ -34,6 +34,17 @@ static void DrawDir(DirectoryEntry& entry) {
 			for (auto& d : entry.subEntries) {
 				DrawDir(d);
 			}
+		} else {
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+            std::string dragString = entry.absPath;
+            std::replace(dragString.begin(), dragString.end(), '\\', '/');
+
+            ImGui::Text("%s", entry.absPath.c_str());
+
+            ImGui::SetDragDropPayload(entry.extension.c_str(), dragString.data(), dragString.size() + 1);
+
+            ImGui::EndDragDropSource();
+         }
 		}
 
 		ImGui::TreePop();

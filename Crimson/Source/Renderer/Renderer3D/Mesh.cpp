@@ -81,7 +81,7 @@ namespace Crimson {
 		lua_pop(L, 1);
 
 		unsigned int size = std::max({positionsSize, normalsSize, texCoordsSize});
-		verts.resize(size);
+		verts.resize(size/3);
 
 		unsigned int texIt = 0;
 		unsigned int posIt = 0;
@@ -140,6 +140,7 @@ namespace Crimson {
 		lua_close(L);
 
 		LoadFromData(verts, indices);
+
 	}
 
 	void Mesh::Draw() {

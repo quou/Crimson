@@ -235,6 +235,10 @@ namespace Crimson {
 		return ent;
 	}
 
+	void Scene::DestroyEntity(Entity ent) {
+		m_registry.destroy(ent.m_entityHandle);
+	}
+
 	void Scene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
 		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
 
