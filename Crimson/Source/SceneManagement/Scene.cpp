@@ -22,22 +22,18 @@ namespace Crimson {
 
 		auto& phys = r.get<PhysicsComponent>(ent);
 
-		if (r.has<SphereColliderComponent>(ent)) {
-			phys.collisionType = PhysicsComponent::CollisionType::SPHERE;
-		} else if (r.has<BoxColliderComponent>(ent)) {
-			phys.collisionType = PhysicsComponent::CollisionType::BOX;
-		} else {
-			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a collider");
-			abort();
-		}
 		auto& trans = r.get<TransformComponent>(ent);
 
 		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, glm::vec3(trans.rotation.x, trans.rotation.y+180, trans.rotation.z));
 
-		if (phys.collisionType == PhysicsComponent::CollisionType::SPHERE) {
+		if (r.has<SphereColliderComponent>(ent)) {
 			phys.context->AddSphereCollider(r.get<SphereColliderComponent>(ent).radius);
-		} else if (phys.collisionType == PhysicsComponent::CollisionType::BOX) {
+		} else if (r.has<BoxColliderComponent>(ent)) {
 			phys.context->AddBoxCollider(r.get<BoxColliderComponent>(ent).extents);
+		} else {
+			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a collider");
+			delete phys.context;
+			abort();
 		}
 
 		phys.context->EnableGravity(phys.useGravity);
@@ -237,9 +233,10 @@ namespace Crimson {
 		}
 	}
 
-	Entity Scene::CreateEntity(const std::string& name) {
+	Entity Scene::CreateEntity(const std::string& name, const std::string& tag) {
 		Entity ent = {m_registry.create(), this};
 		ent.AddComponent<TransformComponent>().name = name;
+		ent.GetComponent<TransformComponent>().tag = tag;
 		return ent;
 	}
 

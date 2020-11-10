@@ -33,6 +33,7 @@ IncludeDir["Entt"] = "Dependencies/entt/include"
 IncludeDir["AngelScript"] = "Dependencies/angelscript/angelscript/include"
 IncludeDir["AngelScriptAddOns"] = "Dependencies/angelscript/add_on"
 IncludeDir["Minizip"] = "Dependencies/minizip"
+IncludeDir["yamlcpp"] = "Dependencies/yaml-cpp/include"
 
 ExternalDependencies = {}
 ExternalDependencies["GLFW"] = {}
@@ -44,6 +45,7 @@ ExternalDependencies["Lua"] = {"Lua"}
 ExternalDependencies["ReactPhysics3D"] = {"ReactPhysics3D"}
 ExternalDependencies["AngelScript"] = {"AngelScript"}
 ExternalDependencies["Minizip"] = {"Minizip"}
+ExternalDependencies["yamlcpp"] = {"yaml-cpp"}
 
 if os.host() == "linux" then
 	ExternalDependencies["GLFW"] = {
@@ -68,6 +70,7 @@ group "Dependencies"
 	include "Crimson/Dependencies/reactphysics3d"
 	include "Crimson/Dependencies/angelscript"
 	include "Crimson/Dependencies/minizip"
+	include "Crimson/Dependencies/yaml-cpp"
 group ""
 
 include "Crimson"

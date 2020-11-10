@@ -24,6 +24,7 @@ namespace Crimson {
 		entt::registry m_registry;
 
 		friend class Entity;
+		friend class SceneSerialiser;
 
 		Camera* GetMainCamera();
 
@@ -54,7 +55,7 @@ namespace Crimson {
 			return result;
 		}
 
-		Entity CreateEntity(const std::string& name = "Unnamed Entity");
+		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default");
 		void DestroyEntity(Entity ent);
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}

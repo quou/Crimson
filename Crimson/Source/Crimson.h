@@ -29,6 +29,7 @@
 #include "SceneManagement/Scene.h"
 #include "SceneManagement/Components.h"
 #include "SceneManagement/Entity.h"
+#include "SceneManagement/SceneSerialiser.h"
 
 // Utils
 #include "Utils/MeshConverter.h"

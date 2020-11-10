@@ -31,6 +31,7 @@ project "Crimson"
 		"%{IncludeDir.AngelScript}",
 		"%{IncludeDir.AngelScriptAddOns}",
 		"%{IncludeDir.Minizip}",
+		"%{IncludeDir.yamlcpp}",
 	}
 
 	links {
@@ -43,6 +44,7 @@ project "Crimson"
 		ExternalDependencies.ReactPhysics3D,
 		ExternalDependencies.AngelScript,
 		ExternalDependencies.Minizip,
+		ExternalDependencies.yamlcpp,
 	}
 
 

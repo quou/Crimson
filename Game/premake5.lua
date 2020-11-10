@@ -31,6 +31,7 @@ project "Game"
 		ExternalDependencies.ReactPhysics3D,
 		ExternalDependencies.AngelScript,
 		ExternalDependencies.Minizip,
+		ExternalDependencies.yamlcpp,
 		"Crimson"
 	}
 

@@ -69,11 +69,6 @@ namespace Crimson {
 		bool isKinematic;
 		glm::vec3 cog;
 
-		enum class CollisionType {
-			SPHERE,
-			BOX
-		} collisionType;
-
 		Rigidbody* context;
 
 		void ApplyForce(const glm::vec3& force) {

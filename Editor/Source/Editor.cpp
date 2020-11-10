@@ -66,6 +66,9 @@ private:
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
 		m_scene->Init();
+
+		auto s = Crimson::SceneSerialiser(*m_scene);
+		s.SerialiseText("Data/Test.cscn");
 	}
 
 	void OnUpdate(float delta) override {

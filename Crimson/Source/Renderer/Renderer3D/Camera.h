@@ -39,13 +39,9 @@ namespace Crimson {
 				cos(rot.x) * cos(rot.y)
 			);
 
-			glm::vec3 right = glm::vec3(
-				cos(rot.z) * cos(rot.y),
-				sin(rot.z),
-				cos(rot.z) * sin(rot.y)
-			);
-
 			glm::vec3 up = glm::vec3(0, 1, 0);
+
+			glm::vec3 right = glm::cross(direction, up);
 
 			return glm::lookAt(position, position + direction, up);
 		}
