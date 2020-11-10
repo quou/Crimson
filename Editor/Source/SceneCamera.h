@@ -26,6 +26,30 @@ public:
 			m_camera.rotation.x = -89.0f;
 		}
 
+		glm::vec3 rot = glm::radians(m_camera.rotation);
+
+		glm::vec3 direction(
+			cos(rot.x) * sin(rot.y),
+			sin(rot.x),
+			cos(rot.x) * cos(rot.y)
+		);
+
+		glm::vec3 up = glm::vec3(0, 1, 0);
+
+		glm::vec3 right = glm::cross(direction, up);
+
+		if (Crimson::Input::GetKey("w").pressed) {
+			m_camera.position += 15.0f * direction * delta;
+		} else if (Crimson::Input::GetKey("s").pressed) {
+			m_camera.position -= 15.0f * direction * delta;
+		}
+
+		if (Crimson::Input::GetKey("a").pressed) {
+			m_camera.position -= 15.0f * right * delta;
+		} else if (Crimson::Input::GetKey("d").pressed) {
+			m_camera.position += 15.0f * right * delta;
+		}
+
 	}
 	void UpdateScroll(float delta) {
 		glm::vec3 rot = glm::radians(m_camera.rotation);
@@ -35,6 +59,10 @@ public:
 			sin(rot.x),
 			cos(rot.x) * cos(rot.y)
 		);
+
+		glm::vec3 up = glm::vec3(0, 1, 0);
+
+		glm::vec3 right = glm::cross(direction, up);
 
 		float camSpeed = 15.0f;
 		if (Crimson::Input::GetKey("shift").pressed) {
