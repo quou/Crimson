@@ -146,6 +146,14 @@ namespace Crimson {
 		}
 	}
 
+	void Scene::Render(RenderTarget& renderTarget, Camera* camera) {
+		ApplyLighting();
+		RenderShadows(camera);
+		renderTarget.Bind();
+		RenderMeshes(camera);
+		renderTarget.Unbind();
+	}
+
 	Camera* Scene::GetMainCamera() {
 		Camera* mainCamera;
 		{

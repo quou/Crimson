@@ -63,6 +63,7 @@ namespace Crimson {
 		void Init();
 		void Update(float delta);
 		void Render(RenderTarget& renderTarget);
+		void Render(RenderTarget& renderTarget, Camera* camera);
 		void Render();
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);

@@ -19,6 +19,18 @@ namespace Crimson {
 		Input::IKeyCallback(key, scancode, action, mods);
 	}
 
+	static void MouseCallback(GLFWwindow* window, double x, double y) {
+		Input::IMouseMovementCallback(x, y);
+	}
+
+	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+		Input::IMouseButtonCallback(button, action, mods);
+	}
+
+	static void MouseScrollCallback(GLFWwindow* window, double x, double y) {
+		Input::IScrollCallback(x, y);
+	}
+
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
 		CR_ASSERT(glfwInit(), "%s", "Unable to initialise GLFW");
 
@@ -35,6 +47,9 @@ namespace Crimson {
 
 		glfwSetFramebufferSizeCallback(m_window, FramebufferSizeCallback);
 		glfwSetKeyCallback(m_window, KeyCallback);
+		glfwSetMouseButtonCallback(m_window, MouseButtonCallback);
+		glfwSetCursorPosCallback(m_window, MouseCallback);
+		glfwSetScrollCallback(m_window, MouseScrollCallback);
 
 		CR_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "%s", "Unable to initialise OpenGL");
 
@@ -64,6 +79,7 @@ namespace Crimson {
 				l->OnUpdate(delta);
 			}
 
+			Input::IEndFrame();
 			ImGuiImpl::EndFrame();
 
 			glfwSwapBuffers(m_window);

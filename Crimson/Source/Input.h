@@ -2,6 +2,7 @@
 
 #include <string>
 #include <map>
+#include <glm/glm.hpp>
 
 #define CR_KEY_UNKNOWN            -1
 
@@ -218,6 +219,11 @@ namespace Crimson {
 	class Input {
 	private:
 		std::map<std::string, Key> m_keys;
+
+		glm::vec2 oldMousePos{0.0f, 0.0f};
+		glm::vec2 mouseChange{0.0f, 0.0f};
+		glm::vec2 mouseDelta{0.0f, 0.0f};
+		bool firstInput{true};
 	public:
 		static Input& instance() {
       	static Input INSTANCE;
@@ -227,11 +233,19 @@ namespace Crimson {
 		static void Init();
 
 		static void IKeyCallback(int key, int scancode, int action, int mods);
+		static void IMouseButtonCallback(int button, int action, int mods);
+		static void IMouseMovementCallback(double x, double y);
+		static void IScrollCallback(double x, double y);
+
+		static void IEndFrame();
 
 		static void RegisterKey(std::string name, int keycode);
 
 		static const Key& GetKey(std::string name);
 
 		static void LoadConfig(const char* lua);
+
+		static glm::vec2 GetMouseChange();
+		static glm::vec2 GetScrollDelta();
 	};
 }

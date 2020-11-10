@@ -4,8 +4,8 @@
 
 #include <Utils/tinyfiledialogs.h>
 
-EditorLayer::EditorLayer(Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
- : m_renderTarget(renderTarget),
+EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
+ : m_camera(sceneCamera), m_renderTarget(renderTarget),
   	m_sceneHierarchyPanel(scene) {}
 
 void EditorLayer::OnInit() {
@@ -144,6 +144,13 @@ void EditorLayer::OnUpdate(float delta) {
 		m_renderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
 
 		ImGui::Image((ImTextureID)m_renderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
+
+		if (ImGui::IsItemHovered()) {
+			if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
+				m_camera->Update(delta);
+			}
+			m_camera->UpdateScroll(delta);
+		}
 	}
 	ImGui::End();
 }

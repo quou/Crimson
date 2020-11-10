@@ -2,6 +2,8 @@
 
 #include "EditorLayer.h"
 
+#include "SceneCamera.h"
+
 class Game : public Crimson::Game {
 public:
 	std::shared_ptr<Crimson::Scene> m_scene;
@@ -10,13 +12,17 @@ public:
 
 	Crimson::Entity cam;
 	Crimson::Entity mainLight;
+
+	SceneCamera m_camera;
 private:
 	void OnInit() override {
+		Crimson::Input::RegisterKey("shift", CR_KEY_LEFT_SHIFT);
+
 		m_scene = std::make_shared<Crimson::Scene>(false);
 
 		m_renderTarget = std::make_shared<Crimson::RenderTarget>(GetWindowSize());
 
-		AddLayer<EditorLayer>(m_renderTarget.get(), m_scene.get());
+		AddLayer<EditorLayer>(&m_camera, m_renderTarget.get(), m_scene.get());
 
 		mainLight = m_scene->CreateEntity("Main light");
 		mainLight.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-1,-1,-1);
@@ -55,17 +61,19 @@ private:
 
 
 		cam = m_scene->CreateEntity("Main Camera");
-		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(-0.7f, 0.0f, -20.5f);
-		cam.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(14.5f, -25.0f, 0.0f);
+		cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0.0f, 5.0f, 20.0f);
+		cam.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-20.0f, 180.0f, 0.0f);
 		cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
 
 		m_scene->Init();
 	}
 
 	void OnUpdate(float delta) override {
+		m_camera.UpdateViewport(m_renderTarget->GetSize());
+
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(m_renderTarget->GetSize());
-		m_scene->Render(*m_renderTarget);
+		m_scene->Render(*m_renderTarget, m_camera.GetCamera());
    }
 
 	void OnExit() override {

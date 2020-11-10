@@ -22,6 +22,9 @@ namespace Crimson {
 		RegisterKey("a", CR_KEY_A);
 		RegisterKey("s", CR_KEY_S);
 		RegisterKey("d", CR_KEY_D);
+		RegisterKey("left mouse button", CR_MOUSE_BUTTON_1);
+		RegisterKey("right mouse button", CR_MOUSE_BUTTON_2);
+		RegisterKey("middle mouse button", CR_MOUSE_BUTTON_3);
 	}
 
 	void Input::IKeyCallback(int key, int scancode, int action, int mods) {
@@ -75,5 +78,51 @@ namespace Crimson {
 
 		end:
 			lua_close(L);
+	}
+
+	void Input::IMouseButtonCallback(int button, int action, int mods) {
+		for (auto& x : instance().m_keys) {
+			if (x.second.keycode == button) {
+				x.second.action = action;
+				if (action == GLFW_PRESS) {
+					x.second.pressed = true;
+				} else if (action == GLFW_RELEASE) {
+					x.second.pressed = false;
+				}
+			}
+		}
+	}
+
+	void Input::IMouseMovementCallback(double x, double y) {
+		auto& in = instance();
+
+		if (in.firstInput) {
+			in.firstInput = false;
+			in.oldMousePos = glm::vec2(x, y);
+		}
+
+		float changeX = x - instance().oldMousePos.x;
+		float changeY = instance().oldMousePos.y - y;
+
+		in.mouseChange = glm::vec2(changeX, changeY);
+
+		in.oldMousePos = glm::vec2(x, y);
+	}
+
+	void Input::IScrollCallback(double x, double y) {
+		instance().mouseDelta = glm::vec2(x, y);
+	}
+
+	void Input::IEndFrame() {
+		instance().mouseChange = glm::vec2(0);
+		instance().mouseDelta = glm::vec2(0);
+	}
+
+	glm::vec2 Input::GetMouseChange() {
+		return instance().mouseChange;
+	}
+
+	glm::vec2 Input::GetScrollDelta() {
+		return instance().mouseDelta;
 	}
 }
