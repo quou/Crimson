@@ -24,7 +24,7 @@ namespace Crimson {
 		template <typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
 			if (HasComponent<T>()) {
-				CR_LOG_ERROR("%s", "Entity already has component");
+				CR_LOG_WARNING("%s", "Entity already has component");
 				return GetComponent<T>();
 			}
 

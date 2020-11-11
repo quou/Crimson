@@ -8,6 +8,11 @@ Entities:
       Translation: [0, 5, 20]
       Rotation: [-20, 180, 0]
       Scale: [1, 1, 1]
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45
   - Entity: 123456
     TransformComponent:
       Name: Floor

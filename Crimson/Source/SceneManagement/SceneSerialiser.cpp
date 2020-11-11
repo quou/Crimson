@@ -174,6 +174,19 @@ namespace Crimson {
 			out << YAML::EndMap;
 		}
 
+		if (ent.HasComponent<CameraComponent>()) {
+			out << YAML::Key << "CameraComponent";
+			out << YAML::BeginMap;
+
+			auto& c = ent.GetComponent<CameraComponent>();
+			out << YAML::Key << "Active" << YAML::Value << c.active;
+			out << YAML::Key << "Near" << YAML::Value << c.camera.m_near;
+			out << YAML::Key << "Far" << YAML::Value << c.camera.m_far;
+			out << YAML::Key << "FOV" << YAML::Value << c.camera.m_fov;
+
+			out << YAML::EndMap;
+		}
+
 		out << YAML::EndMap; // Entity;
 	}
 
@@ -232,6 +245,80 @@ namespace Crimson {
 				newEnt.GetComponent<TransformComponent>().position = pos;
 				newEnt.GetComponent<TransformComponent>().rotation = rot;
 				newEnt.GetComponent<TransformComponent>().scale = sca;
+
+				auto mesh = ent["MeshFilterComponent"];
+				if (mesh) {
+					auto path = mesh["Path"].as<std::string>();
+					newEnt.AddComponent<MeshFilterComponent>(path);
+				}
+
+				auto mat = ent["MaterialComponent"];
+				if (mat) {
+					auto path = mat["Path"].as<std::string>();
+					newEnt.AddComponent<MaterialComponent>(path);
+				}
+
+				auto script = ent["ScriptComponent"];
+				if (script) {
+					auto className = script["Class"].as<std::string>();
+					newEnt.AddComponent<ScriptComponent>(className);
+				}
+
+				auto box = ent["BoxColliderComponent"];
+				if (box) {
+					auto extents = box["Extents"].as<glm::vec3>();
+					newEnt.AddComponent<BoxColliderComponent>(extents);
+				}
+
+				auto physics = ent["PhysicsComponent"];
+				if (physics) {
+					auto useGravity = physics["UseGravity"].as<bool>();
+					auto mass = physics["Mass"].as<float>();
+					auto friction = physics["Friction"].as<float>();
+					auto bounciness = physics["Bounciness"].as<float>();
+					auto isKinematic = physics["IsKinematic"].as<bool>();
+					auto cog = physics["CenterOfGravity"].as<glm::vec3>();
+
+					newEnt.AddComponent<PhysicsComponent>(useGravity, mass, friction, bounciness, isKinematic, cog);
+				}
+
+				auto dirLight = ent["DirectionalLightComponent"];
+				if (dirLight) {
+					auto color = dirLight["Color"].as<glm::vec3>();
+					auto intensity = dirLight["Intensity"].as<float>();
+
+					newEnt.AddComponent<DirectionalLightComponent>(color, intensity);
+				}
+
+				auto ambLight = ent["AmbientLightComponent"];
+				if (ambLight) {
+					auto color = ambLight["Color"].as<glm::vec3>();
+					auto intensity = ambLight["Intensity"].as<float>();
+
+					newEnt.AddComponent<AmbientLightComponent>(color, intensity);
+				}
+
+				auto poiLight = ent["PointLightComponent"];
+				if (poiLight) {
+					auto constant = poiLight["Constant"].as<float>();
+					auto linear = poiLight["Linear"].as<float>();
+					auto quadratic = poiLight["Quadratic"].as<float>();
+
+					auto color = poiLight["Color"].as<glm::vec3>();
+					auto intensity = poiLight["Intensity"].as<float>();
+
+					newEnt.AddComponent<PointLightComponent>(constant, linear, quadratic, color, intensity);
+				}
+
+				auto cam = ent["CameraComponent"];
+				if (cam) {
+					auto active = cam["Active"].as<bool>();
+					auto near = cam["Near"].as<float>();
+					auto far = cam["Far"].as<float>();
+					auto fov = cam["FOV"].as<float>();
+
+					newEnt.AddComponent<CameraComponent>(std::pair<int, int>{1366, 768}, fov, near, far, active);
+				}
 			}
 		}
 

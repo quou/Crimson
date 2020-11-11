@@ -46,7 +46,7 @@ namespace Crimson {
 		Camera camera;
 		bool active;
 
-		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) : camera(size, fov, near, far) {}
+		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f, bool active=true) : camera(size, fov, near, far), active(active) {}
 	};
 
 	struct BoxColliderComponent {
