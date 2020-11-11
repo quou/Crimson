@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Crimson {
 	class Game;
 
@@ -8,6 +7,7 @@ namespace Crimson {
 	protected:
 	public:
 		Game* m_game;
+		void* m_userData;
 
 		virtual void OnInit() = 0;
 		virtual void OnUpdate(float delta) = 0;

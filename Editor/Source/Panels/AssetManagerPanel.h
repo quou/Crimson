@@ -2,6 +2,10 @@
 
 #include <Crimson.h>
 
+#include "SceneHierarchyPanel.h"
+
+class Editor;
+
 struct DirectoryEntry {
 	std::string name;
 	std::string extension;
@@ -16,5 +20,5 @@ private:
 	std::vector<DirectoryEntry> m_files;
 public:
 	AssetManagerPanel();
-	void Render();
+	void Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel);
 };

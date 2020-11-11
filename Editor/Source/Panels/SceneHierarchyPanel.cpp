@@ -106,6 +106,26 @@ static void DrawFloatControl(const std::string& label, float* val, float step = 
 	ImGui::PopID();
 }
 
+static void DrawBoolControl(const std::string& label, bool* val, float colWidth = 100.0f) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+	ImGui::Checkbox("##BIN", val);
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+}
+
 static void DrawTextLabel(const std::string& label, const std::string& text, float colWidth = 100.0f) {
 	ImGui::PushID(label.c_str());
 
@@ -219,6 +239,10 @@ void SceneHierarchyPanel::Render() {
 				m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
 			}
 
+			if (ImGui::MenuItem("Camera")) {
+				m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
+			}
+
 			ImGui::EndPopup();
 		}
 	}
@@ -306,6 +330,19 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
             }
             ImGui::EndDragDropTarget();
          }
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::CameraComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera")) {
+			auto& cam = ent.GetComponent<Crimson::CameraComponent>();
+
+			DrawFloatControl("FOV", &cam.camera.m_fov, 0.1f);
+			DrawFloatControl("Near", &cam.camera.m_near);
+			DrawFloatControl("Far", &cam.camera.m_far);
+			DrawBoolControl("Active", &cam.active);
 
 			ImGui::TreePop();
 		}

@@ -29,11 +29,14 @@ namespace Crimson {
 
 		inline void UpdateProjection(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f) {
 			m_fov = fov;
+			m_near = near;
+			m_far = far;
+
 			projection = glm::perspective(fov, (float)size.first/(float)size.second, near, far);
 		}
 
-		inline void UpdateProjection(std::pair<int, int> size, float near=0.01f, float far=100.0f) {
-			projection = glm::perspective(m_fov, (float)size.first/(float)size.second, near, far);
+		inline void UpdateProjection(std::pair<int, int> size) {
+			projection = glm::perspective(m_fov, (float)size.first/(float)size.second, m_near, m_far);
 		}
 
 		inline glm::mat4 GetView() const {

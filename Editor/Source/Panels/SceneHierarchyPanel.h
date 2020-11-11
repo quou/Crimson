@@ -13,6 +13,7 @@ private:
 public:
 	SceneHierarchyPanel(Crimson::Scene* scene);
 
+	inline void SetContext(Crimson::Scene* scene) {m_scene = scene;}
 
 	void Render();
 };

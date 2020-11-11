@@ -16,7 +16,7 @@ public:
 	std::shared_ptr<Crimson::Scene> m_scene;
 private:
 	void OnInit() override {
-		AddLayer<ImGuiLayer>();
+		AddLayer<ImGuiLayer>(NULL);
 
 		m_scene = std::make_shared<Crimson::Scene>(true);
 

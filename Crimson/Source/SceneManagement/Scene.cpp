@@ -60,7 +60,6 @@ namespace Crimson {
 		auto view = m_registry.view<PhysicsComponent>();
 		for (auto ent : view) {
 			PhysicsComponent physics = view.get<PhysicsComponent>(ent);
-
 			delete physics.context;
 		}
 	}

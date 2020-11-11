@@ -2,6 +2,8 @@
 
 #include <filesystem>
 
+#include "../Editor.h"
+
 static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
 
@@ -22,7 +24,7 @@ AssetManagerPanel::AssetManagerPanel() {
 	m_files = GetFiles("Data/");
 }
 
-static void DrawDir(DirectoryEntry& entry) {
+static void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
 	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 	if (!entry.isDirectory) {
@@ -32,7 +34,7 @@ static void DrawDir(DirectoryEntry& entry) {
 	if (ImGui::TreeNodeEx(std::string(entry.name + entry.extension).c_str(), flags)) {
 		if (entry.isDirectory) {
 			for (auto& d : entry.subEntries) {
-				DrawDir(d);
+				DrawDir(d, editor, sceneHierarchyPanel);
 			}
 		} else {
 			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
@@ -45,13 +47,25 @@ static void DrawDir(DirectoryEntry& entry) {
 
             ImGui::EndDragDropSource();
          }
+
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+				if (entry.extension == ".cscn") {
+					editor->m_scene = std::make_shared<Crimson::Scene>(false);
+					sceneHierarchyPanel.SetContext(&*editor->m_scene);
+
+					Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+					sceneSerialiser.DeserialiseText(editor->m_scene->m_assetManager.LoadText(entry.absPath));
+
+					editor->m_scene->Init();
+				}
+			}
 		}
 
 		ImGui::TreePop();
 	}
 }
 
-void AssetManagerPanel::Render() {
+void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
 	ImGui::Begin("Asset Manager");
 
 	if (ImGui::Button("Refresh")) {
@@ -59,7 +73,7 @@ void AssetManagerPanel::Render() {
 	}
 
 	for (auto& f : m_files) {
-		DrawDir(f);
+		DrawDir(f, editor, sceneHierarchyPanel);
 	}
 	ImGui::End();
 }
