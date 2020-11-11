@@ -1,0 +1,11 @@
+-- CRIMSON MATERIAL
+
+shader = "Data/Shaders/Standard.glsl"
+
+albedo = "Data/Wood.jpg"
+
+material = {
+    color = {0, 1, 0},
+	 smoothness = 1,
+	 shininess = 20
+}
