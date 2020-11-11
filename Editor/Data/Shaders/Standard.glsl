@@ -112,7 +112,7 @@ vec3 CalculateDirectionalLight(DirectionalLight light, vec3 normal, vec3 viewDir
    float diff = max(dot(normal, lightDirection), 0.0);
    vec3 diffuse = light.color * (diff * u_material.color) * light.intensity;
 
-   vec3 reflectDir = reflect(lightDirection, normal);
+   vec3 reflectDir = reflect(-lightDirection, normal);
 
    float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess) * light.intensity;
    vec3 specular = light.color * (spec * u_material.color) * u_material.smoothness;
