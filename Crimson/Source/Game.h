@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <glm/glm.hpp>
+
 struct GLFWwindow;
 
 #include "Layer.h"
@@ -22,6 +24,8 @@ namespace Crimson {
 
 		std::pair<int, int> GetWindowSize();
 	public:
+		void SetCursorPosition(glm::vec2 newPos);
+
 		void Run(const char* windowTitle, std::pair<int, int> windowSize);
 
 		template <typename T, typename... Args>

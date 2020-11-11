@@ -4,6 +4,8 @@
 #include <map>
 #include <glm/glm.hpp>
 
+struct GLFWwindow;
+
 #define CR_KEY_UNKNOWN            -1
 
 #define CR_KEY_SPACE              32
@@ -223,6 +225,7 @@ namespace Crimson {
 		glm::vec2 oldMousePos{0.0f, 0.0f};
 		glm::vec2 mouseChange{0.0f, 0.0f};
 		glm::vec2 mouseDelta{0.0f, 0.0f};
+		glm::vec2 mousePos;
 		bool firstInput{true};
 	public:
 		static Input& instance() {
@@ -245,7 +248,11 @@ namespace Crimson {
 
 		static void LoadConfig(const char* lua);
 
+		static void SetCursorPosition(GLFWwindow* window, glm::vec2 newPos);
+
 		static glm::vec2 GetMouseChange();
 		static glm::vec2 GetScrollDelta();
+
+		inline static glm::vec2 GetMousePos() {return instance().mousePos;}
 	};
 }

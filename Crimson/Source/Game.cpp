@@ -31,6 +31,10 @@ namespace Crimson {
 		Input::IScrollCallback(x, y);
 	}
 
+	void Game::SetCursorPosition(glm::vec2 newPos) {
+		Input::SetCursorPosition(m_window, newPos);
+	}
+
 	void Game::Run(const char* windowTitle, std::pair<int, int> windowSize) {
 		CR_ASSERT(glfwInit(), "%s", "Unable to initialise GLFW");
 
@@ -61,6 +65,7 @@ namespace Crimson {
 
 		OnInit();
 		for (auto& l : m_layers) {
+			l->m_game = this;
 			l->OnInit();
 		}
 

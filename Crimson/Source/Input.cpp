@@ -94,6 +94,8 @@ namespace Crimson {
 	}
 
 	void Input::IMouseMovementCallback(double x, double y) {
+		instance().mousePos = glm::vec2(x, y);
+
 		auto& in = instance();
 
 		if (in.firstInput) {
@@ -124,5 +126,12 @@ namespace Crimson {
 
 	glm::vec2 Input::GetScrollDelta() {
 		return instance().mouseDelta;
+	}
+
+	void Input::SetCursorPosition(GLFWwindow* window, glm::vec2 newPos) {
+		instance().mouseChange = glm::vec2(0, 0);
+		instance().oldMousePos = newPos;
+
+		glfwSetCursorPos(window, newPos.x, newPos.y);
 	}
 }
