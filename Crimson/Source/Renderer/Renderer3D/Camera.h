@@ -32,11 +32,11 @@ namespace Crimson {
 			m_near = near;
 			m_far = far;
 
-			projection = glm::perspective(fov, (float)size.first/(float)size.second, near, far);
+			projection = glm::perspective(glm::radians(fov), (float)size.first/(float)size.second, near, far);
 		}
 
 		inline void UpdateProjection(std::pair<int, int> size) {
-			projection = glm::perspective(m_fov, (float)size.first/(float)size.second, m_near, m_far);
+			projection = glm::perspective(glm::radians(m_fov), (float)size.first/(float)size.second, m_near, m_far);
 		}
 
 		inline glm::mat4 GetView() const {
