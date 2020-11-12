@@ -52,6 +52,7 @@ static void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& 
 				if (entry.extension == ".cscn") {
 					editor->m_scene = std::make_shared<Crimson::Scene>(false);
 					sceneHierarchyPanel.SetContext(&*editor->m_scene);
+					sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
 
 					Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 					sceneSerialiser.DeserialiseText(editor->m_scene->m_assetManager.LoadText(entry.absPath));

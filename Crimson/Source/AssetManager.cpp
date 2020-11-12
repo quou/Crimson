@@ -64,6 +64,8 @@ namespace Crimson {
 			R"(
 				shader = "Data/Shaders/Standard.glsl"
 
+				albedo = "Data/GridTexture.png"
+
 				material = {
 				    color = {1, 1, 1},
 					 smoothness = 1,

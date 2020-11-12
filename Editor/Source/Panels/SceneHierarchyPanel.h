@@ -14,6 +14,7 @@ public:
 	SceneHierarchyPanel(Crimson::Scene* scene);
 
 	inline void SetContext(Crimson::Scene* scene) {m_scene = scene;}
+	inline void SetSelectionContext(Crimson::Entity ent) {m_selectedEntity = ent;}
 
 	void Render();
 };

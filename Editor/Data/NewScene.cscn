@@ -1,0 +1,39 @@
+# Crimson Scene file
+Scene: Unnamed Scene
+Entities:
+  - Entity: 123456
+    TransformComponent:
+      Name: Cube
+      Tag: Default
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+  - Entity: 123456
+    TransformComponent:
+      Name: Main Camera
+      Tag: Default
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45
+  - Entity: 123456
+    TransformComponent:
+      Name: Main Light
+      Tag: Default
+      Translation: [0, 0, 0]
+      Rotation: [10, -20, 25]
+      Scale: [1, 1, 1]
+    AmbientLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 0.100000001
+    DirectionalLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 1

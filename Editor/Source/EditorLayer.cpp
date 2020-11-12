@@ -4,6 +4,8 @@
 
 #include <Utils/tinyfiledialogs.h>
 
+#include "Editor.h"
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_renderTarget(renderTarget),
   	m_sceneHierarchyPanel(scene) {}
@@ -97,13 +99,38 @@ void EditorLayer::OnUpdate(float delta) {
 	m_sceneHierarchyPanel.Render();
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel);
 
+	auto editor = (Editor*)m_userData;
+
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("File")) {
-		if (ImGui::MenuItem("Open...")) {
-			const char* const acceptedExtensions[] = {"*.cscn"};
+		if (ImGui::MenuItem("New Scene")) {
+			const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
 
-			tinyfd_openFileDialog("Open Scene", "", 0, acceptedExtensions, "Crimson Scene files", 0);
+			const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 1, acceptedExtensions, "Crimson Scene Files");
+
+			if (file) {
+				editor->m_scene = std::make_shared<Crimson::Scene>(false);
+				m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+				m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+				auto light = editor->m_scene->CreateEntity("Main Light");
+				light.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(10.0f, -20.0f, 25.0f);
+				light.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+				light.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+
+				auto cam = editor->m_scene->CreateEntity("Main Camera");
+				cam.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f);
+
+				auto cube = editor->m_scene->CreateEntity("Cube");
+				cube.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				cube.AddComponent<Crimson::MaterialComponent>("Default");
+
+				Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+				sceneSerialiser.SerialiseText(file);
+
+				editor->m_scene->Init();
+			}
 		}
 
 		if (ImGui::MenuItem("Save")) {
