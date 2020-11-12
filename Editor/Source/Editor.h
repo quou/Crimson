@@ -66,12 +66,6 @@ private:
 		// cam.GetComponent<Crimson::TransformComponent>().position = glm::vec3(0.0f, 5.0f, 20.0f);
 		// cam.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(-20.0f, 180.0f, 0.0f);
 		// cam.AddComponent<Crimson::CameraComponent>(GetWindowSize(), 45.0f).active = true;
-
-		auto s = Crimson::SceneSerialiser(*m_scene);
-		//s.SerialiseText("Data/Test.cscn");
-		s.DeserialiseText(m_scene->m_assetManager.LoadText("Data/Test.cscn"));
-
-		m_scene->Init();
 	}
 
 	void OnUpdate(float delta) override {

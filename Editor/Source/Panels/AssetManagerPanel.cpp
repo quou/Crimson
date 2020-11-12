@@ -3,6 +3,7 @@
 #include <filesystem>
 
 #include "../Editor.h"
+#include "../EditorLayer.h"
 
 static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
@@ -20,11 +21,11 @@ static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	return result;
 }
 
-AssetManagerPanel::AssetManagerPanel() {
+AssetManagerPanel::AssetManagerPanel(EditorLayer* editorLayer) : m_editorLayer(editorLayer) {
 	m_files = GetFiles("Data/");
 }
 
-static void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
+void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
 	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 	if (!entry.isDirectory) {
@@ -50,6 +51,8 @@ static void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& 
 
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
 				if (entry.extension == ".cscn") {
+					m_editorLayer->m_currentSavePath = entry.absPath;
+
 					editor->m_scene = std::make_shared<Crimson::Scene>(false);
 					sceneHierarchyPanel.SetContext(&*editor->m_scene);
 					sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());

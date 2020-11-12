@@ -8,7 +8,7 @@
 
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_renderTarget(renderTarget),
-  	m_sceneHierarchyPanel(scene) {}
+  	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
 
 void EditorLayer::OnInit() {
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -87,10 +87,28 @@ void EditorLayer::OnInit() {
 	io.ConfigWindowsResizeFromEdges = true;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Regular.ttf", 14.0f);
+
+	auto editor = (Editor*)m_userData;
+
+	auto s = Crimson::SceneSerialiser(*editor->m_scene);
+	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Test.cscn"));
+	m_currentSavePath = "Data/Test.cscn";
+
+	editor->m_scene->Init();
 }
 
-static void ExportProgressCallback(int progress) {
+void EditorLayer::SaveAs() {
+	auto editor = (Editor*)m_userData;
 
+	const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
+	const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
+
+	if (file) {
+		m_currentSavePath = file;
+
+		Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+		sceneSerialiser.SerialiseText(file);
+	}
 }
 
 void EditorLayer::OnUpdate(float delta) {
@@ -107,7 +125,7 @@ void EditorLayer::OnUpdate(float delta) {
 		if (ImGui::MenuItem("New Scene")) {
 			const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
 
-			const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 1, acceptedExtensions, "Crimson Scene Files");
+			const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
 
 			if (file) {
 				editor->m_scene = std::make_shared<Crimson::Scene>(false);
@@ -134,11 +152,16 @@ void EditorLayer::OnUpdate(float delta) {
 		}
 
 		if (ImGui::MenuItem("Save")) {
-
+			if (!m_currentSavePath.empty()) {
+				Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+				sceneSerialiser.SerialiseText(m_currentSavePath);
+			} else {
+				SaveAs();
+			}
 		}
 
 		if (ImGui::MenuItem("Save As...")) {
-
+			SaveAs();
 		}
 
 		ImGui::Separator();

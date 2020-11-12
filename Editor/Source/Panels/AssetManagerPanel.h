@@ -5,6 +5,7 @@
 #include "SceneHierarchyPanel.h"
 
 class Editor;
+class EditorLayer;
 
 struct DirectoryEntry {
 	std::string name;
@@ -18,7 +19,11 @@ struct DirectoryEntry {
 class AssetManagerPanel {
 private:
 	std::vector<DirectoryEntry> m_files;
+
+	EditorLayer* m_editorLayer;
 public:
-	AssetManagerPanel();
+	AssetManagerPanel(EditorLayer* editorLayer);
+
+	void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel);
 	void Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel);
 };

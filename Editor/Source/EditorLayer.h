@@ -9,8 +9,6 @@
 
 class EditorLayer : public Crimson::Layer {
 private:
-	Crimson::Scene* m_scene;
-
 	Crimson::RenderTarget* m_renderTarget;
 
 	// Panels
@@ -18,8 +16,14 @@ private:
 	AssetManagerPanel m_assetManagerPanel;
 
 	SceneCamera* m_camera;
+
+	std::string m_currentSavePath;
+
+	friend class AssetManagerPanel;
 public:
 	EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene);
+
+	void SaveAs();
 
 	void OnInit() override;
 	void OnUpdate(float delta) override;
