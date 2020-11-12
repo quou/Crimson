@@ -3,16 +3,76 @@ Scene: Unnamed Scene
 Entities:
   - Entity: 123456
     TransformComponent:
-      Name: Main Camera
+      Name: Main light
       Tag: Default
-      Translation: [0, 5, 20]
-      Rotation: [-20, 180, 0]
+      Translation: [0, 0, 0]
+      Rotation: [-1, -1, -1]
       Scale: [1, 1, 1]
-    CameraComponent:
-      Active: true
-      Near: 0.00999999978
-      Far: 100
-      FOV: 45
+    AmbientLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 0.0500000007
+    DirectionalLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - Entity: 123456
+    TransformComponent:
+      Name: Pink light
+      Tag: Default
+      Translation: [-3.5, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [1, 0, 1]
+      Intensity: 1
+  - Entity: 123456
+    TransformComponent:
+      Name: Green light
+      Tag: Default
+      Translation: [3.5, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [0, 1, 0]
+      Intensity: 1
+  - Entity: 123456
+    TransformComponent:
+      Name: Monkey
+      Tag: Default
+      Translation: [-0.000115630392, -0.509999812, 8.46721159e-05]
+      Rotation: [1.1548598e-11, 1.4134865e-07, -5.89164347e-06]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Data/MonkeyMaterial.mat
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+    ScriptComponent:
+      Class: Monkey
+  - Entity: 123456
+    TransformComponent:
+      Name: "Monkey #2"
+      Tag: Default
+      Translation: [-4.69999981, 0, 0]
+      Rotation: [0, 180, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Data/MonkeyMesh.mesh
+    MaterialComponent:
+      Path: Data/MonkeyMaterial.mat
   - Entity: 123456
     TransformComponent:
       Name: Floor
@@ -37,73 +97,13 @@ Entities:
       Class: TestBehaviour
   - Entity: 123456
     TransformComponent:
-      Name: "Monkey #2"
+      Name: Main Camera
       Tag: Default
-      Translation: [-6.9000001, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [5, 5, 5]
-    MeshFilterComponent:
-      Path: Data/MonkeyMesh.mesh
-    MaterialComponent:
-      Path: Data/MonkeyMaterial.mat
-  - Entity: 123456
-    TransformComponent:
-      Name: Monkey
-      Tag: Default
-      Translation: [-0.000115791256, -0.50999999, 8.48862546e-05]
-      Rotation: [-1.14218721e-11, -5.82331995e-06, 3.68173642e-06]
+      Translation: [0, 5, 20]
+      Rotation: [-20, 180, 0]
       Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Data/MonkeyMaterial.mat
-    BoxColliderComponent:
-      Extents: [1, 1, 1]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: false
-      CenterOfGravity: [0, 0, 0]
-    ScriptComponent:
-      Class: Monkey
-  - Entity: 123456
-    TransformComponent:
-      Name: Green light
-      Tag: Default
-      Translation: [3.5, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    PointLightComponent:
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      Color: [0, 1, 0]
-      Intensity: 1
-  - Entity: 123456
-    TransformComponent:
-      Name: Pink light
-      Tag: Default
-      Translation: [-3.5, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    PointLightComponent:
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      Color: [1, 0, 1]
-      Intensity: 1
-  - Entity: 123456
-    TransformComponent:
-      Name: Main light
-      Tag: Default
-      Translation: [0, 0, 0]
-      Rotation: [-1, -1, -1]
-      Scale: [1, 1, 1]
-    AmbientLightComponent:
-      Color: [1, 1, 1]
-      Intensity: 0.0500000007
-    DirectionalLightComponent:
-      Color: [1, 1, 1]
-      Intensity: 1
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45

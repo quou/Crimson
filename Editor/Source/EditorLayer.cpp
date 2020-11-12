@@ -101,7 +101,7 @@ void EditorLayer::SaveAs() {
 	auto editor = (Editor*)m_userData;
 
 	const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
-	const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
+	const char* file = tinyfd_saveFileDialog("Save Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
 
 	if (file) {
 		m_currentSavePath = file;
