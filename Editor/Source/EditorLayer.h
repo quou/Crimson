@@ -24,6 +24,9 @@ public:
 	EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene);
 
 	void SaveAs();
+	void SaveScene();
+	void ReloadScene();
+	void NewScene();
 
 	void OnInit() override;
 	void OnUpdate(float delta) override;
