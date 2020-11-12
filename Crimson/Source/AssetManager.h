@@ -19,8 +19,8 @@ namespace Crimson {
 		bool m_loadFromArchive;
 	public:
 		AssetManager(bool loadFromArchive);
-		Surface* LoadSurface(const std::string& filePath);
-		std::string LoadText(const std::string& filePath);
+		Surface* LoadSurface(const std::string& filePath, bool reload=false);
+		std::string LoadText(const std::string& filePath, bool reload=false);
 		Mesh* LoadMesh(const std::string& filePath);
 		Material* LoadMaterial(const std::string& filePath);
 		~AssetManager();

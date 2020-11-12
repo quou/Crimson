@@ -134,8 +134,8 @@ namespace Crimson {
 		return result;
 	}
 
-	Surface* AssetManager::LoadSurface(const std::string& filePath) {
-		if (m_textFiles.count(filePath) == 0) {
+	Surface* AssetManager::LoadSurface(const std::string& filePath, bool reload) {
+		if (m_textFiles.count(filePath) == 0 && !reload) {
 			unsigned char* imageData;
 			size_t fileSize;
 
@@ -183,8 +183,8 @@ namespace Crimson {
 		return &m_textures[filePath];
 	}
 
-	std::string AssetManager::LoadText(const std::string& filePath) {
-		if (m_textFiles.count(filePath) == 0) {
+	std::string AssetManager::LoadText(const std::string& filePath, bool reload) {
+		if (m_textFiles.count(filePath) == 0 && !reload) {
 			char* buffer;
 
 			if (m_loadFromArchive) {

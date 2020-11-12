@@ -190,7 +190,7 @@ namespace Crimson {
 		out << YAML::EndMap; // Entity;
 	}
 
-	void SceneSerialiser::SerialiseText(const std::string& filePath) {
+	std::string SceneSerialiser::SerialiseString() {
 		YAML::Emitter out;
 
 		out << YAML::Comment("Crimson Scene file");
@@ -208,8 +208,12 @@ namespace Crimson {
 		out << YAML::EndSeq;
 		out << YAML::EndMap;
 
+		return out.c_str();
+	}
+
+	void SceneSerialiser::SerialiseText(const std::string& filePath) {
 		std::ofstream fout(filePath);
-		fout << out.c_str();
+		fout << SerialiseString();
 	}
 
 	void SceneSerialiser::SerialiseBinary(const std::string& filePath) {

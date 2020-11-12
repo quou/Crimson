@@ -74,6 +74,7 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 
 	if (ImGui::Button("Refresh")) {
 		m_files = GetFiles("Data/");
+		Editor* editor = (Editor*)m_editorLayer->m_userData;
 	}
 
 	for (auto& f : m_files) {

@@ -9,6 +9,8 @@ namespace Crimson {
 	public:
 		SceneSerialiser(Scene& scene);
 
+		std::string SerialiseString();
+
 		void SerialiseText(const std::string& filePath);
 		void SerialiseBinary(const std::string& filePath);
 

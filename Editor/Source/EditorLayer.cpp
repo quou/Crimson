@@ -186,6 +186,24 @@ void EditorLayer::OnUpdate(float delta) {
 		ImGui::EndMenu();
 	}
 
+	if (ImGui::BeginMenu("Scene")) {
+		if (ImGui::MenuItem("Reload Scene")) {
+			Crimson::SceneSerialiser outSeriliser(*editor->m_scene);
+			std::string file = outSeriliser.SerialiseString();
+
+			editor->m_scene = std::make_shared<Crimson::Scene>(false);
+			m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+			m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+			Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
+			inSerialiser.DeserialiseText(file);
+
+			editor->m_scene->Init();
+		}
+
+		ImGui::EndMenu();
+	}
+
 	ImGui::EndMainMenuBar();
 
 	ImGui::Begin("Scene Viewport");
