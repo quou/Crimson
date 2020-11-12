@@ -125,7 +125,7 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
 
 	float diff = max(dot(normal, lightDir), 0.0);
 
-	vec3 reflectDir = reflect(lightDir, normal);
+	vec3 reflectDir = reflect(-lightDir, normal);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess) * light.intensity;
 
 	float distance = length(light.position - v_fragPos);

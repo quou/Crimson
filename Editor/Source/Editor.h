@@ -79,7 +79,7 @@ private:
 
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(m_renderTarget->GetSize());
-		m_scene->Render(*m_renderTarget);
+		m_scene->Render(*m_renderTarget, m_camera.GetCamera());
    }
 
 	void OnExit() override {
