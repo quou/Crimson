@@ -10,13 +10,8 @@ EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneR
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
 
-void EditorLayer::OnInit() {
+static void ApplyDefaultTheme() {
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.Alpha = 1.0f;
-	style.FrameRounding = 0.0f;
-	style.WindowRounding = 0.0f;
-	style.WindowMinSize = ImVec2(300, 350);
-
 	ImVec4* colors = style.Colors;
 	colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 0.95f);
 	colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
@@ -68,7 +63,14 @@ void EditorLayer::OnInit() {
 	colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
 	colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
 	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
+}
 
+void EditorLayer::OnInit() {
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Alpha = 1.0f;
+	style.FrameRounding = 0.0f;
+	style.WindowRounding = 0.0f;
+	style.WindowMinSize = ImVec2(300, 350);
 
 	style.ChildRounding = 0.0f;
 	style.FrameBorderSize = 1.0f;
@@ -82,6 +84,7 @@ void EditorLayer::OnInit() {
 	style.WindowRounding = 0.0f;
 	style.WindowMenuButtonPosition = ImGuiDir_None;
 
+	ApplyDefaultTheme();
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigWindowsResizeFromEdges = true;
@@ -164,6 +167,8 @@ void EditorLayer::NewScene() {
 }
 
 void EditorLayer::RunScene() {
+	ImGui::StyleColorsDark();
+
 	auto editor = (Editor*)m_userData;
 
 	Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
@@ -182,6 +187,8 @@ void EditorLayer::RunScene() {
 }
 
 void EditorLayer::StopRunning() {
+	ApplyDefaultTheme();
+
 	auto editor = (Editor*)m_userData;
 
 	editor->m_scene = std::make_shared<Crimson::Scene>(false);
