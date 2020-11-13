@@ -9,7 +9,8 @@
 
 class EditorLayer : public Crimson::Layer {
 private:
-	Crimson::RenderTarget* m_renderTarget;
+	Crimson::RenderTarget* m_sceneRenderTarget;
+	Crimson::RenderTarget* m_gameRenderTarget;
 
 	// Panels
 	SceneHierarchyPanel m_sceneHierarchyPanel;
@@ -18,15 +19,21 @@ private:
 	SceneCamera* m_camera;
 
 	std::string m_currentSavePath;
+	std::string m_currentSerialiseString;
 
 	friend class AssetManagerPanel;
 public:
-	EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene);
+	bool m_isRunning{false};
+
+	EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene);
 
 	void SaveAs();
 	void SaveScene();
 	void ReloadScene();
 	void NewScene();
+
+	void RunScene();
+	void StopRunning();
 
 	void OnInit() override;
 	void OnUpdate(float delta) override;

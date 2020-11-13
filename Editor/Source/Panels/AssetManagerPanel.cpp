@@ -59,8 +59,6 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 
 					Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 					sceneSerialiser.DeserialiseText(editor->m_scene->m_assetManager.LoadText(entry.absPath));
-
-					editor->m_scene->Init();
 				}
 			}
 		}

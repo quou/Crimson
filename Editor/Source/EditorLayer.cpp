@@ -6,8 +6,8 @@
 
 #include "Editor.h"
 
-EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* renderTarget, Crimson::Scene* scene)
- : m_camera(sceneCamera), m_renderTarget(renderTarget),
+EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
+ : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
 
 void EditorLayer::OnInit() {
@@ -93,8 +93,6 @@ void EditorLayer::OnInit() {
 	auto s = Crimson::SceneSerialiser(*editor->m_scene);
 	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Test.cscn"));
 	m_currentSavePath = "Data/Test.cscn";
-
-	editor->m_scene->Init();
 }
 
 void EditorLayer::SaveAs() {
@@ -123,8 +121,6 @@ void EditorLayer::ReloadScene() {
 
 	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
 	inSerialiser.DeserialiseText(file);
-
-	editor->m_scene->Init();
 }
 
 void EditorLayer::SaveScene() {
@@ -164,18 +160,51 @@ void EditorLayer::NewScene() {
 
 		Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 		sceneSerialiser.SerialiseText(file);
-
-		editor->m_scene->Init();
 	}
 }
 
+void EditorLayer::RunScene() {
+	auto editor = (Editor*)m_userData;
+
+	Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+	m_currentSerialiseString = sceneSerialiser.SerialiseString();
+
+	editor->m_scene = std::make_shared<Crimson::Scene>(false);
+	m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+	m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
+	inSerialiser.DeserialiseText(m_currentSerialiseString);
+
+	editor->m_scene->Init();
+
+	m_isRunning = true;
+}
+
+void EditorLayer::StopRunning() {
+	auto editor = (Editor*)m_userData;
+
+	editor->m_scene = std::make_shared<Crimson::Scene>(false);
+	m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+	m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
+	inSerialiser.DeserialiseText(m_currentSerialiseString);
+
+	m_isRunning = false;
+}
+
 void EditorLayer::OnUpdate(float delta) {
+	auto editor = (Editor*)m_userData;
+
+	if (m_isRunning) {
+		editor->m_scene->Update(delta);
+	}
+
 	ImGui::DockSpaceOverViewport();
 
 	m_sceneHierarchyPanel.Render();
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel);
-
-	auto editor = (Editor*)m_userData;
 
 	ImGui::BeginMainMenuBar();
 
@@ -215,8 +244,18 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 
 	if (ImGui::BeginMenu("Scene")) {
-		if (ImGui::MenuItem("Reload Scene")) {
+		if (ImGui::MenuItem("Reload")) {
 			ReloadScene();
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::MenuItem("Run")) {
+			RunScene();
+		}
+
+		if (ImGui::MenuItem("Stop")) {
+			StopRunning();
 		}
 
 		ImGui::EndMenu();
@@ -239,9 +278,9 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::Begin("Scene Viewport");
 
 	if (!ImGui::IsWindowCollapsed()) {
-		m_renderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
+		m_sceneRenderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
 
-		ImGui::Image((ImTextureID)m_renderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
+		ImGui::Image((ImTextureID)m_sceneRenderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
 
 		if (ImGui::IsItemHovered()) {
 			if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
@@ -249,6 +288,14 @@ void EditorLayer::OnUpdate(float delta) {
 			}
 			m_camera->UpdateScroll(delta);
 		}
+	}
+	ImGui::End();
+
+	ImGui::Begin("Game Viewport");
+	if (!ImGui::IsWindowCollapsed()) {
+		m_gameRenderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
+
+		ImGui::Image((ImTextureID)m_gameRenderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
 	}
 	ImGui::End();
 }
