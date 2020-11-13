@@ -96,6 +96,8 @@ void EditorLayer::OnInit() {
 	auto s = Crimson::SceneSerialiser(*editor->m_scene);
 	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Test.cscn"));
 	m_currentSavePath = "Data/Test.cscn";
+
+	ImGui::SetWindowFocus("Scene Viewport");
 }
 
 void EditorLayer::SaveAs() {
@@ -169,6 +171,8 @@ void EditorLayer::NewScene() {
 void EditorLayer::RunScene() {
 	ImGui::StyleColorsDark();
 
+	ImGui::SetWindowFocus("Game Viewport");
+
 	auto editor = (Editor*)m_userData;
 
 	Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
@@ -188,6 +192,8 @@ void EditorLayer::RunScene() {
 
 void EditorLayer::StopRunning() {
 	ApplyDefaultTheme();
+
+	ImGui::SetWindowFocus("Scene Viewport");
 
 	auto editor = (Editor*)m_userData;
 
@@ -282,6 +288,14 @@ void EditorLayer::OnUpdate(float delta) {
 		SaveAs();
 	}
 
+	ImGui::Begin("Game Viewport");
+	if (!ImGui::IsWindowCollapsed()) {
+		m_gameRenderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
+
+		ImGui::Image((ImTextureID)m_gameRenderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
+	}
+	ImGui::End();
+	
 	ImGui::Begin("Scene Viewport");
 
 	if (!ImGui::IsWindowCollapsed()) {
@@ -298,11 +312,4 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 	ImGui::End();
 
-	ImGui::Begin("Game Viewport");
-	if (!ImGui::IsWindowCollapsed()) {
-		m_gameRenderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
-
-		ImGui::Image((ImTextureID)m_gameRenderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
-	}
-	ImGui::End();
 }
