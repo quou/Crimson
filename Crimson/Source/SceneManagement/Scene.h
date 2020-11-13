@@ -70,6 +70,9 @@ namespace Crimson {
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 
+		float GetScriptEngineUpdateTime();
+		float GetPhysicsEngineUpdateTime();
+
 		void UpdateViewport(std::pair<int, int> size);
 
 		inline PhysicsScene* GetPhysicsScene() {

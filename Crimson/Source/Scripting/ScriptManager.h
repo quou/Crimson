@@ -31,6 +31,9 @@ namespace Crimson {
 		bool m_compilationSuccess;
 
 		unsigned int m_currentID{0};
+
+		float m_updateTime{0.0f};
+		float m_oldTimeSinceStart{0.0f};
 	public:
 		ScriptManager();
 		~ScriptManager();
@@ -41,6 +44,8 @@ namespace Crimson {
 
 		void Compile(AssetManager& assetManager);
 		void SetupEntity(entt::entity ent, Scene* scene);
+
+		inline float GetUpdateTime() {return m_updateTime;}
 
 		void Init();
 		void Update(float delta);

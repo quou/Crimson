@@ -14,6 +14,8 @@
 
 #include "Input.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Crimson {
 	/* A base class that behaviour scripts will inherit from */
 	static const char* g_behaviourBase = R"(
@@ -368,6 +370,8 @@ namespace Crimson {
 	}
 
 	void ScriptManager::Update(float delta) {
+		float timeSinceStart = glfwGetTime();
+
 		if (!m_compilationSuccess) {return;}
 
 		for (auto obj : m_objects) {
@@ -394,6 +398,9 @@ namespace Crimson {
 				continue;
 			}
 		}
+
+		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
+		m_oldTimeSinceStart = timeSinceStart;
 	}
 
 	void ScriptManager::ContactStay(unsigned int id, Entity& other) {

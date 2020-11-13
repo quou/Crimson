@@ -84,6 +84,8 @@ namespace Crimson {
 				l->OnUpdate(delta);
 			}
 
+			Renderer::EndFrame();
+
 			Input::IEndFrame();
 			ImGuiImpl::EndFrame();
 

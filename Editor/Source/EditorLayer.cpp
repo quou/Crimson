@@ -1,6 +1,7 @@
 #include "EditorLayer.h"
 
 #include <imgui.h>
+#include <imgui_internal.h>
 
 #include <Utils/tinyfiledialogs.h>
 
@@ -207,6 +208,54 @@ void EditorLayer::StopRunning() {
 	m_isRunning = false;
 }
 
+static void DrawLinePlot(const std::string& label, float* values, unsigned int valueLength, float valuesOffset, float min, float max, float colWidth=100.0f) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+
+	{
+		 float average = 0.0f;
+		 for (int n = 0; n < valueLength; n++)
+			  average += values[n];
+		 average /= (float)valueLength;
+		 char overlay[32];
+		 sprintf(overlay, "avg %f", average);
+		 ImGui::PlotLines("##LINEPLOT", values, valueLength, valuesOffset, overlay, min, max, ImVec2(0, 80.0f));
+	}
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+}
+
+static void DrawTextLabel(const std::string& label, const std::string& text, float colWidth = 100.0f) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+	ImGui::Text("%s", text.c_str());
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+}
+
 void EditorLayer::OnUpdate(float delta) {
 	auto editor = (Editor*)m_userData;
 
@@ -257,7 +306,7 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 
 	if (ImGui::BeginMenu("Scene")) {
-		if (ImGui::MenuItem("Reload")) {
+		if (ImGui::MenuItem("Reload", "CTRL+R")) {
 			ReloadScene();
 		}
 
@@ -274,6 +323,22 @@ void EditorLayer::OnUpdate(float delta) {
 		ImGui::EndMenu();
 	}
 
+	if (ImGui::BeginMenu("View")) {
+		ImGui::MenuItem("Profiler", "", &m_showProfiler);
+
+		ImGui::EndMenu();
+	}
+
+	if (m_isRunning) {
+		if (ImGui::Button("Stop")) {
+			StopRunning();
+		}
+	} else {
+		if (ImGui::Button("Play")) {
+			RunScene();
+		}
+	}
+
 	ImGui::EndMainMenuBar();
 
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_N)) {
@@ -288,6 +353,10 @@ void EditorLayer::OnUpdate(float delta) {
 		SaveAs();
 	}
 
+	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
+		ReloadScene();
+	}
+
 	ImGui::Begin("Game Viewport");
 	if (!ImGui::IsWindowCollapsed()) {
 		m_gameRenderTarget->Resize({ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37});
@@ -295,7 +364,7 @@ void EditorLayer::OnUpdate(float delta) {
 		ImGui::Image((ImTextureID)m_gameRenderTarget->GetOutput(), ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y - 37), ImVec2(0, 0), ImVec2(1, -1));
 	}
 	ImGui::End();
-	
+
 	ImGui::Begin("Scene Viewport");
 
 	if (!ImGui::IsWindowCollapsed()) {
@@ -312,4 +381,78 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 	ImGui::End();
 
+	if (m_showProfiler) {
+		ImGui::Begin("Profiler", &m_showProfiler);
+
+		{
+			static float values[90] = {};
+         static int values_offset = 0;
+         static double refresh_time = 0.0;
+         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         {
+             static float phase = 0.0f;
+             values[values_offset] = delta;
+             values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+             phase += 0.10f * values_offset;
+             refresh_time += 1.0f / 60.0f;
+         }
+
+			DrawLinePlot("Frame Time", values, IM_ARRAYSIZE(values), values_offset, 0.0f, 0.1f, 150.0f);
+		}
+
+		{
+			ImGui::Separator(); ImGui::Text("Renderer");
+			static float values[90] = {};
+         static int values_offset = 0;
+         static double refresh_time = 0.0;
+         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         {
+             static float phase = 0.0f;
+             values[values_offset] = Crimson::Renderer::GetUpdateTime();
+             values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+             phase += 0.10f * values_offset;
+             refresh_time += 1.0f / 60.0f;
+         }
+
+			DrawLinePlot("Update Time", values, IM_ARRAYSIZE(values), values_offset, 0.0f, 0.1f, 150.0f);
+
+			DrawTextLabel("Draw Calls", std::to_string(Crimson::Renderer::GetDrawCallsCount()/2));
+		}
+
+		{
+			ImGui::Separator(); ImGui::Text("Script Engine");
+			static float values[90] = {};
+         static int values_offset = 0;
+         static double refresh_time = 0.0;
+         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         {
+             static float phase = 0.0f;
+             values[values_offset] = editor->m_scene->GetScriptEngineUpdateTime();
+             values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+             phase += 0.10f * values_offset;
+             refresh_time += 1.0f / 60.0f;
+         }
+
+			DrawLinePlot("Update Time", values, IM_ARRAYSIZE(values), values_offset, 0.0f, 0.1f, 150.0f);
+		}
+
+		{
+			ImGui::Separator(); ImGui::Text("Physics Engine");
+			static float values[90] = {};
+         static int values_offset = 0;
+         static double refresh_time = 0.0;
+         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         {
+             static float phase = 0.0f;
+             values[values_offset] = editor->m_scene->GetPhysicsEngineUpdateTime();
+             values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+             phase += 0.10f * values_offset;
+             refresh_time += 1.0f / 60.0f;
+         }
+
+			DrawLinePlot("Update Time", values, IM_ARRAYSIZE(values), values_offset, 0.0f, 0.1f, 150.0f);
+		}
+
+		ImGui::End();
+	}
 }

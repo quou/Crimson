@@ -3,6 +3,7 @@
 #include <string>
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "Logger.h"
 
@@ -44,6 +45,10 @@ namespace Crimson {
 
 	void Renderer::Clear() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		instance().m_drawCallsCount = 0;
+
+		instance().m_timeSinceStart = glfwGetTime();
 	}
 
 	void Renderer::ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
@@ -105,6 +110,12 @@ namespace Crimson {
 	}
 
 	void Renderer::Draw(Mesh& mesh) {
+		instance().m_drawCallsCount++;
 		mesh.Draw();
+	}
+
+	void Renderer::EndFrame() {
+		instance().m_updateTime = instance().m_timeSinceStart - instance().m_oldTimeSinceStart;
+		instance().m_oldTimeSinceStart = instance().m_timeSinceStart;
 	}
 }

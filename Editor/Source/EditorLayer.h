@@ -21,6 +21,8 @@ private:
 	std::string m_currentSavePath;
 	std::string m_currentSerialiseString;
 
+	bool m_showProfiler{false};
+
 	friend class AssetManagerPanel;
 public:
 	bool m_isRunning{false};

@@ -299,4 +299,12 @@ namespace Crimson {
 		m_scriptManager->ContactExit(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
 		m_scriptManager->ContactExit(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
 	}
+
+	float Scene::GetScriptEngineUpdateTime() {
+		return m_scriptManager->GetUpdateTime();
+	}
+
+	float Scene::GetPhysicsEngineUpdateTime() {
+		return m_physicsScene->GetUpdateTime();
+	}
 }

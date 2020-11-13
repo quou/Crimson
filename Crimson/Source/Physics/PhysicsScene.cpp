@@ -2,6 +2,8 @@
 
 #include "SceneManagement/Scene.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Crimson {
 	PhysicsScene::PhysicsScene(Scene* scene) : m_scene(scene), m_eventListener(this) {
 		m_world = m_common.createPhysicsWorld();
@@ -14,6 +16,8 @@ namespace Crimson {
 	}
 
 	void PhysicsScene::Update(float delta) {
+		float timeSinceStart = glfwGetTime();
+
 		const float timeStep = 1.0f / 60.0f;
 
 		m_accumulator += delta;
@@ -23,6 +27,9 @@ namespace Crimson {
 
 			m_accumulator -= delta;
 		}
+
+		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
+		m_oldTimeSinceStart = timeSinceStart;
 	}
 
 	void PhysicsScene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
