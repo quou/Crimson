@@ -32,6 +32,7 @@ Installation of dependencies isn't required, they are all built and linked on th
 ```
 
 ### Windows (MSVC)
+*Windows build is currently broken for unknown reasons*
 Run `Scripts/Windows/Build.bat` to generate a Visual Studio project (includes dependencies).
 
 ## Dependencies
