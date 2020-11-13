@@ -388,7 +388,7 @@ void EditorLayer::OnUpdate(float delta) {
 			static float values[90] = {};
          static int values_offset = 0;
          static double refresh_time = 0.0;
-         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         while (refresh_time < ImGui::GetTime())
          {
              static float phase = 0.0f;
              values[values_offset] = delta;
@@ -405,7 +405,7 @@ void EditorLayer::OnUpdate(float delta) {
 			static float values[90] = {};
          static int values_offset = 0;
          static double refresh_time = 0.0;
-         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         while (refresh_time < ImGui::GetTime())
          {
              static float phase = 0.0f;
              values[values_offset] = Crimson::Renderer::GetUpdateTime();
@@ -424,7 +424,7 @@ void EditorLayer::OnUpdate(float delta) {
 			static float values[90] = {};
          static int values_offset = 0;
          static double refresh_time = 0.0;
-         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         while (refresh_time < ImGui::GetTime())
          {
              static float phase = 0.0f;
              values[values_offset] = editor->m_scene->GetScriptEngineUpdateTime();
@@ -441,7 +441,7 @@ void EditorLayer::OnUpdate(float delta) {
 			static float values[90] = {};
          static int values_offset = 0;
          static double refresh_time = 0.0;
-         while (refresh_time < ImGui::GetTime()) // Create data at fixed 60 Hz rate for the demo
+         while (refresh_time < ImGui::GetTime())
          {
              static float phase = 0.0f;
              values[values_offset] = editor->m_scene->GetPhysicsEngineUpdateTime();
