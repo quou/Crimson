@@ -148,6 +148,8 @@ void EditorLayer::NewScene() {
 	const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
 
 	if (file) {
+		m_currentSavePath = file;
+
 		editor->m_scene = std::make_shared<Crimson::Scene>(false);
 		m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 		m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
