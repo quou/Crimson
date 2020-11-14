@@ -5,6 +5,8 @@
 
 #include "Camera.h"
 
+#include "Renderer/AABB.h"
+
 namespace Crimson {
 	struct AmbientLight {
 		glm::vec3 color;
@@ -16,10 +18,12 @@ namespace Crimson {
 		glm::vec3 color;
 		float intensity;
 
-		inline glm::mat4 CalculateTransform(Camera& camera) {
+		inline glm::mat4 CalculateTransform(AABB sceneAABB) {
+			// glm::mat4 projection = glm::ortho(
+			// 	sceneAABB.minCorner.x, sceneAABB.maxCorner.x,
+			// 	sceneAABB.minCorner.y, sceneAABB.maxCorner.y,
+			// 	sceneAABB.minCorner.z, sceneAABB.maxCorner.z);
 			glm::mat4 projection = glm::ortho(-15.0f, 15.0f, -15.0f, 15.0f, -1000.0f, 1000.0f);
-
-		//	glm::mat4 view = glm::translate(glm::mat4(1.0f), camera.position);
 
 			return projection * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		}

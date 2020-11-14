@@ -43,7 +43,7 @@ namespace Crimson {
 		glBindTexture(GL_TEXTURE_2D, m_directionalShadowmaps);
 	}
 
-	void LightScene::Apply(Camera& camera, Shader& shader) {
+	void LightScene::Apply(const AABB& sceneAABB, Shader& shader) {
 		shader.SetInt("u_ambientLightCount", m_ambientLights.size());
 		shader.SetInt("u_directionalLightCount", m_directionalLights.size());
 		shader.SetInt("u_pointLightCount", m_pointLights.size());
@@ -63,7 +63,7 @@ namespace Crimson {
 			shader.SetVec3("u_directionalLights[" + std::to_string(i) + "].direction", light.direction);
 			shader.SetVec3("u_directionalLights[" + std::to_string(i) + "].color", light.color);
 
-			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transform", light.CalculateTransform(camera));
+			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transform", light.CalculateTransform(sceneAABB));
 			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transformLightSpace", light.CalculateTransform());
 			shader.SetInt("u_directionalLights[" + std::to_string(i) + "].index", i);
 

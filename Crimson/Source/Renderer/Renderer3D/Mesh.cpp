@@ -51,6 +51,8 @@ namespace Crimson {
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
 		glBindVertexArray(0);
+
+		CalculateAABB();
 	}
 
 	void Mesh::LoadFromLua(const char* lua) {
@@ -141,6 +143,31 @@ namespace Crimson {
 
 		LoadFromData(verts, indices);
 
+	}
+
+	AABB Mesh::CalculateAABB() {
+		AABB result;
+
+		result.maxCorner.x = result.minCorner.x = m_vertices[0].position.x;
+		result.maxCorner.y = result.minCorner.y = m_vertices[0].position.y;
+		result.maxCorner.z = result.minCorner.z = m_vertices[0].position.z;
+
+		for (int i = 0; i < m_vertices.size(); i++) {
+			if (m_vertices[i].position.x < result.minCorner.z) result.minCorner.z = m_vertices[i].position.x;
+			if (m_vertices[i].position.x > result.maxCorner.x) result.maxCorner.x = m_vertices[i].position.x;
+			if (m_vertices[i].position.y < result.minCorner.z) result.minCorner.z = m_vertices[i].position.y;
+			if (m_vertices[i].position.y > result.maxCorner.y) result.maxCorner.y = m_vertices[i].position.y;
+			if (m_vertices[i].position.z < result.minCorner.z) result.minCorner.z = m_vertices[i].position.z;
+			if (m_vertices[i].position.z > result.maxCorner.z) result.maxCorner.z = m_vertices[i].position.z;
+		}
+
+		m_aabb = result;
+
+		return result;
+	}
+
+	AABB Mesh::GetAABB() {
+		return m_aabb;
 	}
 
 	void Mesh::Draw() {

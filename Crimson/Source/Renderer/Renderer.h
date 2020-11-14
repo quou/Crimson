@@ -7,6 +7,8 @@
 
 #include "Renderer3D/Camera.h"
 
+#include "AABB.h"
+
 namespace Crimson {
 
 	class Material;
@@ -22,6 +24,8 @@ namespace Crimson {
 		float m_timeSinceStart{0.0f};
 
 		unsigned int m_drawCallsCount;
+
+		AABB m_sceneBound;
 	public:
 		static Renderer& instance() {
 			static Renderer INSTANCE;
