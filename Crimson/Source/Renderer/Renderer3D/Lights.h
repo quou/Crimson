@@ -23,7 +23,7 @@ namespace Crimson {
 			// 	sceneAABB.minCorner.x, sceneAABB.maxCorner.x,
 			// 	sceneAABB.minCorner.y, sceneAABB.maxCorner.y,
 			// 	sceneAABB.minCorner.z, sceneAABB.maxCorner.z);
-			glm::mat4 projection = glm::ortho(-15.0f, 15.0f, -15.0f, 15.0f, -1000.0f, 1000.0f);
+			glm::mat4 projection = glm::ortho(-15.0f, 15.0f, -15.0f, 15.0f, -10000.0f, 10000.0f);
 
 			return projection * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		}
