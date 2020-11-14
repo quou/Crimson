@@ -248,12 +248,12 @@ namespace Crimson {
 	}
 
 	void Scene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
-		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
 
 		Entity currentEnt, otherEnt;
 
 		for (auto ent : view) {
-			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
@@ -262,17 +262,21 @@ namespace Crimson {
 			}
 		}
 
-		m_scriptManager->ContactStay(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
-		m_scriptManager->ContactStay(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		if (currentEnt && currentEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactStay(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		}
+		if (otherEnt && otherEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactStay(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		}
 	}
 
 	void Scene::ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
-		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
 
 		Entity currentEnt, otherEnt;
 
 		for (auto ent : view) {
-			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
@@ -281,17 +285,21 @@ namespace Crimson {
 			}
 		}
 
-		m_scriptManager->ContactEnter(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
-		m_scriptManager->ContactEnter(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		if (currentEnt && currentEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactEnter(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		}
+		if (otherEnt && otherEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactEnter(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		}
 	}
 
 	void Scene::ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {
-		auto view = m_registry.view<TransformComponent, PhysicsComponent, ScriptComponent>();
+		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
 
 		Entity currentEnt, otherEnt;
 
 		for (auto ent : view) {
-			auto [transform, physics, script] = view.get<TransformComponent, PhysicsComponent, ScriptComponent>(ent);
+			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
@@ -300,8 +308,12 @@ namespace Crimson {
 			}
 		}
 
-		m_scriptManager->ContactExit(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
-		m_scriptManager->ContactExit(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		if (currentEnt && currentEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactExit(currentEnt.GetComponent<ScriptComponent>().id, otherEnt);
+		}
+		if (otherEnt && otherEnt.HasComponent<ScriptComponent>()) {
+			m_scriptManager->ContactExit(otherEnt.GetComponent<ScriptComponent>().id, currentEnt);
+		}
 	}
 
 	float Scene::GetScriptEngineUpdateTime() {
