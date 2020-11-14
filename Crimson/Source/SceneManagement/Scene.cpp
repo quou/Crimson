@@ -114,6 +114,10 @@ namespace Crimson {
 				physics.context->SetFriction(physics.friction);
 			}
 
+			if (physics.isKinematic) {
+				physics.context->SetMass(0.0f);
+			}
+
 			transform.position = physics.context->GetPosition();
 			transform.rotation = physics.context->GetRotation();
 		}

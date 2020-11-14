@@ -86,7 +86,7 @@ static void DrawTextControl(const std::string& label, std::string& string, float
 	ImGui::PopID();
 }
 
-static void DrawFloatControl(const std::string& label, float* val, float step = 1.0f, float colWidth = 100.0f) {
+static void DrawFloatControl(const std::string& label, float* val, float min=0.0f, float max=0.0f, float step = 1.0f, float colWidth = 100.0f) {
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2, NULL, false);
@@ -97,7 +97,7 @@ static void DrawFloatControl(const std::string& label, float* val, float step = 
 	ImGui::NextColumn();
 
 	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
-	ImGui::DragFloat("##FLIN", val, step);
+	ImGui::DragFloat("##FLIN", val, step, min, max);
 
 	ImGui::PopItemWidth();
 
@@ -343,6 +343,42 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawFloatControl("Near", &cam.camera.m_near);
 			DrawFloatControl("Far", &cam.camera.m_far);
 			DrawBoolControl("Active", &cam.active);
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::BoxColliderComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Box Collider")) {
+			auto& box = ent.GetComponent<Crimson::BoxColliderComponent>();
+
+			DrawVec3Control("Extents", box.extents);
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::SphereColliderComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sphere Collider")) {
+			auto& sphere = ent.GetComponent<Crimson::SphereColliderComponent>();
+
+			DrawFloatControl("Radius", &sphere.radius);
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::PhysicsComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Physics")) {
+			auto& physics = ent.GetComponent<Crimson::PhysicsComponent>();
+
+			DrawBoolControl("Use Gravity", &physics.useGravity);
+			DrawBoolControl("Kinematic", &physics.isKinematic);
+
+			DrawFloatControl("Mass", &physics.mass, 0.0f, 0.0f, 0.001f);
+			DrawFloatControl("Friction", &physics.friction, 0.0f, 1.0f, 0.001f);
+			DrawFloatControl("Bounciness", &physics.bounciness, 0.0f, 1.0f, 0.001f);
+			DrawVec3Control("Center of Gravity", physics.cog);
 
 			ImGui::TreePop();
 		}
