@@ -227,40 +227,52 @@ void SceneHierarchyPanel::Render() {
 		}
 
 		if (ImGui::BeginPopup("AddComponent")) {
-			if (ImGui::MenuItem("Point Light")) {
-				m_selectedEntity.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,1,1), 1.0f);
+			if (ImGui::BeginMenu("Lights")) {
+				if (ImGui::MenuItem("Point Light")) {
+					m_selectedEntity.AddComponent<Crimson::PointLightComponent>(1.0f, 0.09f, 0.032f, glm::vec3(1,1,1), 1.0f);
+				}
+
+				if (ImGui::MenuItem("Ambient Light")) {
+					m_selectedEntity.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+				}
+
+				if (ImGui::MenuItem("Directional Light")) {
+					m_selectedEntity.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+				}
+
+				ImGui::EndMenu();
 			}
 
-			if (ImGui::MenuItem("Ambient Light")) {
-				m_selectedEntity.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+			if (ImGui::BeginMenu("Rendering")) {
+				if (ImGui::MenuItem("Mesh Filter")) {
+					m_selectedEntity.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				}
+
+				if (ImGui::MenuItem("Material")) {
+					m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
+				}
+
+				if (ImGui::MenuItem("Camera")) {
+					m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
+				}
+
+				ImGui::EndMenu();
 			}
 
-			if (ImGui::MenuItem("Directional Light")) {
-				m_selectedEntity.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
-			}
+			if (ImGui::BeginMenu("Physics")) {
+				if (ImGui::MenuItem("Physics")) {
+					m_selectedEntity.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
+				}
 
-			if (ImGui::MenuItem("Mesh Filter")) {
-				m_selectedEntity.AddComponent<Crimson::MeshFilterComponent>("Cube");
-			}
+				if (ImGui::MenuItem("Box Collider")) {
+					m_selectedEntity.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1));
+				}
 
-			if (ImGui::MenuItem("Material")) {
-				m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
-			}
+				if (ImGui::MenuItem("Sphere Collider")) {
+					m_selectedEntity.AddComponent<Crimson::SphereColliderComponent>(1.0f);
+				}
 
-			if (ImGui::MenuItem("Camera")) {
-				m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
-			}
-
-			if (ImGui::MenuItem("Physics")) {
-				m_selectedEntity.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
-			}
-
-			if (ImGui::MenuItem("Box Collider")) {
-				m_selectedEntity.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1));
-			}
-
-			if (ImGui::MenuItem("Sphere Collider")) {
-				m_selectedEntity.AddComponent<Crimson::SphereColliderComponent>(1.0f);
+				ImGui::EndMenu();
 			}
 
 			if (ImGui::MenuItem("Script")) {
