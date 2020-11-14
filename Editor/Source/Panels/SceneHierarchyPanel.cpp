@@ -299,8 +299,10 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawVec3Control("Scale", transform.scale, 1.0f);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
+
 
 	if (ent.HasComponent<Crimson::DirectionalLightComponent>()) {
 		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Directional Light")) {
@@ -309,6 +311,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawColorControl("Color", ent.GetComponent<Crimson::DirectionalLightComponent>().color);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -319,6 +322,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawColorControl("Color", ent.GetComponent<Crimson::AmbientLightComponent>().color);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -332,6 +336,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawColorControl("Color", ent.GetComponent<Crimson::PointLightComponent>().color);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -350,6 +355,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
          }
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -368,6 +374,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
          }
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -381,6 +388,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawBoolControl("Active", &cam.active);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -391,6 +399,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawVec3Control("Extents", box.extents);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -401,6 +410,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawFloatControl("Radius", &sphere.radius);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -417,6 +427,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawVec3Control("Center of Gravity", physics.cog);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 
@@ -427,6 +438,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawTextControl("Class Name", script.className);
 
 			ImGui::TreePop();
+			ImGui::Separator();
 		}
 	}
 }
