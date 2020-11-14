@@ -3,52 +3,211 @@ Scene: Unnamed Scene
 Entities:
   - Entity: 123456
     TransformComponent:
-      Name: Main light
+      Name: Main Light
       Tag: Default
       Translation: [0, 0, 0]
-      Rotation: [-1, -1, -1]
+      Rotation: [10, -20, 25]
       Scale: [1, 1, 1]
     AmbientLightComponent:
       Color: [1, 1, 1]
-      Intensity: 0.0500000007
+      Intensity: 0.100000001
     DirectionalLightComponent:
       Color: [1, 1, 1]
       Intensity: 1
   - Entity: 123456
     TransformComponent:
-      Name: Pink light
+      Name: Main Camera
       Tag: Default
-      Translation: [-3.5, 0, 0]
-      Rotation: [0, 0, 0]
+      Translation: [0.200000003, 22.1000004, 23.7999992]
+      Rotation: [-48.2000008, 178.899994, 0]
       Scale: [1, 1, 1]
-    PointLightComponent:
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      Color: [1, 0, 1]
-      Intensity: 1
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45
   - Entity: 123456
     TransformComponent:
-      Name: Green light
+      Name: Ground
+      Tag: Default
+      Translation: [0, -2.9000001, 0]
+      Rotation: [0, 0, 0]
+      Scale: [10, 0.200000003, 10]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Data/MonkeyMaterial.mat
+    BoxColliderComponent:
+      Extents: [10, 0.200000003, 10]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: true
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 1
+      Tag: Default
+      Translation: [-2.9000001, 2, -0.400000006]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 2
+      Tag: Default
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 3
+      Tag: Default
+      Translation: [0, 3.0999999, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 4
+      Tag: Default
+      Translation: [-0.800000012, 6.19999981, -0.200000003]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 5
+      Tag: Default
+      Translation: [2, -0.300000012, -2.29999995]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 6
+      Tag: Default
+      Translation: [0.899999976, 2.0999999, -2.5999999]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Physics Cube 7
       Tag: Default
       Translation: [3.5, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: 123456
+    TransformComponent:
+      Name: Lamp
+      Tag: Default
+      Translation: [6.5, -0.5, -2.9000001]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
     PointLightComponent:
       Constant: 1
       Linear: 0.0900000036
       Quadratic: 0.0320000015
-      Color: [0, 1, 0]
+      Color: [0, 0.204651117, 1]
       Intensity: 1
   - Entity: 123456
     TransformComponent:
-      Name: Cube
+      Name: Monkey
       Tag: Default
-      Translation: [-0.000115857278, 3.8900001, 8.48289637e-05]
-      Rotation: [-1.00948173e-11, -2.5999999, 1.23989184e-05]
+      Translation: [5.0999999, 7, 0.400000006]
+      Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshFilterComponent:
-      Path: Cube
+      Path: Data/MonkeyMesh.mesh
     MaterialComponent:
       Path: Data/MonkeyMaterial.mat
     BoxColliderComponent:
@@ -62,59 +221,9 @@ Entities:
       CenterOfGravity: [0, 0, 0]
     ScriptComponent:
       Class: Monkey
-  - Entity: 123456
-    TransformComponent:
-      Name: Monkey
-      Tag: Default
-      Translation: [-5.80000019, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Data/MonkeyMesh.mesh
-    MaterialComponent:
-      Path: Data/MonkeyMaterial.mat
-  - Entity: 123456
-    TransformComponent:
-      Name: Floor
-      Tag: Default
-      Translation: [0, -2, 0]
-      Rotation: [0, -5.00895612e-06, 0]
-      Scale: [10, 0.5, 10]
-    MeshFilterComponent:
-      Path: Data/CubeMesh.mesh
-    MaterialComponent:
-      Path: Data/MonkeyMaterial.mat
-    BoxColliderComponent:
-      Extents: [10, 0.5, 10]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: true
-      CenterOfGravity: [0, 0, 0]
-    ScriptComponent:
-      Class: TestBehaviour
-  - Entity: 123456
-    TransformComponent:
-      Name: Main Camera
-      Tag: Default
-      Translation: [0, 5, 20]
-      Rotation: [-20, 180, 0]
-      Scale: [1, 1, 1]
-    CameraComponent:
-      Active: true
-      Near: 0.00999999978
-      Far: 100
-      FOV: 45
-  - Entity: 123456
-    TransformComponent:
-      Name: Shadowcaster
-      Tag: Default
-      Translation: [24.6000004, 18.7000008, 21.7999992]
-      Rotation: [0, -0.200000003, 0]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [0.0465116501, 1, 0]
+      Intensity: 1

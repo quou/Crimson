@@ -31,9 +31,7 @@ namespace Crimson {
 		} else if (r.has<BoxColliderComponent>(ent)) {
 			phys.context->AddBoxCollider(r.get<BoxColliderComponent>(ent).extents);
 		} else {
-			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a collider");
-			delete phys.context;
-			abort();
+			CR_LOG_WARNING("%s", "PhysicsComponent requires the entity to have a collider");
 		}
 
 		phys.context->EnableGravity(phys.useGravity);

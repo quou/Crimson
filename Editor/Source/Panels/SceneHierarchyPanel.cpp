@@ -191,6 +191,14 @@ void SceneHierarchyPanel::Render() {
 				e.AddComponent<Crimson::MaterialComponent>("Default");
 			}
 
+			if (ImGui::MenuItem("Physics Cube")) {
+				auto e = m_scene->CreateEntity("Physics Cube");
+				e.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				e.AddComponent<Crimson::MaterialComponent>("Default");
+				e.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1.0f));
+				e.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
+			}
+
 			if (ImGui::MenuItem("Sun")) {
 				auto e = m_scene->CreateEntity("Sun");
 				e.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
@@ -241,6 +249,22 @@ void SceneHierarchyPanel::Render() {
 
 			if (ImGui::MenuItem("Camera")) {
 				m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
+			}
+
+			if (ImGui::MenuItem("Physics")) {
+				m_selectedEntity.AddComponent<Crimson::PhysicsComponent>(true, 1.0f, 0.3f, 0.1f, false, glm::vec3(0));
+			}
+
+			if (ImGui::MenuItem("Box Collider")) {
+				m_selectedEntity.AddComponent<Crimson::BoxColliderComponent>(glm::vec3(1));
+			}
+
+			if (ImGui::MenuItem("Sphere Collider")) {
+				m_selectedEntity.AddComponent<Crimson::SphereColliderComponent>(1.0f);
+			}
+
+			if (ImGui::MenuItem("Script")) {
+				m_selectedEntity.AddComponent<Crimson::ScriptComponent>("-");
 			}
 
 			ImGui::EndPopup();
@@ -379,6 +403,16 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 			DrawFloatControl("Friction", &physics.friction, 0.0f, 1.0f, 0.001f);
 			DrawFloatControl("Bounciness", &physics.bounciness, 0.0f, 1.0f, 0.001f);
 			DrawVec3Control("Center of Gravity", physics.cog);
+
+			ImGui::TreePop();
+		}
+	}
+
+	if (ent.HasComponent<Crimson::ScriptComponent>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Script")) {
+			auto& script = ent.GetComponent<Crimson::ScriptComponent>();
+
+			DrawTextControl("Class Name", script.className);
 
 			ImGui::TreePop();
 		}

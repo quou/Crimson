@@ -316,6 +316,11 @@ namespace Crimson {
 		m_currentID++;
 
 		Entity e(ent, scene);
+
+		if (e.GetComponent<ScriptComponent>().className == "-") {
+			return;
+		}
+
 		e.GetComponent<ScriptComponent>().id = m_currentID;
 		std::string c = e.GetComponent<ScriptComponent>().className.c_str();
 
