@@ -7,6 +7,8 @@
 
 #include "Editor.h"
 
+#include "FontAwesome.h"
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
@@ -91,6 +93,12 @@ void EditorLayer::OnInit() {
 	io.ConfigWindowsResizeFromEdges = true;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Regular.ttf", 14.0f);
+
+	ImFontConfig config;
+	config.MergeMode = true;
+	static const ImWchar icon_ranges[] = { ICON_MIN_FK, ICON_MAX_FK, 0 };
+	io.Fonts->AddFontFromFileTTF("Data/Fonts/fontawesome-webfont.ttf", 14.0f, &config, icon_ranges);
+
 
 	auto editor = (Editor*)m_userData;
 
@@ -332,11 +340,11 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 
 	if (m_isRunning) {
-		if (ImGui::Button("Stop")) {
+		if (ImGui::Button(ICON_FK_STOP)) {
 			StopRunning();
 		}
 	} else {
-		if (ImGui::Button("Play")) {
+		if (ImGui::Button(ICON_FK_PLAY)) {
 			RunScene();
 		}
 	}

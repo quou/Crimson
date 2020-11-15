@@ -5,6 +5,8 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../FontAwesome.h"
+
 static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f) {
 	ImGui::PushID(label.c_str());
 
@@ -451,8 +453,20 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 	if (m_selectedEntity == ent) {
 		flags |= ImGuiTreeNodeFlags_Selected;
 	}
+	bool opened;
 
-	bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, "%s", name.c_str());
+	if (ent.HasComponent<Crimson::MeshFilterComponent>()) {
+		opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, ICON_FK_CUBE "  %s", name.c_str());
+	} else if (ent.HasComponent<Crimson::AmbientLightComponent>() || ent.HasComponent<Crimson::PointLightComponent>() || ent.HasComponent<Crimson::DirectionalLightComponent>()) {
+		opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, ICON_FK_LIGHTBULB_O "  %s", name.c_str());
+	} else if (ent.HasComponent<Crimson::CameraComponent>()) {
+		opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, ICON_FK_CAMERA "  %s", name.c_str());
+	} else if (ent.HasComponent<Crimson::ScriptComponent>()) {
+		opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, ICON_FK_CODE "  %s", name.c_str());
+	} else {
+		opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, "%s", name.c_str());
+	}
+
 	if (ImGui::IsItemClicked()) {
 		if (m_selectedEntity == ent) {
 			m_selectedEntity = Crimson::Entity();

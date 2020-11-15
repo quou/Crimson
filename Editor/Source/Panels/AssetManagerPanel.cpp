@@ -5,6 +5,8 @@
 #include "../Editor.h"
 #include "../EditorLayer.h"
 
+#include "../FontAwesome.h"
+
 static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
 
@@ -32,7 +34,27 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 		flags |= ImGuiTreeNodeFlags_Leaf;
 	}
 
-	if (ImGui::TreeNodeEx(std::string(entry.name + entry.extension).c_str(), flags)) {
+	std::string nodeString;
+
+	if (entry.extension == ".as" || entry.extension == ".glsl") {
+		nodeString = ICON_FK_CODE + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".mesh") {
+		nodeString = ICON_FK_CUBE + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".cscn") {
+		nodeString = ICON_FK_ARCHIVE + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".ttf") {
+		nodeString = ICON_FK_FONT + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".conf") {
+		nodeString = ICON_FK_COG + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".mat") {
+		nodeString = ICON_FK_CIRCLE + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.extension == ".png" || entry.extension == ".jpg" || entry.extension == ".gif" || entry.extension == ".bmp" || entry.extension == ".psd") {
+		nodeString = ICON_FK_FILE_IMAGE_O + std::string("  ") + entry.name + entry.extension;
+	} else {
+		nodeString = entry.name + entry.extension;
+	}
+
+	if (ImGui::TreeNodeEx(nodeString.c_str(), flags)) {
 		if (entry.isDirectory) {
 			for (auto& d : entry.subEntries) {
 				DrawDir(d, editor, sceneHierarchyPanel);
