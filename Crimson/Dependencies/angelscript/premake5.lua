@@ -34,4 +34,12 @@ project "AngelScript"
 				"angelscript/source/as_callfunc_x64_msvc.cpp",
 				"angelscript/source/as_callfunc_x64_msvc_asm.asm"
 			}
+	else
+		filter "configurations:Debug"
+			runtime "Debug"
+			symbols "on"
+
+		filter "configurations:Release"
+			runtime "Release"
+			optimize "on"
 	end
