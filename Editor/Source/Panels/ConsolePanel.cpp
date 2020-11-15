@@ -8,7 +8,15 @@
 #include <Crimson.h>
 
 void ConsolePanel::Render() {
-	ImGui::Begin("Console");
+	ImGui::Begin("Console", NULL, ImGuiWindowFlags_MenuBar);
+
+	ImGui::BeginMenuBar();
+
+	if (ImGui::Button("Clear")) {
+		Crimson::FlushLog();
+	}
+
+	ImGui::EndMenuBar();
 
 	std::string lastString;
 
@@ -43,9 +51,7 @@ void ConsolePanel::Render() {
 		}
 
 		ImGui::PushStyleColor(ImGuiCol_Text, color);
-
 		ImGui::Text(std::string(std::string(icon) +  "\t%s").c_str(), item.second.c_str());
-
 		ImGui::PopStyleColor();
 
 		ImGui::Separator();

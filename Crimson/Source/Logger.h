@@ -15,6 +15,7 @@ enum LogType {
 namespace Crimson {
 	void Log(LogType logType, const char* fmt, ...);
 	void MemoryLog(LogType logType, const char* fmt, ...);
+	void FlushLog();
 	const std::vector<std::pair<LogType, std::string>>& GetLog();
 }
 

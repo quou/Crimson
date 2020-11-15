@@ -30,6 +30,10 @@ namespace Crimson {
 		}
 	}
 
+	void FlushLog() {
+		g_logMessages.clear();
+	}
+
 	void Log(LogType logType, const char* fmt, ...) {
 		const char* type;
 		switch (logType) {
