@@ -4,6 +4,7 @@
 
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/AssetManagerPanel.h"
+#include "Panels/ConsolePanel.h"
 
 #include "SceneCamera.h"
 
@@ -15,6 +16,7 @@ private:
 	// Panels
 	SceneHierarchyPanel m_sceneHierarchyPanel;
 	AssetManagerPanel m_assetManagerPanel;
+	ConsolePanel m_consolePanel;
 
 	SceneCamera* m_camera;
 

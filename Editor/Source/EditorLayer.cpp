@@ -9,6 +9,8 @@
 
 #include "FontAwesome.h"
 
+#include "UIUtils.h"
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
@@ -218,54 +220,6 @@ void EditorLayer::StopRunning() {
 	m_isRunning = false;
 }
 
-static void DrawLinePlot(const std::string& label, float* values, unsigned int valueLength, float valuesOffset, float min, float max, float colWidth=100.0f) {
-	ImGui::PushID(label.c_str());
-
-	ImGui::Columns(2, NULL, false);
-
-
-	ImGui::SetColumnWidth(0, colWidth);
-	ImGui::Text("%s", label.c_str());
-	ImGui::NextColumn();
-
-	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
-
-	{
-		 float average = 0.0f;
-		 for (int n = 0; n < valueLength; n++)
-			  average += values[n];
-		 average /= (float)valueLength;
-		 char overlay[32];
-		 sprintf(overlay, "avg %f", average);
-		 ImGui::PlotLines("##LINEPLOT", values, valueLength, valuesOffset, overlay, min, max, ImVec2(0, 80.0f));
-	}
-
-	ImGui::PopItemWidth();
-
-	ImGui::Columns(1, NULL, false);
-
-	ImGui::PopID();
-}
-
-static void DrawTextLabel(const std::string& label, const std::string& text, float colWidth = 100.0f) {
-	ImGui::PushID(label.c_str());
-
-	ImGui::Columns(2, NULL, false);
-
-	ImGui::SetColumnWidth(0, colWidth);
-	ImGui::Text("%s", label.c_str());
-	ImGui::NextColumn();
-
-	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
-	ImGui::Text("%s", text.c_str());
-
-	ImGui::PopItemWidth();
-
-	ImGui::Columns(1, NULL, false);
-
-	ImGui::PopID();
-}
-
 void EditorLayer::OnUpdate(float delta) {
 	auto editor = (Editor*)m_userData;
 
@@ -276,6 +230,7 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::DockSpaceOverViewport();
 
 	m_sceneHierarchyPanel.Render();
+	m_consolePanel.Render();
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel);
 
 	ImGui::BeginMainMenuBar();
