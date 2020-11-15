@@ -12,7 +12,7 @@ void ConsolePanel::Render() {
 
 	ImGui::BeginMenuBar();
 
-	if (ImGui::Button("Clear")) {
+	if (ImGui::MenuItem("Clear")) {
 		Crimson::FlushLog();
 	}
 
