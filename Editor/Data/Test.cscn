@@ -3,65 +3,27 @@ Scene: Test Scene
 Entities:
   - Entity: Ent
     TransformComponent:
-      Name: Main Light
+      Name: Scene Controller
       Tag: Default
-      GUID: 10f835c7eb754f483a3a247aeac509518c8f8e38b7d1ff085910e5e6050675fe3a4c997061f0514e9d099d2556d482e1a3c6030a9266872e66a9d01c21bd56bd7df22f07f40b843ff0876796b5998a0e1e54d91dec013b78e360a830e8859d5ceaf8b084
+      GUID: f065bcd320b1bd745121415ed8523e143caed756283942ce56358122cf8ef8a8afda6f139239ee194afbb7a866d4a11d02c27f9adb2e0f360b77285dbdc943fc6ad0d19c31d91f80a70ddd227cc9823f6de7b2783969e3a1f637c2c51c38f92bfad68025
       Translation: [0, 0, 0]
-      Rotation: [10, -20, 25]
-      Scale: [1, 1, 1]
-    AmbientLightComponent:
-      Color: [1, 1, 1]
-      Intensity: 0.100000001
-    DirectionalLightComponent:
-      Color: [1, 1, 1]
-      Intensity: 1
-  - Entity: Ent
-    TransformComponent:
-      Name: Main Camera
-      Tag: Default
-      GUID: ed2940d2c46a501a92ffdd6bacef9961312319b64264d9153ef89df3f0f59ff69b49f83c17898caba07bcebde249d207b26008b2bb95ea8d98898dec1b980a3889c3c29cd78f42da93a15994b38bf73f2a32e43d8ffefe7730345b3b136902864189f397
-      Translation: [0.200000003, 22.1000004, 23.7999992]
-      Rotation: [-48.2000008, 178.899994, 0]
-      Scale: [1, 1, 1]
-    CameraComponent:
-      Active: true
-      Near: 0.00999999978
-      Far: 100
-      FOV: 45
-  - Entity: Ent
-    TransformComponent:
-      Name: Ground
-      Tag: Default
-      GUID: 319fa9ba38ccb3ed41d06b434c3543b721119ff2719e7567e457209959c2ac01cb6f29aa1cfc9fced1bd7ac0249c69cbc9c362f8017e0034065db53806ef45d37150726f30e5fd8ea0a26d611adbee029782cdfc7de3e1ba708a4d9eb7664fdc6c9644b4
-      Translation: [0, -2.9000001, 0]
       Rotation: [0, 0, 0]
-      Scale: [10, 0.200000003, 10]
+      Scale: [1, 1, 1]
+    ScriptComponent:
+      Class: SceneController
+  - Entity: Ent
+    TransformComponent:
+      Name: Monkey
+      Tag: Default
+      GUID: 68404c3a7a2d8b5946647b8077c3d63896c16aaea2e1e2af596fc85ab412ac6e6427e545a012e5ae71a979bf0bc0d3dcedef3cdb437b272ad9f5b7a04fa9fd733e5ca88d54e186b7cbfd51bded4ad1a57e21ca682ee269b8e5bea3a6c1dc03304ecacb5f
+      Translation: [5.0999999, 7, 0.400000006]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
     MeshFilterComponent:
-      Path: Cube
+      Path: Data/MonkeyMesh.mesh
     MaterialComponent:
       Path: Data/MonkeyMaterial.mat
     BoxColliderComponent:
-      Extents: [10, 0.200000003, 10]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: true
-      CenterOfGravity: [0, 0, 0]
-  - Entity: Ent
-    TransformComponent:
-      Name: Physics Cube 1
-      Tag: Default
-      GUID: 1704c74f6ec08b71077e0c2447d993b1f536a0eecb43495d4e79cfe728d84b6ee4dd6baf0c05384d4b4334ddcb6ce93fc03a4fa81fa3f72c21d5d277d7a2d838d3ff5f57eb5fe195600737110060cbafc8fba51fe099bcf691ee311ca8a982c65959428c
-      Translation: [-2.9000001, 2, -0.400000006]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
-    BoxColliderComponent:
       Extents: [1, 1, 1]
     PhysicsComponent:
       UseGravity: true
@@ -70,75 +32,34 @@ Entities:
       Bounciness: 0.100000001
       IsKinematic: false
       CenterOfGravity: [0, 0, 0]
+    ScriptComponent:
+      Class: Monkey
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [0.0465116501, 1, 0]
+      Intensity: 1
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube 2
+      Name: Lamp
       Tag: Default
-      GUID: b2958f143983d411529d8347bed882f12dd5aebb8941813fedac5ad25e9fe8ba290e78bea7e04053cc3bae0a26b8d70c9906bc880b41a5bc1b84c40c0b6cfa1c64125a3d5e2ee4de9f8fddbaab453af9e53daa7984944a445f81044958e2d7ac670fd679
-      Translation: [0, 0, 0]
+      GUID: dfbbf8fa213e9882d5c07f410f33c16beb30f872aaf784c2d846cd5fff6bd3031cd59bb57cbae6f67233605249544c3d0a2f5e7c0f411f459dce869b38e2f8eab1ac69034cb4844d3eeb9c3742ccaa86fc82e22608ad320536743d5fc238419c6a989b76
+      Translation: [6.5, -0.5, -2.9000001]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
-    BoxColliderComponent:
-      Extents: [1, 1, 1]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: false
-      CenterOfGravity: [0, 0, 0]
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [0, 0.204651117, 1]
+      Intensity: 1
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube 3
+      Name: Physics Cube 7
       Tag: Default
-      GUID: 5005d4db974d78ceff8f2259c92c9e6a7b3623ae41bfe3af1d8e86cde21a5cab2772e076a31eb0c705d7818e0d78a9a3fc7a8a9e9c45404c84c305a3a3cbfa8f3d3f33743def9c145440af831940b8c1b512dd8fab03ba498fb7b206174c5b7c3dc00fe7
-      Translation: [0, 3.0999999, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
-    BoxColliderComponent:
-      Extents: [1, 1, 1]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: false
-      CenterOfGravity: [0, 0, 0]
-  - Entity: Ent
-    TransformComponent:
-      Name: Physics Cube 4
-      Tag: Default
-      GUID: 90f24789672c196982657d0cdb691b5f6a05eeedc1527b65642cc77da433c53cef0b92839595bd863dcb6b215f1fbb39e8d3ff4b57f570c3c769c05120707f74c1040f89ea8357e297160f6f550079bd0fb520fd981200833d791be3e824864b99e748c2
-      Translation: [-0.800000012, 6.19999981, -0.200000003]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
-    BoxColliderComponent:
-      Extents: [1, 1, 1]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: false
-      CenterOfGravity: [0, 0, 0]
-  - Entity: Ent
-    TransformComponent:
-      Name: Physics Cube 5
-      Tag: Default
-      GUID: 5ed46fccb1b8a8dfa7130ebb8cc423e96e212e26826d3364123782c614d9364221d7d1e2f23c731413319b432627611b41649d62ba0e757673868948c08a2aa8884e20d274f5e749ec00266591e4370485d6cc3e3b4d3e74ad9b461baa2c15357e596cb3
-      Translation: [2, -0.300000012, -2.29999995]
+      GUID: 58229031de941482e1a2c6f45c4b397e9c1d746965644dfb90f1fc61f45e154847883b4c0d5f2db1aecd162e3dc59f2dc6af0126cb64e6902576be73d5f26a3546b8427eb4b575610ee6788752de951c3957d838314d2f371e925c948828185e6d1a368a
+      Translation: [3.5, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshFilterComponent:
@@ -177,10 +98,10 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube 7
+      Name: Physics Cube 5
       Tag: Default
-      GUID: 58229031de941482e1a2c6f45c4b397e9c1d746965644dfb90f1fc61f45e154847883b4c0d5f2db1aecd162e3dc59f2dc6af0126cb64e6902576be73d5f26a3546b8427eb4b575610ee6788752de951c3957d838314d2f371e925c948828185e6d1a368a
-      Translation: [3.5, 0, 0]
+      GUID: 5ed46fccb1b8a8dfa7130ebb8cc423e96e212e26826d3364123782c614d9364221d7d1e2f23c731413319b432627611b41649d62ba0e757673868948c08a2aa8884e20d274f5e749ec00266591e4370485d6cc3e3b4d3e74ad9b461baa2c15357e596cb3
+      Translation: [2, -0.300000012, -2.29999995]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshFilterComponent:
@@ -198,30 +119,16 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Lamp
+      Name: Physics Cube 4
       Tag: Default
-      GUID: dfbbf8fa213e9882d5c07f410f33c16beb30f872aaf784c2d846cd5fff6bd3031cd59bb57cbae6f67233605249544c3d0a2f5e7c0f411f459dce869b38e2f8eab1ac69034cb4844d3eeb9c3742ccaa86fc82e22608ad320536743d5fc238419c6a989b76
-      Translation: [6.5, -0.5, -2.9000001]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    PointLightComponent:
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      Color: [0, 0.204651117, 1]
-      Intensity: 1
-  - Entity: Ent
-    TransformComponent:
-      Name: Monkey
-      Tag: Default
-      GUID: 68404c3a7a2d8b5946647b8077c3d63896c16aaea2e1e2af596fc85ab412ac6e6427e545a012e5ae71a979bf0bc0d3dcedef3cdb437b272ad9f5b7a04fa9fd733e5ca88d54e186b7cbfd51bded4ad1a57e21ca682ee269b8e5bea3a6c1dc03304ecacb5f
-      Translation: [5.0999999, 7, 0.400000006]
+      GUID: 90f24789672c196982657d0cdb691b5f6a05eeedc1527b65642cc77da433c53cef0b92839595bd863dcb6b215f1fbb39e8d3ff4b57f570c3c769c05120707f74c1040f89ea8357e297160f6f550079bd0fb520fd981200833d791be3e824864b99e748c2
+      Translation: [-0.800000012, 6.19999981, -0.200000003]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshFilterComponent:
-      Path: Data/MonkeyMesh.mesh
+      Path: Cube
     MaterialComponent:
-      Path: Data/MonkeyMaterial.mat
+      Path: Default
     BoxColliderComponent:
       Extents: [1, 1, 1]
     PhysicsComponent:
@@ -231,21 +138,114 @@ Entities:
       Bounciness: 0.100000001
       IsKinematic: false
       CenterOfGravity: [0, 0, 0]
-    ScriptComponent:
-      Class: Monkey
-    PointLightComponent:
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      Color: [0.0465116501, 1, 0]
-      Intensity: 1
   - Entity: Ent
     TransformComponent:
-      Name: Scene Controller
+      Name: Physics Cube 3
       Tag: Default
-      GUID: f065bcd320b1bd745121415ed8523e143caed756283942ce56358122cf8ef8a8afda6f139239ee194afbb7a866d4a11d02c27f9adb2e0f360b77285dbdc943fc6ad0d19c31d91f80a70ddd227cc9823f6de7b2783969e3a1f637c2c51c38f92bfad68025
+      GUID: 5005d4db974d78ceff8f2259c92c9e6a7b3623ae41bfe3af1d8e86cde21a5cab2772e076a31eb0c705d7818e0d78a9a3fc7a8a9e9c45404c84c305a3a3cbfa8f3d3f33743def9c145440af831940b8c1b512dd8fab03ba498fb7b206174c5b7c3dc00fe7
+      Translation: [0, 3.0999999, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: Ent
+    TransformComponent:
+      Name: Physics Cube 2
+      Tag: Default
+      GUID: b2958f143983d411529d8347bed882f12dd5aebb8941813fedac5ad25e9fe8ba290e78bea7e04053cc3bae0a26b8d70c9906bc880b41a5bc1b84c40c0b6cfa1c64125a3d5e2ee4de9f8fddbaab453af9e53daa7984944a445f81044958e2d7ac670fd679
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    ScriptComponent:
-      Class: "-"
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: Ent
+    TransformComponent:
+      Name: Physics Cube 1
+      Tag: Default
+      GUID: 1704c74f6ec08b71077e0c2447d993b1f536a0eecb43495d4e79cfe728d84b6ee4dd6baf0c05384d4b4334ddcb6ce93fc03a4fa81fa3f72c21d5d277d7a2d838d3ff5f57eb5fe195600737110060cbafc8fba51fe099bcf691ee311ca8a982c65959428c
+      Translation: [-2.9000001, 2, -0.400000006]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+  - Entity: Ent
+    TransformComponent:
+      Name: Ground
+      Tag: Default
+      GUID: 319fa9ba38ccb3ed41d06b434c3543b721119ff2719e7567e457209959c2ac01cb6f29aa1cfc9fced1bd7ac0249c69cbc9c362f8017e0034065db53806ef45d37150726f30e5fd8ea0a26d611adbee029782cdfc7de3e1ba708a4d9eb7664fdc6c9644b4
+      Translation: [0, -2.9000001, 0]
+      Rotation: [0, 0, 0]
+      Scale: [10, 0.200000003, 10]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Data/MonkeyMaterial.mat
+    BoxColliderComponent:
+      Extents: [10, 0.200000003, 10]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: true
+      CenterOfGravity: [0, 0, 0]
+  - Entity: Ent
+    TransformComponent:
+      Name: Main Camera
+      Tag: Default
+      GUID: ed2940d2c46a501a92ffdd6bacef9961312319b64264d9153ef89df3f0f59ff69b49f83c17898caba07bcebde249d207b26008b2bb95ea8d98898dec1b980a3889c3c29cd78f42da93a15994b38bf73f2a32e43d8ffefe7730345b3b136902864189f397
+      Translation: [0.200000003, 22.1000004, 23.7999992]
+      Rotation: [-48.2000008, 178.899994, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45
+  - Entity: Ent
+    TransformComponent:
+      Name: Main Light
+      Tag: Default
+      GUID: 10f835c7eb754f483a3a247aeac509518c8f8e38b7d1ff085910e5e6050675fe3a4c997061f0514e9d099d2556d482e1a3c6030a9266872e66a9d01c21bd56bd7df22f07f40b843ff0876796b5998a0e1e54d91dec013b78e360a830e8859d5ceaf8b084
+      Translation: [0, 0, 0]
+      Rotation: [10, -20, 25]
+      Scale: [1, 1, 1]
+    AmbientLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 0.100000001
+    DirectionalLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 1

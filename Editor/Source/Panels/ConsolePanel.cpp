@@ -14,6 +14,7 @@ void ConsolePanel::Render() {
 
 	if (ImGui::MenuItem("Clear")) {
 		Crimson::FlushLog();
+		m_oldSize = 0;
 	}
 
 	ImGui::EndMenuBar();
@@ -55,6 +56,11 @@ void ConsolePanel::Render() {
 		ImGui::PopStyleColor();
 
 		ImGui::Separator();
+	}
+
+	if (Crimson::GetLog().size() > m_oldSize) {
+		m_oldSize = Crimson::GetLog().size();
+		ImGui::SetScrollY(ImGui::GetScrollMaxY() + 100);
 	}
 
 	ImGui::End();
