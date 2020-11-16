@@ -199,6 +199,13 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
             ImGui::EndDragDropTarget();
          }
 
+			ImGui::SameLine();
+			ImGui::PushID("Mesh Reset");
+			if (ImGui::Button(ICON_FK_REFRESH)) {
+				mesh.path = "Cube";
+			}
+			ImGui::PopID();
+
 			ImGui::TreePop();
 			ImGui::Separator();
 		}
@@ -217,6 +224,13 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
             }
             ImGui::EndDragDropTarget();
          }
+
+			ImGui::SameLine();
+			ImGui::PushID("Material Reset");
+			if (ImGui::Button(ICON_FK_REFRESH)) {
+				mat.path = "Default";
+			}
+			ImGui::PopID();
 
 			ImGui::TreePop();
 			ImGui::Separator();
