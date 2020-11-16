@@ -2,10 +2,72 @@
 
 #include <filesystem>
 
+#include <Utils/tinyfiledialogs.h>
+
 #include "../Editor.h"
 #include "../EditorLayer.h"
 
 #include "../FontAwesome.h"
+
+
+static const char* defaultScript = R"(#include "Crimson"
+
+class Script : CrimsonBehaviour {
+	// Called on the first frame
+	void OnInit() {
+
+	}
+
+	// Called once per frame
+	void OnUpdate(float delta) {
+
+	}
+};
+)";
+
+static const char* defaultMaterial = R"(-- Crimson Material
+shader = "Data/Shaders/Standard.glsl"
+
+albedo = "Data/GridTexture.png"
+
+material = {
+	 color = {1, 1, 1},
+	 smoothness = 1,
+	 shininess = 20
+}
+)";
+
+
+static const char* defaultShader = R"(#begin VERTEX
+
+#version 330 core
+layout (location = 0) in vec3 a_pos;
+layout (location = 1) in vec3 a_normal;
+layout (location = 2) in vec2 a_texCoords;
+
+uniform mat4 u_model;
+uniform mat4 u_view;
+uniform mat4 u_projection;
+
+void main() {
+	gl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0f);
+}
+
+#end VERTEX
+
+#begin FRAGMENT
+
+#version 330 core
+
+out vec4 a_fragPos;
+
+void main() {
+	a_fragPos = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+#end FRAGMENT
+)";
+
 
 static bool CompareDir(DirectoryEntry a, DirectoryEntry b) {
     return a.isDirectory;
@@ -98,11 +160,58 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 }
 
 void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
-	ImGui::Begin("Asset Manager");
+	ImGui::Begin("Asset Manager", NULL, ImGuiWindowFlags_MenuBar);
 
-	if (ImGui::Button("Refresh")) {
-		m_files = GetFiles("Data/");
-		Editor* editor = (Editor*)m_editorLayer->m_userData;
+	if (ImGui::BeginMenuBar()) {
+		if (ImGui::MenuItem("Refresh")) {
+			m_files = GetFiles("Data/");
+			Editor* editor = (Editor*)m_editorLayer->m_userData;
+		}
+
+		if (ImGui::BeginMenu("Create...")) {
+			if (ImGui::MenuItem("Material")) {
+				const char* const acceptedExtensions[] = {"*.mat"};
+				const char* file = tinyfd_saveFileDialog("New Material", "Data/NewMaterial.mat", 1, acceptedExtensions, "Crimson Material Files");
+
+				if (file) {
+					FILE* handle = fopen(file, "w");
+					if (handle) {
+						fprintf(handle, "%s", defaultMaterial);
+					}
+					fclose(handle);
+				}
+			}
+
+			if (ImGui::MenuItem("Script")) {
+				const char* const acceptedExtensions[] = {"*.as"};
+				const char* file = tinyfd_saveFileDialog("New Script", "Data/NewScript.as", 1, acceptedExtensions, "AngelScript Files");
+
+				if (file) {
+					FILE* handle = fopen(file, "w");
+					if (handle) {
+						fprintf(handle, "%s", defaultScript);
+					}
+					fclose(handle);
+				}
+			}
+
+			if (ImGui::MenuItem("Shader")) {
+				const char* const acceptedExtensions[] = {"*.glsl"};
+				const char* file = tinyfd_saveFileDialog("New Shader", "Data/NewShader.glsl", 1, acceptedExtensions, "OpenGL Shader Files");
+
+				if (file) {
+					FILE* handle = fopen(file, "w");
+					if (handle) {
+						fprintf(handle, "%s", defaultShader);
+					}
+					fclose(handle);
+				}
+			}
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndMenuBar();
 	}
 
 	for (auto& f : m_files) {
