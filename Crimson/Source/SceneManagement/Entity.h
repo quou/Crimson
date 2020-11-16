@@ -3,8 +3,8 @@
 #include <entt.hpp>
 
 #include "Scene.h"
-
 #include "Logger.h"
+#include "GUID.h"
 
 namespace Crimson {
 	class Entity {

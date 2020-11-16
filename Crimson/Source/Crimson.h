@@ -34,6 +34,7 @@
 // Utils
 #include "Utils/MeshConverter.h"
 #include "Utils/FolderCompressor.h"
+#include "GUID.h"
 
 
 #include "Game.h"

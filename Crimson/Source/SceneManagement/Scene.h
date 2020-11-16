@@ -8,6 +8,8 @@
 #include "AssetManager.h"
 #include "Scripting/ScriptManager.h"
 
+#include "GUID.h"
+
 #include <reactphysics3d/reactphysics3d.h>
 
 namespace rp3d = ::reactphysics3d;
@@ -61,7 +63,7 @@ namespace Crimson {
 			return result;
 		}
 
-		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default");
+		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default", const GUID& guid="");
 		void DestroyEntity(Entity ent);
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}

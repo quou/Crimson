@@ -56,7 +56,7 @@ namespace Crimson {
 
 	static void SerialiseEntity(YAML::Emitter& out, Entity ent) {
 		out << YAML::BeginMap; // Entity
-		out << YAML::Key << "Entity" << YAML::Value << "123456"; // TODO: entity ID system
+		out << YAML::Key << "Entity" << YAML::Value << "Ent";
 
 		if (ent.HasComponent<TransformComponent>()) {
 			out << YAML::Key << "TransformComponent";
@@ -65,6 +65,7 @@ namespace Crimson {
 			auto& transform = ent.GetComponent<TransformComponent>();
 			out << YAML::Key << "Name" << YAML::Value << transform.name;
 			out << YAML::Key << "Tag" << YAML::Value << transform.tag;
+			out << YAML::Key << "GUID" << YAML::Value << transform.guid;
 
 			out << YAML::Key << "Translation" << YAML::Value << transform.position;
 			out << YAML::Key << "Rotation" << YAML::Value << transform.rotation;
@@ -233,20 +234,19 @@ namespace Crimson {
 		auto entitiesNode = data["Entities"];
 		if (entitiesNode) {
 			for (auto ent : entitiesNode) {
-				uint64_t uuid = ent["Entity"].as<uint64_t>(); // TODO
-
-				std::string name, tag;
+				std::string name, tag, guid;
 				glm::vec3 pos, rot, sca;
 				auto transformComponent = ent["TransformComponent"];
 				if (transformComponent) {
 					name = transformComponent["Name"].as<std::string>();
 					tag = transformComponent["Tag"].as<std::string>();
+					guid = transformComponent["GUID"].as<std::string>();
 					pos = transformComponent["Translation"].as<glm::vec3>();
 					rot = transformComponent["Rotation"].as<glm::vec3>();
 					sca = transformComponent["Scale"].as<glm::vec3>();
 				}
 
-				auto newEnt = m_scene.CreateEntity(name, tag);
+				auto newEnt = m_scene.CreateEntity(name, tag, guid);
 				newEnt.GetComponent<TransformComponent>().position = pos;
 				newEnt.GetComponent<TransformComponent>().rotation = rot;
 				newEnt.GetComponent<TransformComponent>().scale = sca;

@@ -16,6 +16,7 @@ namespace Crimson {
 
 		std::string name;
 		std::string tag;
+		std::string guid;
 
 		glm::mat4 GetTransform() {
 			glm::mat4 rotxMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1,0,0));

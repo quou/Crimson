@@ -234,10 +234,20 @@ namespace Crimson {
 		}
 	}
 
-	Entity Scene::CreateEntity(const std::string& name, const std::string& tag) {
+	Entity Scene::CreateEntity(const std::string& name, const std::string& tag, const GUID& guid) {
 		Entity ent = {m_registry.create(), this};
+
+		GUID g;
+
+		if (guid.empty()) {
+			g = GenerateGUID();
+		} else {
+			g = guid;
+		}
+
 		ent.AddComponent<TransformComponent>().name = name;
 		ent.GetComponent<TransformComponent>().tag = tag;
+		ent.GetComponent<TransformComponent>().guid = g;
 		return ent;
 	}
 

@@ -132,8 +132,10 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 	if (ent.HasComponent<Crimson::TransformComponent>()) {
 		if (ImGui::TreeNodeEx((void*)typeid(Crimson::TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")) {
 			auto& name = ent.GetComponent<Crimson::TransformComponent>().name;
+			auto& tag = ent.GetComponent<Crimson::TransformComponent>().tag;
 
 			DrawTextControl("Name", name);
+			DrawTextControl("Tag", tag);
 
 			auto& transform = ent.GetComponent<Crimson::TransformComponent>();
 
