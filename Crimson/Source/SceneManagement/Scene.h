@@ -19,6 +19,10 @@ namespace Crimson {
 
 	typedef entt::entity EntityHandle;
 
+	struct SceneConfig {
+		std::string name{"Untitled Scene"};
+	};
+
 	class Scene {
 	private:
 		entt::registry m_registry;
@@ -33,6 +37,8 @@ namespace Crimson {
 		void RenderMeshes(Camera* mainCamera);
 
 		void PhysicsComponentCreate(entt::registry& r, entt::entity ent);
+
+		SceneConfig m_config;
 
 	public:
 		AssetManager m_assetManager;
@@ -78,6 +84,8 @@ namespace Crimson {
 		inline PhysicsScene* GetPhysicsScene() {
 			return &*m_physicsScene;
 		}
+
+		inline SceneConfig& GetConfig() {return m_config;}
 	};
 
 }

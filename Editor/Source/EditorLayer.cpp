@@ -346,6 +346,12 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 	ImGui::End();
 
+	ImGui::Begin("Scene Config");
+
+	DrawTextControl("Name", editor->m_scene->GetConfig().name);
+
+	ImGui::End();
+
 	if (m_showProfiler) {
 		ImGui::Begin("Profiler", &m_showProfiler);
 

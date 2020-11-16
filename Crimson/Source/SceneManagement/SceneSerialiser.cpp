@@ -196,7 +196,7 @@ namespace Crimson {
 		out << YAML::Comment("Crimson Scene file");
 
 		out << YAML::BeginMap;
-		out << YAML::Key << "Scene" << YAML::Value << "Unnamed Scene";
+		out << YAML::Key << "Scene" << YAML::Value << m_scene.m_config.name;
 		out << YAML::Key << "Entities" << YAML::BeginSeq;
 		m_scene.m_registry.each([&](auto entHandle){
 			Entity ent(entHandle, &m_scene);
@@ -228,6 +228,7 @@ namespace Crimson {
 		}
 
 		std::string sceneName = data["Scene"].as<std::string>();
+		m_scene.GetConfig().name = sceneName;
 
 		auto entitiesNode = data["Entities"];
 		if (entitiesNode) {

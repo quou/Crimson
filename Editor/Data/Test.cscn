@@ -1,5 +1,5 @@
 # Crimson Scene file
-Scene: Unnamed Scene
+Scene: Test Scene
 Entities:
   - Entity: 123456
     TransformComponent:
