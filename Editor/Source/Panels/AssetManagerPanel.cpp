@@ -7,6 +7,10 @@
 
 #include "../FontAwesome.h"
 
+static bool CompareDir(DirectoryEntry a, DirectoryEntry b) {
+    return a.isDirectory;
+}
+
 static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
 
@@ -19,6 +23,8 @@ static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 
 		result.push_back(e);
 	}
+
+	std::sort(result.begin(), result.end(), CompareDir);
 
 	return result;
 }
@@ -50,6 +56,8 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 		nodeString = ICON_FK_CIRCLE + std::string("  ") + entry.name + entry.extension;
 	} else if (entry.extension == ".png" || entry.extension == ".jpg" || entry.extension == ".gif" || entry.extension == ".bmp" || entry.extension == ".psd") {
 		nodeString = ICON_FK_FILE_IMAGE_O + std::string("  ") + entry.name + entry.extension;
+	} else if (entry.isDirectory) {
+		nodeString = ICON_FK_FOLDER + std::string("  ") + entry.name;
 	} else {
 		nodeString = entry.name + entry.extension;
 	}
