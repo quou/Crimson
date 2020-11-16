@@ -263,6 +263,9 @@ namespace Crimson {
 		r = m_asEngine->RegisterObjectProperty("Button", "bool pressed", asOFFSET(Key,pressed)); assert(r >= 0);
 
 		r = m_asEngine->RegisterGlobalFunction("const Button& GetButton(string)", asFUNCTION(Input::GetKey), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("vec2 GetMouseChange()", asFUNCTION(Input::GetMouseChange), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("vec2 GetScrollDelta()", asFUNCTION(Input::GetScrollDelta), asCALL_CDECL); assert(r >= 0);
+		r = m_asEngine->RegisterGlobalFunction("vec2 GetMousePos()", asFUNCTION(Input::GetMousePos), asCALL_CDECL); assert(r >= 0);
 	}
 
 	ScriptManager::~ScriptManager() {
