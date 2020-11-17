@@ -4,9 +4,11 @@
 
 #include <fstream>
 
+#include "../Fonts/Roboto-Mono.h"
+
 void CodeEditorPanel::Init() {
 	ImGuiIO& io = ImGui::GetIO();
-	m_font = io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Mono.ttf", 20.0f);
+	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(RobotoMono_compressed_data, RobotoMono_compressed_size, 20.0f);
 
 	auto lang = TextEditor::LanguageDefinition::AngelScript();
 	m_textEditor.SetLanguageDefinition(lang);

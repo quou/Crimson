@@ -4,7 +4,7 @@ class SceneController : CrimsonBehaviour {
 	private float m_count;
 	private int m_iteration;
 
-	// Called on the first frame
+	// Called before the first frame
 	void OnInit() {
 		
 	}

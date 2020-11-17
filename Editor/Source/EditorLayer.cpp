@@ -8,6 +8,8 @@
 #include "Editor.h"
 
 #include "FontAwesome.h"
+#include "Fonts/Roboto-Regular.h"
+#include "Fonts/FontAwesome4.h"
 
 #include "UIUtils.h"
 
@@ -94,12 +96,13 @@ void EditorLayer::OnInit() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigWindowsResizeFromEdges = true;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Regular.ttf", 14.0f);
+	//io.Fonts->AddFontFromFileTTF("Data/Fonts/Roboto-Regular.ttf", 14.0f);
+	io.Fonts->AddFontFromMemoryCompressedTTF(Roboto_compressed_data, Roboto_compressed_size, 14.0f);
 
 	ImFontConfig config;
 	config.MergeMode = true;
 	static const ImWchar icon_ranges[] = { ICON_MIN_FK, ICON_MAX_FK, 0 };
-	io.Fonts->AddFontFromFileTTF("Data/Fonts/fontawesome-webfont.ttf", 14.0f, &config, icon_ranges);
+	io.Fonts->AddFontFromMemoryCompressedTTF(FontAwesome4_compressed_data, FontAwesome4_compressed_size, 14.0f, &config, icon_ranges);
 
 
 	auto editor = (Editor*)m_userData;
