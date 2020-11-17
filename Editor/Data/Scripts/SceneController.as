@@ -6,7 +6,7 @@ class SceneController : CrimsonBehaviour {
 
 	// Called on the first frame
 	void OnInit() {
-
+		
 	}
 
 	// Called once per frame

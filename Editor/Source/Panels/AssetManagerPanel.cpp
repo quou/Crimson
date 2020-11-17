@@ -95,7 +95,7 @@ AssetManagerPanel::AssetManagerPanel(EditorLayer* editorLayer) : m_editorLayer(e
 	m_files = GetFiles("Data/");
 }
 
-void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
+void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel) {
 	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 	if (!entry.isDirectory) {
@@ -127,7 +127,7 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 	if (ImGui::TreeNodeEx(nodeString.c_str(), flags)) {
 		if (entry.isDirectory) {
 			for (auto& d : entry.subEntries) {
-				DrawDir(d, editor, sceneHierarchyPanel);
+				DrawDir(d, editor, sceneHierarchyPanel, codeEditorPanel);
 			}
 		} else {
 			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
@@ -151,6 +151,13 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 
 					Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 					sceneSerialiser.DeserialiseText(editor->m_scene->m_assetManager.LoadText(entry.absPath));
+
+				} else if (entry.extension == ".lua" ||
+							  entry.extension == ".conf" ||
+							  entry.extension == ".mat" ||
+							  entry.extension == ".as" ||
+						  	  entry.extension == ".glsl") {
+					codeEditorPanel.OpenFile(entry.absPath, entry.extension);
 				}
 			}
 		}
@@ -159,7 +166,7 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 	}
 }
 
-void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel) {
+void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel) {
 	ImGui::Begin("Asset Manager", NULL, ImGuiWindowFlags_MenuBar);
 
 	if (ImGui::BeginMenuBar()) {
@@ -230,7 +237,7 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 	}
 
 	for (auto& f : m_files) {
-		DrawDir(f, editor, sceneHierarchyPanel);
+		DrawDir(f, editor, sceneHierarchyPanel, codeEditorPanel);
 	}
 	ImGui::End();
 }

@@ -3,6 +3,7 @@
 #include <Crimson.h>
 
 #include "SceneHierarchyPanel.h"
+#include "CodeEditorPanel.h"
 
 class Editor;
 class EditorLayer;
@@ -24,6 +25,6 @@ private:
 public:
 	AssetManagerPanel(EditorLayer* editorLayer);
 
-	void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel);
-	void Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel);
+	void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel);
+	void Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel);
 };

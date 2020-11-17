@@ -109,6 +109,8 @@ void EditorLayer::OnInit() {
 	m_currentSavePath = "Data/Scenes/Test.cscn";
 
 	ImGui::SetWindowFocus("Scene Viewport");
+
+	m_codeEditorPanel.Init();
 }
 
 void EditorLayer::SaveAs() {
@@ -231,7 +233,8 @@ void EditorLayer::OnUpdate(float delta) {
 
 	m_sceneHierarchyPanel.Render();
 	m_consolePanel.Render();
-	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel);
+	m_codeEditorPanel.Render();
+	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel, m_codeEditorPanel);
 
 	ImGui::BeginMainMenuBar();
 
@@ -306,18 +309,25 @@ void EditorLayer::OnUpdate(float delta) {
 
 	ImGui::EndMainMenuBar();
 
+	// CTRL+N
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_N)) {
 		NewScene();
 	}
 
+	// CTRL+S
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_S)) {
-		SaveScene();
+		if (!m_codeEditorPanel.IsFocused()) {
+			SaveScene();
+		}
+		m_codeEditorPanel.Save();
 	}
 
+	// CTRL+SHIFT+S
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyPressed(CR_KEY_S)) {
 		SaveAs();
 	}
 
+	// CTRL+R
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
 		ReloadScene();
 	}

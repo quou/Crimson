@@ -21,7 +21,7 @@ class Monkey : CrimsonBehaviour {
 		} else if (Input::GetButton("left").pressed) {
 			move.x = -m_moveForce;
 		}
-
+		
 		m_entity.GetPhysicsComponent().ApplyForce(move);
 	}
 
