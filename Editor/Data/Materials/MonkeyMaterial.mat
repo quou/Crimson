@@ -2,7 +2,7 @@
 
 shader = "Data/Shaders/Standard.glsl"
 
-albedo = "Data/Wood.jpg"
+albedo = "Data/Textures/Wood.jpg"
 
 material = {
     color = {1, 1, 1},

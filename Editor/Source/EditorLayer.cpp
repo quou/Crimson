@@ -105,8 +105,8 @@ void EditorLayer::OnInit() {
 	auto editor = (Editor*)m_userData;
 
 	auto s = Crimson::SceneSerialiser(*editor->m_scene);
-	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Test.cscn"));
-	m_currentSavePath = "Data/Test.cscn";
+	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Scenes/Test.cscn"));
+	m_currentSavePath = "Data/Scenes/Test.cscn";
 
 	ImGui::SetWindowFocus("Scene Viewport");
 }

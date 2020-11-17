@@ -2,7 +2,7 @@
 
 shader = "Data/Shaders/Standard.glsl"
 
-albedo = "Data/GridTexture.png"
+albedo = "Data/Textures/GridTexture.png"
 
 material = {
     color = {0, 1, 0},
