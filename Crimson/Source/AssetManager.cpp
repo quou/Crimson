@@ -62,7 +62,7 @@ namespace Crimson {
 			}
 		);
 
-		m_textures["DefaultTexture"] = Surface{1023,1007,3,GridTexture};
+		m_textures["Default"] = Surface{1023,1007,3,GridTexture};
 
 		m_textFiles["Standard"] = StandardShader;
 
@@ -70,7 +70,7 @@ namespace Crimson {
 			R"(
 				shader = "Standard"
 
-				albedo = "DefaultTexture"
+				albedo = "Default"
 
 				material = {
 				    color = {1, 1, 1},
@@ -83,7 +83,7 @@ namespace Crimson {
 
 	AssetManager::~AssetManager() {
 		for (auto& surface : m_textures) {
-			if (surface.first != "DefaultTexture") {
+			if (surface.first != "Default") {
 				stbi_image_free(surface.second.pixels);
 			}
 		}

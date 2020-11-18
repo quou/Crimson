@@ -6,6 +6,6 @@ albedo = "Default"
 
 material = {
     color = {0, 1, 0},
-	 smoothness = 1,
-	 shininess = 20
+	smoothness = 1,
+	shininess = 20
 }
