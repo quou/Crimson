@@ -1,6 +1,6 @@
 -- CRIMSON MATERIAL
 
-shader = "Data/Shaders/Standard.glsl"
+shader = "Standard"
 
 albedo = "Data/Textures/Wood.jpg"
 

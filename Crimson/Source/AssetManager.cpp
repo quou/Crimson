@@ -8,6 +8,8 @@
 
 #include "Utils/stb_image.h"
 
+#include "DefaultAssets/GridTexture.h"
+#include "DefaultAssets/StandardShader.h"
 
 namespace Crimson {
 	AssetManager::AssetManager(bool loadFromArchive) : m_loadFromArchive(loadFromArchive) {
@@ -60,11 +62,15 @@ namespace Crimson {
 			}
 		);
 
+		m_textures["DefaultTexture"] = Surface{1023,1007,3,GridTexture};
+
+		m_textFiles["Standard"] = StandardShader;
+
 		m_materials["Default"] = new Material(
 			R"(
-				shader = "Data/Shaders/Standard.glsl"
+				shader = "Standard"
 
-				albedo = "Data/Textures/GridTexture.png"
+				albedo = "DefaultTexture"
 
 				material = {
 				    color = {1, 1, 1},
@@ -77,7 +83,9 @@ namespace Crimson {
 
 	AssetManager::~AssetManager() {
 		for (auto& surface : m_textures) {
-			stbi_image_free(surface.second.pixels);
+			if (surface.first != "DefaultTexture") {
+				stbi_image_free(surface.second.pixels);
+			}
 		}
 
 		for (auto& m : m_meshes) {
@@ -135,7 +143,7 @@ namespace Crimson {
 	}
 
 	Surface* AssetManager::LoadSurface(const std::string& filePath, bool reload) {
-		if (m_textFiles.count(filePath) == 0 && !reload) {
+		if (m_textures.count(filePath) == 0 && !reload) {
 			unsigned char* imageData;
 			size_t fileSize;
 
@@ -180,6 +188,7 @@ namespace Crimson {
 
 			m_textures[filePath] = Surface{x,y,n,pixels};
 		}
+
 		return &m_textures[filePath];
 	}
 

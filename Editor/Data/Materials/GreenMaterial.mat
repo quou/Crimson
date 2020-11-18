@@ -1,8 +1,8 @@
 -- CRIMSON MATERIAL
 
-shader = "Data/Shaders/Standard.glsl"
+shader = "Standard"
 
-albedo = "Data/Textures/GridTexture.png"
+albedo = "Default"
 
 material = {
     color = {0, 1, 0},
