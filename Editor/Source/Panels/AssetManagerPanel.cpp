@@ -86,7 +86,7 @@ static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 		result.push_back(e);
 	}
 
-	//std::sort(result.begin(), result.end(), CompareDir);
+	std::sort(result.begin(), result.end(), CompareDir);
 
 	return result;
 }
