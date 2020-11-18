@@ -10,6 +10,10 @@ extern "C" {
 	#include <lualib.h>
 }
 
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+
 namespace Crimson {
 
 	void Input::Init() {
@@ -22,9 +26,9 @@ namespace Crimson {
 		RegisterKey("a", CR_KEY_A);
 		RegisterKey("s", CR_KEY_S);
 		RegisterKey("d", CR_KEY_D);
-		RegisterKey("left mouse button", CR_MOUSE_BUTTON_1);
-		RegisterKey("right mouse button", CR_MOUSE_BUTTON_2);
-		RegisterKey("middle mouse button", CR_MOUSE_BUTTON_3);
+		RegisterKey("left_mouse_button", CR_MOUSE_BUTTON_1);
+		RegisterKey("right_mouse_button", CR_MOUSE_BUTTON_2);
+		RegisterKey("middle_mouse_button", CR_MOUSE_BUTTON_3);
 	}
 
 	void Input::IKeyCallback(int key, int scancode, int action, int mods) {
@@ -53,9 +57,11 @@ namespace Crimson {
 	}
 
 	void Input::LoadConfig(const char* lua) {
+		std::string str = lua;
+
 		lua_State* L = luaL_newstate();
 
-		int r = luaL_dostring(L, lua);
+		int r = luaL_dostring(L, str.c_str());
 		if (r != LUA_OK) {
 			CR_LOG_ERROR("Error loading input config: %s", lua_tostring(L, -1));
 			goto end;
@@ -78,6 +84,24 @@ namespace Crimson {
 
 		end:
 			lua_close(L);
+	}
+
+	void Input::SaveConfig(const char* filePath) {
+		std::ofstream file(filePath);
+
+		if (file.good()) {
+			std::stringstream ss;
+
+			ss << "input = {\n";
+			for (auto& key : instance().m_keys) {
+				ss << "\t" << key.first << " = " << key.second.keycode << ",\n";
+			}
+			ss << "}";
+
+			std::string str = ss.str();
+
+			file << str;
+		}
 	}
 
 	void Input::IMouseButtonCallback(int button, int action, int mods) {

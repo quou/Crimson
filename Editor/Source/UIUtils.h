@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include <glm/glm.hpp>
 
@@ -11,3 +12,5 @@ void DrawBoolControl(const std::string& label, bool* val, float colWidth = 100.0
 void DrawTextLabel(const std::string& label, const std::string& text, float colWidth = 100.0f);
 void DrawColorControl(const std::string& label, glm::vec3& value, float colWidth = 100.0f);
 void DrawLinePlot(const std::string& label, float* values, unsigned int valueLength, float valuesOffset, float min, float max, float colWidth=100.0f);
+
+std::string DrawComboBox(const std::string& label, const std::vector<std::string>& items, float colWidth=100.0f);

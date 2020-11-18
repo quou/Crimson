@@ -247,6 +247,7 @@ namespace Crimson {
 		static const Key& GetKey(std::string name);
 
 		static void LoadConfig(const char* lua);
+		static void SaveConfig(const char* filePath);
 
 		static void SetCursorPosition(GLFWwindow* window, glm::vec2 newPos);
 

@@ -22,6 +22,8 @@ private:
 	std::vector<DirectoryEntry> m_files;
 
 	EditorLayer* m_editorLayer;
+
+	friend class EditorLayer;
 public:
 	AssetManagerPanel(EditorLayer* editorLayer);
 

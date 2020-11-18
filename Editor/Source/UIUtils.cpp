@@ -194,3 +194,44 @@ void DrawLinePlot(const std::string& label, float* values, unsigned int valueLen
 
 	ImGui::PopID();
 }
+
+std::string DrawComboBox(const std::string& label, const std::vector<std::string>& items, float colWidth) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+
+	static int item_current_idx = 0;                    // Here our selection data is an index.
+	const char* combo_label = "Select";  // Label to preview before opening the combo (technically it could be anything)
+	if (ImGui::BeginCombo("##COMBO", combo_label))
+	{
+		 for (int n = 0; n < items.size(); n++)
+		 {
+			  const bool is_selected = (item_current_idx == n);
+			  if (ImGui::Selectable(items[n].c_str(), is_selected)) {
+					item_current_idx = n;
+					combo_label = items[n].c_str();
+				}
+
+			  // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			  if (is_selected) {
+					ImGui::SetItemDefaultFocus();
+				}
+		 }
+		 ImGui::EndCombo();
+	}
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+
+	return items[item_current_idx];
+}

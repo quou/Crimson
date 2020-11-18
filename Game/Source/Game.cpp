@@ -20,8 +20,10 @@ private:
 
 		m_scene = std::make_shared<Crimson::Scene>(true);
 
+		auto config = Crimson::LoadProjectConfig(m_scene->m_assetManager.LoadText("Data/ProjectConfig.conf"));
+
 		auto s = Crimson::SceneSerialiser(*m_scene);
-		s.DeserialiseText(m_scene->m_assetManager.LoadText("Data/Test.cscn"));
+		s.DeserialiseText(m_scene->m_assetManager.LoadText(config.startup));
 
 		m_scene->Init();
 	}

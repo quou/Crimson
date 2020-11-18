@@ -1,5 +1,7 @@
 #include "EditorLayer.h"
 
+#include <filesystem>
+
 #include <imgui.h>
 #include <imgui_internal.h>
 
@@ -107,9 +109,9 @@ void EditorLayer::OnInit() {
 
 	auto editor = (Editor*)m_userData;
 
-	auto s = Crimson::SceneSerialiser(*editor->m_scene);
-	s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Scenes/Test.cscn"));
-	m_currentSavePath = "Data/Scenes/Test.cscn";
+	// auto s = Crimson::SceneSerialiser(*editor->m_scene);
+	// s.DeserialiseText(editor->m_scene->m_assetManager.LoadText("Data/Scenes/Test.cscn"));
+	// m_currentSavePath = "Data/Scenes/Test.cscn";
 
 	ImGui::SetWindowFocus("Scene Viewport");
 
@@ -239,6 +241,8 @@ void EditorLayer::OnUpdate(float delta) {
 	m_codeEditorPanel.Render();
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel, m_codeEditorPanel);
 
+	static bool showExportPopup = false;
+
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("File")) {
@@ -256,10 +260,47 @@ void EditorLayer::OnUpdate(float delta) {
 
 		ImGui::Separator();
 
+
 		if (ImGui::MenuItem("Export Runtime")) {
+			showExportPopup = true;
+		}
+
+		ImGui::EndMenu();
+	}
+
+	if (showExportPopup) {
+		ImGui::OpenPopup("Export Runtime");
+		showExportPopup = false;
+	}
+
+	if (ImGui::BeginPopupModal("Export Runtime")) {
+
+		std::vector<std::string> scenePaths;
+		std::string path = "Data/";
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
+			if (entry.path().extension().string() == ".cscn") {
+				scenePaths.push_back(entry.path().string());
+			}
+		}
+
+		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
+		ImGui::Text("%s", startupScenePath.c_str());
+
+		if (ImGui::Button("Export")) {
+
 			const char* folder = tinyfd_selectFolderDialog("Export Runtime", "");
 
 			if (folder) {
+				Crimson::Input::SaveConfig("Data/InputConfig.conf");
+
+				std::ofstream configF("Data/ProjectConfig.conf");
+				if (configF.good()) {
+					configF << "project = {\n";
+					configF << "\t" << "startup = \"" << startupScenePath << "\"\n";
+					configF << "}";
+				}
+				configF.close();
+
 				#ifdef _WIN32
 					remove(std::string(std::string(folder) + "/" + "Game.exe").c_str());
 					Crimson::CopyFile("Game.exe", std::string(std::string(folder) + "/" + "Game.exe"));
@@ -271,10 +312,19 @@ void EditorLayer::OnUpdate(float delta) {
 				remove(std::string(std::string(folder) + "/" + "Data.pck").c_str());
 				Crimson::CompressFolder("Data", std::string(std::string(folder) + "/" + "Data.pck").c_str());
 			}
+
+
+			ImGui::CloseCurrentPopup();
 		}
 
-		ImGui::EndMenu();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel")) {
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
 	}
+
 
 	if (ImGui::BeginMenu("Scene")) {
 		if (ImGui::MenuItem("Reload", "CTRL+R")) {
