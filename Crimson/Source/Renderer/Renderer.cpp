@@ -69,7 +69,7 @@ namespace Crimson {
 			glEnable(GL_SCISSOR_TEST);
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			AABB sceneAABB;
+			AABB sceneAABB{ glm::vec3(0.0f), glm::vec3(0.0f) };
 
 			int ii = 0;
 			for (auto mesh : meshes) {

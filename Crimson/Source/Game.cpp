@@ -69,7 +69,7 @@ namespace Crimson {
 			l->OnInit();
 		}
 
-		float oldTimeSinceStart;
+		float oldTimeSinceStart = 0.0f;
 
 		while (!glfwWindowShouldClose(m_window)) {
 			float timeSinceStart = glfwGetTime();

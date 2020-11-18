@@ -27,7 +27,7 @@ namespace Crimson {
 
 		for (const auto& entry : std::filesystem::recursive_directory_iterator(folder)) {
 			if (!entry.is_directory()) {
-				mz_bool status = mz_zip_writer_add_file(&archive, entry.path().c_str(), entry.path().c_str(), comment, (uint16_t)strlen(comment), MZ_BEST_COMPRESSION);
+				mz_bool status = mz_zip_writer_add_file(&archive, entry.path().string().c_str(), entry.path().string().c_str(), comment, (uint16_t)strlen(comment), MZ_BEST_COMPRESSION);
 				if (!status) {
 					CR_LOG_ERROR("%s", "Failed to write data to archive");
 				}

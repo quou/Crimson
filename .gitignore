@@ -14,3 +14,10 @@ bin-int
 imgui.ini
 .ccls-cache
 compile_commands.json
+*.sln
+*cbp
+*.layout
+*.vcxproj
+*.filters
+*.user
+*.vs

@@ -10,8 +10,4 @@ class TestBehaviour : CrimsonBehaviour {
 	void OnUpdate(float delta) {
 		//print(to_string(delta));
 	}
-
-	void OnContactEnter(Entity other) {
-		print(m_entity.GetTransformComponent().name + " entered " + other.GetTransformComponent().name);
-	}
 };

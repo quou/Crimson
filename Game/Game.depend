@@ -1,0 +1,1762 @@
+# depslib dependency file v1.0
+1605718967 source:c:\users\george lamb\documents\crimson\game\source\game.cpp
+	<Crimson.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\crimson.h
+	<imgui.h>
+	"Logger.h"
+	"AssetManager.h"
+	"Layer.h"
+	"Transform.h"
+	"Input.h"
+	"Renderer/Renderer.h"
+	"Renderer/Shader.h"
+	"Renderer/Texture.h"
+	"Renderer/Material.h"
+	"Renderer/Renderer3D/Mesh.h"
+	"Renderer/Renderer3D/Camera.h"
+	"Renderer/Renderer3D/LightScene.h"
+	"Renderer/RenderTarget.h"
+	"Physics/PhysicsScene.h"
+	"Physics/Rigidbody.h"
+	"Scripting/ScriptManager.h"
+	"SceneManagement/Scene.h"
+	"SceneManagement/Components.h"
+	"SceneManagement/Entity.h"
+	"SceneManagement/SceneSerialiser.h"
+	"Utils/MeshConverter.h"
+	"Utils/FolderCompressor.h"
+	"GUID.h"
+	"Utils/ProjectConfig.h"
+	"Game.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\imgui\include\\imgui.h
+	"imconfig.h"
+	<float.h>
+	<stdarg.h>
+	<stddef.h>
+	<string.h>
+	<assert.h>
+	<stdint.h>
+	"imgui_user.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\imgui\include\\imconfig.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\logger.h
+	<stdlib.h>
+	<vector>
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\assetmanager.h
+	<map>
+	<string>
+	"Renderer/Surface.h"
+	"Renderer/Renderer3D/Mesh.h"
+	"Renderer/Material.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\surface.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\renderer3d\mesh.h
+	<vector>
+	"Renderer/Vertex.h"
+	"Renderer/AABB.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\vertex.h
+	<glm/glm.hpp>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\glm.hpp
+	"detail/_fixes.hpp"
+	"detail/setup.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cassert>
+	"fwd.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"trigonometric.hpp"
+	"exponential.hpp"
+	"common.hpp"
+	"packing.hpp"
+	"geometric.hpp"
+	"matrix.hpp"
+	"vector_relational.hpp"
+	"integer.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\_fixes.hpp
+	<cmath>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\setup.hpp
+	<cassert>
+	<cstddef>
+	"../simd/platform.h"
+	<CL/sycl.hpp>
+	<limits>
+	<cstdint>
+	<type_traits>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\platform.h
+	<cuda.h>
+	<immintrin.h>
+	<immintrin.h>
+	<popcntintrin.h>
+	<nmmintrin.h>
+	<smmintrin.h>
+	<tmmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+	"neon.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\neon.h
+	<arm_neon.h>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\fwd.hpp
+	"detail/qualifier.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\qualifier.hpp
+	"setup.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\vec2.hpp
+	"./ext/vector_bool2.hpp"
+	"./ext/vector_bool2_precision.hpp"
+	"./ext/vector_float2.hpp"
+	"./ext/vector_float2_precision.hpp"
+	"./ext/vector_double2.hpp"
+	"./ext/vector_double2_precision.hpp"
+	"./ext/vector_int2.hpp"
+	"./ext/vector_int2_sized.hpp"
+	"./ext/vector_uint2.hpp"
+	"./ext/vector_uint2_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool2.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec2.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec2.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\_swizzle.hpp
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\_swizzle_func.hpp
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec2.inl
+	"./compute_vector_relational.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\compute_vector_relational.hpp
+	"setup.hpp"
+	<limits>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float2.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double2.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double2_precision.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int2.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int2_sized.hpp
+	"../ext/vector_int2.hpp"
+	"../ext/scalar_int_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\scalar_int_sized.hpp
+	"../detail/setup.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint2.hpp
+	"../detail/type_vec2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint2_sized.hpp
+	"../ext/vector_uint2.hpp"
+	"../ext/scalar_uint_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\scalar_uint_sized.hpp
+	"../detail/setup.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\vec3.hpp
+	"./ext/vector_bool3.hpp"
+	"./ext/vector_bool3_precision.hpp"
+	"./ext/vector_float3.hpp"
+	"./ext/vector_float3_precision.hpp"
+	"./ext/vector_double3.hpp"
+	"./ext/vector_double3_precision.hpp"
+	"./ext/vector_int3.hpp"
+	"./ext/vector_int3_sized.hpp"
+	"./ext/vector_uint3.hpp"
+	"./ext/vector_uint3_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool3.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec3.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec3.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec3.inl
+	"compute_vector_relational.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float3.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double3.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double3_precision.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int3.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int3_sized.hpp
+	"../ext/vector_int3.hpp"
+	"../ext/scalar_int_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint3.hpp
+	"../detail/type_vec3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint3_sized.hpp
+	"../ext/vector_uint3.hpp"
+	"../ext/scalar_uint_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\vec4.hpp
+	"./ext/vector_bool4.hpp"
+	"./ext/vector_bool4_precision.hpp"
+	"./ext/vector_float4.hpp"
+	"./ext/vector_float4_precision.hpp"
+	"./ext/vector_double4.hpp"
+	"./ext/vector_double4_precision.hpp"
+	"./ext/vector_int4.hpp"
+	"./ext/vector_int4_sized.hpp"
+	"./ext/vector_uint4.hpp"
+	"./ext/vector_uint4_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool4.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec4.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec4.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec4.inl
+	"compute_vector_relational.hpp"
+	"type_vec4_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec4_simd.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_bool4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float4.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_float4_precision.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double4.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_double4_precision.hpp
+	"../detail/setup.hpp"
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int4.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_int4_sized.hpp
+	"../ext/vector_int4.hpp"
+	"../ext/scalar_int_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint4.hpp
+	"../detail/type_vec4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\vector_uint4_sized.hpp
+	"../ext/vector_uint4.hpp"
+	"../ext/scalar_uint_sized.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat2x2.hpp
+	"./ext/matrix_double2x2.hpp"
+	"./ext/matrix_double2x2_precision.hpp"
+	"./ext/matrix_float2x2.hpp"
+	"./ext/matrix_float2x2_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x2.hpp
+	"../detail/type_mat2x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x2.hpp
+	"type_vec2.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x2.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x2.inl
+	"../matrix.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\matrix.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"detail/func_matrix.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat2x3.hpp
+	"./ext/matrix_double2x3.hpp"
+	"./ext/matrix_double2x3_precision.hpp"
+	"./ext/matrix_float2x3.hpp"
+	"./ext/matrix_float2x3_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x3.hpp
+	"../detail/type_mat2x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x3.hpp
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x3.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x3.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x3_precision.hpp
+	"../detail/type_mat2x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x3.hpp
+	"../detail/type_mat2x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x3_precision.hpp
+	"../detail/type_mat2x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat2x4.hpp
+	"./ext/matrix_double2x4.hpp"
+	"./ext/matrix_double2x4_precision.hpp"
+	"./ext/matrix_float2x4.hpp"
+	"./ext/matrix_float2x4_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x4.hpp
+	"../detail/type_mat2x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x4.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x4.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat2x4.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x4_precision.hpp
+	"../detail/type_mat2x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x4.hpp
+	"../detail/type_mat2x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x4_precision.hpp
+	"../detail/type_mat2x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat3x2.hpp
+	"./ext/matrix_double3x2.hpp"
+	"./ext/matrix_double3x2_precision.hpp"
+	"./ext/matrix_float3x2.hpp"
+	"./ext/matrix_float3x2_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x2.hpp
+	"../detail/type_mat3x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x2.hpp
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x2.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x2.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x2_precision.hpp
+	"../detail/type_mat3x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x2.hpp
+	"../detail/type_mat3x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x2_precision.hpp
+	"../detail/type_mat3x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat3x3.hpp
+	"./ext/matrix_double3x3.hpp"
+	"./ext/matrix_double3x3_precision.hpp"
+	"./ext/matrix_float3x3.hpp"
+	"./ext/matrix_float3x3_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x3.hpp
+	"../detail/type_mat3x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x3.hpp
+	"type_vec3.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x3.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x3.inl
+	"../matrix.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x3_precision.hpp
+	"../detail/type_mat3x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x3.hpp
+	"../detail/type_mat3x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x3_precision.hpp
+	"../detail/type_mat3x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat3x4.hpp
+	"./ext/matrix_double3x4.hpp"
+	"./ext/matrix_double3x4_precision.hpp"
+	"./ext/matrix_float3x4.hpp"
+	"./ext/matrix_float3x4_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x4.hpp
+	"../detail/type_mat3x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x4.hpp
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x4.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat3x4.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double3x4_precision.hpp
+	"../detail/type_mat3x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x4.hpp
+	"../detail/type_mat3x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float3x4_precision.hpp
+	"../detail/type_mat3x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat4x2.hpp
+	"./ext/matrix_double4x2.hpp"
+	"./ext/matrix_double4x2_precision.hpp"
+	"./ext/matrix_float4x2.hpp"
+	"./ext/matrix_float4x2_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x2.hpp
+	"../detail/type_mat4x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x2.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x2.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x2.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x2_precision.hpp
+	"../detail/type_mat4x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x2.hpp
+	"../detail/type_mat4x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat4x3.hpp
+	"./ext/matrix_double4x3.hpp"
+	"./ext/matrix_double4x3_precision.hpp"
+	"./ext/matrix_float4x3.hpp"
+	"./ext/matrix_float4x3_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x3.hpp
+	"../detail/type_mat4x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x3.hpp
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x3.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x3.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x3_precision.hpp
+	"../detail/type_mat4x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x3.hpp
+	"../detail/type_mat4x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x3_precision.hpp
+	"../detail/type_mat4x3.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\mat4x4.hpp
+	"./ext/matrix_double4x4.hpp"
+	"./ext/matrix_double4x4_precision.hpp"
+	"./ext/matrix_float4x4.hpp"
+	"./ext/matrix_float4x4_precision.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x4.hpp
+	"../detail/type_mat4x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x4.hpp
+	"type_vec4.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x4.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x4.inl
+	"../matrix.hpp"
+	"type_mat4x4_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_mat4x4_simd.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double4x4_precision.hpp
+	"../detail/type_mat4x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x4.hpp
+	"../detail/type_mat4x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float4x4_precision.hpp
+	"../detail/type_mat4x4.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_matrix.inl
+	"../geometric.hpp"
+	<limits>
+	"func_matrix_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\geometric.hpp
+	"detail/type_vec3.hpp"
+	"detail/func_geometric.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_geometric.inl
+	"../exponential.hpp"
+	"../common.hpp"
+	"func_geometric_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\exponential.hpp
+	"detail/type_vec1.hpp"
+	"detail/type_vec2.hpp"
+	"detail/type_vec3.hpp"
+	"detail/type_vec4.hpp"
+	<cmath>
+	"detail/func_exponential.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec1.hpp
+	"qualifier.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec1.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_vec1.inl
+	"./compute_vector_relational.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_exponential.inl
+	"../vector_relational.hpp"
+	"_vectorize.hpp"
+	<limits>
+	<cmath>
+	<cassert>
+	"func_exponential_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\vector_relational.hpp
+	"detail/qualifier.hpp"
+	"detail/setup.hpp"
+	"detail/func_vector_relational.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_vector_relational.inl
+	"func_vector_relational_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_vector_relational_simd.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\_vectorize.hpp
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_exponential_simd.inl
+	"../simd/exponential.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\exponential.h
+	"platform.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\common.hpp
+	"detail/qualifier.hpp"
+	"detail/_fixes.hpp"
+	"detail/func_common.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_common.inl
+	"../vector_relational.hpp"
+	"compute_common.hpp"
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"_vectorize.hpp"
+	<limits>
+	"func_common_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\compute_common.hpp
+	"setup.hpp"
+	<limits>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_common_simd.inl
+	"../simd/common.h"
+	<immintrin.h>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\common.h
+	"platform.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_geometric_simd.inl
+	"../simd/geometric.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\geometric.h
+	"common.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_matrix_simd.inl
+	"type_mat4x4.hpp"
+	"../geometric.hpp"
+	"../simd/matrix.h"
+	<cstring>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\matrix.h
+	"geometric.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_double2x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x2.hpp
+	"../detail/type_mat2x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_float2x2_precision.hpp
+	"../detail/type_mat2x2.hpp"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\trigonometric.hpp
+	"detail/setup.hpp"
+	"detail/qualifier.hpp"
+	"detail/func_trigonometric.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_trigonometric.inl
+	"_vectorize.hpp"
+	<cmath>
+	<limits>
+	"func_trigonometric_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_trigonometric_simd.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\packing.hpp
+	"./ext/vector_uint2.hpp"
+	"./ext/vector_float2.hpp"
+	"./ext/vector_float4.hpp"
+	"detail/func_packing.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_packing.inl
+	"../common.hpp"
+	"type_half.hpp"
+	"func_packing_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_half.hpp
+	"setup.hpp"
+	"type_half.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\type_half.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_packing_simd.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\integer.hpp
+	"detail/qualifier.hpp"
+	"common.hpp"
+	"vector_relational.hpp"
+	"detail/func_integer.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_integer.inl
+	"_vectorize.hpp"
+	<intrin.h>
+	<limits>
+	"func_integer_simd.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\detail\func_integer_simd.inl
+	"../simd/integer.h"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\simd\integer.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\aabb.h
+	<glm/glm.hpp>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\material.h
+	<memory>
+	<string>
+	"Shader.h"
+	"Texture.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\shader.h
+	<glm/glm.hpp>
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\texture.h
+	<tuple>
+	"Surface.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\layer.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\transform.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\gtc\matrix_transform.hpp
+	"../mat4x4.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../ext/matrix_projection.hpp"
+	"../ext/matrix_clip_space.hpp"
+	"../ext/matrix_transform.hpp"
+	"matrix_transform.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_projection.hpp
+	"../gtc/constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+	"matrix_projection.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\gtc\constants.hpp
+	"../ext/scalar_constants.hpp"
+	"constants.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\scalar_constants.hpp
+	"../detail/setup.hpp"
+	"scalar_constants.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\scalar_constants.inl
+	<limits>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\gtc\constants.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_projection.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_clip_space.hpp
+	"../ext/scalar_constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"matrix_clip_space.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_clip_space.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_transform.hpp
+	"../gtc/constants.hpp"
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+	"matrix_transform.inl"
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\ext\matrix_transform.inl
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\glm\\glm\gtc\matrix_transform.inl
+	"../geometric.hpp"
+	"../trigonometric.hpp"
+	"../matrix.hpp"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\input.h
+	<string>
+	<map>
+	<glm/glm.hpp>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\renderer.h
+	<memory>
+	"Renderer3D/Mesh.h"
+	"Shader.h"
+	"Renderer3D/Camera.h"
+	"AABB.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\renderer3d\camera.h
+	<tuple>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\renderer3d\lightscene.h
+	<vector>
+	<memory>
+	"Renderer/Shader.h"
+	"Camera.h"
+	"Lights.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\renderer3d\lights.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	"Camera.h"
+	"Renderer/AABB.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\renderer\rendertarget.h
+	<tuple>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\physics\physicsscene.h
+	"EventListener.h"
+	<reactphysics3d/reactphysics3d.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\physics\eventlistener.h
+	<reactphysics3d/reactphysics3d.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\reactphysics3d.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/body/CollisionBody.h>
+	<reactphysics3d/body/RigidBody.h>
+	<reactphysics3d/engine/PhysicsCommon.h>
+	<reactphysics3d/engine/PhysicsWorld.h>
+	<reactphysics3d/engine/Material.h>
+	<reactphysics3d/engine/EventListener.h>
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+	<reactphysics3d/collision/shapes/BoxShape.h>
+	<reactphysics3d/collision/shapes/SphereShape.h>
+	<reactphysics3d/collision/shapes/CapsuleShape.h>
+	<reactphysics3d/collision/shapes/ConvexMeshShape.h>
+	<reactphysics3d/collision/shapes/ConcaveMeshShape.h>
+	<reactphysics3d/collision/shapes/HeightFieldShape.h>
+	<reactphysics3d/collision/PolyhedronMesh.h>
+	<reactphysics3d/collision/shapes/AABB.h>
+	<reactphysics3d/collision/Collider.h>
+	<reactphysics3d/collision/RaycastInfo.h>
+	<reactphysics3d/collision/TriangleMesh.h>
+	<reactphysics3d/collision/PolyhedronMesh.h>
+	<reactphysics3d/collision/TriangleVertexArray.h>
+	<reactphysics3d/collision/PolygonVertexArray.h>
+	<reactphysics3d/collision/CollisionCallback.h>
+	<reactphysics3d/collision/OverlapCallback.h>
+	<reactphysics3d/constraint/BallAndSocketJoint.h>
+	<reactphysics3d/constraint/SliderJoint.h>
+	<reactphysics3d/constraint/HingeJoint.h>
+	<reactphysics3d/constraint/FixedJoint.h>
+	<reactphysics3d/containers/List.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\configuration.h
+	<limits>
+	<cfloat>
+	<utility>
+	<sstream>
+	<string>
+	<reactphysics3d/decimal.h>
+	<reactphysics3d/containers/Pair.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\decimal.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\pair.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<reactphysics3d/containers/containers_common.h>
+	<cstring>
+	<iterator>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\memoryallocator.h
+	<cstring>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\containers_common.h
+	<cstddef>
+	<functional>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\mathematics.h
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/mathematics/Matrix2x2.h>
+	<reactphysics3d/mathematics/Quaternion.h>
+	<reactphysics3d/mathematics/Vector3.h>
+	<reactphysics3d/mathematics/Vector2.h>
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Ray.h>
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/mathematics/mathematics_functions.h>
+	<cstdio>
+	<cassert>
+	<cmath>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\matrix3x3.h
+	<cassert>
+	<reactphysics3d/mathematics/Vector3.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\vector3.h
+	<cassert>
+	<reactphysics3d/mathematics/mathematics_functions.h>
+	<reactphysics3d/decimal.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\mathematics_functions.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/decimal.h>
+	<algorithm>
+	<cassert>
+	<cmath>
+	<reactphysics3d/containers/List.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\list.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<cassert>
+	<cstring>
+	<iterator>
+	<memory>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\matrix2x2.h
+	<cassert>
+	<reactphysics3d/mathematics/Vector2.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\vector2.h
+	<cassert>
+	<reactphysics3d/mathematics/mathematics_functions.h>
+	<reactphysics3d/decimal.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\quaternion.h
+	<reactphysics3d/decimal.h>
+	<reactphysics3d/mathematics/Vector3.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\transform.h
+	<reactphysics3d/mathematics/Vector3.h>
+	<reactphysics3d/mathematics/Quaternion.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\mathematics\ray.h
+	<reactphysics3d/mathematics/Vector3.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\body\collisionbody.h
+	<cassert>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/collision/shapes/AABB.h>
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\entity.h
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\aabb.h
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\body\rigidbody.h
+	<cassert>
+	<reactphysics3d/body/CollisionBody.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\physicscommon.h
+	<reactphysics3d/memory/MemoryManager.h>
+	<reactphysics3d/engine/PhysicsWorld.h>
+	<reactphysics3d/collision/shapes/SphereShape.h>
+	<reactphysics3d/collision/shapes/BoxShape.h>
+	<reactphysics3d/collision/shapes/CapsuleShape.h>
+	<reactphysics3d/collision/shapes/HeightFieldShape.h>
+	<reactphysics3d/collision/shapes/ConvexMeshShape.h>
+	<reactphysics3d/collision/shapes/ConcaveMeshShape.h>
+	<reactphysics3d/collision/TriangleMesh.h>
+	<reactphysics3d/utils/DefaultLogger.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\memorymanager.h
+	<reactphysics3d/memory/DefaultAllocator.h>
+	<reactphysics3d/memory/PoolAllocator.h>
+	<reactphysics3d/memory/HeapAllocator.h>
+	<reactphysics3d/memory/SingleFrameAllocator.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\defaultallocator.h
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<cstdlib>
+	<iostream>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\poolallocator.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<mutex>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\heapallocator.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<cassert>
+	<mutex>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\map.h
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<reactphysics3d/mathematics/mathematics_functions.h>
+	<reactphysics3d/containers/Pair.h>
+	<cstring>
+	<stdexcept>
+	<functional>
+	<limits>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\memory\singleframeallocator.h
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<reactphysics3d/configuration.h>
+	<mutex>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\physicsworld.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/constraint/Joint.h>
+	<reactphysics3d/memory/MemoryManager.h>
+	<reactphysics3d/engine/EntityManager.h>
+	<reactphysics3d/components/CollisionBodyComponents.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+	<reactphysics3d/components/ColliderComponents.h>
+	<reactphysics3d/components/JointComponents.h>
+	<reactphysics3d/components/BallAndSocketJointComponents.h>
+	<reactphysics3d/components/FixedJointComponents.h>
+	<reactphysics3d/components/HingeJointComponents.h>
+	<reactphysics3d/components/SliderJointComponents.h>
+	<reactphysics3d/collision/CollisionCallback.h>
+	<reactphysics3d/collision/OverlapCallback.h>
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/utils/Logger.h>
+	<reactphysics3d/systems/ConstraintSolverSystem.h>
+	<reactphysics3d/systems/CollisionDetectionSystem.h>
+	<reactphysics3d/systems/ContactSolverSystem.h>
+	<reactphysics3d/systems/DynamicsSystem.h>
+	<reactphysics3d/engine/Islands.h>
+	<reactphysics3d/utils/DebugRenderer.h>
+	<sstream>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\joint.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/body/RigidBody.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\entitymanager.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/containers/Deque.h>
+	<reactphysics3d/engine/Entity.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\deque.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<cassert>
+	<cmath>
+	<cstring>
+	<iterator>
+	<memory>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\collisionbodycomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\components.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\rigidbodycomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\transformcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\collidercomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/containers/Map.h>
+	<reactphysics3d/collision/shapes/AABB.h>
+	<reactphysics3d/components/Components.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\jointcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\ballandsocketjointcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\fixedjointcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\hingejointcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/mathematics/Matrix2x2.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\components\sliderjointcomponents.h
+	<reactphysics3d/mathematics/Transform.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+	<reactphysics3d/mathematics/Matrix2x2.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/components/Components.h>
+	<reactphysics3d/containers/Map.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\collisioncallback.h
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/collision/ContactPair.h>
+	<reactphysics3d/constraint/ContactPoint.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\contactpair.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/engine/OverlappingPairs.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\overlappingpairs.h
+	<reactphysics3d/collision/Collider.h>
+	<reactphysics3d/containers/Map.h>
+	<reactphysics3d/containers/Pair.h>
+	<reactphysics3d/containers/Set.h>
+	<reactphysics3d/containers/containers_common.h>
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/ColliderComponents.h>
+	<reactphysics3d/components/CollisionBodyComponents.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<cstddef>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\collider.h
+	<reactphysics3d/body/CollisionBody.h>
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+	<reactphysics3d/engine/Material.h>
+	<reactphysics3d/utils/Logger.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\collisionshape.h
+	<cassert>
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/containers/List.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\utils\profiler.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/engine/Timer.h>
+	<fstream>
+	<reactphysics3d/containers/List.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\timer.h
+	<ctime>
+	<cassert>
+	<reactphysics3d/configuration.h>
+	<windows.h>
+	<sys/time.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\material.h
+	<cassert>
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\utils\logger.h
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/containers/Map.h>
+	<string>
+	<iostream>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\set.h
+	<reactphysics3d/memory/MemoryAllocator.h>
+	<reactphysics3d/mathematics/mathematics_functions.h>
+	<cstring>
+	<stdexcept>
+	<functional>
+	<limits>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\contactpoint.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/collision/ContactPointInfo.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\contactpointinfo.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\overlapcallback.h
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/collision/ContactPair.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\constraintsolversystem.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/systems/SolveBallAndSocketJointSystem.h>
+	<reactphysics3d/systems/SolveFixedJointSystem.h>
+	<reactphysics3d/systems/SolveHingeJointSystem.h>
+	<reactphysics3d/systems/SolveSliderJointSystem.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\solveballandsocketjointsystem.h
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/JointComponents.h>
+	<reactphysics3d/components/BallAndSocketJointComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\solvefixedjointsystem.h
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/JointComponents.h>
+	<reactphysics3d/components/FixedJointComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\solvehingejointsystem.h
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/JointComponents.h>
+	<reactphysics3d/components/HingeJointComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\solvesliderjointsystem.h
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/JointComponents.h>
+	<reactphysics3d/components/SliderJointComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\collisiondetectionsystem.h
+	<reactphysics3d/body/CollisionBody.h>
+	<reactphysics3d/systems/BroadPhaseSystem.h>
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+	<reactphysics3d/collision/ContactPointInfo.h>
+	<reactphysics3d/constraint/ContactPoint.h>
+	<reactphysics3d/collision/ContactManifoldInfo.h>
+	<reactphysics3d/collision/ContactManifold.h>
+	<reactphysics3d/collision/ContactPair.h>
+	<reactphysics3d/engine/OverlappingPairs.h>
+	<reactphysics3d/engine/OverlappingPairs.h>
+	<reactphysics3d/collision/narrowphase/NarrowPhaseInput.h>
+	<reactphysics3d/collision/narrowphase/CollisionDispatch.h>
+	<reactphysics3d/containers/Map.h>
+	<reactphysics3d/containers/Set.h>
+	<reactphysics3d/components/ColliderComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\broadphasesystem.h
+	<reactphysics3d/collision/broadphase/DynamicAABBTree.h>
+	<reactphysics3d/containers/LinkedList.h>
+	<reactphysics3d/containers/Set.h>
+	<reactphysics3d/components/ColliderComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<cstring>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\broadphase\dynamicaabbtree.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/collision/shapes/AABB.h>
+	<reactphysics3d/containers/Set.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\containers\linkedlist.h
+	<reactphysics3d/memory/MemoryAllocator.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\contactmanifoldinfo.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/engine/OverlappingPairs.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\contactmanifold.h
+	<reactphysics3d/collision/Collider.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\narrowphaseinput.h
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/collision/narrowphase/NarrowPhaseInfoBatch.h>
+	<reactphysics3d/collision/narrowphase/SphereVsSphereNarrowPhaseInfoBatch.h>
+	<reactphysics3d/collision/narrowphase/CapsuleVsCapsuleNarrowPhaseInfoBatch.h>
+	<reactphysics3d/collision/narrowphase/SphereVsCapsuleNarrowPhaseInfoBatch.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\narrowphaseinfobatch.h
+	<reactphysics3d/engine/OverlappingPairs.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\spherevsspherenarrowphaseinfobatch.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseInfoBatch.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\capsulevscapsulenarrowphaseinfobatch.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseInfoBatch.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\spherevscapsulenarrowphaseinfobatch.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseInfoBatch.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\collisiondispatch.h
+	<reactphysics3d/collision/narrowphase/SphereVsSphereAlgorithm.h>
+	<reactphysics3d/collision/narrowphase/SphereVsConvexPolyhedronAlgorithm.h>
+	<reactphysics3d/collision/narrowphase/SphereVsCapsuleAlgorithm.h>
+	<reactphysics3d/collision/narrowphase/CapsuleVsCapsuleAlgorithm.h>
+	<reactphysics3d/collision/narrowphase/CapsuleVsConvexPolyhedronAlgorithm.h>
+	<reactphysics3d/collision/narrowphase/ConvexPolyhedronVsConvexPolyhedronAlgorithm.h>
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\spherevsspherealgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\narrowphasealgorithm.h
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\spherevsconvexpolyhedronalgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\spherevscapsulealgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\capsulevscapsulealgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\capsulevsconvexpolyhedronalgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\narrowphase\convexpolyhedronvsconvexpolyhedronalgorithm.h
+	<reactphysics3d/collision/narrowphase/NarrowPhaseAlgorithm.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\contactsolversystem.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/mathematics/Vector3.h>
+	<reactphysics3d/mathematics/Matrix3x3.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\systems\dynamicssystem.h
+	<reactphysics3d/utils/Profiler.h>
+	<reactphysics3d/components/CollisionBodyComponents.h>
+	<reactphysics3d/components/RigidBodyComponents.h>
+	<reactphysics3d/components/TransformComponents.h>
+	<reactphysics3d/components/ColliderComponents.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\islands.h
+	<reactphysics3d/configuration.h>
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/engine/Entity.h>
+	<reactphysics3d/constraint/Joint.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\utils\debugrenderer.h
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/containers/Map.h>
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/engine/EventListener.h>
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\engine\eventlistener.h
+	<reactphysics3d/collision/CollisionCallback.h>
+	<reactphysics3d/collision/OverlapCallback.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\sphereshape.h
+	<reactphysics3d/collision/shapes/ConvexShape.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\convexshape.h
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\boxshape.h
+	<reactphysics3d/collision/shapes/ConvexPolyhedronShape.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\convexpolyhedronshape.h
+	<reactphysics3d/collision/shapes/ConvexShape.h>
+	<reactphysics3d/collision/HalfEdgeStructure.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\halfedgestructure.h
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\capsuleshape.h
+	<reactphysics3d/collision/shapes/ConvexShape.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\heightfieldshape.h
+	<reactphysics3d/collision/shapes/ConcaveShape.h>
+	<reactphysics3d/collision/shapes/AABB.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\concaveshape.h
+	<reactphysics3d/collision/shapes/CollisionShape.h>
+	<reactphysics3d/collision/shapes/TriangleShape.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\triangleshape.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/collision/shapes/ConvexPolyhedronShape.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\convexmeshshape.h
+	<reactphysics3d/collision/shapes/ConvexPolyhedronShape.h>
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/collision/PolyhedronMesh.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\polyhedronmesh.h
+	<reactphysics3d/mathematics/mathematics.h>
+	"HalfEdgeStructure.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\shapes\concavemeshshape.h
+	<reactphysics3d/collision/shapes/ConcaveShape.h>
+	<reactphysics3d/collision/broadphase/DynamicAABBTree.h>
+	<reactphysics3d/containers/List.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\trianglemesh.h
+	<cassert>
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/memory/MemoryAllocator.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\utils\defaultlogger.h
+	<reactphysics3d/utils/Logger.h>
+	<reactphysics3d/containers/List.h>
+	<reactphysics3d/containers/Map.h>
+	<string>
+	<iostream>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<mutex>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\raycastinfo.h
+	<reactphysics3d/mathematics/Vector3.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\trianglevertexarray.h
+	<reactphysics3d/configuration.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\collision\polygonvertexarray.h
+	<reactphysics3d/configuration.h>
+	<cassert>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\ballandsocketjoint.h
+	<reactphysics3d/constraint/Joint.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\sliderjoint.h
+	<reactphysics3d/mathematics/mathematics.h>
+	<reactphysics3d/body/RigidBody.h>
+	<reactphysics3d/constraint/Joint.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\hingejoint.h
+	<reactphysics3d/constraint/Joint.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\dependencies\reactphysics3d\include\\reactphysics3d\constraint\fixedjoint.h
+	<reactphysics3d/constraint/Joint.h>
+	<reactphysics3d/mathematics/mathematics.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\physics\rigidbody.h
+	<glm/glm.hpp>
+	<reactphysics3d/reactphysics3d.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\scripting\scriptmanager.h
+	<vector>
+	<string>
+	<tuple>
+	<entt.hpp>
+
+1605718966 c:\users\george lamb\documents\crimson\crimson\dependencies\entt\include\\entt.hpp
+	<vector>
+	<utility>
+	<iterator>
+	<algorithm>
+	<functional>
+	<utility>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<cstddef>
+	<cstdint>
+	<tuple>
+	<cstddef>
+	<utility>
+	<type_traits>
+	<string_view>
+	<cstddef>
+	<utility>
+	<type_traits>
+	<utility>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<algorithm>
+	<cstddef>
+	<iterator>
+	<memory>
+	<tuple>
+	<type_traits>
+	<utility>
+	<vector>
+	<vector>
+	<utility>
+	<iterator>
+	<algorithm>
+	<functional>
+	<utility>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<string_view>
+	<cstddef>
+	<cstdint>
+	<cstddef>
+	<utility>
+	<type_traits>
+	<vector>
+	<utility>
+	<iterator>
+	<algorithm>
+	<functional>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<tuple>
+	<cstddef>
+	<utility>
+	<functional>
+	<type_traits>
+	<cstddef>
+	<cstdint>
+	<type_traits>
+	<tuple>
+	<utility>
+	<type_traits>
+	<type_traits>
+	<algorithm>
+	<iterator>
+	<utility>
+	<vector>
+	<cstddef>
+	<type_traits>
+	<iterator>
+	<utility>
+	<vector>
+	<memory>
+	<cstddef>
+	<type_traits>
+	<iterator>
+	<vector>
+	<utility>
+	<algorithm>
+	<type_traits>
+	<iterator>
+	<array>
+	<tuple>
+	<utility>
+	<algorithm>
+	<type_traits>
+	<type_traits>
+	<limits>
+	<cstddef>
+	<cstdint>
+	<utility>
+	<type_traits>
+	<array>
+	<vector>
+	<cstddef>
+	<utility>
+	<iterator>
+	<type_traits>
+	<unordered_map>
+	<memory>
+	<utility>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<array>
+	<map>
+	<set>
+	<unordered_map>
+	<unordered_set>
+	<utility>
+	<vector>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<type_traits>
+	<array>
+	<cstddef>
+	<functional>
+	<tuple>
+	<type_traits>
+	<utility>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<string_view>
+	<cstddef>
+	<cstdint>
+	<cstddef>
+	<utility>
+	<type_traits>
+	<cstddef>
+	<functional>
+	<iterator>
+	<type_traits>
+	<utility>
+	<algorithm>
+	<array>
+	<cstddef>
+	<iterator>
+	<functional>
+	<type_traits>
+	<utility>
+	<utility>
+	<memory>
+	<type_traits>
+	<algorithm>
+	<android/ndk-version.h>
+	<functional>
+	<type_traits>
+	<utility>
+	<utility>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<cstddef>
+	<utility>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<vector>
+	<memory>
+	<utility>
+	<algorithm>
+	<type_traits>
+	<memory>
+	<type_traits>
+	<unordered_map>
+	<utility>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<memory>
+	<utility>
+	<memory>
+	<tuple>
+	<cstddef>
+	<utility>
+	<functional>
+	<type_traits>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<cstddef>
+	<memory>
+	<type_traits>
+	<utility>
+	<vector>
+	<atomic>
+	<cstdint>
+	<cassert>
+	<type_traits>
+	<type_traits>
+	<string_view>
+	<cstddef>
+	<cstdint>
+	<vector>
+	<utility>
+	<iterator>
+	<algorithm>
+	<functional>
+	<type_traits>
+	<algorithm>
+	<functional>
+	<iterator>
+	<list>
+	<memory>
+	<type_traits>
+	<utility>
+	<vector>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\scenemanagement\scene.h
+	<entt.hpp>
+	"Renderer/Renderer.h"
+	"Renderer/Renderer3D/LightScene.h"
+	"Physics/PhysicsScene.h"
+	"AssetManager.h"
+	"Scripting/ScriptManager.h"
+	"GUID.h"
+	<reactphysics3d/reactphysics3d.h>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\guid.h
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\scenemanagement\components.h
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	"Renderer/Renderer3D/Mesh.h"
+	"Renderer/Renderer3D/Camera.h"
+	"Renderer/Material.h"
+	"Physics/Rigidbody.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\scenemanagement\entity.h
+	<entt.hpp>
+	"Scene.h"
+	"Logger.h"
+	"GUID.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\scenemanagement\sceneserialiser.h
+	"Scene.h"
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\utils\meshconverter.h
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\utils\foldercompressor.h
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\utils\projectconfig.h
+	<string>
+
+1605718967 c:\users\george lamb\documents\crimson\crimson\source\\game.h
+	<tuple>
+	<memory>
+	<vector>
+	<glm/glm.hpp>
+	"Layer.h"
+

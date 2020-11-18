@@ -152,7 +152,7 @@ namespace Crimson {
 	}
 
 	Camera* Scene::GetMainCamera() {
-		Camera* mainCamera;
+		Camera* mainCamera = NULL;
 		{
 			auto view = m_registry.view<TransformComponent, CameraComponent>();
 			for (auto ent : view) {
