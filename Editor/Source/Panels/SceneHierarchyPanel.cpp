@@ -10,6 +10,19 @@
 
 SceneHierarchyPanel::SceneHierarchyPanel(Crimson::Scene* scene) : m_scene(scene) {}
 
+template <typename T, typename ComponentDrawFunction>
+static void DrawComponent(const std::string& componentName, Crimson::Entity ent, ComponentDrawFunction drawFunction) {
+	if (ent.HasComponent<T>()) {
+		if (ImGui::TreeNodeEx((void*)typeid(T).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "%s", componentName.c_str())) {
+
+			drawFunction(ent.GetComponent<T>());
+
+			ImGui::TreePop();
+			ImGui::Separator();
+		}
+	}
+}
+
 void SceneHierarchyPanel::Render() {
 	ImGui::Begin("Scene Hierarchy");
 
@@ -129,177 +142,102 @@ void SceneHierarchyPanel::Render() {
 }
 
 void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
-	if (ent.HasComponent<Crimson::TransformComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")) {
-			auto& name = ent.GetComponent<Crimson::TransformComponent>().name;
-			auto& tag = ent.GetComponent<Crimson::TransformComponent>().tag;
+	DrawComponent<Crimson::TransformComponent>("Transform", ent, [](auto& component){
+		auto& name = component.name;
+		auto& tag = component.tag;
 
-			DrawTextControl("Name", name);
-			DrawTextControl("Tag", tag);
+		DrawTextControl("Name", name);
+		DrawTextControl("Tag", tag);
 
-			auto& transform = ent.GetComponent<Crimson::TransformComponent>();
+		DrawVec3Control("Translation", component.position);
+		DrawVec3Control("Rotation", component.rotation);
+		DrawVec3Control("Scale", component.scale, 1.0f);
+	});
 
-			DrawVec3Control("Translation", transform.position);
-			DrawVec3Control("Rotation", transform.rotation);
-			DrawVec3Control("Scale", transform.scale, 1.0f);
+	DrawComponent<Crimson::DirectionalLightComponent>("Directional Light", ent, [](auto& component){
+		DrawFloatControl("Intensity", &component.intensity, 0.01f);
+		DrawColorControl("Color", component.color);
+	});
 
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
+	DrawComponent<Crimson::AmbientLightComponent>("Ambient Light", ent, [](auto& component){
+		DrawFloatControl("Intensity", &component.intensity, 0.01f);
+		DrawColorControl("Color", component.color);
+	});
 
+	DrawComponent<Crimson::PointLightComponent>("Point Light", ent, [](auto& component){
+		DrawFloatControl("Intensity", &component.intensity, 0.01f);
+		DrawFloatControl("Constant", &component.constant, 0.01f);
+		DrawFloatControl("Linear", &component.linear, 0.0001f);
+		DrawFloatControl("Quadratic", &component.quadratic, 0.00001f);
+		DrawColorControl("Color", component.color);
+	});
 
-	if (ent.HasComponent<Crimson::DirectionalLightComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Directional Light")) {
+	DrawComponent<Crimson::MeshFilterComponent>("Mesh Filter", ent, [](auto& component){
+		DrawTextLabel("Mesh", component.path);
 
-			DrawFloatControl("Intensity", &ent.GetComponent<Crimson::DirectionalLightComponent>().intensity, 0.01f);
-			DrawColorControl("Color", ent.GetComponent<Crimson::DirectionalLightComponent>().color);
-
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
-
-	if (ent.HasComponent<Crimson::AmbientLightComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::AmbientLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Ambient Light")) {
-
-			DrawFloatControl("Intensity", &ent.GetComponent<Crimson::AmbientLightComponent>().intensity, 0.01f);
-			DrawColorControl("Color", ent.GetComponent<Crimson::AmbientLightComponent>().color);
-
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
-
-	if (ent.HasComponent<Crimson::PointLightComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Point Light")) {
-
-			DrawFloatControl("Intensity", &ent.GetComponent<Crimson::PointLightComponent>().intensity, 0.01f);
-			DrawFloatControl("Constant", &ent.GetComponent<Crimson::PointLightComponent>().constant, 0.01f);
-			DrawFloatControl("Linear", &ent.GetComponent<Crimson::PointLightComponent>().linear, 0.0001f);
-			DrawFloatControl("Quadratic", &ent.GetComponent<Crimson::PointLightComponent>().quadratic, 0.00001f);
-			DrawColorControl("Color", ent.GetComponent<Crimson::PointLightComponent>().color);
-
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
-
-	if (ent.HasComponent<Crimson::MeshFilterComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Mesh Filter")) {
-			auto& mesh = ent.GetComponent<Crimson::MeshFilterComponent>();
-
-			DrawTextLabel("Mesh", mesh.path);
-
-			if (ImGui::BeginDragDropTarget()) {
-            if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mesh")) {
-               std::string toSet = static_cast<const char*>(payload->Data);
-               mesh.path = toSet;
-            }
-            ImGui::EndDragDropTarget();
-         }
-
-			ImGui::SameLine();
-			ImGui::PushID("Mesh Reset");
-			if (ImGui::Button(ICON_FK_REFRESH)) {
-				mesh.path = "Cube";
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mesh")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				component.path = toSet;
 			}
-			ImGui::PopID();
-
-			ImGui::TreePop();
-			ImGui::Separator();
+			ImGui::EndDragDropTarget();
 		}
-	}
 
-	if (ent.HasComponent<Crimson::MaterialComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::DirectionalLightComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Material")) {
-			auto& mat = ent.GetComponent<Crimson::MaterialComponent>();
+		ImGui::SameLine();
+		ImGui::PushID("Mesh Reset");
+		if (ImGui::Button(ICON_FK_REFRESH)) {
+			component.path = "Cube";
+		}
+		ImGui::PopID();
+	});
 
-			DrawTextLabel("Config", mat.path);
+	DrawComponent<Crimson::MaterialComponent>("Material", ent, [](auto& component){
+		DrawTextLabel("Mesh", component.path);
 
-			if (ImGui::BeginDragDropTarget()) {
-            if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mat")) {
-               std::string toSet = static_cast<const char*>(payload->Data);
-               mat.path = toSet;
-            }
-            ImGui::EndDragDropTarget();
-         }
-
-			ImGui::SameLine();
-			ImGui::PushID("Material Reset");
-			if (ImGui::Button(ICON_FK_REFRESH)) {
-				mat.path = "Default";
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mesh")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				component.path = toSet;
 			}
-			ImGui::PopID();
-
-			ImGui::TreePop();
-			ImGui::Separator();
+			ImGui::EndDragDropTarget();
 		}
-	}
 
-	if (ent.HasComponent<Crimson::CameraComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera")) {
-			auto& cam = ent.GetComponent<Crimson::CameraComponent>();
-
-			DrawFloatControl("FOV", &cam.camera.m_fov, 0.1f);
-			DrawFloatControl("Near", &cam.camera.m_near);
-			DrawFloatControl("Far", &cam.camera.m_far);
-			DrawBoolControl("Active", &cam.active);
-
-			ImGui::TreePop();
-			ImGui::Separator();
+		ImGui::SameLine();
+		ImGui::PushID("Material Reset");
+		if (ImGui::Button(ICON_FK_REFRESH)) {
+			component.path = "Default";
 		}
-	}
+		ImGui::PopID();
+	});
 
-	if (ent.HasComponent<Crimson::BoxColliderComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Box Collider")) {
-			auto& box = ent.GetComponent<Crimson::BoxColliderComponent>();
+	DrawComponent<Crimson::CameraComponent>("Camera", ent, [](auto& component){
+		DrawFloatControl("FOV", &component.camera.m_fov, 0.1f);
+		DrawFloatControl("Near", &component.camera.m_near);
+		DrawFloatControl("Far", &component.camera.m_far);
+		DrawBoolControl("Active", &component.active);
+	});
 
-			DrawVec3Control("Extents", box.extents);
+	DrawComponent<Crimson::BoxColliderComponent>("Box Collider", ent, [](auto& component){
+		DrawVec3Control("Extents", component.extents);
+	});
 
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
+	DrawComponent<Crimson::SphereColliderComponent>("Sphere Collider", ent, [](auto& component){
+		DrawFloatControl("Radius", &component.radius);
+	});
 
-	if (ent.HasComponent<Crimson::SphereColliderComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sphere Collider")) {
-			auto& sphere = ent.GetComponent<Crimson::SphereColliderComponent>();
+	DrawComponent<Crimson::PhysicsComponent>("Physics", ent, [](auto& component){
+		DrawBoolControl("Use Gravity", &component.useGravity);
+		DrawBoolControl("Kinematic", &component.isKinematic);
 
-			DrawFloatControl("Radius", &sphere.radius);
+		DrawFloatControl("Mass", &component.mass, 0.0f, 0.0f, 0.001f);
+		DrawFloatControl("Friction", &component.friction, 0.0f, 1.0f, 0.001f);
+		DrawFloatControl("Bounciness", &component.bounciness, 0.0f, 1.0f, 0.001f);
+		DrawVec3Control("Center of Gravity", component.cog);
+	});
 
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
-
-	if (ent.HasComponent<Crimson::PhysicsComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Physics")) {
-			auto& physics = ent.GetComponent<Crimson::PhysicsComponent>();
-
-			DrawBoolControl("Use Gravity", &physics.useGravity);
-			DrawBoolControl("Kinematic", &physics.isKinematic);
-
-			DrawFloatControl("Mass", &physics.mass, 0.0f, 0.0f, 0.001f);
-			DrawFloatControl("Friction", &physics.friction, 0.0f, 1.0f, 0.001f);
-			DrawFloatControl("Bounciness", &physics.bounciness, 0.0f, 1.0f, 0.001f);
-			DrawVec3Control("Center of Gravity", physics.cog);
-
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
-
-	if (ent.HasComponent<Crimson::ScriptComponent>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(Crimson::CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Script")) {
-			auto& script = ent.GetComponent<Crimson::ScriptComponent>();
-
-			DrawTextControl("Class Name", script.className);
-
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
+	DrawComponent<Crimson::ScriptComponent>("Script", ent, [](auto& component){
+		DrawTextControl("Class Name", component.className);
+	});
 }
 
 void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {

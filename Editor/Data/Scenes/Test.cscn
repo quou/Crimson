@@ -208,7 +208,7 @@ Entities:
       Constant: 1
       Linear: 0.0900000036
       Quadratic: 0.0320000015
-      Color: [0, 0.204651117, 1]
+      Color: [0, 0.238120794, 1]
       Intensity: 1
   - Entity: Ent
     TransformComponent:
