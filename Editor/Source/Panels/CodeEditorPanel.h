@@ -20,6 +20,8 @@ private:
 	Crimson::Linter m_linter;
 
 	std::string m_unsavedText;
+
+	std::string m_sourceType;
 public:
 	void Init();
 	void Render(float delta);

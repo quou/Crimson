@@ -8,7 +8,7 @@
 
 void CodeEditorPanel::Init() {
 	ImGuiIO& io = ImGui::GetIO();
-	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(SourceCodePro_compressed_data, SourceCodePro_compressed_size, 16.0f);
+	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(SourceCodePro_compressed_data, SourceCodePro_compressed_size, 17.0f);
 
 	auto lang = TextEditor::LanguageDefinition::AngelScript();
 	m_textEditor.SetLanguageDefinition(lang);
@@ -38,7 +38,7 @@ void CodeEditorPanel::Render(float delta) {
 
 	m_lintCount += delta;
 
-	if (m_lintCount > 3.0f && m_isFocused) {
+	if (m_lintCount > 3.0f && m_isFocused && m_sourceType == ".as") {
 		auto linterMessages = m_linter.Lint(m_textEditor.GetText());
 
 		TextEditor::ErrorMarkers markers;
@@ -52,6 +52,8 @@ void CodeEditorPanel::Render(float delta) {
 }
 
 void CodeEditorPanel::OpenFile(const std::string& path, const std::string& extension) {
+	m_sourceType = extension;
+
 	TextEditor::LanguageDefinition lang;
 	if (extension == ".as") {
 		lang = TextEditor::LanguageDefinition::AngelScript();
