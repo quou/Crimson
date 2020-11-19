@@ -238,7 +238,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 	m_sceneHierarchyPanel.Render();
 	m_consolePanel.Render();
-	m_codeEditorPanel.Render();
+	m_codeEditorPanel.Render(delta);
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel, m_codeEditorPanel);
 
 	static bool showExportPopup = false;

@@ -6,7 +6,7 @@ class Monkey : CrimsonBehaviour {
 	void OnInit() {
 		print("Monkey says hello");
 	}
-
+	
 	void OnUpdate(float delta) {
 		vec3 move(0);
 

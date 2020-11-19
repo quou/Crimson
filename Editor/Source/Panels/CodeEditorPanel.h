@@ -4,6 +4,8 @@
 
 #include <imgui.h>
 
+#include <Crimson.h>
+
 class CodeEditorPanel {
 private:
 	TextEditor m_textEditor;
@@ -13,9 +15,12 @@ private:
 	std::string m_currentFile;
 
 	bool m_isFocused{false};
+
+	float m_lintCount{0.0f};
+	Crimson::Linter m_linter;
 public:
 	void Init();
-	void Render();
+	void Render(float delta);
 
 	void OpenFile(const std::string& path, const std::string& extension=".as");
 	void Save();

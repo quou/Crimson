@@ -15,16 +15,30 @@ void CodeEditorPanel::Init() {
 	m_textEditor.SetShowWhitespaces(false);
 }
 
-void CodeEditorPanel::Render() {
+void CodeEditorPanel::Render(float delta) {
 	ImGui::Begin(std::string("Code Editor - " + m_currentFile + "###Code Editor").c_str());
 
 	ImGui::PushFont(m_font);
 	m_textEditor.Render("CodeEditor");
 	ImGui::PopFont();
 
-	m_isFocused = ImGui::IsWindowFocused();
+	m_isFocused = ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows);
 
 	ImGui::End();
+
+	m_lintCount += delta;
+
+	if (m_lintCount > 1.0f && m_isFocused) {
+		auto linterMessages = m_linter.Lint(m_textEditor.GetText());
+
+		TextEditor::ErrorMarkers markers;
+		for (auto& m : linterMessages) {
+			markers[m.line] += m.message + "\n";
+		}
+		m_textEditor.SetErrorMarkers(markers);
+
+		m_lintCount = 0.0f;
+	}
 }
 
 void CodeEditorPanel::OpenFile(const std::string& path, const std::string& extension) {

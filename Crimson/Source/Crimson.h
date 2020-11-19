@@ -24,6 +24,7 @@
 
 // Scripting
 #include "Scripting/ScriptManager.h"
+#include "Scripting/Linter.h"
 
 // Scene management
 #include "SceneManagement/Scene.h"
