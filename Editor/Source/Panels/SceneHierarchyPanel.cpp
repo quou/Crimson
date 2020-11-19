@@ -1,6 +1,7 @@
 #include "SceneHierarchyPanel.h"
 
 #include <imgui.h>
+#include <imgui_internal.h>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -11,14 +12,39 @@
 SceneHierarchyPanel::SceneHierarchyPanel(Crimson::Scene* scene) : m_scene(scene) {}
 
 template <typename T, typename ComponentDrawFunction>
-static void DrawComponent(const std::string& componentName, Crimson::Entity ent, ComponentDrawFunction drawFunction) {
-	if (ent.HasComponent<T>()) {
-		if (ImGui::TreeNodeEx((void*)typeid(T).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "%s", componentName.c_str())) {
+static void DrawComponent(const std::string& componentName, Crimson::Entity ent, ComponentDrawFunction drawFunction, bool canRemove = true) {
+	const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
 
+	if (ent.HasComponent<T>()) {
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 4));
+
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 contentRegionAvail = ImGui::GetContentRegionAvail();
+
+		bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, "%s", componentName.c_str());
+		ImGui::PopStyleVar();
+
+		ImGui::SameLine(contentRegionAvail.x - lineHeight * 0.5f);
+		if (ImGui::Button("+", ImVec2(lineHeight, lineHeight))) {
+			ImGui::OpenPopup("ComponentSettings");
+		}
+
+		bool removeComponent = false;
+		if (ImGui::BeginPopup("ComponentSettings")) {
+			if (ImGui::MenuItem("Remove Component", "", false, canRemove) && canRemove) {
+				removeComponent = true;
+			}
+			ImGui::EndPopup();
+		}
+
+		if (open) {
 			drawFunction(ent.GetComponent<T>());
 
 			ImGui::TreePop();
-			ImGui::Separator();
+		}
+
+		if (removeComponent) {
+			ent.RemoveComponent<T>();
 		}
 	}
 }
@@ -152,7 +178,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawVec3Control("Translation", component.position);
 		DrawVec3Control("Rotation", component.rotation);
 		DrawVec3Control("Scale", component.scale, 1.0f);
-	});
+	}, false);
 
 	DrawComponent<Crimson::DirectionalLightComponent>("Directional Light", ent, [](auto& component){
 		DrawFloatControl("Intensity", &component.intensity, 0.01f);
