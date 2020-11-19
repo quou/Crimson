@@ -18,6 +18,8 @@ private:
 
 	float m_lintCount{0.0f};
 	Crimson::Linter m_linter;
+
+	std::string m_unsavedText;
 public:
 	void Init();
 	void Render(float delta);

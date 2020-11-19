@@ -4,11 +4,11 @@
 
 #include <fstream>
 
-#include "../Fonts/Roboto-Mono.h"
+#include "../Fonts/SourceCodePro.h"
 
 void CodeEditorPanel::Init() {
 	ImGuiIO& io = ImGui::GetIO();
-	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(RobotoMono_compressed_data, RobotoMono_compressed_size, 20.0f);
+	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(SourceCodePro_compressed_data, SourceCodePro_compressed_size, 16.0f);
 
 	auto lang = TextEditor::LanguageDefinition::AngelScript();
 	m_textEditor.SetLanguageDefinition(lang);
@@ -16,7 +16,17 @@ void CodeEditorPanel::Init() {
 }
 
 void CodeEditorPanel::Render(float delta) {
-	ImGui::Begin(std::string("Code Editor - " + m_currentFile + "###Code Editor").c_str());
+	char star = ' ';
+	if (m_unsavedText != m_textEditor.GetText()) {
+		star = '*';
+	}
+
+	std::string titleText = "Code Editor";
+	if (!m_currentFile.empty()) {
+		titleText = "Code Editor - " + m_currentFile + star;
+	}
+
+	ImGui::Begin(std::string(titleText + "###Code Editor").c_str());
 
 	ImGui::PushFont(m_font);
 	m_textEditor.Render("CodeEditor");
@@ -63,6 +73,7 @@ void CodeEditorPanel::OpenFile(const std::string& path, const std::string& exten
 	if (t.good()) {
 		std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 		m_textEditor.SetText(str);
+		m_unsavedText = str;
 	}
 
 	ImGui::SetWindowFocus(std::string("Code Editor - " + m_currentFile + "###Code Editor").c_str());
@@ -72,6 +83,7 @@ void CodeEditorPanel::Save() {
 	std::ofstream out(m_currentFile);
 
 	std::string text = m_textEditor.GetText();
+	m_unsavedText = text;
 
 	if (out.good()) {
 		out << m_textEditor.GetText();
