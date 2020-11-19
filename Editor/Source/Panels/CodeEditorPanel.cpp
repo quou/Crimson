@@ -28,7 +28,7 @@ void CodeEditorPanel::Render(float delta) {
 
 	m_lintCount += delta;
 
-	if (m_lintCount > 1.0f && m_isFocused) {
+	if (m_lintCount > 3.0f && m_isFocused) {
 		auto linterMessages = m_linter.Lint(m_textEditor.GetText());
 
 		TextEditor::ErrorMarkers markers;
