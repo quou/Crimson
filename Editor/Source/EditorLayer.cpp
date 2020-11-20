@@ -147,6 +147,11 @@ void EditorLayer::ReloadScene() {
 }
 
 void EditorLayer::SaveScene() {
+	if (m_isRunning) {
+		CR_LOG_WARNING("%s", "Saving in play mode may result in possible loss of data. Press CTRL+SHIFT+S to override")
+		return;
+	}
+
 	auto editor = (Editor*)m_userData;
 
 	if (!m_currentSavePath.empty()) {
