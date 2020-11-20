@@ -21,6 +21,10 @@ namespace Crimson {
 		void Destroy();
 		bool IsValid();
 
+		Entity Duplicate() {
+			return m_scene->DuplicateEntity(*this);
+		}
+
 		template <typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
 			if (HasComponent<T>()) {

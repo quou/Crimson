@@ -298,8 +298,12 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 
 	bool entityDeleted = false;
 	if (ImGui::BeginPopupContextItem()) {
-		if (ImGui::MenuItem("Destroy Entity")) {
+		if (ImGui::MenuItem("Delete")) {
 			entityDeleted = true;
+		}
+
+		if (ImGui::MenuItem("Duplicate")) {
+			m_selectedEntity.Duplicate();
 		}
 
 		ImGui::EndPopup();

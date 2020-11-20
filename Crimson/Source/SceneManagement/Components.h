@@ -18,6 +18,7 @@ namespace Crimson {
 		std::string tag;
 		std::string guid;
 
+		TransformComponent() = default;
 		glm::mat4 GetTransform() {
 			glm::mat4 rotxMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1,0,0));
 			glm::mat4 rotyMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0,1,0));
@@ -34,12 +35,14 @@ namespace Crimson {
 	struct MeshFilterComponent {
 		std::string path;
 
+		MeshFilterComponent() = default;
 		MeshFilterComponent(const std::string& p) : path(p) {}
 	};
 
 	struct MaterialComponent {
 		std::string path;
 
+		MaterialComponent() = default;
 		MaterialComponent(const std::string& p) : path(p) {}
 	};
 
@@ -47,18 +50,21 @@ namespace Crimson {
 		Camera camera;
 		bool active;
 
+		CameraComponent() = default;
 		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f, bool active=true) : camera(size, fov, near, far), active(active) {}
 	};
 
 	struct BoxColliderComponent {
 		glm::vec3 extents;
 
+		BoxColliderComponent() = default;
 		BoxColliderComponent(const glm::vec3& extents) : extents(extents) {}
 	};
 
 	struct SphereColliderComponent {
 		float radius;
 
+		SphereColliderComponent() = default;
 		SphereColliderComponent(float radius) : radius(radius) {}
 	};
 
@@ -84,6 +90,8 @@ namespace Crimson {
 			context->ApplyTorque(torque);
 		}
 
+		PhysicsComponent() = default;
+
 		PhysicsComponent(bool useGravity, float mass, float friction, float bounciness, bool isKinematic, glm::vec3 cog) :
 			useGravity(useGravity), mass(mass), friction(friction), bounciness(bounciness), isKinematic(isKinematic), cog(cog) {}
 	};
@@ -93,6 +101,7 @@ namespace Crimson {
 
 		unsigned int id;
 
+		ScriptComponent() = default;
 		ScriptComponent(const std::string& className) : className(className) {}
 	};
 
@@ -100,6 +109,7 @@ namespace Crimson {
 		glm::vec3 color;
 		float intensity;
 
+		AmbientLightComponent() = default;
 		AmbientLightComponent(glm::vec3 color, float intensity) :
 		color(color), intensity(intensity) {}
 	};
@@ -108,6 +118,7 @@ namespace Crimson {
 		glm::vec3 color;
 		float intensity;
 
+		DirectionalLightComponent() = default;
 		DirectionalLightComponent(glm::vec3 color, float intensity) :
 		color(color), intensity(intensity) {}
 	};
@@ -119,6 +130,8 @@ namespace Crimson {
 
 		glm::vec3 color;
 		float intensity;
+
+		PointLightComponent() = default;
 
 		PointLightComponent(float constant, float linear, float quadratic, glm::vec3 color, float intensity) :
 		constant(constant), linear(linear), quadratic(quadratic), color(color), intensity(intensity) {}

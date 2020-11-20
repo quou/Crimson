@@ -76,7 +76,6 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto script = view.get<ScriptComponent>(ent);
 
-			//m_scriptManager->AddBehaviour(script.className);
 			m_scriptManager->SetupEntity(ent, this);
 		}
 
@@ -249,6 +248,32 @@ namespace Crimson {
 		ent.GetComponent<TransformComponent>().tag = tag;
 		ent.GetComponent<TransformComponent>().guid = g;
 		return ent;
+	}
+
+	template <typename T>
+	static void DuplicateComponent(Entity old, Entity n) {
+		if (old.HasComponent<T>()) {
+			n.AddComponent<T>();
+			n.GetComponent<T>() = old.GetComponent<T>();
+		}
+	}
+
+	Entity Scene::DuplicateEntity(Entity ent) {
+		auto newEnt = CreateEntity();
+
+		DuplicateComponent<TransformComponent>(ent, newEnt);
+		DuplicateComponent<MeshFilterComponent>(ent, newEnt);
+		DuplicateComponent<MaterialComponent>(ent, newEnt);
+		DuplicateComponent<CameraComponent>(ent, newEnt);
+		DuplicateComponent<BoxColliderComponent>(ent, newEnt);
+		DuplicateComponent<SphereColliderComponent>(ent, newEnt);
+		DuplicateComponent<PhysicsComponent>(ent, newEnt);
+		DuplicateComponent<ScriptComponent>(ent, newEnt);
+		DuplicateComponent<AmbientLightComponent>(ent, newEnt);
+		DuplicateComponent<DirectionalLightComponent>(ent, newEnt);
+		DuplicateComponent<PointLightComponent>(ent, newEnt);
+
+		return newEnt;
 	}
 
 	void Scene::DestroyEntity(Entity ent) {

@@ -64,6 +64,7 @@ namespace Crimson {
 		}
 
 		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default", const GUID& guid="");
+		Entity DuplicateEntity(Entity ent);
 		void DestroyEntity(Entity ent);
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}
