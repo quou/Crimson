@@ -253,8 +253,7 @@ namespace Crimson {
 	template <typename T>
 	static void DuplicateComponent(Entity old, Entity n) {
 		if (old.HasComponent<T>()) {
-			n.AddComponent<T>();
-			n.GetComponent<T>() = old.GetComponent<T>();
+			n.AddComponent<T>(old.GetComponent<T>());
 		}
 	}
 
@@ -262,6 +261,7 @@ namespace Crimson {
 		auto newEnt = CreateEntity();
 
 		DuplicateComponent<TransformComponent>(ent, newEnt);
+		newEnt.GetComponent<TransformComponent>().guid = GenerateGUID();
 		DuplicateComponent<MeshFilterComponent>(ent, newEnt);
 		DuplicateComponent<MaterialComponent>(ent, newEnt);
 		DuplicateComponent<CameraComponent>(ent, newEnt);
