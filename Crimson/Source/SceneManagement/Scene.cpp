@@ -47,6 +47,17 @@ namespace Crimson {
 		m_physicsScene = std::make_shared<PhysicsScene>(this);
 		m_scriptManager = std::make_shared<ScriptManager>();
 
+		m_skybox = std::make_shared<Skybox>(
+			std::vector{
+				m_assetManager.LoadSurface("Data/Skyboxes/posx.jpg"),
+				m_assetManager.LoadSurface("Data/Skyboxes/negx.jpg"),
+				m_assetManager.LoadSurface("Data/Skyboxes/posy.jpg"),
+				m_assetManager.LoadSurface("Data/Skyboxes/negy.jpg"),
+				m_assetManager.LoadSurface("Data/Skyboxes/posz.jpg"),
+				m_assetManager.LoadSurface("Data/Skyboxes/negz.jpg"),
+			}
+		);
+
 		Input::Init();
 		Input::LoadConfig(m_assetManager.LoadText("Data/InputConfig.conf").c_str());
 
@@ -210,11 +221,12 @@ namespace Crimson {
 			meshes.push_back(m_assetManager.LoadMesh(mesh.path));
 			transforms.push_back(transform.GetTransform());
 
+			Renderer::ShadowPass(*mainCamera, *m_lightScene, transforms, meshes);
 		}
-		Renderer::ShadowPass(*mainCamera, *m_lightScene, transforms, meshes);
 	}
 
 	void Scene::RenderMeshes(Camera* mainCamera) {
+		m_skybox->Draw(*mainCamera);
 		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 		for (auto ent : view) {
 			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
@@ -222,6 +234,7 @@ namespace Crimson {
 			Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
 			Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
 		}
+
 	}
 
 	void Scene::UpdateViewport(std::pair<int, int> size) {
@@ -234,7 +247,7 @@ namespace Crimson {
 	}
 
 	Entity Scene::CreateEntity(const std::string& name, const std::string& tag, const GUID& guid) {
-		Entity ent = {m_registry.create(), this};
+		Entity ent(m_registry.create(), this);
 
 		GUID g;
 
@@ -248,32 +261,6 @@ namespace Crimson {
 		ent.GetComponent<TransformComponent>().tag = tag;
 		ent.GetComponent<TransformComponent>().guid = g;
 		return ent;
-	}
-
-	template <typename T>
-	static void DuplicateComponent(Entity old, Entity n) {
-		if (old.HasComponent<T>()) {
-			n.AddComponent<T>(old.GetComponent<T>());
-		}
-	}
-
-	Entity Scene::DuplicateEntity(Entity ent) {
-		auto newEnt = CreateEntity();
-
-		DuplicateComponent<TransformComponent>(ent, newEnt);
-		newEnt.GetComponent<TransformComponent>().guid = GenerateGUID();
-		DuplicateComponent<MeshFilterComponent>(ent, newEnt);
-		DuplicateComponent<MaterialComponent>(ent, newEnt);
-		DuplicateComponent<CameraComponent>(ent, newEnt);
-		DuplicateComponent<BoxColliderComponent>(ent, newEnt);
-		DuplicateComponent<SphereColliderComponent>(ent, newEnt);
-		DuplicateComponent<PhysicsComponent>(ent, newEnt);
-		DuplicateComponent<ScriptComponent>(ent, newEnt);
-		DuplicateComponent<AmbientLightComponent>(ent, newEnt);
-		DuplicateComponent<DirectionalLightComponent>(ent, newEnt);
-		DuplicateComponent<PointLightComponent>(ent, newEnt);
-
-		return newEnt;
 	}
 
 	void Scene::DestroyEntity(Entity ent) {

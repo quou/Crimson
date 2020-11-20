@@ -21,10 +21,6 @@ namespace Crimson {
 		void Destroy();
 		bool IsValid();
 
-		Entity Duplicate() {
-			return m_scene->DuplicateEntity(*this);
-		}
-
 		template <typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
 			if (HasComponent<T>()) {
@@ -37,7 +33,7 @@ namespace Crimson {
 
 		template <typename T>
 		void RemoveComponent() {
-			CR_ASSERT(HasComponent<T>(), "%s", "Entity does not have component");
+			CR_LOG_WARNING("%s", "Entity does not have component");
 
 			m_scene->m_registry.remove<T>(m_entityHandle);
 		}

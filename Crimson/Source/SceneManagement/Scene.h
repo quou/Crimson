@@ -4,6 +4,7 @@
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer3D/LightScene.h"
+#include "Renderer/Renderer3D/Skybox.h"
 #include "Physics/PhysicsScene.h"
 #include "AssetManager.h"
 #include "Scripting/ScriptManager.h"
@@ -42,6 +43,8 @@ namespace Crimson {
 
 		SceneConfig m_config;
 
+		std::shared_ptr<Skybox> m_skybox;
+
 	public:
 		AssetManager m_assetManager;
 		Scene(bool release);
@@ -64,7 +67,6 @@ namespace Crimson {
 		}
 
 		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default", const GUID& guid="");
-		Entity DuplicateEntity(Entity ent);
 		void DestroyEntity(Entity ent);
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}

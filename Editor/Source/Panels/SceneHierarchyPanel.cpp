@@ -218,10 +218,10 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 	});
 
 	DrawComponent<Crimson::MaterialComponent>("Material", ent, [](auto& component){
-		DrawTextLabel("Mesh", component.path);
+		DrawTextLabel("Config", component.path);
 
 		if (ImGui::BeginDragDropTarget()) {
-			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mesh")) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload(".mat")) {
 				std::string toSet = static_cast<const char*>(payload->Data);
 				component.path = toSet;
 			}
@@ -300,10 +300,6 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 	if (ImGui::BeginPopupContextItem()) {
 		if (ImGui::MenuItem("Delete")) {
 			entityDeleted = true;
-		}
-
-		if (ImGui::MenuItem("Duplicate")) {
-			m_selectedEntity.Duplicate();
 		}
 
 		ImGui::EndPopup();

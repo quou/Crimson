@@ -1,0 +1,10 @@
+-- Crimson Material
+shader = "Standard"
+
+albedo = "Data/Skyboxes/negx.jpg"
+
+material = {
+	 color = {1, 1, 1},
+	 smoothness = 1,
+	 shininess = 20
+}
