@@ -70,6 +70,7 @@ in vec3 v_normal;
 
 uniform sampler2D u_albedo;
 uniform sampler2D u_directionalShadowmaps;
+uniform samplerCube u_enviromentMap;
 
 uniform int u_shadowmapResolution;
 
@@ -77,6 +78,7 @@ struct Material {
 	vec3 color;
 	float smoothness;
 	float shininess;
+	float reflectivity;
 };
 
 uniform vec3 u_cameraPosition;
@@ -176,7 +178,11 @@ void main() {
 		lightingResult += CalculatePointLight(u_pointLights[i], norm, viewDir);
 	}
 
-	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma));
+	float ratio = 1.0 / u_material.reflectivity;
+	vec3 I = normalize(v_fragPos - u_cameraPosition);
+	vec3 R = refract(I, normalize(v_normal), ratio);
+
+	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma)) * texture(u_enviromentMap, R).rgb;
 
 	FragColor = vec4(diffuseColor, 1.0f) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
 

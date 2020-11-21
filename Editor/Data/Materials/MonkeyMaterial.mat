@@ -5,7 +5,8 @@ shader = "Standard"
 albedo = "Data/Textures/Wood.jpg"
 
 material = {
-    color = {1, 1, 1},
-	 smoothness = 1,
-	 shininess = 20
+	color = {1, 1, 1},
+	smoothness = 1,
+	shininess = 20,
+	reflectivity = 1.3
 }

@@ -119,7 +119,7 @@ void main() {
 
 		m_shader = std::make_shared<Shader>(skyboxShader);
 		m_shader->Bind();
-		m_shader->SetInt("u_cubemap", 0);
+		m_shader->SetInt("u_cubemap", 3);
 	}
 
 	void Skybox::Draw(Camera& camera) {
@@ -132,11 +132,11 @@ void main() {
 
 
 		glBindVertexArray(m_va);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE3);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
-		
+
 		glDepthMask(GL_TRUE);
 	}
 }

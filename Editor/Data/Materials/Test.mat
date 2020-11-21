@@ -6,5 +6,6 @@ albedo = "Data/Skyboxes/negx.jpg"
 material = {
 	 color = {1, 1, 1},
 	 smoothness = 1,
-	 shininess = 20
+	 shininess = 20,
+	 reflectivity = 1.52
 }

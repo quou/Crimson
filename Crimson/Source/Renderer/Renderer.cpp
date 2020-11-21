@@ -125,6 +125,7 @@ namespace Crimson {
 
 		material.m_shader->SetInt("u_albedo", 0);
 		material.m_shader->SetInt("u_directionalShadowmaps", 1);
+		material.m_shader->SetInt("u_enviromentMap", 3);
 
 		material.m_shader->SetVec3("u_cameraPosition", camera.position);
 
