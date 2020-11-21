@@ -7,7 +7,7 @@ Entities:
       Tag: Default
       GUID: 10f835c7eb754f483a3a247aeac509518c8f8e38b7d1ff085910e5e6050675fe3a4c997061f0514e9d099d2556d482e1a3c6030a9266872e66a9d01c21bd56bd7df22f07f40b843ff0876796b5998a0e1e54d91dec013b78e360a830e8859d5ceaf8b084
       Translation: [0, 0, 0]
-      Rotation: [19.6000004, -96.9000015, 25]
+      Rotation: [21.5, -113.099998, -23]
       Scale: [1, 1, 1]
     AmbientLightComponent:
       Color: [0.702325583, 0.705881476, 1]
