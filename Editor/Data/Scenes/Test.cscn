@@ -14,7 +14,7 @@ Entities:
       Intensity: 0.200000003
     DirectionalLightComponent:
       Color: [0.874658525, 0.85581398, 1]
-      Intensity: 0.300000012
+      Intensity: 0.400000006
   - Entity: Ent
     TransformComponent:
       Name: Main Camera

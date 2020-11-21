@@ -26,6 +26,8 @@ namespace Crimson {
 		unsigned int m_drawCallsCount;
 
 		AABB m_sceneBound;
+
+		std::shared_ptr<Shader> m_wireframeShader;
 	public:
 		static Renderer& instance() {
 			static Renderer INSTANCE;
@@ -33,6 +35,7 @@ namespace Crimson {
 		}
 
 		static void Init();
+		static void DeInit();
 
 		static void Clear();
 
@@ -44,6 +47,7 @@ namespace Crimson {
 		static void ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transform, std::vector<Mesh*>& meshes);
 		static void ShaderPass(Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material);
 		static void Draw(Mesh& mesh);
+		static void DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh);
 	};
 
 }

@@ -100,6 +100,7 @@ namespace Crimson {
 			l.reset();
 		}
 
+		Renderer::DeInit();
 
 		ImGuiImpl::Quit();
 

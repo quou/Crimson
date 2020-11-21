@@ -2,8 +2,6 @@
 
 #include <glad/glad.h>
 
-#include "Utils/obj_loader.h"
-
 #include "Logger.h"
 
 #include <algorithm>
@@ -174,6 +172,16 @@ namespace Crimson {
 		glBindVertexArray(m_va);
 		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
+	}
+
+	void Mesh::DrawWireframe() {
+		glLineWidth(4.0f);
+
+		glBindVertexArray(m_va);
+		glDrawElements(GL_LINE_STRIP, m_indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		glLineWidth(1.0f);
 	}
 
 	Mesh::~Mesh() {

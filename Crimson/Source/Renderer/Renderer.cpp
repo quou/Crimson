@@ -9,6 +9,7 @@
 
 #include "Material.h"
 #include "Renderer3D/LightScene.h"
+#include "DefaultAssets/StandardShader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -41,6 +42,8 @@ namespace Crimson {
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		instance().m_wireframeShader = std::make_shared<Shader>(outlineShader);
 	}
 
 	void Renderer::Clear() {
@@ -135,6 +138,24 @@ namespace Crimson {
 	void Renderer::Draw(Mesh& mesh) {
 		instance().m_drawCallsCount++;
 		mesh.Draw();
+	}
+
+	void Renderer::DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh) {
+		auto& m = instance();
+
+		m.m_wireframeShader->Bind();
+		m.m_wireframeShader->SetMat4("u_model", transform);
+		m.m_wireframeShader->SetMat4("u_view", camera.GetView());
+		m.m_wireframeShader->SetMat4("u_projection", camera.projection);
+		m.m_wireframeShader->SetVec3("u_color", glm::vec3(0.0f, 1.0f, 0.0f));
+
+		m.m_drawCallsCount++;
+
+		mesh.DrawWireframe();
+	}
+
+	void Renderer::DeInit() {
+		instance().m_wireframeShader.reset();
 	}
 
 	void Renderer::EndFrame() {

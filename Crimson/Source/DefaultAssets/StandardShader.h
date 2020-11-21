@@ -185,3 +185,33 @@ void main() {
 
 #end FRAGMENT
 )";
+
+static const char* outlineShader = R"(
+#begin VERTEX
+#version 330 core
+
+layout (location = 0) in vec3 a_pos;
+
+uniform mat4 u_model;
+uniform mat4 u_view;
+uniform mat4 u_projection;
+
+void main() {
+	gl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0f);
+}
+
+#end VERTEX
+
+#begin FRAGMENT
+#version 330 core
+
+out vec4 a_fragColor;
+
+uniform vec3 u_color;
+
+void main() {
+	a_fragColor = vec4(u_color, 1.0f);
+}
+
+#end FRAGMENT
+)";

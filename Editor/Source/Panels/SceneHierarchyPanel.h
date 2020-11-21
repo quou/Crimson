@@ -10,6 +10,8 @@ private:
 
 	void DrawComponents(Crimson::Entity ent);
 	void DrawEntityNode(Crimson::Entity ent);
+
+	friend class EditorLayer;
 public:
 	SceneHierarchyPanel(Crimson::Scene* scene);
 

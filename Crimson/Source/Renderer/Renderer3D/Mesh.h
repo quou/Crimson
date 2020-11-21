@@ -27,6 +27,7 @@ namespace Crimson {
 		AABB GetAABB();
 
 		void Draw();
+		void DrawWireframe();
 
 		~Mesh();
 	};

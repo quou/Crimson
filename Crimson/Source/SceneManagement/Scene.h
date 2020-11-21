@@ -19,6 +19,7 @@ namespace Crimson {
 
 	class Entity;
 	class RenderTarget;
+	struct MeshFilterComponent;
 
 	typedef entt::entity EntityHandle;
 
@@ -76,6 +77,7 @@ namespace Crimson {
 		void Update(float delta);
 		void Render(RenderTarget& renderTarget);
 		void Render(RenderTarget& renderTarget, Camera* camera);
+		void DrawWireframe(Entity ent);
 		void Render();
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);

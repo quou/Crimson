@@ -234,7 +234,6 @@ namespace Crimson {
 			Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
 			Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
 		}
-
 	}
 
 	void Scene::UpdateViewport(std::pair<int, int> size) {
