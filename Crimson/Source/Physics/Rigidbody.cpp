@@ -38,14 +38,14 @@ namespace Crimson {
 
 	glm::vec3 Rigidbody::GetRotation() {
 		glm::quat q(
-			m_body->getTransform().getOrientation().x,
 			m_body->getTransform().getOrientation().y,
 			m_body->getTransform().getOrientation().z,
+			m_body->getTransform().getOrientation().x,
 			m_body->getTransform().getOrientation().w);
 
 		glm::vec3 result = glm::degrees(glm::eulerAngles(q));
 
-		return glm::vec3(result.y, result.z, result.x);
+		return glm::vec3(result.x, result.y, result.z);
 	}
 
 	void Rigidbody::AddBoxCollider(const glm::vec3& halfExtents) {

@@ -10,6 +10,29 @@ Config:
 Entities:
   - Entity: Ent
     TransformComponent:
+      Name: Player
+      Tag: Default
+      GUID: b1069070db6cfef47ddb43b7473125239f60ecc32e115b66881cafb19aee738752d2f10aa1b1d73d1be017671d0eed423217ce1e1873380b4f85bda11bf20ad7ce2b8039a9c3477c408d80e8a4b80284d7ebbeeefc7321e892df9f55119f3cde971f642a
+      Translation: [0, 9.80000019, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Cube
+    MaterialComponent:
+      Path: Default
+    BoxColliderComponent:
+      Extents: [1, 1, 1]
+    PhysicsComponent:
+      UseGravity: true
+      Mass: 1
+      Friction: 0.300000012
+      Bounciness: 0.100000001
+      IsKinematic: false
+      CenterOfGravity: [0, 0, 0]
+    ScriptComponent:
+      Class: PlayerController
+  - Entity: Ent
+    TransformComponent:
       Name: Lamp 4
       Tag: Default
       GUID: 78ef201e5c344543ae2cdee9942929fea9540d2943231badaecc6bc57775c38604f0f0a2b4b400cbec44351c0bcafd8624cefaacd61c51017936668dfaa959c9b20c648691392d8194e81a4e07637b28ce9df0da116b61681f43670c4716475f9abad251
@@ -41,8 +64,8 @@ Entities:
       Name: Physics Cube 8
       Tag: Default
       GUID: 532ffab3e8f93adfbc334039629dc5b327dd231706ae1cc9e74e4d8e7964815e53850020fd7fdc61397f264156bf01fd3ddc0a63a2cea2b3912a4f5af61603a1c1f8ccf154f8b810c642bfcd3595a65755e004c8a817489f765bf8cfc82ea583f28876ca
-      Translation: [1.10000002, 26.6000004, 0]
-      Rotation: [0, 0, 0]
+      Translation: [2.70000005, 28.7999992, -2.79999995]
+      Rotation: [45, 45, 45]
       Scale: [1, 1, 1]
     MeshFilterComponent:
       Path: Cube
