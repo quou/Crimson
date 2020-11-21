@@ -12,9 +12,9 @@ A WIP 3D game engine written in C++ 17
  - AngelScript scripting
  - Input system
  - Asset packer
+ - Level editor
 
 ## Work-in-Progress
- - Level editor
  - Audio
  - Web & Android runtime support
  - Node-based scripting
