@@ -134,9 +134,13 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
             std::string dragString = entry.absPath;
             std::replace(dragString.begin(), dragString.end(), '\\', '/');
 
+				std::string name = entry.extension;
+				if (entry.extension == ".jpg" || entry.extension == ".png" || entry.extension == ".gif") {
+					name = "Image";
+				}
             ImGui::Text("%s", entry.absPath.c_str());
 
-            ImGui::SetDragDropPayload(entry.extension.c_str(), dragString.data(), dragString.size() + 1);
+            ImGui::SetDragDropPayload(name.c_str(), dragString.data(), dragString.size() + 1);
 
             ImGui::EndDragDropSource();
          }

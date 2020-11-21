@@ -1,0 +1,65 @@
+# Crimson Scene file
+Scene: Untitled Scene
+Config:
+  - SkyboxPosX
+  - ""
+  - SkyboxNegX
+  - ""
+  - SkyboxPosY
+  - ""
+  - SkyboxNegY
+  - ""
+  - SkyboxPosZ
+  - ""
+  - SkyboxNegZ
+  - ""
+Entities:
+  - Entity: Ent
+    TransformComponent:
+      Name: Main Light
+      Tag: Default
+      GUID: 67bbf64e0b17ed8e4662c095f84d66a5688722da1e55585296808db77cb5cad55ca103b21b6460d571f50c6fe613d088170ac97c330814fea894861161f0b7b3d448e6354b0e678f90cc8f6109c7d051972c3991725272da6fd9a0bdbcb99699f761bfe4
+      Translation: [0, 0, 0]
+      Rotation: [10, -20, 25]
+      Scale: [1, 1, 1]
+    AmbientLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 0.100000001
+    DirectionalLightComponent:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - Entity: Ent
+    TransformComponent:
+      Name: Main Camera
+      Tag: Default
+      GUID: e42a3bab7aa4fb3e20c4d58b0511cbf624d32cb1190a5ce06322eb8d29bc41ba13214501b4177bb37899be7ff45b6439ce44c69db6f5dee056212994c744e2f60078967e6e7fa54ad5ffe05b1761b9c4c3108041d5955ac7ebdf6bef88e085b3a456416c
+      Translation: [0, 3.5999999, -9.39999962]
+      Rotation: [-15.3000002, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Active: true
+      Near: 0.00999999978
+      Far: 100
+      FOV: 45
+  - Entity: Ent
+    TransformComponent:
+      Name: Utah Teapot
+      Tag: Default
+      GUID: 70c80bd11b39d1b9d6e49f58f166869452e8cf39cde9d3ab03de1a6a448dfe0db8a29addd097836449e0f10b978c84531e87aa62ae91455e0b43c292bfd81b24b4b94c9a8f3cc183a3d09342a51ea83910ff265cd56fab3e36ceecc2b1cdae5e5e92c1b7
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshFilterComponent:
+      Path: Data/Meshes/Teapot.mesh
+    MaterialComponent:
+      Path: Data/Materials/MonkeyMaterial.mat
+  - Entity: Ent
+    TransformComponent:
+      Name: New Entity
+      Tag: Default
+      GUID: b0bd2332cb33277a6ce496c9fc39e1d8aa0732c117afb0cfe2c43dc09b28c4da7596f84b1f279f03378ddf5b3d4ec3e5d5ac2e0c42a40538e7652f73f487b03ed8bf9b1f75d296f4964febd17432d291eb7cb21369c30ded0bea4275507be7d8da56a836
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    ScriptComponent:
+      Class: TestBehaviour

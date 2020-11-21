@@ -47,22 +47,24 @@ namespace Crimson {
 		m_physicsScene = std::make_shared<PhysicsScene>(this);
 		m_scriptManager = std::make_shared<ScriptManager>();
 
-		m_skybox = std::make_shared<Skybox>(
-			std::vector{
-				m_assetManager.LoadSurface("Data/Skyboxes/posx.jpg"),
-				m_assetManager.LoadSurface("Data/Skyboxes/negx.jpg"),
-				m_assetManager.LoadSurface("Data/Skyboxes/posy.jpg"),
-				m_assetManager.LoadSurface("Data/Skyboxes/negy.jpg"),
-				m_assetManager.LoadSurface("Data/Skyboxes/posz.jpg"),
-				m_assetManager.LoadSurface("Data/Skyboxes/negz.jpg"),
-			}
-		);
-
 		Input::Init();
 		Input::LoadConfig(m_assetManager.LoadText("Data/InputConfig.conf").c_str());
 
 		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
 		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
+	}
+
+	void Scene::LoadSkybox() {
+		m_skybox = std::make_shared<Skybox>(
+			std::vector{
+				m_assetManager.LoadSurface(m_config.skyboxPosX),
+				m_assetManager.LoadSurface(m_config.skyboxNegX),
+				m_assetManager.LoadSurface(m_config.skyboxPosY),
+				m_assetManager.LoadSurface(m_config.skyboxNegY),
+				m_assetManager.LoadSurface(m_config.skyboxPosZ),
+				m_assetManager.LoadSurface(m_config.skyboxNegZ),
+			}
+		);
 	}
 
 	Scene::~Scene() {
@@ -226,7 +228,10 @@ namespace Crimson {
 	}
 
 	void Scene::RenderMeshes(Camera* mainCamera) {
-		m_skybox->Draw(*mainCamera);
+		if (m_skybox) {
+			m_skybox->Draw(*mainCamera);
+		}
+		
 		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 		for (auto ent : view) {
 			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);

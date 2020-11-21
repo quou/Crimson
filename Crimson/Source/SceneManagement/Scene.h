@@ -25,6 +25,13 @@ namespace Crimson {
 
 	struct SceneConfig {
 		std::string name{"Untitled Scene"};
+
+		std::string skyboxPosX;
+		std::string skyboxNegX;
+		std::string skyboxPosY;
+		std::string skyboxNegY;
+		std::string skyboxPosZ;
+		std::string skyboxNegZ;
 	};
 
 	class Scene {
@@ -71,6 +78,8 @@ namespace Crimson {
 		void DestroyEntity(Entity ent);
 
 		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}
+
+		void LoadSkybox();
 
 		// Events
 		void Init();

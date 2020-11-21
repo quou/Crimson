@@ -198,6 +198,16 @@ namespace Crimson {
 
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << m_scene.m_config.name;
+
+		out << YAML::Key << "Config" << YAML::BeginMap;
+		out << YAML::Key << "SkyboxPosX" << YAML::Value << m_scene.m_config.skyboxPosX;
+		out << YAML::Key << "SkyboxNegX" << YAML::Value << m_scene.m_config.skyboxNegX;
+		out << YAML::Key << "SkyboxPosY" << YAML::Value << m_scene.m_config.skyboxPosY;
+		out << YAML::Key << "SkyboxNegY" << YAML::Value << m_scene.m_config.skyboxNegY;
+		out << YAML::Key << "SkyboxPosZ" << YAML::Value << m_scene.m_config.skyboxPosZ;
+		out << YAML::Key << "SkyboxNegZ" << YAML::Value << m_scene.m_config.skyboxNegZ;
+		out << YAML::EndMap;
+
 		out << YAML::Key << "Entities" << YAML::BeginSeq;
 		m_scene.m_registry.each([&](auto entHandle){
 			Entity ent(entHandle, &m_scene);
@@ -230,6 +240,17 @@ namespace Crimson {
 
 		std::string sceneName = data["Scene"].as<std::string>();
 		m_scene.GetConfig().name = sceneName;
+
+		auto configNode = data["Config"];
+		if (configNode) {
+			m_scene.GetConfig().skyboxPosX = configNode["SkyboxPosX"].as<std::string>();
+			m_scene.GetConfig().skyboxNegX = configNode["SkyboxNegX"].as<std::string>();
+			m_scene.GetConfig().skyboxPosY = configNode["SkyboxPosY"].as<std::string>();
+			m_scene.GetConfig().skyboxNegY = configNode["SkyboxNegY"].as<std::string>();
+			m_scene.GetConfig().skyboxPosZ = configNode["SkyboxPosZ"].as<std::string>();
+			m_scene.GetConfig().skyboxNegZ = configNode["SkyboxNegZ"].as<std::string>();
+			m_scene.LoadSkybox();
+		}
 
 		auto entitiesNode = data["Entities"];
 		if (entitiesNode) {

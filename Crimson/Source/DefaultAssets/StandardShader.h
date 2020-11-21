@@ -182,7 +182,7 @@ void main() {
 	vec3 I = normalize(v_fragPos - u_cameraPosition);
 	vec3 R = refract(I, normalize(v_normal), ratio);
 
-	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma)) * texture(u_enviromentMap, R).rgb;
+	vec3 diffuseColor = pow(texture(u_albedo, v_texCoords).rgb, vec3(u_gamma));
 
 	FragColor = vec4(diffuseColor, 1.0f) * vec4(u_material.color, 1.0f) * vec4(lightingResult, 1.0f);
 

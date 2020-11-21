@@ -7,6 +7,10 @@
 namespace Crimson {
 
 	Texture::Texture(Surface* surface) {
+		if (!surface->pixels) {
+			return;
+		}
+
 	   glGenTextures(1, &m_ID);
 	   glBindTexture(GL_TEXTURE_2D, m_ID);
 

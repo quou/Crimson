@@ -43,12 +43,22 @@ void main() {
 		Load(skyboxTextures);
 	}
 
+	Skybox::~Skybox() {
+		glDeleteTextures(1, &m_textureID);
+		glDeleteVertexArrays(1, &m_va);
+		glDeleteBuffers(1, &m_vb);
+	}
+
 	void Skybox::Load(const std::vector<Surface*>& skyboxTextures) {
 		glGenTextures(1, &m_textureID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 
 		for (int i = 0; i < skyboxTextures.size(); i++) {
 			auto tex = skyboxTextures.at(i);
+
+			if (!tex->pixels) {
+				return;
+			}
 
 			int mode = GL_RGB;
 			if (tex->componentCount == 4)  {
