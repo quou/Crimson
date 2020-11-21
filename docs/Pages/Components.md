@@ -19,8 +19,8 @@ struct PhysicsComponent {
 
 	Rigidbody& context;
 
-	void ApplyForce(const vec3& force);
-	void ApplyForceAtPosition(const glm::vec3& position, const vec3& force);
-	void ApplyTorque(const vec3& torque);
+	void ApplyForce(const vec3 &in force);
+	void ApplyForceAtPosition(const glm::vec3 &in position, const vec3 &in force);
+	void ApplyTorque(const vec3 &in torque);
 };
 ```
