@@ -47,7 +47,8 @@ void main() {}
 		)";
 
 	public:
-		const int m_maxDirectionalLights = 10;
+		int m_shadowmapResolution = 2048;
+		const int m_maxDirectionalLights = 3;
 		float m_gamma{2.2f};
 
 		void BindShadowmapForWrite();
@@ -56,6 +57,6 @@ void main() {}
 		LightScene();
 		~LightScene();
 
-		void Apply(const AABB& sceneAABB, Shader& shader);
+		void Apply(Camera& sceneAABB, Shader& shader);
 	};
 }

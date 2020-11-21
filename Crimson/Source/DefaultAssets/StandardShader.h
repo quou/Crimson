@@ -71,6 +71,8 @@ in vec3 v_normal;
 uniform sampler2D u_albedo;
 uniform sampler2D u_directionalShadowmaps;
 
+uniform int u_shadowmapResolution;
+
 struct Material {
 	vec3 color;
 	float smoothness;
@@ -91,10 +93,10 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 
 	vec2 texPos = projCoords.xy;
 
-	float widthPixel = 1.0f / (1024.0 * 10.0);
-	float heightPixel = 1.0f / 1024.0;
+	float widthPixel = 1.0f / (u_shadowmapResolution * 3.0f);
+	float heightPixel = 1.0f / u_shadowmapResolution;
 
-	vec4 source = vec4(1024.0 * light.index, 0.0, 1024.0, 1024.0);
+	vec4 source = vec4(u_shadowmapResolution * light.index, 0.0, u_shadowmapResolution, u_shadowmapResolution);
 
 	float startX = source.x, startY = source.y, width = source.z, height = source.w;
 	vec2 coords = vec2(widthPixel * startX + width * widthPixel * texPos.x, heightPixel * startY + height * heightPixel * texPos.y);
@@ -111,7 +113,7 @@ float CalculateDirectionalShadow(DirectionalLight light) {
 		}
 	}
 	shadow /= 9.0;
-//	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+	//float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
 
 	if (projCoords.z > 1.0 || projCoords.x >= 1.0 || projCoords.y >= 1.0) {
 		shadow = 0.0;

@@ -64,8 +64,10 @@ namespace Crimson {
 		int i = 0;
 		for (auto& light : lightScene.m_directionalLights) {
 
-			glViewport(i*1024,0,1024,1024);
-			glScissor(i*1024,0,1024,1024);
+			int res = lightScene.m_shadowmapResolution;
+
+			glViewport(i*res,0,res,res);
+			glScissor(i*res,0,res,res);
 			glEnable(GL_SCISSOR_TEST);
 			glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -93,7 +95,7 @@ namespace Crimson {
 			ii = 0;
 			for (auto mesh : meshes) {
 				lightScene.m_shadowmapShader->SetMat4("u_model", transforms[ii]);
-				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform(sceneAABB));
+				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform(camera));
 				Draw(*mesh);
 
 				ii++;
@@ -116,7 +118,7 @@ namespace Crimson {
 		lightScene.BindShadowmapForRead(1);
 
 		material.m_shader->Bind();
-		lightScene.Apply(instance().m_sceneBound, *material.m_shader);
+		lightScene.Apply(camera, *material.m_shader);
 
 		material.m_shader->SetInt("u_albedo", 0);
 		material.m_shader->SetInt("u_directionalShadowmaps", 1);
