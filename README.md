@@ -1,7 +1,7 @@
 # Crimson
 A WIP 3D game engine written in C++ 17
 
-![Screenshot](https://raw.githubusercontent.com/georgelam6/Crimson/master/Screenshots/04.png)
+![Screenshot](https://raw.githubusercontent.com/georgelam6/Crimson/master/Screenshots/05.png)
 
 ## Current Features
  - 3D rendering
