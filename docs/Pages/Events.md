@@ -14,7 +14,7 @@ Called every frame
 void OnUpdate(float delta);
 ```
 
-## OnUpdate
+## OnPhysicsUpdate
 Called every physics update
 ```cpp
 void OnPhysicsUpdate(float delta);
@@ -23,11 +23,12 @@ void OnPhysicsUpdate(float delta);
 ## OnContact
 Called when the entity collides with something. This event will not be called on entities that don't have a `PhysicsComponent`.
 ```cpp
+// Called when the entity begins colliding with something
 void OnContactEnter(Entity other);
-```
-```cpp
+
+// Called every frame until the entity stops colliding
 void OnContactStay(Entity other);
-```
-```cpp
+
+// Called when the entity stops colliding
 void OnContactExit(Entity other);
 ```
