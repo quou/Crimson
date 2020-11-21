@@ -26,12 +26,12 @@ namespace Crimson {
 	struct SceneConfig {
 		std::string name{"Untitled Scene"};
 
-		std::string skyboxPosX;
-		std::string skyboxNegX;
-		std::string skyboxPosY;
-		std::string skyboxNegY;
-		std::string skyboxPosZ;
-		std::string skyboxNegZ;
+		std::string skyboxPosX{"Default"};
+		std::string skyboxNegX{"Default"};
+		std::string skyboxPosY{"Default"};
+		std::string skyboxNegY{"Default"};
+		std::string skyboxPosZ{"Default"};
+		std::string skyboxNegZ{"Default"};
 	};
 
 	class Scene {

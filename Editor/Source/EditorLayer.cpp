@@ -194,7 +194,7 @@ void EditorLayer::NewScene() {
 }
 
 void EditorLayer::RunScene() {
-	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsDark();
 
 	ImGui::SetWindowFocus("Game Viewport");
 

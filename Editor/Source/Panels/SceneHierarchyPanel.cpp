@@ -166,7 +166,7 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 			ImGui::EndPopup();
 		}
 	} else if (assetManagerPanel.m_texturePreview) {
-		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1));
+		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(ImGui::GetWindowSize().x-16, ImGui::GetWindowSize().x-16), ImVec2(0, 0), ImVec2(1, 1));
 	}
 	ImGui::End();
 }
