@@ -2,6 +2,8 @@
 
 #include <Crimson.h>
 
+class AssetManagerPanel;
+
 class SceneHierarchyPanel {
 private:
 	Crimson::Scene* m_scene;
@@ -18,5 +20,5 @@ public:
 	inline void SetContext(Crimson::Scene* scene) {m_scene = scene;}
 	inline void SetSelectionContext(Crimson::Entity ent) {m_selectedEntity = ent;}
 
-	void Render();
+	void Render(AssetManagerPanel& assetManagerPanel);
 };

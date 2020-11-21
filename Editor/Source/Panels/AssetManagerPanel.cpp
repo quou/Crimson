@@ -162,7 +162,12 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 							  entry.extension == ".as" ||
 						  	  entry.extension == ".glsl") {
 					codeEditorPanel.OpenFile(entry.absPath, entry.extension);
-				}
+				} else if (entry.extension == ".png" ||
+							  entry.extension == ".jpg" ||
+							  entry.extension == ".gif" ||
+							  entry.extension == ".psd") {
+				   m_texturePreview = std::make_shared<Crimson::Texture>(editor->m_scene->m_assetManager.LoadSurface(entry.absPath));
+			   }
 			}
 		}
 
@@ -243,5 +248,6 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 	for (auto& f : m_files) {
 		DrawDir(f, editor, sceneHierarchyPanel, codeEditorPanel);
 	}
+
 	ImGui::End();
 }

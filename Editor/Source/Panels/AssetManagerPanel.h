@@ -21,9 +21,12 @@ class AssetManagerPanel {
 private:
 	std::vector<DirectoryEntry> m_files;
 
+	std::shared_ptr<Crimson::Texture> m_texturePreview;
+
 	EditorLayer* m_editorLayer;
 
 	friend class EditorLayer;
+	friend class SceneHierarchyPanel;
 public:
 	AssetManagerPanel(EditorLayer* editorLayer);
 

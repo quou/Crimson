@@ -241,10 +241,10 @@ void EditorLayer::OnUpdate(float delta) {
 
 	ImGui::DockSpaceOverViewport();
 
-	m_sceneHierarchyPanel.Render();
 	m_consolePanel.Render();
 	m_codeEditorPanel.Render(delta);
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel, m_codeEditorPanel);
+	m_sceneHierarchyPanel.Render(m_assetManagerPanel);
 
 	static bool showExportPopup = false;
 

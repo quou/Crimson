@@ -18,6 +18,8 @@ namespace Crimson {
 	      return {m_width, m_height};
 	   }
 
+		inline unsigned int GetID() const {return m_ID;}
+
 	   void Bind(unsigned int unit) const;
 	};
 

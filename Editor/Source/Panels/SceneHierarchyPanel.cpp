@@ -9,6 +9,8 @@
 
 #include "../UIUtils.h"
 
+#include "AssetManagerPanel.h"
+
 SceneHierarchyPanel::SceneHierarchyPanel(Crimson::Scene* scene) : m_scene(scene) {}
 
 template <typename T, typename ComponentDrawFunction>
@@ -49,7 +51,7 @@ static void DrawComponent(const std::string& componentName, Crimson::Entity ent,
 	}
 }
 
-void SceneHierarchyPanel::Render() {
+void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 	ImGui::Begin("Scene Hierarchy");
 
 	for (auto ent : m_scene->GetEntitiesWithComponent<Crimson::TransformComponent>()) {
@@ -163,6 +165,8 @@ void SceneHierarchyPanel::Render() {
 
 			ImGui::EndPopup();
 		}
+	} else if (assetManagerPanel.m_texturePreview) {
+		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1));
 	}
 	ImGui::End();
 }
