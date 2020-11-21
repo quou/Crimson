@@ -3143,7 +3143,7 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::AngelScrip
 
 		static const char* const identifiers[] = {
 			"cos", "sin", "tab", "acos", "asin", "atan", "atan2", "cosh", "sinh", "tanh", "log", "log10", "pow", "sqrt", "abs", "ceil", "floor", "fraction", "closeTo", "fpFromIEEE", "fpToIEEE",
-			"complex", "opEquals", "opAddAssign", "opSubAssign", "opMulAssign", "opDivAssign", "opAdd", "opSub", "opMul", "opDiv", "OnUpdate", "OnInit", "OnContactEnter", "OnContactStay", "OnContactExit"
+			"complex", "opEquals", "opAddAssign", "opSubAssign", "opMulAssign", "opDivAssign", "opAdd", "opSub", "opMul", "opDiv", "OnUpdate", "OnInit", "OnContactEnter", "OnContactStay", "OnContactExit", "OnPhysicsUpdate"
 		};
 		static const char* const classes[] = {
 			"CrimsonBehaviour", "vec2", "vec3", "vec4"
