@@ -9,7 +9,7 @@ class PlayerController : CrimsonBehaviour {
 	}
 
 	// Called once per frame
-	void OnUpdate(float delta) {
+	void OnPhysicsUpdate(float delta) {
 		vec3 move;
 		
 		if (Input::GetButton("up").pressed) {

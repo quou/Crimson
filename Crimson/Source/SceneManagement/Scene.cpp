@@ -95,9 +95,8 @@ namespace Crimson {
 		m_scriptManager->Init();
 	}
 
-	void Scene::Update(float delta) {
-		m_scriptManager->Update(delta);
-		m_physicsScene->Update(delta);
+	void Scene::PhysicsUpdate(float delta) {
+		m_scriptManager->PhysicsUpdate(delta);
 
 		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
 		for (auto ent : view) {
@@ -131,6 +130,11 @@ namespace Crimson {
 			transform.position = physics.context->GetPosition();
 			transform.rotation = physics.context->GetRotation();
 		}
+	}
+
+	void Scene::Update(float delta) {
+		m_scriptManager->Update(delta);
+		m_physicsScene->Update(delta);
 	}
 
 	void Scene::Render(RenderTarget& renderTarget) {
@@ -231,7 +235,7 @@ namespace Crimson {
 		if (m_skybox) {
 			m_skybox->Draw(*mainCamera);
 		}
-		
+
 		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 		for (auto ent : view) {
 			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);

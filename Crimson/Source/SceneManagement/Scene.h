@@ -84,6 +84,7 @@ namespace Crimson {
 		// Events
 		void Init();
 		void Update(float delta);
+		void PhysicsUpdate(float delta);
 		void Render(RenderTarget& renderTarget);
 		void Render(RenderTarget& renderTarget, Camera* camera);
 		void DrawWireframe(Entity ent);

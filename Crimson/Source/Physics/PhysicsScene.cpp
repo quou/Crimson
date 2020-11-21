@@ -25,6 +25,8 @@ namespace Crimson {
 		while (m_accumulator >= timeStep) {
 			m_world->update(timeStep);
 
+			m_scene->PhysicsUpdate(timeStep);
+
 			m_accumulator -= delta;
 		}
 

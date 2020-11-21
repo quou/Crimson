@@ -191,6 +191,39 @@ namespace Crimson {
 		m_oldTimeSinceStart = timeSinceStart;
 	}
 
+	void ScriptManager::PhysicsUpdate(float delta) {
+		float timeSinceStart = glfwGetTime();
+
+		if (!m_compilationSuccess) {return;}
+
+		for (auto obj : m_objects) {
+			Entity* ent = (Entity*)obj.second.first->GetAddressOfProperty(0);
+			if (!ent->IsValid()) {
+				obj.second.first->Release();
+				m_objects.erase(obj.first);
+				continue;
+			}
+
+			asIScriptFunction* func = obj.second.second->GetMethodByDecl("void OnPhysicsUpdate(float)");
+			if (!func) {
+				continue;
+			}
+
+			m_asContext->Prepare(func);
+			m_asContext->SetArgFloat(0, delta);
+			m_asContext->SetObject(obj.second.first);
+			int r = m_asContext->Execute();
+
+			if (r == asEXECUTION_EXCEPTION) {
+				CR_LOG_ERROR("An exception '%s' occurred.", m_asContext->GetExceptionString());
+				continue;
+			}
+		}
+
+		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
+		m_oldTimeSinceStart = timeSinceStart;
+	}
+
 	void ScriptManager::ContactStay(unsigned int id, Entity& other) {
 		if (!m_compilationSuccess) {return;}
 
