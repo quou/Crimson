@@ -15,6 +15,7 @@ A WIP 3D game engine written in C++ 17
 
 ## Work-in-Progress
  - Level editor
+ - Audio
  - Web & Android runtime support
  - Node-based scripting
  - Node-based shader creation
