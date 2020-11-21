@@ -40,7 +40,7 @@ class PlayerController : CrimsonBehaviour {
 	}
 
 	void OnContactEnter(Entity other) {
-		print("Player collided with: " + other.GetTransformComponent().name)
+		print("Player collided with: " + other.GetTransformComponent().name);
 	}
 }
 ```
