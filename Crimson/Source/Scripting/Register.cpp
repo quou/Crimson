@@ -99,6 +99,18 @@ namespace Crimson {
 		return ent->GetComponent<PhysicsComponent>();
 	}
 
+	static bool Entity_HasTransformComponent(Entity* ent) {
+		return ent->HasComponent<TransformComponent>();
+	}
+
+	static bool Entity_HasScriptComponent(Entity* ent) {
+		return ent->HasComponent<ScriptComponent>();
+	}
+
+	static bool Entity_HasPhysicsComponent(Entity* ent) {
+		return ent->HasComponent<PhysicsComponent>();
+	}
+
    template <typename T>
    void RegisterVector(asIScriptEngine* engine, const std::string& asTypename) {
       const char* asTypenamePtr = asTypename.c_str();
@@ -201,8 +213,11 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool IsValid()", asMETHOD(Entity, IsValid), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasTransformComponent()", asFUNCTION(Entity_HasTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "ScriptComponent& GetScriptComponent()", asFUNCTION(Entity_GetScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasScriptComponent()", asFUNCTION(Entity_HasScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "PhysicsComponent& GetPhysicsComponent()", asFUNCTION(Entity_GetPhysicsComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasPhysicsComponent()", asFUNCTION(Entity_HasPhysicsComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		engine->SetDefaultNamespace("Input");
 
