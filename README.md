@@ -32,7 +32,8 @@ Installation of dependencies isn't required, they are all built and linked on th
 ~/Crimson$ make -j6 config=release
 ```
 
-### Windows (MSVC)
+### Windows (Visual Studio & Clang)
+**MSVC is not supported. Use Clang instead**
 Run `Scripts/Windows/Build.bat` to generate a Visual Studio project (includes dependencies).
 
 ## Dependencies
