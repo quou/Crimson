@@ -15,7 +15,7 @@ namespace Crimson {
 			glm::radians(rotation.z),
 			glm::radians(rotation.x))));
 
-		rp3d::Quaternion o(q.x, q.y, q.z, -q.w);
+		rp3d::Quaternion o(q.x, q.y, q.z, q.w);
 
 		rp3d::Transform transform(p, o);
 

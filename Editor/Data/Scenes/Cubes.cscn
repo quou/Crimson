@@ -61,27 +61,6 @@ Entities:
       Intensity: 1
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube 8
-      Tag: Default
-      GUID: 532ffab3e8f93adfbc334039629dc5b327dd231706ae1cc9e74e4d8e7964815e53850020fd7fdc61397f264156bf01fd3ddc0a63a2cea2b3912a4f5af61603a1c1f8ccf154f8b810c642bfcd3595a65755e004c8a817489f765bf8cfc82ea583f28876ca
-      Translation: [2.70000005, 28.7999992, -2.79999995]
-      Rotation: [45, 45, 45]
-      Scale: [1, 1, 1]
-    MeshFilterComponent:
-      Path: Cube
-    MaterialComponent:
-      Path: Default
-    BoxColliderComponent:
-      Extents: [1, 1, 1]
-    PhysicsComponent:
-      UseGravity: true
-      Mass: 1
-      Friction: 0.300000012
-      Bounciness: 0.100000001
-      IsKinematic: false
-      CenterOfGravity: [0, 0, 0]
-  - Entity: Ent
-    TransformComponent:
       Name: Physics Cube 7
       Tag: Default
       GUID: 7a7fa7549458fab85cc4b9d7ac69d10ca0dc723cc88ff2700d4cdfde9da05404178df8476f0b42f0e01058689d52bb150371e3b5c4a6c0392e76f018f860e2a9bdd5317274074403b4d29c28a0f266ac721a72f68b0c02c01431b55a3ae88739cf053487
@@ -91,7 +70,7 @@ Entities:
     MeshFilterComponent:
       Path: Cube
     MaterialComponent:
-      Path: Default
+      Path: Data/Materials/GreenMaterial.mat
     BoxColliderComponent:
       Extents: [1, 1, 1]
     PhysicsComponent:
@@ -233,7 +212,7 @@ Entities:
       Tag: Default
       GUID: 7b46d00034945214a115ea1f7c21de6afb63cc2d36ce0af89eacf3b6a058a72161ccf3cf3957969723400f99919cfbabecded7d5aa76f3609215c477a2df7026f9acc171dac3560d6bb52275b721b0fe0b2445f3af53bd03581afb9bc014b725b9534f3b
       Translation: [-18.2000008, 8.39999962, -16.2000008]
-      Rotation: [-15.8999996, 46.2000008, 0]
+      Rotation: [-12, 46.2000008, 0]
       Scale: [1, 1, 1]
     CameraComponent:
       Active: true
@@ -246,7 +225,7 @@ Entities:
       Tag: Default
       GUID: 542af9a5eb5d5d10406550b1479b2b27b103888a2c3a893ce91f3b039c091a0226b9913982eac46eca6d8749f213c84bdbd46c5e1ed621330826764763cd303cf87ee2a2488da920e3c16de7c3d770f245a490786fa566a5d7dfcee83464e9ad5d05ee80
       Translation: [0, 0, 0]
-      Rotation: [-9.30000019, -48.0999985, -11]
+      Rotation: [9, -45.4000015, -23.1000004]
       Scale: [1, 1, 1]
     AmbientLightComponent:
       Color: [1, 1, 1]
@@ -273,7 +252,7 @@ Entities:
       Name: Lamp
       Tag: Default
       GUID: fd4a194cea66e8b059dc87d4415b807cac44b1e096dbc5c7896e89d9a81360c3c4fca3841a84a618903323bfa1a62c23a1d1669ebdeca26ecbf407e19a2f5ab72ab13940e773ff4faf8987466e8d74e9b0f09598d5e4ef02dc7d70bf7c812043e4222e88
-      Translation: [6.69999981, 2, -5]
+      Translation: [8.60000038, 6.5999999, -5]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     PointLightComponent:
