@@ -16,7 +16,7 @@ namespace Crimson {
 	}
 
 	void PhysicsScene::Update(float delta) {
-		float timeSinceStart = glfwGetTime();
+		float timeSinceStart = (float)glfwGetTime();
 
 		const float timeStep = 1.0f / 60.0f;
 
@@ -27,7 +27,7 @@ namespace Crimson {
 
 			m_scene->PhysicsUpdate(timeStep);
 
-			m_accumulator -= delta;
+			m_accumulator -= delta * m_updateTime;
 		}
 
 		m_updateTime = timeSinceStart - m_oldTimeSinceStart;

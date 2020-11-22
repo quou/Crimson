@@ -289,6 +289,7 @@ void EditorLayer::OnUpdate(float delta) {
 		}
 
 		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
+		std::replace(startupScenePath.begin(), startupScenePath.end(), '\\', '/');
 		ImGui::Text("%s", startupScenePath.c_str());
 
 		if (ImGui::Button("Export")) {

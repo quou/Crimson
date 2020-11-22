@@ -48,6 +48,7 @@ namespace Crimson {
 		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");
 
 		glfwMakeContextCurrent(m_window);
+		glfwSwapInterval(true);
 
 		glfwSetFramebufferSizeCallback(m_window, FramebufferSizeCallback);
 		glfwSetKeyCallback(m_window, KeyCallback);
@@ -69,12 +70,13 @@ namespace Crimson {
 			l->OnInit();
 		}
 
-		float oldTimeSinceStart = 0.0f;
+		float delta = 0.0f;
+		float last = 0.0f;
 
 		while (!glfwWindowShouldClose(m_window)) {
-			float timeSinceStart = glfwGetTime();
-			float delta = timeSinceStart - oldTimeSinceStart;
-			oldTimeSinceStart = timeSinceStart;
+			float now = (float)glfwGetTime();
+			delta = now - last; 
+			last = now;
 
 			Renderer::Clear();
 			ImGuiImpl::BeginFrame();
