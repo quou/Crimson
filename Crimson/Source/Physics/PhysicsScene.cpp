@@ -27,7 +27,7 @@ namespace Crimson {
 
 			m_scene->PhysicsUpdate(timeStep);
 
-			m_accumulator -= delta * m_updateTime;
+			m_accumulator -= delta;
 		}
 
 		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
