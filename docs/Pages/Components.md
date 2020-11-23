@@ -3,7 +3,7 @@
 ```cpp
 struct TransformComponent {
 	vec3 position;
-	vec3 rotation;
+	quat rotation;
 	vec3 scale;
 	std::string name;
 	std::string tag;

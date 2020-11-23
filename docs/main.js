@@ -3,7 +3,8 @@ let pages = [
    "Home",
 	"Scripting Introduction",
 	"Events",
-	"Components"
+	"Components",
+	"Maths"
 ]
 
 let currentPage = pages[0];
