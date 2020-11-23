@@ -36,10 +36,10 @@ namespace YAML {
 	struct convert<glm::quat> {
 		static Node encode(const glm::quat& rhs) {
 			Node node;
-			node.push_back(rhs.w);
 			node.push_back(rhs.x);
 			node.push_back(rhs.y);
 			node.push_back(rhs.z);
+			node.push_back(rhs.w);
 			return node;
 		}
 
@@ -48,10 +48,10 @@ namespace YAML {
 				return false;
 			}
 
-			rhs.w = node[0].as<float>();
-			rhs.x = node[1].as<float>();
-			rhs.y = node[2].as<float>();
-			rhs.z = node[3].as<float>();
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			rhs.z = node[2].as<float>();
+			rhs.w = node[3].as<float>();
 
 			return true;
 		}

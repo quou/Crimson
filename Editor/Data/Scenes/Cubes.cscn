@@ -14,7 +14,7 @@ Entities:
       Tag: Default
       GUID: 06c0ff8fc3d5204dca918c945a26bb558611c17b85612b414f0295a50cec5200500e13bd71a0a975ae41fd1e25a744b28c3fac4fca0db4f4d35f13c0cfc8cf9eb492d69d5f64a69695fc215b8db95953fbac98d42401255135e5c700a9fcecec611de02c
       Translation: [0, -2.29999995, 0]
-      Rotation: [0, 1, -4.37113883e-08, 0]
+      Rotation: [0, -0, -4.37113883e-08, 1]
       Scale: [10, 0.200000003, 10]
     MeshFilterComponent:
       Path: Cube
@@ -34,8 +34,8 @@ Entities:
       Name: Main Camera
       Tag: Default
       GUID: 5cb94dfe53b5d3917d6df9a1e3cfe08d9c14fe6d9e544524675b10b68ce8259af6914081b772cbb2c82a3ea11836f25ae5305310f3a5e213a7d33ae5d4bce8551b12936ec85e94bdd389af44cb0cd04be430a53d453d76b5884b2a1949a1e08ef33c5781
-      Translation: [-13.1999998, 9.69999981, -19.6000004]
-      Rotation: [-0.178577304, 0.322933227, 0.0621871352, 0.92733866]
+      Translation: [-13.1999998, 12, -19.6000004]
+      Rotation: [-0.19202736, 0.277443916, 0.0566987619, 0.939646542]
       Scale: [1, 1, 1]
     CameraComponent:
       Active: true
@@ -48,7 +48,7 @@ Entities:
       Tag: Default
       GUID: 955d542408140eda30cfbc0c71c1487a1ee8efeae8c8bcac467fc8682734f5283cc914811f77f3ebdbd83b1298901b9752f543df145a0a3f54954d94e0c41d4e171a16f2aa3aa49d8810953ab958820ed2605b28c5bb5dcf988361259bc003c070dbc222
       Translation: [0, 0, 0]
-      Rotation: [0.536311924, -0.202890337, 0.813069224, 0.100615472]
+      Rotation: [0.0249691494, -0.384630084, 0.00241605565, 0.92272985]
       Scale: [1, 1, 1]
     AmbientLightComponent:
       Color: [1, 1, 1]
@@ -62,7 +62,7 @@ Entities:
       Tag: Default
       GUID: 985c8190c603f589938cd2761ad898ebbe038c0cb3d1c9a2f3cf9adae84dc55d3190336c36bad605f8685a47453a9356931af8ad5542f73c0c04df6133541e3ced98faf990c263eeb8257d0e0e187e5f8b8c1a13be45c10cca2146bc36b69d6d82842d08
       Translation: [0, 11.3000002, 0]
-      Rotation: [0.461939812, 0.191341698, 0.844623208, 0.191341713]
+      Rotation: [0.191341445, 0.461939752, 0.191341877, 0.844623208]
       Scale: [1, 1, 1]
     MeshFilterComponent:
       Path: Cube

@@ -24,7 +24,7 @@ namespace Crimson {
 
 		auto& trans = r.get<TransformComponent>(ent);
 
-		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, glm::vec3(trans.rotation.x, trans.rotation.y+180, trans.rotation.z));
+		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, trans.rotation);
 
 		if (r.has<SphereColliderComponent>(ent)) {
 			phys.context->AddSphereCollider(r.get<SphereColliderComponent>(ent).radius);
