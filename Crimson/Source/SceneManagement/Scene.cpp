@@ -42,6 +42,14 @@ namespace Crimson {
 		phys.context->SetKinematic(phys.isKinematic);
 	}
 
+	void Scene::ScriptComponentCreate(entt::registry& r, entt::entity ent) {
+		m_scriptManager->SetupEntity(ent, this);
+	}
+
+	void Scene::ScriptComponentDestroy(entt::registry& r, entt::entity ent) {
+		m_scriptManager->DeInitScript(r.get<ScriptComponent>(ent).id);
+	}
+
 	Scene::Scene(bool release) : m_assetManager(release) {
 		m_lightScene = std::make_shared<LightScene>();
 		m_physicsScene = std::make_shared<PhysicsScene>(this);
@@ -52,6 +60,7 @@ namespace Crimson {
 
 		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
 		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
+		m_registry.on_destroy<ScriptComponent>().connect<&Scene::ScriptComponentDestroy>(this);
 	}
 
 	void Scene::LoadSkybox() {

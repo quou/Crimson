@@ -48,6 +48,8 @@ namespace Crimson {
 		void RenderMeshes(Camera* mainCamera);
 
 		void PhysicsComponentCreate(entt::registry& r, entt::entity ent);
+		void ScriptComponentCreate(entt::registry& r, entt::entity ent);
+		void ScriptComponentDestroy(entt::registry& r, entt::entity ent);
 
 		SceneConfig m_config;
 

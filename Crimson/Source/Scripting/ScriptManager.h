@@ -45,6 +45,8 @@ namespace Crimson {
 		void Compile(AssetManager& assetManager);
 		void SetupEntity(entt::entity ent, Scene* scene);
 
+		void DeInitScript(unsigned int id);
+
 		inline float GetUpdateTime() {return m_updateTime;}
 
 		void Init();

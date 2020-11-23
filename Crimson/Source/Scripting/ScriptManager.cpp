@@ -50,11 +50,21 @@ namespace Crimson {
 
 	ScriptManager::~ScriptManager() {
 		for (auto obj : m_objects) {
-			obj.second.first->Release();
+			if (obj.second.first) {
+				obj.second.first->Release();
+			}
 		}
 
 		m_asContext->Release();
 		m_asEngine->ShutDownAndRelease();
+	}
+
+	void ScriptManager::DeInitScript(unsigned int id) {
+		if (m_objects[id].first) {
+			m_objects[id].first->Release();
+			m_objects[id].first = NULL;
+			m_objects.erase(m_objects.find(id));
+		}
 	}
 
 	void ScriptManager::Compile(AssetManager& assetManager) {

@@ -10,6 +10,20 @@ Config:
 Entities:
   - Entity: Ent
     TransformComponent:
+      Name: Blue Lamp
+      Tag: Default
+      GUID: f9a551e54653db49e7466f4ce6faebf842a8147bdf8e581736b72b2a95aa2f87764a4e16186d1fa219dbf2649cebd796fbde6cba1a4d20276ec27d5ea5176c07b08f44d67092539bb3e2a55007791faab65d7025637680c77cc745063b2933206787afae
+      Translation: [1.20000005, 0, -8.5]
+      Rotation: [0, 0, 0, 1]
+      Scale: [1, 1, 1]
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [0.017847538, 0, 1]
+      Intensity: 1
+  - Entity: Ent
+    TransformComponent:
       Name: Ground
       Tag: Default
       GUID: 06c0ff8fc3d5204dca918c945a26bb558611c17b85612b414f0295a50cec5200500e13bd71a0a975ae41fd1e25a744b28c3fac4fca0db4f4d35f13c0cfc8cf9eb492d69d5f64a69695fc215b8db95953fbac98d42401255135e5c700a9fcecec611de02c
@@ -81,7 +95,7 @@ Entities:
       Class: PlayerController
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #1"
       Tag: Default
       GUID: 4fcef6ccb4c3f6fa050481064ab4116a496521a41dace43a1d87fbaddc34d006a0cd0456c5e09b789a7433653c2e3429b8e2396a19f808a7a31b15d1f3a48f14b13aa96ad2dab19b374bca5a7931c8cb56e8c22d9b436855b4d97ca1ddbd551484fc9911
       Translation: [0, 0, 0]
@@ -102,7 +116,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #2"
       Tag: Default
       GUID: 141fb0921705225f54eab6eb3714457f0550ddb71685ec9f06d952aaf43472c98587d186a3b169d5a10e13d83b591c5aeffe20d6e904f03c54af4d279346f8184a1dc62207d235ae2b1d1bba3acb530b8e13d7f47f41add5bf418736f34910d25f0cc51d
       Translation: [5.5999999, 4.0999999, -0.100000001]
@@ -123,7 +137,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #3"
       Tag: Default
       GUID: c01a1af00ddbc5f948aaab29e9b09807b5b25e5024c71b0ac653d90fe0ad5c5a401ee55e1609fd37502de9130b40d7888c5f69e06afac80bf94aadd558b17ac8f9402b17ff39ce80cd3dd80b5292b7a24467d0e9dcd110d10a16834be42bb8db0ec36f83
       Translation: [0, 3.20000005, -5.4000001]
@@ -144,7 +158,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #4"
       Tag: Default
       GUID: 4b112ab895dd0a179eafa682444f5fb75402d59917b493b616a91301eb60f9d4cc5330488f8528abaa3f1aab87155e0280d32a5aba4f3214d02b45174739e7a8adbfa1c899c4036902f47f1b4e677ab6651b52c7061e7c3dcb5baf9376a1b981eb3421a3
       Translation: [0, 7.9000001, -3.5999999]
@@ -165,7 +179,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #5"
       Tag: Default
       GUID: 6b72e59364fea11a728f13a9166c5461090af99194083754aba45ecb902a9fabd9f51f3e6c11681e08796ea765894ee5996f89bed1e72226f3c542ab0a7ac1c3a241a45f7ebffc78888735aa29c81fe3aed2ed311525a24715bd5c66795d55080e150381
       Translation: [2.5, 0, 0]
@@ -186,7 +200,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #6"
       Tag: Default
       GUID: ce3864a579af41db69fdb9fca68410e6bd2c2823bd7965fb5d00f7384d91e0754c116a51111856dd4dc367f2f62f5eeff2d4af743c507c3c4529be2278130d059ae696b5f351cade17296cac2ad4f3c523161674a0335d795dd885bb82c6974a9797c1cb
       Translation: [-0.100000001, 0.600000024, -4.0999999]
@@ -207,7 +221,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #7"
       Tag: Default
       GUID: bc7339b870a1736180e02d2926e48b6ed2a01fec5b36af4fc0b67d7e63aa7a18f3b06c926a6db2c6bdc464508a1b7f56cf1e2e33adbef8d425b9d46e5e96c6d34776fac5f789909dd8a4e25c872b5b7280617a338e29e2c093885820525737bfea4dbdd7
       Translation: [0, 5.19999981, 2.5999999]
@@ -228,7 +242,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #8"
       Tag: Default
       GUID: 4a4818e0e9a6b1999d1fadc671d5030c3de2cbda576cb812e3b798aa32d95a2b349e3e3d174b8e1143eba99c3177589fdcb0b88a39dfa018eb60703018c4eb235eaa89478b06b3f6d38f24e013b5e6ecdf8885bb4bee772c0e4cd9c43ebf7d794880f650
       Translation: [0, 0, 3.79999995]
@@ -249,7 +263,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #9"
       Tag: Default
       GUID: 59d7f837c0c9f65ef2ec93c734b00842ebe9f81da195d145b841be3f9b1d7289c6056f8294e1c9c73bc71bdf1443d7db2b8d94b32d5a01dc324f2b19fdfdbf901fd08c291ba8557f4fa009409a9dd09c2bd5fbc3c9c2b918fb095e8d85d4cb5d2ee23147
       Translation: [0, 2.5999999, 0]
@@ -270,7 +284,7 @@ Entities:
       CenterOfGravity: [0, 0, 0]
   - Entity: Ent
     TransformComponent:
-      Name: Physics Cube
+      Name: "Physics Cube #10"
       Tag: Default
       GUID: 75fea869c5a7d8b7bbc081ad1998861bc3e7c78946c4d1813b9ad72d7be33c9aef5c33cf07f0dd56046231680e282662092305da6e5a29b96deb992d8f4baaf1b8be4c97eb549474322d6b045dbf282bc95a0ae14a9c952360d8e9d7be62217714c0aa85
       Translation: [-2.9000001, 0, 0]
@@ -289,3 +303,17 @@ Entities:
       Bounciness: 0.100000001
       IsKinematic: false
       CenterOfGravity: [0, 0, 0]
+  - Entity: Ent
+    TransformComponent:
+      Name: Red Lamp
+      Tag: Default
+      GUID: 92d3d56cdc55932329faaaa5d621de5dd0ffe3f0434afbc094ca1838b0393fa39b73352a39753d35b4b1b801ce8822f7c58c9c6cc8c5120838ef9754714f8293c1c49a42a8b061c7420e0376bb93da30aeeff1ff1a255b557f2c8d9f6b11179b81f068d3
+      Translation: [5.80000019, 0, 0]
+      Rotation: [0, 0, 0, 1]
+      Scale: [1, 1, 1]
+    PointLightComponent:
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      Color: [1, 0, 0]
+      Intensity: 1
