@@ -12,7 +12,7 @@
 namespace Crimson {
 	struct TransformComponent {
 		glm::vec3 position;
-		glm::quat rotation;
+		glm::quat rotation = glm::quat(glm::vec3(0.0, 0.0, 0.0));;
 		glm::vec3 scale = glm::vec3(1);
 
 		std::string name;
