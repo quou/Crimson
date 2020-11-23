@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <reactphysics3d/reactphysics3d.h>
 
@@ -20,7 +21,7 @@ namespace Crimson {
 		friend class Scene;
 	public:
 		Rigidbody() {}
-		Rigidbody(PhysicsScene* scene, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& rotation = glm::vec3(0.0f));
+		Rigidbody(PhysicsScene* scene, const glm::vec3& position = glm::vec3(0.0f), const glm::quat& rotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f));
 		~Rigidbody();
 
 		void AddBoxCollider(const glm::vec3& halfExtents);
@@ -40,7 +41,7 @@ namespace Crimson {
 		float GetFriction();
 
 		glm::vec3 GetPosition();
-		glm::vec3 GetRotation();
+		glm::quat GetRotation();
 
 		inline glm::vec3 GetCOG() {return glm::vec3(m_body->getLocalCenterOfMass().x, m_body->getLocalCenterOfMass().y, m_body->getLocalCenterOfMass().z);}
 

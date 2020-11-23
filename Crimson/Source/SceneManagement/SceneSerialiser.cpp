@@ -31,6 +31,31 @@ namespace YAML {
 			return true;
 		}
 	};
+
+	template <>
+	struct convert<glm::quat> {
+		static Node encode(const glm::quat& rhs) {
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.push_back(rhs.w);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::quat& rhs) {
+			if (!node.IsSequence() || node.size() != 4) {
+				return false;
+			}
+
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			rhs.z = node[2].as<float>();
+			rhs.w = node[3].as<float>();
+
+			return true;
+		}
+	};
 }
 
 namespace Crimson {
@@ -49,6 +74,12 @@ namespace Crimson {
 	}
 
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v) {
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+		return out;
+	}
+
+	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::quat& v) {
 		out << YAML::Flow;
 		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
 		return out;
@@ -256,14 +287,15 @@ namespace Crimson {
 		if (entitiesNode) {
 			for (auto ent : entitiesNode) {
 				std::string name, tag, guid;
-				glm::vec3 pos, rot, sca;
+				glm::vec3 pos, sca;
+				glm::quat rot;
 				auto transformComponent = ent["TransformComponent"];
 				if (transformComponent) {
 					name = transformComponent["Name"].as<std::string>();
 					tag = transformComponent["Tag"].as<std::string>();
 					guid = transformComponent["GUID"].as<std::string>();
 					pos = transformComponent["Translation"].as<glm::vec3>();
-					rot = transformComponent["Rotation"].as<glm::vec3>();
+					rot = transformComponent["Rotation"].as<glm::quat>();
 					sca = transformComponent["Scale"].as<glm::vec3>();
 				}
 

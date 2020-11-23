@@ -79,6 +79,14 @@ namespace Crimson {
      new(memory) glm::vec4(x,y,z,w);
    }
 
+	void quat_Constructor(void *memory) {
+     new(memory) glm::quat();
+   }
+
+	void quat_Constructor_XYZW(void *memory, float w, float x, float y, float z) {
+     new(memory) glm::quat(w, x, y, z);
+   }
+
 	void Rigidbody_Constructor(void *memory) {
 		new(memory) Rigidbody();
 	}
@@ -127,7 +135,6 @@ namespace Crimson {
       r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opSub(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator-, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
       r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opMul(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator*, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
       r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opDiv(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator/, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectMethod(asTypenamePtr, std::string(asTypename + "& opEquals(const " + asTypename + "& in) const").c_str(), asFUNCTIONPR(glm::operator/, (const T&, const T&), T), asCALL_CDECL_OBJLAST); assert( r >= 0 );
    }
 
 	void RegisterScript(asIScriptEngine* engine) {
@@ -161,6 +168,14 @@ namespace Crimson {
       r = engine->RegisterObjectProperty("vec4", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec4", "float w", asOFFSET(glm::vec4,w)); assert( r >= 0 );
 
+		r = engine->RegisterObjectType("quat", sizeof(glm::quat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<glm::quat>()); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(quat_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(quat_Constructor_XYZW), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectProperty("quat", "float x", asOFFSET(glm::vec4,x)); assert( r >= 0 );
+      r = engine->RegisterObjectProperty("quat", "float y", asOFFSET(glm::vec4,y)); assert( r >= 0 );
+      r = engine->RegisterObjectProperty("quat", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
+      r = engine->RegisterObjectProperty("quat", "float w", asOFFSET(glm::vec4,w)); assert( r >= 0 );
+
 		r = engine->RegisterGlobalFunction("string to_string(double)", asFUNCTIONPR(scriptToString, (double), std::string), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("string to_string(bool)", asFUNCTIONPR(scriptToString, (bool), std::string), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("string to_string(vec2)", asFUNCTIONPR(scriptToString, (glm::vec2), std::string), asCALL_CDECL); assert(r >= 0);
@@ -170,7 +185,7 @@ namespace Crimson {
 		r = engine->RegisterObjectType("TransformComponent", sizeof(TransformComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "vec3 position", asOFFSET(TransformComponent,position)); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "vec3 scale", asOFFSET(TransformComponent,scale)); assert(r >= 0);
-      r = engine->RegisterObjectProperty("TransformComponent", "vec3 rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
+      r = engine->RegisterObjectProperty("TransformComponent", "quat rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "string tag", asOFFSET(TransformComponent,tag)); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "string name", asOFFSET(TransformComponent,name)); assert(r >= 0);
 

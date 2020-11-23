@@ -179,9 +179,13 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawTextControl("Name", name);
 		DrawTextControl("Tag", tag);
 
+		glm::vec3 newRotation = glm::degrees(glm::eulerAngles(component.rotation));
+
 		DrawVec3Control("Translation", component.position);
-		DrawVec3Control("Rotation", component.rotation);
+		DrawVec3Control("Rotation", newRotation);
 		DrawVec3Control("Scale", component.scale, 1.0f);
+
+		component.rotation = glm::quat(glm::radians(newRotation));
 	}, false);
 
 	DrawComponent<Crimson::DirectionalLightComponent>("Directional Light", ent, [](auto& component){

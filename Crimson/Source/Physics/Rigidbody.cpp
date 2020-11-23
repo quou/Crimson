@@ -2,22 +2,13 @@
 
 #include "PhysicsScene.h"
 
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
 namespace Crimson {
-	Rigidbody::Rigidbody(PhysicsScene* scene, const glm::vec3& position, const glm::vec3& rotation) : m_scene(scene) {
+	Rigidbody::Rigidbody(PhysicsScene* scene, const glm::vec3& position, const glm::quat& rotation) : m_scene(scene) {
 		rp3d::Vector3 p(position.x, position.y, position.z);
 
-		glm::quat q = glm::toQuat(glm::orientate3(glm::vec3(
-			glm::radians(rotation.y),
-			glm::radians(rotation.z),
-			glm::radians(rotation.x))));
-
-		rp3d::Quaternion o(q.x, q.y, q.z, q.w);
-
-		rp3d::Transform transform(p, o);
+		rp3d::Transform transform(p, rp3d::Quaternion(rotation.x, rotation.y, rotation.z, rotation.w));
 
 		m_body = m_scene->m_world->createRigidBody(transform);
 
@@ -36,16 +27,12 @@ namespace Crimson {
 			m_body->getTransform().getPosition().z);
 	}
 
-	glm::vec3 Rigidbody::GetRotation() {
-		glm::quat q(
-			m_body->getTransform().getOrientation().y,
-			m_body->getTransform().getOrientation().z,
+	glm::quat Rigidbody::GetRotation() {
+		return glm::quat(
+			m_body->getTransform().getOrientation().w,
 			m_body->getTransform().getOrientation().x,
-			-m_body->getTransform().getOrientation().w);
-
-		glm::vec3 result = glm::degrees(glm::eulerAngles(q));
-
-		return glm::vec3(result.x, result.y, result.z);
+			m_body->getTransform().getOrientation().y,
+			m_body->getTransform().getOrientation().z);
 	}
 
 	void Rigidbody::AddBoxCollider(const glm::vec3& halfExtents) {

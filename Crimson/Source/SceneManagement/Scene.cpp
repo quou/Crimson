@@ -175,7 +175,7 @@ namespace Crimson {
 				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(ent);
 
 				camera.camera.position = transform.position;
-				camera.camera.rotation = transform.rotation;
+				camera.camera.rotation = glm::degrees(glm::eulerAngles(transform.rotation));
 
 				if (camera.active) {
 					mainCamera = &camera.camera;
@@ -204,7 +204,7 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
 
-				m_lightScene->m_directionalLights.push_back(DirectionalLight{t.rotation, l.color, l.intensity});
+				m_lightScene->m_directionalLights.push_back(DirectionalLight{glm::degrees(glm::eulerAngles(t.rotation)), l.color, l.intensity});
 			}
 		}
 		{
