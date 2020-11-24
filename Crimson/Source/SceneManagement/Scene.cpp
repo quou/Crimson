@@ -280,6 +280,17 @@ namespace Crimson {
 		return ent;
 	}
 
+	Entity Scene::GetEntityByGUID(const GUID& guid) {
+		auto view = m_registry.view<TransformComponent>();
+		for (auto ent : view) {
+			Entity e(ent, this);
+			if (e.GetComponent<TransformComponent>().guid == guid) {
+				return e;
+			}
+		}
+		return Entity();
+	}
+
 	void Scene::DestroyEntity(Entity ent) {
 		m_registry.destroy(ent.m_entityHandle);
 	}

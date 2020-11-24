@@ -78,8 +78,7 @@ namespace Crimson {
 
 		Entity CreateEntity(const std::string& name = "Unnamed Entity", const std::string& tag = "Default", const GUID& guid="");
 		void DestroyEntity(Entity ent);
-
-		inline unsigned int GetShadowmap() {return m_lightScene->m_directionalShadowmaps;}
+		Entity GetEntityByGUID(const GUID& guid);
 
 		void LoadSkybox();
 

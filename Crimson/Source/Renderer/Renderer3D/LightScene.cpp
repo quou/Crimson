@@ -65,7 +65,6 @@ namespace Crimson {
 			shader.SetVec3("u_directionalLights[" + std::to_string(i) + "].color", light.color);
 
 			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transform", light.CalculateTransform(camera));
-			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transformLightSpace", light.CalculateTransform());
 			shader.SetInt("u_directionalLights[" + std::to_string(i) + "].index", i);
 
 			i++;

@@ -74,28 +74,7 @@ namespace Crimson {
 			glEnable(GL_SCISSOR_TEST);
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			AABB sceneAABB{ glm::vec3(0.0f), glm::vec3(0.0f) };
-
 			int ii = 0;
-			for (auto mesh : meshes) {
-				glm::vec3 position(transforms[ii][3]);
-				AABB meshAABB = mesh->GetAABB();
-				meshAABB.maxCorner += position;
-				meshAABB.minCorner += position;
-
-				if (meshAABB.minCorner.x < sceneAABB.minCorner.z) sceneAABB.minCorner.z = meshAABB.minCorner.x;
-				if (meshAABB.minCorner.x > sceneAABB.maxCorner.x) sceneAABB.maxCorner.x = meshAABB.minCorner.x;
-				if (meshAABB.minCorner.y < sceneAABB.minCorner.z) sceneAABB.minCorner.z = meshAABB.minCorner.y;
-				if (meshAABB.minCorner.y > sceneAABB.maxCorner.y) sceneAABB.maxCorner.y = meshAABB.minCorner.y;
-				if (meshAABB.minCorner.z < sceneAABB.minCorner.z) sceneAABB.minCorner.z = meshAABB.minCorner.z;
-				if (meshAABB.minCorner.z > sceneAABB.maxCorner.z) sceneAABB.maxCorner.z = meshAABB.minCorner.z;
-
-				ii++;
-			}
-
-			instance().m_sceneBound = sceneAABB;
-
-			ii = 0;
 			for (auto mesh : meshes) {
 				lightScene.m_shadowmapShader->SetMat4("u_model", transforms[ii]);
 				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform(camera));
