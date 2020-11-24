@@ -8,6 +8,7 @@ private:
 public:
 	SceneCamera() {
 		m_camera = Crimson::Camera({1366, 768}, 45.0f, 0.1f, 1000.0f);
+		m_camera.position.z = -20.0f;
 	}
 
 	void UpdateViewport(std::pair<int, int> size) {

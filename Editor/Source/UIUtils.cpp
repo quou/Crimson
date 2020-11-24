@@ -87,7 +87,7 @@ void DrawTextControl(const std::string& label, std::string& string, float colWid
 	ImGui::PopID();
 }
 
-void DrawFloatControl(const std::string& label, float* val, float min, float max, float step, float colWidth) {
+void DrawFloatControl(const std::string& label, float* val, float step, float min, float max, float colWidth) {
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2, NULL, false);
