@@ -49,6 +49,8 @@ namespace Crimson {
 
 		inline float GetUpdateTime() {return m_updateTime;}
 
+		unsigned int GetMemoryUsageKilobytes();
+
 		void Init();
 		void Update(float delta);
 		void PhysicsUpdate(float delta);

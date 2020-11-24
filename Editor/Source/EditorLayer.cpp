@@ -533,6 +533,22 @@ void EditorLayer::OnUpdate(float delta) {
 		}
 
 		{
+			static float values[90] = {};
+         static int values_offset = 0;
+         static double refresh_time = 0.0;
+         while (refresh_time < ImGui::GetTime())
+         {
+             static float phase = 0.0f;
+             values[values_offset] = editor->m_scene->GetScriptEngineMemoryUsage();
+             values_offset = (values_offset + 1) % IM_ARRAYSIZE(values);
+             phase += 0.10f * values_offset;
+             refresh_time += 1.0f / 60.0f;
+         }
+
+			DrawLinePlot("Memory Usage (KB)", values, IM_ARRAYSIZE(values), values_offset, 0.0f, 1000.0f, 150.0f);
+		}
+
+		{
 			ImGui::Separator(); ImGui::Text("Physics Engine");
 			static float values[90] = {};
          static int values_offset = 0;

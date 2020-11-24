@@ -379,6 +379,10 @@ namespace Crimson {
 		return m_scriptManager->GetUpdateTime();
 	}
 
+	unsigned int Scene::GetScriptEngineMemoryUsage() {
+		return m_scriptManager->GetMemoryUsageKilobytes();
+	}
+
 	float Scene::GetPhysicsEngineUpdateTime() {
 		return m_physicsScene->GetUpdateTime();
 	}

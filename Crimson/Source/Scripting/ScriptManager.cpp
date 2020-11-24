@@ -29,6 +29,8 @@ namespace Crimson {
 		}
 	}
 
+	static unsigned int memoryUsage;
+
 	static int IncludeCallback(const char *include, const char *from, CScriptBuilder *builder, void *userParam) {
       if (std::string(include) == "Crimson" || std::string(include) == "Crimson.as") {
          builder->AddSectionFromMemory("Crimson", g_behaviourBase);
@@ -40,7 +42,36 @@ namespace Crimson {
       return builder->AddSectionFromMemory(include, assetManager->LoadText(include).c_str());
    }
 
+	static void* ScriptMalloc(size_t size) {
+		char *buffer = (char *) malloc(size + sizeof(int)); //allocate sizeof(int) extra bytes
+		if (buffer == NULL) {
+			return NULL; // no memory!
+		}
+
+		memoryUsage += size;
+		int *sizeBox = (int*)buffer;
+		*sizeBox = size; //store the size in first sizeof(int) bytes!
+		return buffer + sizeof(int); //return buffer after sizeof(int) bytes!
+	}
+
+	static void ScriptFree(void* pointer) {
+		if (pointer == NULL) {
+			return; //no free
+		}
+
+		char *buffer = (char*)pointer - sizeof(int); //get the start of the buffer
+		int *sizeBox = (int*)buffer;
+		memoryUsage -= *sizeBox;
+		free(buffer);
+	}
+
+	unsigned int ScriptManager::GetMemoryUsageKilobytes() {
+		return memoryUsage * 0.001f;
+	}
+
 	ScriptManager::ScriptManager() {
+		asSetGlobalMemoryFunctions(ScriptMalloc, ScriptFree);
+
 		m_asEngine = asCreateScriptEngine();
 		m_asContext = m_asEngine->CreateContext();
 		m_asEngine->SetMessageCallback(asFUNCTION(MessageCallback), 0, asCALL_CDECL);

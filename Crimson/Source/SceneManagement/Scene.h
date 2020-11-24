@@ -95,6 +95,7 @@ namespace Crimson {
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 
 		float GetScriptEngineUpdateTime();
+		unsigned int GetScriptEngineMemoryUsage();
 		float GetPhysicsEngineUpdateTime();
 
 		void UpdateViewport(std::pair<int, int> size);
