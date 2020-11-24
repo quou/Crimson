@@ -292,6 +292,17 @@ namespace Crimson {
 	}
 
 	void Scene::DestroyEntity(Entity ent) {
+		if (ent.GetComponent<TransformComponent>().parent) {
+			auto& children = ent.GetComponent<TransformComponent>().parent.GetComponent<TransformComponent>().children;
+			children.erase(std::remove(children.begin(), children.end(), ent), children.end());
+		}
+
+		for (auto child : ent.GetComponent<TransformComponent>().children) {
+			child.GetComponent<TransformComponent>().parent = Entity();
+			DestroyEntity(child);
+		}
+		ent.GetComponent<TransformComponent>().children.clear();
+
 		m_registry.destroy(ent.m_entityHandle);
 	}
 

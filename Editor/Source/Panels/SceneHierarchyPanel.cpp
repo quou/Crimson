@@ -55,7 +55,9 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 	ImGui::Begin("Scene Hierarchy");
 
 	for (auto ent : m_scene->GetEntitiesWithComponent<Crimson::TransformComponent>()) {
-		DrawEntityNode(ent);
+		if (!ent.GetComponent<Crimson::TransformComponent>().parent) {
+			DrawEntityNode(ent);
+		}
 	}
 
 	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered()) {
@@ -304,16 +306,53 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		}
 	}
 
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+		ImGui::Text("Reparent");
+
+		ImGui::SetDragDropPayload("Reparent Entity", &ent, sizeof(ent));
+
+		ImGui::EndDragDropSource();
+	}
+
+	if (ImGui::BeginDragDropTarget()) {
+		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent Entity")) {
+			auto draggedEnt = *static_cast<Crimson::Entity*>(payload->Data);
+
+			if (draggedEnt != ent) {
+				if (draggedEnt.GetComponent<Crimson::TransformComponent>().parent) {
+					auto& parent = draggedEnt.GetComponent<Crimson::TransformComponent>().parent;
+					auto& children = parent.GetComponent<Crimson::TransformComponent>().children;
+					children.erase(std::remove(children.begin(), children.end(), draggedEnt), children.end());
+				}
+
+				draggedEnt.GetComponent<Crimson::TransformComponent>().parent = ent;
+				ent.GetComponent<Crimson::TransformComponent>().children.push_back(draggedEnt);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+
 	bool entityDeleted = false;
 	if (ImGui::BeginPopupContextItem()) {
 		if (ImGui::MenuItem("Delete")) {
 			entityDeleted = true;
 		}
 
+		if (ImGui::MenuItem("Unparent")) {
+			auto& parent = ent.GetComponent<Crimson::TransformComponent>().parent;
+			auto& children = parent.GetComponent<Crimson::TransformComponent>().children;
+			children.erase(std::remove(children.begin(), children.end(), ent), children.end());
+			parent = Crimson::Entity();
+		}
+
 		ImGui::EndPopup();
 	}
 
 	if (opened) {
+		for (auto child : ent.GetComponent<Crimson::TransformComponent>().children) {
+			DrawEntityNode(child);
+		}
+
 		ImGui::TreePop();
 	}
 

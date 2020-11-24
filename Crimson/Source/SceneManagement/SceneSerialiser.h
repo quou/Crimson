@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Scene.h"
+#include "Entity.h"
 
 #include "Utils/tinyxml2.h"
 
 namespace Crimson {
-	class Entity;
-
 	class SceneSerialiser {
 	private:
 		Scene& m_scene;
 
 		Entity ParseEntity(tinyxml2::XMLElement* node);
+		void ParseEntities(tinyxml2::XMLElement* node, Entity parent=Entity());
 	public:
 		SceneSerialiser(Scene& scene);
 

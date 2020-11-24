@@ -1,7 +1,6 @@
 #include "SceneSerialiser.h"
 
 #include "Logger.h"
-#include "Entity.h"
 #include "Components.h"
 
 #include <fstream>
@@ -126,6 +125,9 @@ namespace Crimson {
 				SerialiseVec3(printer, "color", component.color);
 			});
 
+			for (auto child : ent.GetComponent<TransformComponent>().children) {
+				SerialiseEntity(printer, child);
+			}
 
 		printer.CloseElement();
 	}
@@ -152,7 +154,9 @@ namespace Crimson {
 					Entity ent(entHandle, &m_scene);
 					if (!ent) {return;}
 
-					SerialiseEntity(printer, ent);
+					if (!ent.GetComponent<TransformComponent>().parent) {
+						SerialiseEntity(printer, ent);
+					}
 				});
 			printer.CloseElement();
 
@@ -303,6 +307,19 @@ namespace Crimson {
 		return ent;
 	}
 
+	void SceneSerialiser::ParseEntities(XMLElement* node, Entity parent) {
+		for (auto element : FindNode(node, "entity")) {
+			auto ent = ParseEntity(element);
+
+			if (parent && ent) {
+				ent.GetComponent<TransformComponent>().parent = parent;
+				parent.GetComponent<TransformComponent>().children.push_back(ent);
+			}
+
+			ParseEntities(element, ent);
+		}
+	}
+
 	bool SceneSerialiser::DeserialiseText(const std::string& text) {
 
 		XMLDocument doc;
@@ -322,9 +339,7 @@ namespace Crimson {
 			}
 		}
 
-		for (auto element : FindNode(doc.RootElement()->FirstChildElement("entities"), "entity")) {
-			ParseEntity(element);
-		}
+		ParseEntities(doc.RootElement()->FirstChildElement("entities"));
 
 		return true;
 	}

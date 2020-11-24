@@ -9,6 +9,8 @@
 #include "Renderer/Material.h"
 #include "Physics/Rigidbody.h"
 
+#include "Entity.h"
+
 namespace Crimson {
 	struct TransformComponent {
 		glm::vec3 position;
@@ -18,6 +20,9 @@ namespace Crimson {
 		std::string name;
 		std::string tag;
 		std::string guid;
+
+		Entity parent;
+		std::vector<Entity> children;
 
 		TransformComponent() = default;
 		glm::mat4 GetTransform() {
