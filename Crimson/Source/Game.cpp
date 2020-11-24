@@ -75,8 +75,6 @@ namespace Crimson {
 
 		while (!glfwWindowShouldClose(m_window)) {
 			float now = (float)glfwGetTime();
-			delta = now - last; 
-			last = now;
 
 			Renderer::Clear();
 			ImGuiImpl::BeginFrame();
@@ -94,6 +92,8 @@ namespace Crimson {
 			glfwSwapBuffers(m_window);
 
 			glfwPollEvents();
+
+			delta = (float)glfwGetTime() - now;
 		}
 
 		OnExit();
