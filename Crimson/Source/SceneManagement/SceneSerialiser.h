@@ -2,10 +2,16 @@
 
 #include "Scene.h"
 
+#include "Utils/tinyxml2.h"
+
 namespace Crimson {
+	class Entity;
+
 	class SceneSerialiser {
 	private:
 		Scene& m_scene;
+
+		Entity ParseEntity(tinyxml2::XMLElement* node);
 	public:
 		SceneSerialiser(Scene& scene);
 

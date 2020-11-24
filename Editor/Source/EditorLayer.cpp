@@ -177,7 +177,7 @@ void EditorLayer::NewScene() {
 		m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
 
 		auto light = editor->m_scene->CreateEntity("Main Light");
-		light.GetComponent<Crimson::TransformComponent>().rotation = glm::vec3(10.0f, -20.0f, 25.0f);
+		light.GetComponent<Crimson::TransformComponent>().rotation = glm::radians(glm::vec3(10.0f, -20.0f, 25.0f));
 		light.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
 		light.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
 

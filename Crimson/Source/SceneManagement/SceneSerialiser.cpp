@@ -4,253 +4,161 @@
 #include "Entity.h"
 #include "Components.h"
 
-#include <yaml-cpp/yaml.h>
-
 #include <fstream>
 
-namespace YAML {
-	template <>
-	struct convert<glm::vec3> {
-		static Node encode(const glm::vec3& rhs) {
-			Node node;
-			node.push_back(rhs.x);
-			node.push_back(rhs.y);
-			node.push_back(rhs.z);
-			return node;
-		}
-
-		static bool decode(const Node& node, glm::vec3& rhs) {
-			if (!node.IsSequence() || node.size() != 3) {
-				return false;
-			}
-
-			rhs.x = node[0].as<float>();
-			rhs.y = node[1].as<float>();
-			rhs.z = node[2].as<float>();
-
-			return true;
-		}
-	};
-
-	template <>
-	struct convert<glm::quat> {
-		static Node encode(const glm::quat& rhs) {
-			Node node;
-			node.push_back(rhs.x);
-			node.push_back(rhs.y);
-			node.push_back(rhs.z);
-			node.push_back(rhs.w);
-			return node;
-		}
-
-		static bool decode(const Node& node, glm::quat& rhs) {
-			if (!node.IsSequence() || node.size() != 4) {
-				return false;
-			}
-
-			rhs.x = node[0].as<float>();
-			rhs.y = node[1].as<float>();
-			rhs.z = node[2].as<float>();
-			rhs.w = node[3].as<float>();
-
-			return true;
-		}
-	};
-}
+using namespace tinyxml2;
 
 namespace Crimson {
 	SceneSerialiser::SceneSerialiser(Scene& scene) : m_scene(scene) {}
 
-	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v) {
-		out << YAML::Flow;
-		out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
-		return out;
+	static auto FindNode(XMLElement* node, const char* name) {
+		std::vector<XMLElement*> foundNodes;
+
+		for (auto element = node->FirstChildElement(name); element; element = element->NextSiblingElement(name)) {
+			foundNodes.push_back(element);
+		}
+
+		return foundNodes;
 	}
 
-	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
-		out << YAML::Flow;
-		out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
-		return out;
+	static void SerialiseVec3(XMLPrinter& printer, const char* name, const glm::vec3& vec) {
+		printer.OpenElement(name);
+		printer.PushAttribute("x", vec.x);
+		printer.PushAttribute("y", vec.y);
+		printer.PushAttribute("z", vec.z);
+		printer.CloseElement();
 	}
 
-	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v) {
-		out << YAML::Flow;
-		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
-		return out;
+	static void SerialiseQuat(XMLPrinter& printer, const char* name, const glm::quat& q) {
+		printer.OpenElement(name);
+		printer.PushAttribute("w", q.w);
+		printer.PushAttribute("x", q.x);
+		printer.PushAttribute("y", q.y);
+		printer.PushAttribute("z", q.z);
+		printer.CloseElement();
 	}
 
-	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::quat& v) {
-		out << YAML::Flow;
-		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
-		return out;
+	template <typename T, typename ComponentDrawFunction>
+	static void SerialiseComponent(XMLPrinter& printer, const std::string& componentName, Crimson::Entity ent, ComponentDrawFunction drawFunction) {
+		if (ent.HasComponent<T>()) {
+			printer.OpenElement(componentName.c_str());
+			drawFunction(printer, ent.GetComponent<T>());
+			printer.CloseElement();
+		}
 	}
 
-	static void SerialiseEntity(YAML::Emitter& out, Entity ent) {
-		out << YAML::BeginMap; // Entity
-		out << YAML::Key << "Entity" << YAML::Value << "Ent";
-
-		if (ent.HasComponent<TransformComponent>()) {
-			out << YAML::Key << "TransformComponent";
-			out << YAML::BeginMap;
-
+	static void SerialiseEntity(XMLPrinter& printer, Entity ent) {
+		printer.OpenElement("entity");
 			auto& transform = ent.GetComponent<TransformComponent>();
-			out << YAML::Key << "Name" << YAML::Value << transform.name;
-			out << YAML::Key << "Tag" << YAML::Value << transform.tag;
-			out << YAML::Key << "GUID" << YAML::Value << transform.guid;
 
-			out << YAML::Key << "Translation" << YAML::Value << transform.position;
-			out << YAML::Key << "Rotation" << YAML::Value << transform.rotation;
-			out << YAML::Key << "Scale" << YAML::Value << transform.scale;
+			printer.PushAttribute("name", transform.name.c_str());
+			printer.PushAttribute("tag", transform.tag.c_str());
 
-			out << YAML::EndMap;
-		}
+			printer.OpenElement("transform");
+				SerialiseVec3(printer, "position", transform.position);
+				SerialiseQuat(printer, "rotation", transform.rotation);
+				SerialiseVec3(printer, "scale", transform.scale);
+			printer.CloseElement();
 
-		if (ent.HasComponent<MeshFilterComponent>()) {
-			out << YAML::Key << "MeshFilterComponent";
-			out << YAML::BeginMap;
+			SerialiseComponent<MeshFilterComponent>(printer, "meshfilter", ent, [](auto& printer, auto& component){
+				printer.OpenElement("resource");
+					printer.PushAttribute("path", component.path.c_str());
+				printer.CloseElement();
+			});
 
-			auto& mesh = ent.GetComponent<MeshFilterComponent>();
-			out << YAML::Key << "Path" << YAML::Value << mesh.path;
+			SerialiseComponent<MaterialComponent>(printer, "material", ent, [](auto& printer, auto& component){
+				printer.OpenElement("resource");
+					printer.PushAttribute("path", component.path.c_str());
+				printer.CloseElement();
+			});
 
-			out << YAML::EndMap;
-		}
+			SerialiseComponent<CameraComponent>(printer, "camera", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("active", component.active);
 
-		if (ent.HasComponent<MaterialComponent>()) {
-			out << YAML::Key << "MaterialComponent";
-			out << YAML::BeginMap;
+				printer.OpenElement("perspective");
 
-			auto& mat = ent.GetComponent<MaterialComponent>();
-			out << YAML::Key << "Path" << YAML::Value << mat.path;
+					printer.PushAttribute("fov", component.camera.m_fov);
+					printer.PushAttribute("near", component.camera.m_near);
+					printer.PushAttribute("far", component.camera.m_far);
 
-			out << YAML::EndMap;
-		}
+				printer.CloseElement();
+			});
 
-		if (ent.HasComponent<BoxColliderComponent>()) {
-			out << YAML::Key << "BoxColliderComponent";
-			out << YAML::BeginMap;
+			SerialiseComponent<BoxColliderComponent>(printer, "boxcollider", ent, [](auto& printer, auto& component){
+				SerialiseVec3(printer, "extents", component.extents);
+			});
 
-			auto& box = ent.GetComponent<BoxColliderComponent>();
-			out << YAML::Key << "Extents" << YAML::Value << box.extents;
+			SerialiseComponent<SphereColliderComponent>(printer, "spherecollider", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("radius", component.radius);
+			});
 
-			out << YAML::EndMap;
-		}
+			SerialiseComponent<PhysicsComponent>(printer, "physics", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("usegravity", component.useGravity);
+				printer.PushAttribute("mass", component.mass);
+				printer.PushAttribute("friction", component.friction);
+				printer.PushAttribute("bounciness", component.bounciness);
+				printer.PushAttribute("iskinematic", component.isKinematic);
+				SerialiseVec3(printer, "cog", component.cog);
+			});
 
-		if (ent.HasComponent<SphereColliderComponent>()) {
-			out << YAML::Key << "SphereColliderComponent";
-			out << YAML::BeginMap;
+			SerialiseComponent<ScriptComponent>(printer, "script", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("class", component.className.c_str());
+			});
 
-			auto& sphere = ent.GetComponent<SphereColliderComponent>();
-			out << YAML::Key << "Radius" << YAML::Value << sphere.radius;
+			SerialiseComponent<AmbientLightComponent>(printer, "ambientlight", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("intensity", component.intensity);
 
-			out << YAML::EndMap;
-		}
+				SerialiseVec3(printer, "color", component.color);
+			});
 
-		if (ent.HasComponent<PhysicsComponent>()) {
-			out << YAML::Key << "PhysicsComponent";
-			out << YAML::BeginMap;
+			SerialiseComponent<DirectionalLightComponent>(printer, "directionallight", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("intensity", component.intensity);
 
-			auto& phys = ent.GetComponent<PhysicsComponent>();
-			out << YAML::Key << "UseGravity" << YAML::Value << phys.useGravity;
-			out << YAML::Key << "Mass" << YAML::Value << phys.mass;
-			out << YAML::Key << "Friction" << YAML::Value << phys.friction;
-			out << YAML::Key << "Bounciness" << YAML::Value << phys.bounciness;
-			out << YAML::Key << "IsKinematic" << YAML::Value << phys.isKinematic;
-			out << YAML::Key << "CenterOfGravity" << YAML::Value << phys.cog;
+				SerialiseVec3(printer, "color", component.color);
+			});
 
-			out << YAML::EndMap;
-		}
+			SerialiseComponent<PointLightComponent>(printer, "pointlight", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("intensity", component.intensity);
+				printer.PushAttribute("constant", component.constant);
+				printer.PushAttribute("linear", component.linear);
+				printer.PushAttribute("quadratic", component.quadratic);
 
-		if (ent.HasComponent<ScriptComponent>()) {
-			out << YAML::Key << "ScriptComponent";
-			out << YAML::BeginMap;
+				SerialiseVec3(printer, "color", component.color);
+			});
 
-			auto& script = ent.GetComponent<ScriptComponent>();
-			out << YAML::Key << "Class" << YAML::Value << script.className;
 
-			out << YAML::EndMap;
-		}
-
-		if (ent.HasComponent<AmbientLightComponent>()) {
-			out << YAML::Key << "AmbientLightComponent";
-			out << YAML::BeginMap;
-
-			auto& light = ent.GetComponent<AmbientLightComponent>();
-			out << YAML::Key << "Color" << YAML::Value << light.color;
-			out << YAML::Key << "Intensity" << YAML::Value << light.intensity;
-
-			out << YAML::EndMap;
-		}
-
-		if (ent.HasComponent<DirectionalLightComponent>()) {
-			out << YAML::Key << "DirectionalLightComponent";
-			out << YAML::BeginMap;
-
-			auto& light = ent.GetComponent<DirectionalLightComponent>();
-			out << YAML::Key << "Color" << YAML::Value << light.color;
-			out << YAML::Key << "Intensity" << YAML::Value << light.intensity;
-
-			out << YAML::EndMap;
-		}
-
-		if (ent.HasComponent<PointLightComponent>()) {
-			out << YAML::Key << "PointLightComponent";
-			out << YAML::BeginMap;
-
-			auto& light = ent.GetComponent<PointLightComponent>();
-			out << YAML::Key << "Constant" << YAML::Value << light.constant;
-			out << YAML::Key << "Linear" << YAML::Value << light.linear;
-			out << YAML::Key << "Quadratic" << YAML::Value << light.quadratic;
-			out << YAML::Key << "Color" << YAML::Value << light.color;
-			out << YAML::Key << "Intensity" << YAML::Value << light.intensity;
-
-			out << YAML::EndMap;
-		}
-
-		if (ent.HasComponent<CameraComponent>()) {
-			out << YAML::Key << "CameraComponent";
-			out << YAML::BeginMap;
-
-			auto& c = ent.GetComponent<CameraComponent>();
-			out << YAML::Key << "Active" << YAML::Value << c.active;
-			out << YAML::Key << "Near" << YAML::Value << c.camera.m_near;
-			out << YAML::Key << "Far" << YAML::Value << c.camera.m_far;
-			out << YAML::Key << "FOV" << YAML::Value << c.camera.m_fov;
-
-			out << YAML::EndMap;
-		}
-
-		out << YAML::EndMap; // Entity;
+		printer.CloseElement();
 	}
 
 	std::string SceneSerialiser::SerialiseString() {
-		YAML::Emitter out;
+		XMLPrinter printer;
 
-		out << YAML::Comment("Crimson Scene file");
+      printer.OpenElement("scene");
 
-		out << YAML::BeginMap;
-		out << YAML::Key << "Scene" << YAML::Value << m_scene.m_config.name;
+	      /* SAVE SCENE CONFIG */
+	      printer.OpenElement("config");
+	         printer.OpenElement("skybox");
+					printer.PushAttribute("posx", m_scene.m_config.skyboxPosX.c_str());
+					printer.PushAttribute("negx", m_scene.m_config.skyboxNegX.c_str());
+					printer.PushAttribute("posy", m_scene.m_config.skyboxPosY.c_str());
+					printer.PushAttribute("negy", m_scene.m_config.skyboxNegY.c_str());
+					printer.PushAttribute("posz", m_scene.m_config.skyboxPosZ.c_str());
+					printer.PushAttribute("negz", m_scene.m_config.skyboxNegZ.c_str());
+				printer.CloseElement();
+	      printer.CloseElement();
 
-		out << YAML::Key << "Config" << YAML::BeginMap;
-		out << YAML::Key << "SkyboxPosX" << YAML::Value << m_scene.m_config.skyboxPosX;
-		out << YAML::Key << "SkyboxNegX" << YAML::Value << m_scene.m_config.skyboxNegX;
-		out << YAML::Key << "SkyboxPosY" << YAML::Value << m_scene.m_config.skyboxPosY;
-		out << YAML::Key << "SkyboxNegY" << YAML::Value << m_scene.m_config.skyboxNegY;
-		out << YAML::Key << "SkyboxPosZ" << YAML::Value << m_scene.m_config.skyboxPosZ;
-		out << YAML::Key << "SkyboxNegZ" << YAML::Value << m_scene.m_config.skyboxNegZ;
-		out << YAML::EndMap;
+			printer.OpenElement("entities");
+				m_scene.m_registry.each([&](auto entHandle){
+					Entity ent(entHandle, &m_scene);
+					if (!ent) {return;}
 
-		out << YAML::Key << "Entities" << YAML::BeginSeq;
-		m_scene.m_registry.each([&](auto entHandle){
-			Entity ent(entHandle, &m_scene);
-			if (!ent) {return;}
+					SerialiseEntity(printer, ent);
+				});
+			printer.CloseElement();
 
-			SerialiseEntity(out, ent);
-		});
+		printer.CloseElement();
 
-		out << YAML::EndSeq;
-		out << YAML::EndMap;
-
-		return out.c_str();
+		return printer.CStr();
 	}
 
 	void SceneSerialiser::SerialiseText(const std::string& filePath) {
@@ -262,122 +170,160 @@ namespace Crimson {
 		CR_LOG_ERROR("Function %s not implemented", __FUNCTION__);
 	}
 
-	bool SceneSerialiser::DeserialiseText(const std::string& text) {
-		YAML::Node data = YAML::Load(text);
-		if (!data) {
-			CR_LOG_ERROR("%s", "Failed to load scene. Check that the file exists and that the YAML is correct.");
-			return false;
+	static glm::vec3 ParseVec3(XMLElement* rootNode, const char* name) {
+		glm::vec3 result;
+
+		auto el = rootNode->FirstChildElement(name);
+		if (el) {
+			result.x = el->FloatAttribute("x");
+			result.y = el->FloatAttribute("y");
+			result.z = el->FloatAttribute("z");
 		}
 
-		std::string sceneName = data["Scene"].as<std::string>();
-		m_scene.GetConfig().name = sceneName;
+		return result;
+	}
 
-		auto configNode = data["Config"];
-		if (configNode) {
-			m_scene.GetConfig().skyboxPosX = configNode["SkyboxPosX"].as<std::string>();
-			m_scene.GetConfig().skyboxNegX = configNode["SkyboxNegX"].as<std::string>();
-			m_scene.GetConfig().skyboxPosY = configNode["SkyboxPosY"].as<std::string>();
-			m_scene.GetConfig().skyboxNegY = configNode["SkyboxNegY"].as<std::string>();
-			m_scene.GetConfig().skyboxPosZ = configNode["SkyboxPosZ"].as<std::string>();
-			m_scene.GetConfig().skyboxNegZ = configNode["SkyboxNegZ"].as<std::string>();
-			m_scene.LoadSkybox();
+	static glm::quat ParseQuat(XMLElement* rootNode, const char* name) {
+		glm::quat result;
+
+		auto el = rootNode->FirstChildElement(name);
+		if (el) {
+			result.w = el->FloatAttribute("w");
+			result.x = el->FloatAttribute("x");
+			result.y = el->FloatAttribute("y");
+			result.z = el->FloatAttribute("z");
 		}
 
-		auto entitiesNode = data["Entities"];
-		if (entitiesNode) {
-			for (auto ent : entitiesNode) {
-				std::string name, tag, guid;
-				glm::vec3 pos, sca;
-				glm::quat rot;
-				auto transformComponent = ent["TransformComponent"];
-				if (transformComponent) {
-					name = transformComponent["Name"].as<std::string>();
-					tag = transformComponent["Tag"].as<std::string>();
-					guid = transformComponent["GUID"].as<std::string>();
-					pos = transformComponent["Translation"].as<glm::vec3>();
-					rot = transformComponent["Rotation"].as<glm::quat>();
-					sca = transformComponent["Scale"].as<glm::vec3>();
-				}
+		return result;
+	}
 
-				auto newEnt = m_scene.CreateEntity(name, tag, guid);
-				newEnt.GetComponent<TransformComponent>().position = pos;
-				newEnt.GetComponent<TransformComponent>().rotation = rot;
-				newEnt.GetComponent<TransformComponent>().scale = sca;
+	Entity SceneSerialiser::ParseEntity(XMLElement* node) {
+		Entity ent = m_scene.CreateEntity(node->Attribute("name"), node->Attribute("tag"));
 
-				auto mesh = ent["MeshFilterComponent"];
-				if (mesh) {
-					auto path = mesh["Path"].as<std::string>();
-					newEnt.AddComponent<MeshFilterComponent>(path);
-				}
+		auto eComponent = node->FirstChildElement("transform");
+		if (eComponent) {
+			auto& transform = ent.GetComponent<TransformComponent>();
 
-				auto mat = ent["MaterialComponent"];
-				if (mat) {
-					auto path = mat["Path"].as<std::string>();
-					newEnt.AddComponent<MaterialComponent>(path);
-				}
+			transform.position = ParseVec3(eComponent, "position");
+			transform.rotation = ParseQuat(eComponent, "rotation");
+			transform.scale = ParseVec3(eComponent, "scale");
+		}
 
-				auto script = ent["ScriptComponent"];
-				if (script) {
-					auto className = script["Class"].as<std::string>();
-					newEnt.AddComponent<ScriptComponent>(className);
-				}
-
-				auto box = ent["BoxColliderComponent"];
-				if (box) {
-					auto extents = box["Extents"].as<glm::vec3>();
-					newEnt.AddComponent<BoxColliderComponent>(extents);
-				}
-
-				auto physics = ent["PhysicsComponent"];
-				if (physics) {
-					auto useGravity = physics["UseGravity"].as<bool>();
-					auto mass = physics["Mass"].as<float>();
-					auto friction = physics["Friction"].as<float>();
-					auto bounciness = physics["Bounciness"].as<float>();
-					auto isKinematic = physics["IsKinematic"].as<bool>();
-					auto cog = physics["CenterOfGravity"].as<glm::vec3>();
-
-					newEnt.AddComponent<PhysicsComponent>(useGravity, mass, friction, bounciness, isKinematic, cog);
-				}
-
-				auto dirLight = ent["DirectionalLightComponent"];
-				if (dirLight) {
-					auto color = dirLight["Color"].as<glm::vec3>();
-					auto intensity = dirLight["Intensity"].as<float>();
-
-					newEnt.AddComponent<DirectionalLightComponent>(color, intensity);
-				}
-
-				auto ambLight = ent["AmbientLightComponent"];
-				if (ambLight) {
-					auto color = ambLight["Color"].as<glm::vec3>();
-					auto intensity = ambLight["Intensity"].as<float>();
-
-					newEnt.AddComponent<AmbientLightComponent>(color, intensity);
-				}
-
-				auto poiLight = ent["PointLightComponent"];
-				if (poiLight) {
-					auto constant = poiLight["Constant"].as<float>();
-					auto linear = poiLight["Linear"].as<float>();
-					auto quadratic = poiLight["Quadratic"].as<float>();
-
-					auto color = poiLight["Color"].as<glm::vec3>();
-					auto intensity = poiLight["Intensity"].as<float>();
-
-					newEnt.AddComponent<PointLightComponent>(constant, linear, quadratic, color, intensity);
-				}
-
-				auto cam = ent["CameraComponent"];
-				if (cam) {
-					auto active = cam["Active"].as<bool>();
-					auto near = cam["Near"].as<float>();
-					auto far = cam["Far"].as<float>();
-					auto fov = cam["FOV"].as<float>();
-
-					newEnt.AddComponent<CameraComponent>(std::pair<int, int>{1366, 768}, fov, near, far, active);
-				}
+		eComponent = node->FirstChildElement("meshfilter");
+		if (eComponent) {
+			auto resourceNode = eComponent->FirstChildElement("resource");
+			if (resourceNode) {
+				ent.AddComponent<MeshFilterComponent>().path = resourceNode->Attribute("path");
 			}
+		}
+
+		eComponent = node->FirstChildElement("material");
+		if (eComponent) {
+			auto resourceNode = eComponent->FirstChildElement("resource");
+			if (resourceNode) {
+				ent.AddComponent<MaterialComponent>().path = resourceNode->Attribute("path");
+			}
+		}
+
+		eComponent = node->FirstChildElement("camera");
+		if (eComponent) {
+			auto& camera = ent.AddComponent<CameraComponent>();
+
+			camera.active = eComponent->BoolAttribute("active");
+
+			auto perspectiveNode = eComponent->FirstChildElement("perspective");
+			if (perspectiveNode) {
+				camera.camera.m_fov = perspectiveNode->FloatAttribute("fov");
+				camera.camera.m_near = perspectiveNode->FloatAttribute("near");
+				camera.camera.m_far = perspectiveNode->FloatAttribute("far");
+			}
+		}
+
+		eComponent = node->FirstChildElement("boxcollider");
+		if (eComponent) {
+			auto& box = ent.AddComponent<BoxColliderComponent>();
+
+			box.extents = ParseVec3(eComponent, "extents");
+		}
+
+		eComponent = node->FirstChildElement("spherecollider");
+		if (eComponent) {
+			auto& sphere = ent.AddComponent<SphereColliderComponent>();
+
+			sphere.radius = eComponent->FloatAttribute("radius");
+		}
+
+		eComponent = node->FirstChildElement("physics");
+		if (eComponent) {
+			auto& physics = ent.AddComponent<PhysicsComponent>();
+
+			physics.useGravity = eComponent->BoolAttribute("usegravity");
+			physics.mass = eComponent->FloatAttribute("mass");
+			physics.friction = eComponent->FloatAttribute("friction");
+			physics.bounciness = eComponent->FloatAttribute("bounciness");
+			physics.isKinematic = eComponent->BoolAttribute("iskinematic");
+
+			physics.cog = ParseVec3(eComponent, "cog");
+		}
+
+		eComponent = node->FirstChildElement("script");
+		if (eComponent) {
+			auto& script = ent.AddComponent<ScriptComponent>();
+
+			script.className = eComponent->Attribute("class");
+		}
+
+		eComponent = node->FirstChildElement("ambientlight");
+		if (eComponent) {
+			auto& light = ent.AddComponent<AmbientLightComponent>();
+
+			light.intensity = eComponent->FloatAttribute("intensity");
+			light.color = ParseVec3(eComponent, "color");
+		}
+
+		eComponent = node->FirstChildElement("directionallight");
+		if (eComponent) {
+			auto& light = ent.AddComponent<DirectionalLightComponent>();
+
+			light.intensity = eComponent->FloatAttribute("intensity");
+			light.color = ParseVec3(eComponent, "color");
+		}
+
+		eComponent = node->FirstChildElement("pointlight");
+		if (eComponent) {
+			auto& light = ent.AddComponent<PointLightComponent>();
+
+			light.intensity = eComponent->FloatAttribute("intensity");
+			light.constant = eComponent->FloatAttribute("constant");
+			light.linear = eComponent->FloatAttribute("linear");
+			light.quadratic = eComponent->FloatAttribute("quadratic");
+			light.color = ParseVec3(eComponent, "color");
+		}
+
+		return ent;
+	}
+
+	bool SceneSerialiser::DeserialiseText(const std::string& text) {
+
+		XMLDocument doc;
+		doc.Parse(text.c_str());
+
+		XMLElement* configNode = doc.RootElement()->FirstChildElement("config");
+		if (configNode) {
+			XMLElement* skyboxNode = configNode->FirstChildElement("skybox");
+			if (skyboxNode) {
+				m_scene.m_config.skyboxPosX = skyboxNode->Attribute("posx");
+				m_scene.m_config.skyboxNegX = skyboxNode->Attribute("negx");
+				m_scene.m_config.skyboxPosY = skyboxNode->Attribute("posy");
+				m_scene.m_config.skyboxNegY = skyboxNode->Attribute("negy");
+				m_scene.m_config.skyboxPosZ = skyboxNode->Attribute("posz");
+				m_scene.m_config.skyboxNegZ = skyboxNode->Attribute("negz");
+				m_scene.LoadSkybox();
+			}
+		}
+
+		for (auto element : FindNode(doc.RootElement()->FirstChildElement("entities"), "entity")) {
+			ParseEntity(element);
 		}
 
 		return true;
