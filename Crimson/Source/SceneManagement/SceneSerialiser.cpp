@@ -139,14 +139,17 @@ namespace Crimson {
 
 	      /* SAVE SCENE CONFIG */
 	      printer.OpenElement("config");
-	         printer.OpenElement("skybox");
-					printer.PushAttribute("posx", m_scene.m_config.skyboxPosX.c_str());
-					printer.PushAttribute("negx", m_scene.m_config.skyboxNegX.c_str());
-					printer.PushAttribute("posy", m_scene.m_config.skyboxPosY.c_str());
-					printer.PushAttribute("negy", m_scene.m_config.skyboxNegY.c_str());
-					printer.PushAttribute("posz", m_scene.m_config.skyboxPosZ.c_str());
-					printer.PushAttribute("negz", m_scene.m_config.skyboxNegZ.c_str());
-				printer.CloseElement();
+				printer.PushAttribute("name", m_scene.m_config.name.c_str());
+				if (m_scene.m_config.useSkybox) {
+		         printer.OpenElement("skybox");
+						printer.PushAttribute("posx", m_scene.m_config.skyboxPosX.c_str());
+						printer.PushAttribute("negx", m_scene.m_config.skyboxNegX.c_str());
+						printer.PushAttribute("posy", m_scene.m_config.skyboxPosY.c_str());
+						printer.PushAttribute("negy", m_scene.m_config.skyboxNegY.c_str());
+						printer.PushAttribute("posz", m_scene.m_config.skyboxPosZ.c_str());
+						printer.PushAttribute("negz", m_scene.m_config.skyboxNegZ.c_str());
+					printer.CloseElement();
+				}
 	      printer.CloseElement();
 
 			printer.OpenElement("entities");
@@ -327,8 +330,12 @@ namespace Crimson {
 
 		XMLElement* configNode = doc.RootElement()->FirstChildElement("config");
 		if (configNode) {
+			m_scene.m_config.name = configNode->Attribute("name");
+
 			XMLElement* skyboxNode = configNode->FirstChildElement("skybox");
-			if (skyboxNode) {
+			bool useSkybox = skyboxNode;
+			m_scene.m_config.useSkybox = useSkybox;
+			if (useSkybox) {
 				m_scene.m_config.skyboxPosX = skyboxNode->Attribute("posx");
 				m_scene.m_config.skyboxNegX = skyboxNode->Attribute("negx");
 				m_scene.m_config.skyboxPosY = skyboxNode->Attribute("posy");

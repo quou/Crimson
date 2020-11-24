@@ -1,7 +1,5 @@
 <scene>
-    <config>
-        <skybox posx="Data/Skyboxes/WinterSkybox/posx.jpg" negx="Data/Skyboxes/WinterSkybox/negx.jpg" posy="Data/Skyboxes/WinterSkybox/posy.jpg" negy="Data/Skyboxes/WinterSkybox/negy.jpg" posz="Data/Skyboxes/WinterSkybox/posz.jpg" negz="Data/Skyboxes/WinterSkybox/negz.jpg"/>
-    </config>
+    <config name="Cubes"/>
     <entities>
         <entity name="Lights" tag="Default">
             <transform>
@@ -91,6 +89,139 @@
                 <transform>
                     <position x="2.5" y="3.4000000953674316" z="0"/>
                     <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #4" tag="Default">
+                <transform>
+                    <position x="-5.5" y="3.0999999046325684" z="0"/>
+                    <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #5" tag="Default">
+                <transform>
+                    <position x="3.0999999046325684" y="7.5" z="0"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #6" tag="Default">
+                <transform>
+                    <position x="-2.5" y="4.5999999046325684" z="2.5999999046325684"/>
+                    <rotation w="0.98897862434387207" x="0.0088803088292479515" y="0.13195791840553284" z="-0.066554784774780273"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #7" tag="Default">
+                <transform>
+                    <position x="0" y="8.8000001907348633" z="0"/>
+                    <rotation w="0.86694025993347168" x="1.6108963052374747e-08" y="0.49841210246086121" z="1.6108963052374747e-08"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #8" tag="Default">
+                <transform>
+                    <position x="0" y="4.0999999046325684" z="3.9000000953674316"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #9" tag="Default">
+                <transform>
+                    <position x="3.5" y="0" z="3.2000000476837158"/>
+                    <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <meshfilter>
+                    <resource path="Cube"/>
+                </meshfilter>
+                <material>
+                    <resource path="Default"/>
+                </material>
+                <boxcollider>
+                    <extents x="1" y="1" z="1"/>
+                </boxcollider>
+                <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                    <cog x="0" y="0" z="0"/>
+                </physics>
+            </entity>
+            <entity name="Physics Cube #10" tag="Default">
+                <transform>
+                    <position x="3.4000000953674316" y="0" z="0"/>
+                    <rotation w="0.9670749306678772" x="0.22148972749710083" y="-0.12216977030038834" z="0.027980618178844452"/>
                     <scale x="1" y="1" z="1"/>
                 </transform>
                 <meshfilter>

@@ -26,6 +26,8 @@ namespace Crimson {
 	struct SceneConfig {
 		std::string name{"Untitled Scene"};
 
+		bool useSkybox{false};
+
 		std::string skyboxPosX{"Default"};
 		std::string skyboxNegX{"Default"};
 		std::string skyboxPosY{"Default"};

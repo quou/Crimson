@@ -64,16 +64,18 @@ namespace Crimson {
 	}
 
 	void Scene::LoadSkybox() {
-		m_skybox = std::make_shared<Skybox>(
-			std::vector{
-				m_assetManager.LoadSurface(m_config.skyboxPosX),
-				m_assetManager.LoadSurface(m_config.skyboxNegX),
-				m_assetManager.LoadSurface(m_config.skyboxPosY),
-				m_assetManager.LoadSurface(m_config.skyboxNegY),
-				m_assetManager.LoadSurface(m_config.skyboxPosZ),
-				m_assetManager.LoadSurface(m_config.skyboxNegZ),
-			}
-		);
+		if (m_config.useSkybox) {
+			m_skybox = std::make_shared<Skybox>(
+				std::vector{
+					m_assetManager.LoadSurface(m_config.skyboxPosX),
+					m_assetManager.LoadSurface(m_config.skyboxNegX),
+					m_assetManager.LoadSurface(m_config.skyboxPosY),
+					m_assetManager.LoadSurface(m_config.skyboxNegY),
+					m_assetManager.LoadSurface(m_config.skyboxPosZ),
+					m_assetManager.LoadSurface(m_config.skyboxNegZ),
+				}
+			);
+		}
 	}
 
 	Scene::~Scene() {

@@ -418,61 +418,63 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::Begin("Scene Config");
 
 	DrawTextControl("Name", editor->m_scene->GetConfig().name);
-
-	ImGui::Separator();
-	ImGui::Text("Skybox");
-	DrawTextLabel("Positive X", editor->m_scene->GetConfig().skyboxPosX);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxPosX = toSet;
+	DrawBoolControl("Use Skybox", &editor->m_scene->GetConfig().useSkybox);
+	if (editor->m_scene->GetConfig().useSkybox) {
+		ImGui::Separator();
+		ImGui::Text("Skybox");
+		DrawTextLabel("Positive X", editor->m_scene->GetConfig().skyboxPosX);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxPosX = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	DrawTextLabel("Negative X", editor->m_scene->GetConfig().skyboxNegX);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxNegX = toSet;
+		DrawTextLabel("Negative X", editor->m_scene->GetConfig().skyboxNegX);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxNegX = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	DrawTextLabel("Positive Y", editor->m_scene->GetConfig().skyboxPosY);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxPosY = toSet;
+		DrawTextLabel("Positive Y", editor->m_scene->GetConfig().skyboxPosY);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxPosY = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	DrawTextLabel("Negative Y", editor->m_scene->GetConfig().skyboxNegY);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxNegY = toSet;
+		DrawTextLabel("Negative Y", editor->m_scene->GetConfig().skyboxNegY);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxNegY = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	DrawTextLabel("Positive Z", editor->m_scene->GetConfig().skyboxPosZ);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxPosZ = toSet;
+		DrawTextLabel("Positive Z", editor->m_scene->GetConfig().skyboxPosZ);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxPosZ = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
-	}
 
-	DrawTextLabel("Negative Z", editor->m_scene->GetConfig().skyboxNegZ);
-	if (ImGui::BeginDragDropTarget()) {
-		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
-			std::string toSet = static_cast<const char*>(payload->Data);
-			editor->m_scene->GetConfig().skyboxNegZ = toSet;
+		DrawTextLabel("Negative Z", editor->m_scene->GetConfig().skyboxNegZ);
+		if (ImGui::BeginDragDropTarget()) {
+			if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Image")) {
+				std::string toSet = static_cast<const char*>(payload->Data);
+				editor->m_scene->GetConfig().skyboxNegZ = toSet;
+			}
+			ImGui::EndDragDropTarget();
 		}
-		ImGui::EndDragDropTarget();
 	}
 
 	ImGui::End();
