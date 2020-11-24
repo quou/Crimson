@@ -279,7 +279,11 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 	std::string name = ent.GetComponent<Crimson::TransformComponent>().name;
 
-	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+
+	if (ent.GetComponent<Crimson::TransformComponent>().children.size() <= 0) {
+		flags |= ImGuiTreeNodeFlags_Leaf;
+	}
 
 	if (m_selectedEntity == ent) {
 		flags |= ImGuiTreeNodeFlags_Selected;

@@ -30,8 +30,7 @@ namespace Crimson {
 			m_accumulator -= delta;
 		}
 
-		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
-		m_oldTimeSinceStart = timeSinceStart;
+		m_updateTime = (float)glfwGetTime() - timeSinceStart;
 	}
 
 	void PhysicsScene::ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other) {

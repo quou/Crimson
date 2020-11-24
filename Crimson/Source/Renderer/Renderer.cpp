@@ -139,7 +139,6 @@ namespace Crimson {
 	}
 
 	void Renderer::EndFrame() {
-		instance().m_updateTime = instance().m_timeSinceStart - instance().m_oldTimeSinceStart;
-		instance().m_oldTimeSinceStart = instance().m_timeSinceStart;
+		instance().m_updateTime = (float)glfwGetTime() - instance().m_timeSinceStart;
 	}
 }

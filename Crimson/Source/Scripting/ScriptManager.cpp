@@ -197,8 +197,7 @@ namespace Crimson {
 			}
 		}
 
-		m_updateTime = timeSinceStart - m_oldTimeSinceStart;
-		m_oldTimeSinceStart = timeSinceStart;
+		m_updateTime = (float)glfwGetTime() - timeSinceStart;
 	}
 
 	void ScriptManager::PhysicsUpdate(float delta) {
