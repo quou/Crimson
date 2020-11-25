@@ -7,8 +7,8 @@ class PlayerController : CrimsonBehaviour {
 	void OnInit() {
 		vec3 test = eulerAngles(GetTransformComponent().rotation);
 		quat testQuat(test);
-		vec3 finalEuler = toDegrees(eulerAngles(testQuat));
-		print(to_string(finalEuler));
+		vec3 finalEuler = eulerAngles(testQuat);
+		print(to_string(toDegrees(test)));
 	}
 
 	// Called once per frame

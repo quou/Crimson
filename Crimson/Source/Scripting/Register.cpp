@@ -152,33 +152,33 @@ namespace Crimson {
 		r = engine->RegisterGlobalFunction("void print(const string& in)", asFUNCTION(scriptPrint), asCALL_CDECL); assert(r >= 0);
 
 		RegisterVector<glm::vec2>(engine, "vec2");
-      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec2_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec2_ConstructorXY), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float, float)", asFUNCTION(vec2_ConstructorX_Y), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec2_Constructor), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec2_ConstructorXY), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec2", asBEHAVE_CONSTRUCT, "void f(float, float)", asFUNCTION(vec2_ConstructorX_Y), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec2", "float x", asOFFSET(glm::vec2,x)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec2", "float y", asOFFSET(glm::vec2,y)); assert( r >= 0 );
 
       RegisterVector<glm::vec3>(engine, "vec3");
-      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec3_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec3_ConstructorXYZ), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float, float, float)", asFUNCTION(vec3_ConstructorX_Y_Z), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec3_Constructor), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec3_ConstructorXYZ), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec3", asBEHAVE_CONSTRUCT, "void f(float, float, float)", asFUNCTION(vec3_ConstructorX_Y_Z), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec3", "float x", asOFFSET(glm::vec3,x)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec3", "float y", asOFFSET(glm::vec3,y)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec3", "float z", asOFFSET(glm::vec3,z)); assert( r >= 0 );
 
       RegisterVector<glm::vec4>(engine, "vec4");
-      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec4_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec4_ConstructorXYZW), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(vec4_ConstructorX_Y_Z_W), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(vec4_Constructor), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float)", asFUNCTION(vec4_ConstructorXYZW), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("vec4", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(vec4_ConstructorX_Y_Z_W), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec4", "float x", asOFFSET(glm::vec4,x)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec4", "float y", asOFFSET(glm::vec4,y)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec4", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("vec4", "float w", asOFFSET(glm::vec4,w)); assert( r >= 0 );
 
 		r = engine->RegisterObjectType("quat", sizeof(glm::quat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<glm::quat>()); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(quat_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(quat_Constructor_XYZW), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(const vec3 &in)", asFUNCTION(quat_ConstructorVEC), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(quat_Constructor), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(quat_Constructor_XYZW), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(const vec3 &in)", asFUNCTION(quat_ConstructorVEC), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float x", asOFFSET(glm::vec4,x)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float y", asOFFSET(glm::vec4,y)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
@@ -211,8 +211,8 @@ namespace Crimson {
 		r = engine->RegisterObjectType("ScriptComponent", sizeof(ScriptComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Rigidbody", sizeof(Rigidbody), asOBJ_VALUE); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(Rigidbody_Constructor), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Rigidbody_Destructor), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(Rigidbody_Constructor), asCALL_CDECL_OBJFIRST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour("Rigidbody", asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Rigidbody_Destructor), asCALL_CDECL_OBJFIRST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Rigidbody", "void AddBoxCollider(const vec3& in)", asMETHOD(Rigidbody, AddBoxCollider), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Rigidbody", "void AddSphereCollider(float radius)", asMETHOD(Rigidbody, AddSphereCollider), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Rigidbody", "vec3 GetPosition()", asMETHOD(Rigidbody, GetPosition), asCALL_THISCALL); assert(r >= 0);
