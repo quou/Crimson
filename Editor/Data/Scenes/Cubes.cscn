@@ -1,6 +1,6 @@
 <scene>
     <config name="Cubes">
-        <clearcolor x="0.71666848659515381" y="0.72868198156356812" z="0.76279067993164062"/>
+        <clearcolor x="0.74704164266586304" y="0.74705219268798828" z="0.90232557058334351"/>
     </config>
     <entities>
         <entity name="Lights" tag="Default">

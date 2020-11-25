@@ -2,7 +2,14 @@
 
 #include <angelscript/angelscript.h>
 #include <scriptstdstring/scriptstdstring.h>
+#include <scriptmath/scriptmath.h>
+#include <scriptmath/scriptmathcomplex.h>
+#include <scriptarray/scriptarray.h>
 #include <scriptbuilder/scriptbuilder.h>
+#include <scriptdictionary/scriptdictionary.h>
+#include <scriptfile/scriptfile.h>
+#include <datetime/datetime.h>
+#include <scripthelper/scripthelper.h>
 
 #include <glm/glm.hpp>
 
@@ -146,6 +153,13 @@ namespace Crimson {
 
 	void RegisterScript(asIScriptEngine* engine) {
 		RegisterStdString(engine);
+		RegisterScriptMath(engine);
+		RegisterScriptMathComplex(engine);
+		RegisterScriptArray(engine, true);
+		RegisterScriptFile(engine);
+		RegisterScriptDictionary(engine);
+		RegisterScriptDateTime(engine);
+		RegisterExceptionRoutines(engine);
 
 		int r;
 
