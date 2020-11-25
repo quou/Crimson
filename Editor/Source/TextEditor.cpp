@@ -3146,7 +3146,7 @@ const TextEditor::LanguageDefinition& TextEditor::LanguageDefinition::AngelScrip
 			"complex", "opEquals", "opAddAssign", "opSubAssign", "opMulAssign", "opDivAssign", "opAdd", "opSub", "opMul", "opDiv", "OnUpdate", "OnInit", "OnContactEnter", "OnContactStay", "OnContactExit", "OnPhysicsUpdate"
 		};
 		static const char* const classes[] = {
-			"CrimsonBehaviour", "vec2", "vec3", "vec4"
+			"CrimsonBehaviour", "vec2", "vec3", "vec4", "quat"
 		};
 		for (auto& k : identifiers)
 		{

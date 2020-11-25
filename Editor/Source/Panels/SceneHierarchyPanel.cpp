@@ -187,7 +187,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawVec3Control("Rotation", newRotation);
 		DrawVec3Control("Scale", component.scale, 1.0f);
 
-		component.rotation = glm::quat(glm::radians(newRotation));
+		component.rotation = glm::radians(newRotation);
 	}, false);
 
 	DrawComponent<Crimson::DirectionalLightComponent>("Directional Light", ent, [](auto& component){

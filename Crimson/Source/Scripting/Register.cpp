@@ -82,6 +82,9 @@ namespace Crimson {
 	void quat_Constructor(void *memory) {
      new(memory) glm::quat();
    }
+	void quat_ConstructorVEC(void *memory, const glm::vec3& v) {
+     new(memory) glm::quat(v);
+   }
 
 	void quat_Constructor_XYZW(void *memory, float w, float x, float y, float z) {
      new(memory) glm::quat(w, x, y, z);
@@ -117,6 +120,10 @@ namespace Crimson {
 
 	static bool Entity_HasPhysicsComponent(Entity* ent) {
 		return ent->HasComponent<PhysicsComponent>();
+	}
+
+	glm::vec3 Script_EulerAngles(const glm::quat& q) {
+		return glm::eulerAngles(q);
 	}
 
    template <typename T>
@@ -171,6 +178,7 @@ namespace Crimson {
 		r = engine->RegisterObjectType("quat", sizeof(glm::quat), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asGetTypeTraits<glm::quat>()); assert( r >= 0 );
       r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(quat_Constructor), asCALL_CDECL_OBJLAST); assert( r >= 0 );
       r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(float, float, float, float)", asFUNCTION(quat_Constructor_XYZW), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+      r = engine->RegisterObjectBehaviour("quat", asBEHAVE_CONSTRUCT, "void f(const vec3 &in)", asFUNCTION(quat_ConstructorVEC), asCALL_CDECL_OBJLAST); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float x", asOFFSET(glm::vec4,x)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float y", asOFFSET(glm::vec4,y)); assert( r >= 0 );
       r = engine->RegisterObjectProperty("quat", "float z", asOFFSET(glm::vec4,z)); assert( r >= 0 );
@@ -181,6 +189,17 @@ namespace Crimson {
 		r = engine->RegisterGlobalFunction("string to_string(vec2)", asFUNCTIONPR(scriptToString, (glm::vec2), std::string), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("string to_string(vec3)", asFUNCTIONPR(scriptToString, (glm::vec3), std::string), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("string to_string(vec4)", asFUNCTIONPR(scriptToString, (glm::vec4), std::string), asCALL_CDECL); assert(r >= 0);
+
+		r = engine->RegisterGlobalFunction("vec2 toRadians(const vec2& in)", asFUNCTIONPR(glm::radians, (const glm::vec2&), glm::vec2), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec3 toRadians(const vec3& in)", asFUNCTIONPR(glm::radians, (const glm::vec3&), glm::vec3), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec4 toRadians(const vec4& in)", asFUNCTIONPR(glm::radians, (const glm::vec4&), glm::vec4), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("float toRadians(float)", asFUNCTIONPR(glm::radians, (float), float), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec2 toDegrees(const vec2& in)", asFUNCTIONPR(glm::degrees, (const glm::vec2&), glm::vec2), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec3 toDegrees(const vec3& in)", asFUNCTIONPR(glm::degrees, (const glm::vec3&), glm::vec3), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec4 toDegrees(const vec4& in)", asFUNCTIONPR(glm::degrees, (const glm::vec4&), glm::vec4), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("float toDegrees(float)", asFUNCTIONPR(glm::degrees, (float), float), asCALL_CDECL); assert(r >= 0);
+
+		r = engine->RegisterGlobalFunction("vec3 eulerAngles(const quat& in)", asFUNCTIONPR(glm::eulerAngles, (const glm::quat&), glm::vec3), asCALL_CDECL); assert(r >= 0);
 
 		r = engine->RegisterObjectType("TransformComponent", sizeof(TransformComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "vec3 position", asOFFSET(TransformComponent,position)); assert(r >= 0);
