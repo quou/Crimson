@@ -55,6 +55,10 @@ void ConsolePanel::Render() {
 		ImGui::Text(std::string(std::string(icon) +  "\t%s").c_str(), item.second.c_str());
 		ImGui::PopStyleColor();
 
+		if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)) {
+			ImGui::SetClipboardText(item.second.c_str());
+		}
+
 		ImGui::Separator();
 	}
 
