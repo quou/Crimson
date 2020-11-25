@@ -26,7 +26,7 @@ namespace Crimson {
 	struct SceneConfig {
 		std::string name{"Untitled Scene"};
 
-		glm::vec3 clearColor;
+		glm::vec3 clearColor = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		bool useSkybox{false};
 
