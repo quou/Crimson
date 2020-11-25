@@ -140,6 +140,7 @@ namespace Crimson {
 	      /* SAVE SCENE CONFIG */
 	      printer.OpenElement("config");
 				printer.PushAttribute("name", m_scene.m_config.name.c_str());
+				SerialiseVec3(printer, "clearcolor", m_scene.m_config.clearColor);
 				if (m_scene.m_config.useSkybox) {
 		         printer.OpenElement("skybox");
 						printer.PushAttribute("posx", m_scene.m_config.skyboxPosX.c_str());
@@ -331,6 +332,8 @@ namespace Crimson {
 		XMLElement* configNode = doc.RootElement()->FirstChildElement("config");
 		if (configNode) {
 			m_scene.m_config.name = configNode->Attribute("name");
+
+			m_scene.m_config.clearColor = ParseVec3(configNode, "clearcolor");
 
 			XMLElement* skyboxNode = configNode->FirstChildElement("skybox");
 			bool useSkybox = skyboxNode;

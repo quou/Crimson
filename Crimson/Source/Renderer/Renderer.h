@@ -28,6 +28,8 @@ namespace Crimson {
 		AABB m_sceneBound;
 
 		std::shared_ptr<Shader> m_wireframeShader;
+
+		glm::vec3 m_clearColor;
 	public:
 		static Renderer& instance() {
 			static Renderer INSTANCE;
@@ -48,6 +50,8 @@ namespace Crimson {
 		static void ShaderPass(Camera& camera, LightScene& lightScene, const glm::mat4& transform, Material& material);
 		static void Draw(Mesh& mesh);
 		static void DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh);
+
+		static void SetClearColor(const glm::vec3& clearColor);
 	};
 
 }

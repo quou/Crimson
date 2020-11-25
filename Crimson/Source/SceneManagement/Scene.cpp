@@ -149,6 +149,8 @@ namespace Crimson {
 	}
 
 	void Scene::Render(RenderTarget& renderTarget) {
+		Renderer::SetClearColor(m_config.clearColor);
+
 		Camera* mainCamera = GetMainCamera();
 
 		if (mainCamera) {

@@ -47,11 +47,14 @@ namespace Crimson {
 	}
 
 	void Renderer::Clear() {
+		auto& i = instance();
+
+		glClearColor(i.m_clearColor.x, i.m_clearColor.y, i.m_clearColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		instance().m_drawCallsCount = 0;
+		i.m_drawCallsCount = 0;
 
-		instance().m_timeSinceStart = glfwGetTime();
+		i.m_timeSinceStart = glfwGetTime();
 	}
 
 	void Renderer::ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
@@ -140,5 +143,9 @@ namespace Crimson {
 
 	void Renderer::EndFrame() {
 		instance().m_updateTime = (float)glfwGetTime() - instance().m_timeSinceStart;
+	}
+
+	void Renderer::SetClearColor(const glm::vec3& clearColor) {
+		instance().m_clearColor = clearColor;
 	}
 }

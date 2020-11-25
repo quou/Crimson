@@ -26,6 +26,8 @@ namespace Crimson {
 	struct SceneConfig {
 		std::string name{"Untitled Scene"};
 
+		glm::vec3 clearColor;
+
 		bool useSkybox{false};
 
 		std::string skyboxPosX{"Default"};

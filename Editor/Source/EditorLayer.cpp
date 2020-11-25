@@ -79,7 +79,7 @@ void EditorLayer::OnInit() {
 	style.Alpha = 1.0f;
 	style.FrameRounding = 0.0f;
 	style.WindowRounding = 0.0f;
-	style.WindowMinSize = ImVec2(300, 350);
+	style.WindowMinSize = ImVec2(300, 150);
 
 	style.ChildRounding = 0.0f;
 	style.FrameBorderSize = 1.0f;
@@ -418,6 +418,7 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::Begin("Scene Config");
 
 	DrawTextControl("Name", editor->m_scene->GetConfig().name);
+	DrawColorControl("Clear Color", editor->m_scene->GetConfig().clearColor);
 	DrawBoolControl("Use Skybox", &editor->m_scene->GetConfig().useSkybox);
 	if (editor->m_scene->GetConfig().useSkybox) {
 		ImGui::Separator();
