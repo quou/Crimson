@@ -94,13 +94,25 @@ namespace Crimson {
 			}
 		}
 
+		{
+			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+			for (auto ent : view) {
+				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+
+				m_assetManager.LoadMaterial(material.path);
+				m_assetManager.LoadMesh(mesh.path);
+			}
+		}
+
 		m_scriptManager->Compile(m_assetManager);
 
-		auto view = m_registry.view<ScriptComponent>();
-		for (auto ent : view) {
-			auto script = view.get<ScriptComponent>(ent);
+		{
+			auto view = m_registry.view<ScriptComponent>();
+			for (auto ent : view) {
+				auto script = view.get<ScriptComponent>(ent);
 
-			m_scriptManager->SetupEntity(ent, this);
+				m_scriptManager->SetupEntity(ent, this);
+			}
 		}
 
 		m_scriptManager->Init();

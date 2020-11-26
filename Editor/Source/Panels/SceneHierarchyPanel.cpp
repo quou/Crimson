@@ -344,9 +344,11 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 
 		if (ImGui::MenuItem("Unparent")) {
 			auto& parent = ent.GetComponent<Crimson::TransformComponent>().parent;
-			auto& children = parent.GetComponent<Crimson::TransformComponent>().children;
-			children.erase(std::remove(children.begin(), children.end(), ent), children.end());
-			parent = Crimson::Entity();
+			if (parent) {
+				auto& children = parent.GetComponent<Crimson::TransformComponent>().children;
+				children.erase(std::remove(children.begin(), children.end(), ent), children.end());
+				parent = Crimson::Entity();
+			}
 		}
 
 		ImGui::EndPopup();

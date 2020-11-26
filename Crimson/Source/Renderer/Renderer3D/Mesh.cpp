@@ -6,6 +6,8 @@
 
 #include <algorithm>
 #include <initializer_list>
+#include <future>
+#include <thread>
 
 extern "C" {
 	#include <lua.h>

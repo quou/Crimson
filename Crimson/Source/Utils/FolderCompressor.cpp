@@ -25,7 +25,6 @@ namespace Crimson {
 		memset(&archive, 0, sizeof(archive));
 		mz_zip_writer_init_file(&archive, zipName.c_str(), 0);
 
-		g_currentCompressProgress.store(0.0f);
 		for (const auto& entry : std::filesystem::recursive_directory_iterator(folder)) {
 
 			if (!entry.is_directory()) {
