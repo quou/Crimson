@@ -25,7 +25,7 @@ namespace Crimson {
 			// 	sceneAABB.minCorner.z, sceneAABB.maxCorner.z);
 			auto view = glm::translate(glm::mat4(1.0f), camera.position);
 
-			glm::mat4 projection = glm::ortho(-25.0f, 25.0f, -25.0f, 25.0f, -10000.0f, 10000.0f);
+			glm::mat4 projection = glm::ortho(-15.0f, 15.0f, -15.0f, 15.0f, -10000.0f, 10000.0f);
 
 			return projection * view * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		}

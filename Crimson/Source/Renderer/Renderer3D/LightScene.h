@@ -47,7 +47,7 @@ void main() {}
 		)";
 
 	public:
-		int m_shadowmapResolution = 2048;
+		int m_shadowmapResolution = 4096;
 		const int m_maxDirectionalLights = 3;
 		float m_gamma{2.2f};
 

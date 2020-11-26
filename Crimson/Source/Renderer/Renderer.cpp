@@ -72,9 +72,7 @@ namespace Crimson {
 
 			int res = lightScene.m_shadowmapResolution;
 
-			glViewport(i*res,0,res,res);
-			glScissor(i*res,0,res,res);
-			glEnable(GL_SCISSOR_TEST);
+			glViewport(0,0,res,res);
 			glClear(GL_DEPTH_BUFFER_BIT);
 
 			int ii = 0;
@@ -91,7 +89,6 @@ namespace Crimson {
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glCullFace(GL_BACK);
-		glDisable(GL_SCISSOR_TEST);
 
 		glViewport(0, 0, oldViewport[2], oldViewport[3]);
 	}
