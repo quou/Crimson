@@ -1,12 +1,5 @@
 #include "FolderCompressor.h"
 
-#include <miniz.h>
-#include <miniz_zip.h>
-
-#include "Logger.h"
-
-#include <filesystem>
-
 #if defined(__GNUC__)
   // Ensure we get the 64-bit variants of the CRT's file I/O calls
   #ifndef _FILE_OFFSET_BITS
@@ -16,6 +9,13 @@
     #define _LARGEFILE64_SOURCE 1
   #endif
 #endif
+
+#include <miniz.h>
+#include <miniz_zip.h>
+
+#include "Logger.h"
+
+#include <filesystem>
 
 namespace Crimson {
 	void CompressFolder(const std::string& folder, const std::string& zipName) {
