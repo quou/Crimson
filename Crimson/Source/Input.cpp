@@ -44,11 +44,11 @@ namespace Crimson {
 		}
 	}
 
-	void Input::RegisterKey(std::string name, int keycode) {
+	void Input::RegisterKey(const std::string& name, int keycode) {
 		instance().m_keys[name] = Key{keycode, 0, false};
 	}
 
-	const Key& Input::GetKey(std::string name) {
+	const Key& Input::GetKey(const std::string& name) {
 		if (instance().m_keys.count(name) == 0) {
 			CR_LOG_ERROR("Button '%s' not found in input config", name.c_str());
 		}
