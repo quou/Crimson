@@ -23,4 +23,12 @@ struct PhysicsComponent {
 	void ApplyForceAtPosition(const glm::vec3 &in position, const vec3 &in force);
 	void ApplyTorque(const vec3 &in torque);
 };
+
+struct MaterialComponent {
+	string resource;
+};
+
+struct MeshFilterComponent {
+	string resource;
+};
 ```
