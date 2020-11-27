@@ -1,5 +1,7 @@
 # Maths
 
+There are two utility functions, `toRadians` and `toDegrees`, which will work with floats and all vector classes.
+
 ### vec2
 
 ```cpp
