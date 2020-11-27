@@ -131,6 +131,22 @@ namespace Crimson {
 		return ent->HasComponent<TransformComponent>();
 	}
 
+	static MeshFilterComponent& Entity_GetMeshFilterComponent(Entity* ent) {
+		return ent->GetComponent<MeshFilterComponent>();
+	}
+
+	static bool Entity_HasMeshFilterComponent(Entity* ent) {
+		return ent->HasComponent<MeshFilterComponent>();
+	}
+
+	static MaterialComponent& Entity_GetMaterialComponent(Entity* ent) {
+		return ent->GetComponent<MaterialComponent>();
+	}
+
+	static bool Entity_HasMaterialComponent(Entity* ent) {
+		return ent->HasComponent<MaterialComponent>();
+	}
+
 	static bool Entity_HasScriptComponent(Entity* ent) {
 		return ent->HasComponent<ScriptComponent>();
 	}
@@ -266,16 +282,34 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("PhysicsComponent", "void ApplyTorque(const vec3 &in)", asMETHOD(PhysicsComponent, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &context", asOFFSET(PhysicsComponent,context)); assert(r >= 0);
 
+		r = engine->RegisterObjectType("MeshFilterComponent", sizeof(MeshFilterComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("MeshFilterComponent", "string resource", asOFFSET(MeshFilterComponent,path)); assert(r >= 0);
+
+		r = engine->RegisterObjectType("MaterialComponent", sizeof(MeshFilterComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("MaterialComponent", "string resource", asOFFSET(MaterialComponent,path)); assert(r >= 0);
+
 
 		r = engine->RegisterObjectType("Entity", sizeof(Entity), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool IsValid()", asMETHOD(Entity, IsValid), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectProperty("TransformComponent", "Entity parent", asOFFSET(TransformComponent,parent)); assert(r >= 0);
+
+		// Get Component functions
 		r = engine->RegisterObjectMethod("Entity", "TransformComponent& GetTransformComponent()", asFUNCTION(Entity_GetTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool HasTransformComponent()", asFUNCTION(Entity_HasTransformComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod("Entity", "ScriptComponent& GetScriptComponent()", asFUNCTION(Entity_GetScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool HasScriptComponent()", asFUNCTION(Entity_HasScriptComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod("Entity", "PhysicsComponent& GetPhysicsComponent()", asFUNCTION(Entity_GetPhysicsComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool HasPhysicsComponent()", asFUNCTION(Entity_HasPhysicsComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Entity", "MeshFilterComponent& GetMeshFilterComponent()", asFUNCTION(Entity_GetMeshFilterComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasMeshFilterComponent()", asFUNCTION(Entity_HasMeshFilterComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Entity", "MaterialComponent& GetMaterialComponent()", asFUNCTION(Entity_GetMaterialComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasMaterialComponent()", asFUNCTION(Entity_HasMaterialComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		engine->SetDefaultNamespace("Input");
 

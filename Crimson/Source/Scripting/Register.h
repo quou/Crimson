@@ -12,20 +12,11 @@ namespace Crimson {
 				m_entity.Destroy();
 			}
 
-			TransformComponent& GetTransformComponent() {
-				return m_entity.GetTransformComponent();
-			}
-
-			ScriptComponent& GetScriptComponent() {
-				return m_entity.GetScriptComponent();
-			}
-
-			PhysicsComponent& GetPhysicsComponent() {
-				return m_entity.GetPhysicsComponent();
-			}
-
 			void OnInit() {}
 			void OnUpdate(float delta) {}
+			void OnContactStay(Entity other) {}
+			void OnContactEnter(Entity other) {}
+			void OnContactExit(Entity other) {}
 		}
 	)";
 

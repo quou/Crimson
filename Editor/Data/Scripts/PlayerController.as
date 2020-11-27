@@ -5,16 +5,12 @@ class PlayerController : CrimsonBehaviour {
 
 	// Called on the first frame
 	void OnInit() {
-		vec3 test = eulerAngles(GetTransformComponent().rotation);
-		quat testQuat(test);
-		vec3 finalEuler = eulerAngles(testQuat);
-		print(to_string(toDegrees(test)));
-		
-		
 		Console::Log("Test Message");
 		Console::LogWarning("Test Warning");
 		Console::LogError("Test Error");
 		Console::LogFatalError("Test Fatal Error");
+		
+		m_entity.GetMaterialComponent().resource = "Data/Materials/GreenMaterial.mat";
 	}
 
 	// Called once per frame

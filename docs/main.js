@@ -2,6 +2,7 @@
 let pages = [
    "Home",
 	"Scripting Introduction",
+	"Behaviour Base",
 	"Core",
 	"Events",
 	"Components",

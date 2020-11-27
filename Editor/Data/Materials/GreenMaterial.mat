@@ -5,7 +5,7 @@ shader = "Standard"
 albedo = "Default"
 
 material = {
-    color = {1, 0, 0},
+    color = {0, 1, 0},
 	smoothness = 1,
 	shininess = 20
 }
