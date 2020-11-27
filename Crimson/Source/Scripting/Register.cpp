@@ -26,6 +26,16 @@ namespace Crimson {
 		CR_LOG("%s", msg.c_str());
 	}
 
+	static void scriptLogWarning(std::string &msg)	{
+		CR_LOG_WARNING("%s", msg.c_str());
+	}
+	static void scriptLogError(std::string &msg)	{
+		CR_LOG_ERROR("%s", msg.c_str());
+	}
+	static void scriptLogFatalError(std::string &msg)	{
+		CR_LOG_FATAL_ERROR("%s", msg.c_str());
+	}
+
 	static std::string scriptToString(double val) {
 		return std::to_string(val);
 	}
@@ -272,9 +282,17 @@ namespace Crimson {
 		r = engine->RegisterObjectType("Button", sizeof(Key), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = engine->RegisterObjectProperty("Button", "bool pressed", asOFFSET(Key,pressed)); assert(r >= 0);
 
-		r = engine->RegisterGlobalFunction("const Button& GetButton(string)", asFUNCTION(Input::GetKey), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("const Button& GetButton(const string& in)", asFUNCTION(Input::GetKey), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("void RegisterButton(const string &in, int)", asFUNCTION(Input::RegisterKey), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("vec2 GetMouseChange()", asFUNCTION(Input::GetMouseChange), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("vec2 GetScrollDelta()", asFUNCTION(Input::GetScrollDelta), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("vec2 GetMousePos()", asFUNCTION(Input::GetMousePos), asCALL_CDECL); assert(r >= 0);
+
+		engine->SetDefaultNamespace("Console");
+		r = engine->RegisterGlobalFunction("void Log(const string& in)", asFUNCTION(scriptPrint), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("void LogError(const string& in)", asFUNCTION(scriptLogError), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("void LogWarning(const string& in)", asFUNCTION(scriptLogWarning), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("void LogFatalError(const string& in)", asFUNCTION(scriptLogFatalError), asCALL_CDECL); assert(r >= 0);
+
 	}
 }

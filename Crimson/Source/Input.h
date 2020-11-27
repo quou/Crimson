@@ -242,9 +242,9 @@ namespace Crimson {
 
 		static void IEndFrame();
 
-		static void RegisterKey(std::string name, int keycode);
+		static void RegisterKey(const std::string& name, int keycode);
 
-		static const Key& GetKey(std::string name);
+		static const Key& GetKey(const std::string& name);
 
 		static void LoadConfig(const char* lua);
 		static void SaveConfig(const char* filePath);

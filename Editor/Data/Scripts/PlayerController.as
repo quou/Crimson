@@ -9,6 +9,12 @@ class PlayerController : CrimsonBehaviour {
 		quat testQuat(test);
 		vec3 finalEuler = eulerAngles(testQuat);
 		print(to_string(toDegrees(test)));
+		
+		
+		Console::Log("Test Message");
+		Console::LogWarning("Test Warning");
+		Console::LogError("Test Error");
+		Console::LogFatalError("Test Fatal Error");
 	}
 
 	// Called once per frame
