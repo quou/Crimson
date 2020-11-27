@@ -1,6 +1,7 @@
 #include "CodeEditorPanel.h"
 
 #include "../UIUtils.h"
+#include <Utils/tinyfiledialogs.h>
 
 #include <fstream>
 
@@ -23,7 +24,7 @@ void CodeEditorPanel::Render(float delta) {
 
 	std::string titleText = "Code Editor";
 	if (!m_currentFile.empty()) {
-		titleText = "Code Editor - " + m_currentFile + star;
+		titleText = star + ("Code Editor - " + m_currentFile);
 	}
 
 	ImGui::Begin(std::string(titleText + "###Code Editor").c_str());
@@ -82,6 +83,17 @@ void CodeEditorPanel::OpenFile(const std::string& path, const std::string& exten
 }
 
 void CodeEditorPanel::Save() {
+	if (m_currentFile.empty()) {
+		const char* const acceptedExtensions[] = {"*.as"};
+		const char* file = tinyfd_saveFileDialog("Save Script", "Data/NewScript.cscn", 1, acceptedExtensions, "AngelScript scripts");
+
+		if (file) {
+			m_currentFile = file;
+		} else {
+			return;
+		}
+	}
+
 	std::ofstream out(m_currentFile);
 
 	std::string text = m_textEditor.GetText();
