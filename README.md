@@ -3,6 +3,8 @@ A WIP 3D game engine written in C++ 17
 
 ![Screenshot](https://raw.githubusercontent.com/georgelam6/Crimson/master/Screenshots/05.png)
 
+Master branch is stable. Development branch may have bugs, or not build at all.
+
 ## Current Features
  - 3D rendering
  - ECS
