@@ -11,6 +11,8 @@ class PlayerController : CrimsonBehaviour {
 		Console::LogFatalError("Test Fatal Error");
 		
 		m_entity.GetMaterialComponent().resource = "Data/Materials/GreenMaterial.mat";
+		
+		Console::Log(to_string(KEY_SPACE));
 	}
 
 	// Called once per frame
