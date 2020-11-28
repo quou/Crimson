@@ -17,7 +17,7 @@ namespace Crimson {
 
 		std::string SerialiseString();
 
-		void SerialiseText(const std::string& filePath);
+		std::string SerialiseText(const std::string& filePath);
 		void SerialiseBinary(const std::string& filePath);
 
 		bool DeserialiseText(const std::string& text);

@@ -28,10 +28,6 @@ private:
 	bool m_showProfiler{false};
 
 	bool m_unsavedChanges{false};
-	float m_checkChangeCounter{0.0f};
-
-	std::string m_lastSave;
-	std::string m_currentSave;
 
 	friend class AssetManagerPanel;
 public:

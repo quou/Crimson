@@ -169,9 +169,11 @@ namespace Crimson {
 		return printer.CStr();
 	}
 
-	void SceneSerialiser::SerialiseText(const std::string& filePath) {
+	std::string SceneSerialiser::SerialiseText(const std::string& filePath) {
 		std::ofstream fout(filePath);
-		fout << SerialiseString();
+		auto str = SerialiseString();
+		fout << str;
+		return str;
 	}
 
 	void SceneSerialiser::SerialiseBinary(const std::string& filePath) {
