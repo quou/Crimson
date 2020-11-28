@@ -16,9 +16,9 @@
 namespace Crimson {
 	void GLErrorCallback(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void *userParam) {
 		switch (severity) {
-			case GL_DEBUG_SEVERITY_HIGH: CR_LOG_FATAL_ERROR("%s", message); break;
-			case GL_DEBUG_SEVERITY_MEDIUM: CR_LOG_ERROR("%s", message); break;
-			case GL_DEBUG_SEVERITY_LOW: CR_LOG_WARNING("%s", message); break;
+			case GL_DEBUG_SEVERITY_HIGH: CR_LOG_ERROR("%s", message); break;
+			case GL_DEBUG_SEVERITY_MEDIUM: CR_LOG_WARNING("%s", message); break;
+			case GL_DEBUG_SEVERITY_LOW: CR_LOG("%s", message); break;
 			case GL_DEBUG_SEVERITY_NOTIFICATION: CR_LOG("%s", message); break;
 		}
 	}
