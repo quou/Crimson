@@ -189,7 +189,8 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawVec3Control("Scale", component.scale, 1.0f);
 
 		newRotation = oldRotation - newRotation;
-
+		
+		glm::normalize(component.rotation);
 		component.rotation *= glm::quat(glm::radians(newRotation));
 	}, false);
 
