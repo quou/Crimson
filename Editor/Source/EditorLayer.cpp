@@ -118,6 +118,20 @@ void EditorLayer::OnInit() {
 	m_codeEditorPanel.Init();
 }
 
+void EditorLayer::OnExit() {
+	auto editor = (Editor*)m_userData;
+
+	if (m_lastSave != m_currentSave) {
+		auto shouldExit = tinyfd_messageBox("Unsaved Changes", "You have unsaved changes. Are you sure you want to quit?", "yesno", "warning", 0);
+
+		if (!shouldExit) {
+			editor->CancelExit();
+		} else {
+			editor->Exit();
+		}
+	}
+}
+
 void EditorLayer::SaveAs() {
 	auto editor = (Editor*)m_userData;
 
@@ -157,6 +171,7 @@ void EditorLayer::SaveScene() {
 	if (!m_currentSavePath.empty()) {
 		Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 		sceneSerialiser.SerialiseText(m_currentSavePath);
+		m_lastSave = sceneSerialiser.SerialiseString();
 	} else {
 		SaveAs();
 	}
@@ -235,6 +250,12 @@ void EditorLayer::StopRunning() {
 void EditorLayer::OnUpdate(float delta) {
 	auto editor = (Editor*)m_userData;
 
+	m_checkChangeCounter += delta;
+	if (m_checkChangeCounter > 5.0f) {
+		Crimson::SceneSerialiser s(*editor->m_scene);
+		m_currentSave = s.SerialiseString();
+	}
+
 	if (m_isRunning) {
 		editor->m_scene->Update(delta);
 	}
@@ -268,6 +289,11 @@ void EditorLayer::OnUpdate(float delta) {
 
 		if (ImGui::MenuItem("Export Runtime")) {
 			showExportPopup = true;
+		}
+
+		ImGui::Separator();
+		if (ImGui::MenuItem("Quit")) {
+			editor->Exit();
 		}
 
 		ImGui::EndMenu();

@@ -27,6 +27,12 @@ private:
 
 	bool m_showProfiler{false};
 
+	bool m_unsavedChanges{false};
+	float m_checkChangeCounter{0.0f};
+
+	std::string m_lastSave;
+	std::string m_currentSave;
+
 	friend class AssetManagerPanel;
 public:
 	bool m_isRunning{false};
@@ -43,4 +49,5 @@ public:
 
 	void OnInit() override;
 	void OnUpdate(float delta) override;
+	void OnExit() override;
 };

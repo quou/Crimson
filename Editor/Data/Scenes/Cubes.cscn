@@ -98,7 +98,7 @@
             </entity>
             <entity name="Physics Cube #3" tag="Default">
                 <transform>
-                    <position x="2.5" y="3.4000000953674316" z="0"/>
+                    <position x="5.5" y="3.4000000953674316" z="0"/>
                     <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
                     <scale x="1" y="1" z="1"/>
                 </transform>
@@ -117,7 +117,7 @@
             </entity>
             <entity name="Physics Cube #4" tag="Default">
                 <transform>
-                    <position x="-5.5" y="3.0999999046325684" z="0"/>
+                    <position x="-7" y="3.0999999046325684" z="0"/>
                     <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
                     <scale x="1" y="1" z="1"/>
                 </transform>

@@ -73,7 +73,14 @@ namespace Crimson {
 		float delta = 0.0f;
 		float last = 0.0f;
 
-		while (!glfwWindowShouldClose(m_window)) {
+		while (true) {
+			if (glfwWindowShouldClose(m_window)) {
+				m_shouldExit = true;
+				for (auto& l : m_layers) {
+					l->OnExit();
+				}
+			}
+
 			float now = (float)glfwGetTime();
 
 			Renderer::Clear();
@@ -94,6 +101,10 @@ namespace Crimson {
 			glfwPollEvents();
 
 			delta = (float)glfwGetTime() - now;
+
+			if (m_shouldExit) {
+				break;
+			}
 		}
 
 		OnExit();
@@ -107,6 +118,16 @@ namespace Crimson {
 		ImGuiImpl::Quit();
 
 		glfwTerminate();
+	}
+
+	void Game::CancelExit() {
+		glfwSetWindowShouldClose(m_window, GLFW_FALSE);
+		m_shouldExit = false;
+	}
+
+	void Game::Exit() {
+		glfwSetWindowShouldClose(m_window, GLFW_TRUE);
+		m_shouldExit = true;
 	}
 
 	std::pair<int, int> Game::GetWindowSize() {
