@@ -22,7 +22,7 @@ class Monkey : CrimsonBehaviour {
 			move.x = -m_moveForce;
 		}
 		
-		m_entity.GetPhysicsComponent().ApplyForce(move);
+		m_entity.GetPhysicsComponent().ApplyForce(move); 
 	}
 
 	void OnContactEnter(Entity other) {
