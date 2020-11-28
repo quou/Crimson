@@ -87,35 +87,56 @@ namespace Crimson {
 	}
 
 
-	void Scene::Init() {
+	void Scene::LoadScripts() {
 		for (auto& p : m_assetManager.GetFilesFromDir("Data")) {
 			if (p.second == ".as") {
 				m_scriptManager->AddScript(m_assetManager.LoadText(p.first));
 			}
 		}
 
-		{
-			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
-			for (auto ent : view) {
-				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
-
-				m_assetManager.LoadMaterial(material.path);
-				m_assetManager.LoadMesh(mesh.path);
-			}
-		}
-
 		m_scriptManager->Compile(m_assetManager);
 
-		{
-			auto view = m_registry.view<ScriptComponent>();
-			for (auto ent : view) {
-				auto script = view.get<ScriptComponent>(ent);
+		auto view = m_registry.view<ScriptComponent>();
+		for (auto ent : view) {
+			auto script = view.get<ScriptComponent>(ent);
 
-				m_scriptManager->SetupEntity(ent, this);
-			}
+			m_scriptManager->SetupEntity(ent, this);
 		}
 
 		m_scriptManager->Init();
+	}
+
+	static std::mutex assetManagerMutex;
+
+	static void LoadMesh(AssetManager* assetManager, std::string meshPath) {
+
+		std::lock_guard<std::mutex> lock(assetManagerMutex);
+		assetManager->LoadMesh(meshPath);
+	}
+
+	void Scene::LoadMeshes() {
+		auto view = m_registry.view<TransformComponent, MeshFilterComponent>();
+		for (auto ent : view) {
+			auto [transform, mesh] = view.get<TransformComponent, MeshFilterComponent>(ent);
+
+			//m_assetManager.LoadMesh(mesh.path);
+			m_meshFutures.push_back(std::async(std::launch::async, LoadMesh, &m_assetManager, mesh.path));
+		}
+	}
+
+	void Scene::LoadMaterials() {
+		auto view = m_registry.view<TransformComponent, MaterialComponent>();
+		for (auto ent : view) {
+			auto [transform, material] = view.get<TransformComponent, MaterialComponent>(ent);
+
+			m_assetManager.LoadMaterial(material.path);
+		}
+	}
+
+	void Scene::Init() {
+		LoadScripts();
+		LoadMeshes();
+		LoadMaterials();
 	}
 
 	void Scene::PhysicsUpdate(float delta) {

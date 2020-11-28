@@ -13,6 +13,8 @@
 
 #include <reactphysics3d/reactphysics3d.h>
 
+#include <future>
+
 namespace rp3d = ::reactphysics3d;
 
 namespace Crimson {
@@ -59,6 +61,9 @@ namespace Crimson {
 
 		std::shared_ptr<Skybox> m_skybox;
 
+		std::vector<std::future<void>> m_meshFutures;
+		std::vector<std::future<void>> m_materialFutures;
+
 	public:
 		AssetManager m_assetManager;
 		Scene(bool release);
@@ -85,6 +90,9 @@ namespace Crimson {
 		Entity GetEntityByGUID(const GUID& guid);
 
 		void LoadSkybox();
+		void LoadScripts();
+		void LoadMeshes();
+		void LoadMaterials();
 
 		// Events
 		void Init();
