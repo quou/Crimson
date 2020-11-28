@@ -18,3 +18,9 @@ p {
 code {
 	font-family: 'Roboto Mono', monospace;
 }
+
+table, td, tr, th {
+	border: 1px solid #dee2e6;
+	border-collapse: collapse;
+	padding: 7px;
+}
