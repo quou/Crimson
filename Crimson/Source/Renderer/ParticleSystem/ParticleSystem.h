@@ -23,6 +23,12 @@ namespace Crimson {
 		glm::vec3 m_position;
 		int m_rateOverTime;
 		float m_gravity{0.5f};
+		float m_randomVelocityMin{0.0f};
+		float m_randomVelocityMax{1.0f};
+		float m_randomLifetimeMin{0.5f};
+		float m_randomLifetimeMax{1.0f};
+		float m_sizeOverLifetime{0.0f};
+		float m_startSize{1.0f};
 
 		ParticleSystem(const glm::vec3& position);
 

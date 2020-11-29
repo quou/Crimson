@@ -2,8 +2,8 @@
 
 
 namespace Crimson {
-	Particle::Particle(const glm::vec3& position, const glm::vec3& velocity, float lifetime, float gravity) :
-		m_position(position), m_velocity(velocity), m_lifetime(lifetime), m_gravity(gravity) {}
+	Particle::Particle(const glm::vec3& position, const glm::vec3& velocity, float lifetime, float gravity, float size) :
+		m_position(position), m_velocity(velocity), m_lifetime(lifetime), m_gravity(gravity), m_size(size) {}
 
 	bool Particle::Update(float delta) {
 		m_velocity.y -= m_gravity;

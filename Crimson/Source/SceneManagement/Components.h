@@ -61,6 +61,12 @@ namespace Crimson {
 		int maxParticles{100};
 		int rateOverTime{10};
 		float gravity{0.5f};
+		float randomVelocityMin{0.0f};
+		float randomVelocityMax{1.0f};
+		float sizeOverLifetime{0.0f};
+		float randomLifetimeMin{0.5f};
+		float randomLifetimeMax{1.0f};
+		float startSize{1.0f};
 
 		ParticleSystem* context;
 

@@ -334,6 +334,12 @@ namespace Crimson {
 					sys.context->m_maxParticles = sys.maxParticles;
 					sys.context->m_rateOverTime = sys.rateOverTime;
 					sys.context->m_gravity = sys.gravity;
+					sys.context->m_randomVelocityMin = sys.randomVelocityMin;
+					sys.context->m_randomVelocityMax = sys.randomVelocityMax;
+					sys.context->m_sizeOverLifetime = sys.sizeOverLifetime;
+					sys.context->m_randomLifetimeMin = sys.randomLifetimeMin;
+					sys.context->m_randomLifetimeMax = sys.randomLifetimeMax;
+					sys.context->m_startSize = sys.startSize;
 					sys.context->Update(delta);
 				}
 			}

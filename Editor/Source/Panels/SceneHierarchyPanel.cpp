@@ -265,6 +265,12 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawIntControl("Max Particles", &component.maxParticles, 10);
 		DrawIntControl("Rate Over Time", &component.rateOverTime);
 		DrawFloatControl("Gravity Multiplier", &component.gravity, 0.001f);
+		DrawFloatControl("Size Over Lifetime", &component.sizeOverLifetime, 0.001f);
+		DrawFloatControl("Max Velocity", &component.randomVelocityMax, 0.001f);
+		DrawFloatControl("Min Velocity", &component.randomVelocityMin, 0.001f);
+		DrawFloatControl("Max Lifetime", &component.randomLifetimeMax, 0.001f);
+		DrawFloatControl("Min Lifetime", &component.randomLifetimeMin, 0.001f);
+		DrawFloatControl("Start Size", &component.startSize, 0.001f);
 	});
 
 	DrawComponent<Crimson::BoxColliderComponent>("Box Collider", ent, [](auto& component){
@@ -312,6 +318,8 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		titleString = ICON_FK_CAMERA + ("   " + name);
 	} else if (ent.HasComponent<Crimson::ScriptComponent>()) {
 		titleString = ICON_FK_CODE + ("   " + name);
+	} else if (ent.HasComponent<Crimson::ParticleSystemComponent>()) {
+		titleString = ICON_FK_FIRE + ("   " + name);
 	}
 
 	bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, "%s", titleString.c_str());

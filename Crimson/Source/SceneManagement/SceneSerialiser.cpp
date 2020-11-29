@@ -75,6 +75,12 @@ namespace Crimson {
 				printer.PushAttribute("maxparticles", component.maxParticles);
 				printer.PushAttribute("rateovertime", component.rateOverTime);
 				printer.PushAttribute("gravity", component.gravity);
+				printer.PushAttribute("randomvelocitymax", component.randomVelocityMax);
+				printer.PushAttribute("randomvelocitymin", component.randomVelocityMin);
+				printer.PushAttribute("sizeoverlifetime", component.sizeOverLifetime);
+				printer.PushAttribute("randomlifetimemax", component.randomLifetimeMax);
+				printer.PushAttribute("randomlifetimemin", component.randomLifetimeMin);
+				printer.PushAttribute("startsize", component.startSize);
 			});
 
 			SerialiseComponent<CameraComponent>(printer, "camera", ent, [](auto& printer, auto& component){
@@ -247,6 +253,12 @@ namespace Crimson {
 			sys.gravity = eComponent->FloatAttribute("gravity");
 			sys.rateOverTime = eComponent->IntAttribute("rateovertime");
 			sys.maxParticles = eComponent->IntAttribute("maxparticles");
+			sys.sizeOverLifetime = eComponent->FloatAttribute("sizeoverlifetime");
+			sys.randomVelocityMax = eComponent->FloatAttribute("randomvelocitymax");
+			sys.randomVelocityMin = eComponent->FloatAttribute("randomvelocitymin");
+			sys.randomLifetimeMax = eComponent->FloatAttribute("randomlifetimemax");
+			sys.randomLifetimeMin = eComponent->FloatAttribute("randomlifetimemin");
+			sys.startSize = eComponent->FloatAttribute("startsize");
 		}
 
 		eComponent = node->FirstChildElement("camera");

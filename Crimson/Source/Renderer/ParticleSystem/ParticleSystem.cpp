@@ -41,9 +41,16 @@ namespace Crimson {
 		 srand (static_cast <unsigned> (time(0)));
 	}
 
+	static float RandomFloat(float min, float max) {
+		return min + static_cast<float>(rand())/(static_cast<float>(RAND_MAX/(max-min)));
+	}
+
 	void ParticleSystem::Update(float delta) {
+
+
 		auto it = m_particles.begin();
 		while (it != m_particles.end()) {
+			it->m_size -= m_sizeOverLifetime * delta;
 			auto dead = it->Update(delta);
 			if (dead) {
 				it = m_particles.erase(it);
@@ -53,13 +60,13 @@ namespace Crimson {
 		}
 
 		for (int i = 0; i < m_rateOverTime; i++) {
-			float rx = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/10.0f);
-			float ry = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/10.0f);
-			float rz = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/10.0f);
-			float l = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			float rx = RandomFloat(m_randomVelocityMin, m_randomVelocityMax);
+			float ry = RandomFloat(m_randomVelocityMin, m_randomVelocityMax);
+			float rz = RandomFloat(m_randomVelocityMin, m_randomVelocityMax);
+			float l = RandomFloat(m_randomLifetimeMin, m_randomLifetimeMax);
 
 			if (m_particles.size() < m_maxParticles) {
-				m_particles.push_back(Particle(m_position, glm::vec3(rx, ry, rz), l, m_gravity));
+				m_particles.push_back(Particle(m_position, glm::vec3(rx, ry, rz), l, m_gravity, m_startSize));
 			}
 		}
 	}
@@ -68,8 +75,9 @@ namespace Crimson {
 		for (auto& p : m_particles) {
 			m_shader->Bind();
 
-			glm::mat4 model(1.0f);
-			model = glm::translate(glm::mat4(1.0f), p.m_position);
+			glm::mat4 translation = glm::translate(glm::mat4(1.0f), p.m_position);
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(p.m_size));
+			glm::mat4 model = translation;
 
 			glm::mat4 view = camera.GetView();
 
@@ -82,6 +90,8 @@ namespace Crimson {
 			model[2][0] = view[0][2];
 			model[2][1] = view[1][2];
 			model[2][2] = view[2][2];
+
+			model *= scale;
 
 			m_shader->SetMat4("u_model", model);
 			m_shader->SetMat4("u_view", view);
