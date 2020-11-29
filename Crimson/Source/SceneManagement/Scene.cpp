@@ -210,7 +210,6 @@ namespace Crimson {
 		RenderShadows(camera);
 		renderTarget.Bind();
 		RenderMeshes(camera);
-		renderTarget.Unbind();
 	}
 
 	Camera* Scene::GetMainCamera() {
