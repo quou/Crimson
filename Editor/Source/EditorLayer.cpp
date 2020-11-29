@@ -166,11 +166,15 @@ void EditorLayer::SaveScene() {
 
 	auto editor = (Editor*)m_userData;
 
-	if (!m_currentSavePath.empty()) {
-		Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
-		sceneSerialiser.SerialiseText(m_currentSavePath);
+	if (!m_codeEditorPanel.IsFocused()) {
+		if (!m_currentSavePath.empty()) {
+			Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+			sceneSerialiser.SerialiseText(m_currentSavePath);
+		} else {
+			SaveAs();
+		}
 	} else {
-		SaveAs();
+		m_codeEditorPanel.Save();
 	}
 }
 
@@ -392,10 +396,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 	// CTRL+S
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_S)) {
-		if (!m_codeEditorPanel.IsFocused()) {
-			SaveScene();
-		}
-		m_codeEditorPanel.Save();
+		SaveScene();
 	}
 
 	// CTRL+SHIFT+S

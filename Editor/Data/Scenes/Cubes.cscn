@@ -5,7 +5,7 @@
     <entities>
         <entity name="Particle System" tag="Default">
             <transform>
-                <position x="-18.200000762939453" y="2" z="0"/>
+                <position x="15.300000190734863" y="2" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
