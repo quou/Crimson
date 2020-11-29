@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Renderer3D/Mesh.h"
+#include "ParticleSystem/ParticleSystem.h"
 #include "Shader.h"
 
 #include "Renderer3D/Camera.h"

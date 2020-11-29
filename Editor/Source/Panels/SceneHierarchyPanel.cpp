@@ -138,6 +138,10 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 					m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
 				}
 
+				if (ImGui::MenuItem("Particle System")) {
+					m_selectedEntity.AddComponent<Crimson::ParticleSystemComponent>(100, 10, 0.5f);
+				}
+
 				if (ImGui::MenuItem("Camera")) {
 					m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
 				}
@@ -189,7 +193,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawVec3Control("Scale", component.scale, 1.0f);
 
 		newRotation = oldRotation - newRotation;
-		
+
 		glm::normalize(component.rotation);
 		component.rotation *= glm::quat(glm::radians(newRotation));
 	}, false);
@@ -255,6 +259,12 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawFloatControl("Near", &component.camera.m_near);
 		DrawFloatControl("Far", &component.camera.m_far);
 		DrawBoolControl("Active", &component.active);
+	});
+
+	DrawComponent<Crimson::ParticleSystemComponent>("Particle System", ent, [](auto& component){
+		DrawIntControl("Max Particles", &component.maxParticles, 10);
+		DrawIntControl("Rate Over Time", &component.rateOverTime);
+		DrawFloatControl("Gravity Multiplier", &component.gravity, 0.001f);
 	});
 
 	DrawComponent<Crimson::BoxColliderComponent>("Box Collider", ent, [](auto& component){

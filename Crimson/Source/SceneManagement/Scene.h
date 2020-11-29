@@ -51,7 +51,7 @@ namespace Crimson {
 
 		void ApplyLighting();
 		void RenderShadows(Camera* mainCamera);
-		void RenderMeshes(Camera* mainCamera);
+		void RenderMeshes(Camera* mainCamera, float delta);
 
 		void PhysicsComponentCreate(entt::registry& r, entt::entity ent);
 		void ScriptComponentCreate(entt::registry& r, entt::entity ent);
@@ -98,10 +98,10 @@ namespace Crimson {
 		void Init();
 		void Update(float delta);
 		void PhysicsUpdate(float delta);
-		void Render(RenderTarget& renderTarget);
-		void Render(RenderTarget& renderTarget, Camera* camera);
+		void Render(RenderTarget& renderTarget, float delta);
+		void Render(RenderTarget& renderTarget, Camera* camera, float delta);
 		void DrawWireframe(Entity ent);
-		void Render();
+		void Render(float delta);
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);

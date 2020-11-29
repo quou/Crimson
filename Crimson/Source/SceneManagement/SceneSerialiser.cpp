@@ -71,6 +71,12 @@ namespace Crimson {
 				printer.CloseElement();
 			});
 
+			SerialiseComponent<ParticleSystemComponent>(printer, "particlesystem", ent, [](auto& printer, auto& component){
+				printer.PushAttribute("maxparticles", component.maxParticles);
+				printer.PushAttribute("rateovertime", component.rateOverTime);
+				printer.PushAttribute("gravity", component.gravity);
+			});
+
 			SerialiseComponent<CameraComponent>(printer, "camera", ent, [](auto& printer, auto& component){
 				printer.PushAttribute("active", component.active);
 
@@ -233,6 +239,14 @@ namespace Crimson {
 			if (resourceNode) {
 				ent.AddComponent<MaterialComponent>().path = resourceNode->Attribute("path");
 			}
+		}
+
+		eComponent = node->FirstChildElement("particlesystem");
+		if (eComponent) {
+			auto& sys = ent.AddComponent<ParticleSystemComponent>();
+			sys.gravity = eComponent->FloatAttribute("gravity");
+			sys.rateOverTime = eComponent->IntAttribute("rateovertime");
+			sys.maxParticles = eComponent->IntAttribute("maxparticles");
 		}
 
 		eComponent = node->FirstChildElement("camera");

@@ -9,8 +9,10 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "Logger.h"
+
 namespace Crimson {
-	ParticleSystem::ParticleSystem(glm::vec3 position, Surface* texture) : m_position(position) {
+	ParticleSystem::ParticleSystem(const glm::vec3& position) : m_position(position) {
 		m_shader = std::make_shared<Shader>(ParticleShader);
 
 		float vertices[] = {
@@ -57,7 +59,7 @@ namespace Crimson {
 			float l = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
 			if (m_particles.size() < m_maxParticles) {
-				m_particles.push_back(Particle(m_position, glm::vec3(rx, ry, rz), l, 1.0f));
+				m_particles.push_back(Particle(m_position, glm::vec3(rx, ry, rz), l, m_gravity));
 			}
 		}
 	}

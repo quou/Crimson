@@ -14,6 +14,24 @@ namespace Crimson {
 		delete r.get<PhysicsComponent>(ent).context;
 	}
 
+	static void ParticleSystemCreate(entt::registry& r, entt::entity ent) {
+		if (!r.has<TransformComponent>(ent)) {
+			CR_LOG_FATAL_ERROR("%s", "ParticleSystemComponent requires the entity to have a transform");
+			abort();
+		}
+
+		auto& sys = r.get<ParticleSystemComponent>(ent);
+		auto& trans = r.get<TransformComponent>(ent);
+
+		sys.context = new ParticleSystem(trans.position);
+	}
+
+	static void ParticleSystemDestroy(entt::registry&r, entt::entity ent) {
+		auto& sys = r.get<ParticleSystemComponent>(ent);
+
+		delete sys.context;
+	}
+
 	void Scene::PhysicsComponentCreate(entt::registry& r, entt::entity ent) {
 		if (!r.has<TransformComponent>(ent)) {
 			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a transform");
@@ -60,7 +78,11 @@ namespace Crimson {
 
 		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
 		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
+		//m_registry.on_construct<ScriptComponent>().connect<&Scene::ScriptComponentCreate>(this);
 		m_registry.on_destroy<ScriptComponent>().connect<&Scene::ScriptComponentDestroy>(this);
+
+		m_registry.on_construct<ParticleSystemComponent>().connect<&ParticleSystemCreate>();
+		m_registry.on_destroy<ParticleSystemComponent>().connect<&ParticleSystemDestroy>();
 	}
 
 	void Scene::LoadSkybox() {
@@ -181,7 +203,7 @@ namespace Crimson {
 		m_physicsScene->Update(delta);
 	}
 
-	void Scene::Render(RenderTarget& renderTarget) {
+	void Scene::Render(RenderTarget& renderTarget, float delta) {
 		Renderer::SetClearColor(m_config.clearColor);
 
 		Camera* mainCamera = GetMainCamera();
@@ -190,26 +212,26 @@ namespace Crimson {
 			ApplyLighting();
 			RenderShadows(mainCamera);
 			renderTarget.Bind();
-			RenderMeshes(mainCamera);
+			RenderMeshes(mainCamera, delta);
 			renderTarget.Unbind();
 		}
 	}
 
-	void Scene::Render() {
+	void Scene::Render(float delta) {
 		Camera* mainCamera = GetMainCamera();
 
 		if (mainCamera) {
 			ApplyLighting();
 			RenderShadows(mainCamera);
-			RenderMeshes(mainCamera);
+			RenderMeshes(mainCamera, delta);
 		}
 	}
 
-	void Scene::Render(RenderTarget& renderTarget, Camera* camera) {
+	void Scene::Render(RenderTarget& renderTarget, Camera* camera, float delta) {
 		ApplyLighting();
 		RenderShadows(camera);
 		renderTarget.Bind();
-		RenderMeshes(camera);
+		RenderMeshes(camera, delta);
 	}
 
 	Camera* Scene::GetMainCamera() {
@@ -276,17 +298,45 @@ namespace Crimson {
 		}
 	}
 
-	void Scene::RenderMeshes(Camera* mainCamera) {
+	void Scene::RenderMeshes(Camera* mainCamera, float delta) {
 		if (m_skybox) {
 			m_skybox->Draw(*mainCamera);
 		}
 
-		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
-		for (auto ent : view) {
-			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+		{
+			auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
+			for (auto ent : view) {
+				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
 
-			Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
-			Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
+				Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
+				Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
+			}
+		}
+
+		{
+			auto view = m_registry.view<TransformComponent, ParticleSystemComponent>();
+			for (auto ent : view) {
+				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
+
+				if (sys.context) {
+					sys.context->Draw(*mainCamera);
+				}
+			}
+		}
+
+		{
+			auto view = m_registry.view<TransformComponent, ParticleSystemComponent>();
+			for (auto ent : view) {
+				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
+
+				if (sys.context) {
+					sys.context->m_position = transform.position;
+					sys.context->m_maxParticles = sys.maxParticles;
+					sys.context->m_rateOverTime = sys.rateOverTime;
+					sys.context->m_gravity = sys.gravity;
+					sys.context->Update(delta);
+				}
+			}
 		}
 	}
 

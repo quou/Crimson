@@ -289,5 +289,13 @@
                 </pointlight>
             </entity>
         </entity>
+        <entity name="Particle System" tag="Default">
+            <transform>
+                <position x="0" y="1.5" z="0"/>
+                <rotation w="1" x="0" y="0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <particlesystem maxparticles="100" rateovertime="10" gravity="0.5"/>
+        </entity>
     </entities>
 </scene>

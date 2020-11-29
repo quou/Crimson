@@ -31,7 +31,7 @@ private:
 	void OnUpdate(float delta) override {
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(GetWindowSize());
-		m_scene->Render();
+		m_scene->Render(delta);
 	}
 
 	void OnExit() override {

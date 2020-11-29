@@ -21,9 +21,10 @@ namespace Crimson {
 	public:
 		int m_maxParticles{100};
 		glm::vec3 m_position;
-		float m_rateOverTime;
+		int m_rateOverTime;
+		float m_gravity{0.5f};
 
-		ParticleSystem(glm::vec3 position, Surface* texture);
+		ParticleSystem(const glm::vec3& position);
 
 		void Update(float delta);
 		void Draw(Camera& camera);
