@@ -72,14 +72,19 @@ namespace Crimson {
 	}
 
 	void ParticleSystem::Draw(Camera& camera) {
-		for (auto& p : m_particles) {
-			m_shader->Bind();
+		m_shader->Bind();
+
+		m_shader->SetInt("u_numParticles", m_particles.size());
+		glm::mat4 view = camera.GetView();
+		m_shader->SetMat4("u_view", view);
+		m_shader->SetMat4("u_projection", camera.projection);
+
+		for (int i = 0; i < m_particles.size(); i++) {
+			auto& p = m_particles[i];
 
 			glm::mat4 translation = glm::translate(glm::mat4(1.0f), p.m_position);
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(p.m_size));
 			glm::mat4 model = translation;
-
-			glm::mat4 view = camera.GetView();
 
 			model[0][0] = view[0][0];
 			model[0][1] = view[1][0];
@@ -93,15 +98,14 @@ namespace Crimson {
 
 			model *= scale;
 
-			m_shader->SetMat4("u_model", model);
-			m_shader->SetMat4("u_view", view);
-			m_shader->SetMat4("u_projection", camera.projection);
-
-			glCullFace(GL_FRONT);
-			glBindVertexArray(m_quadVA);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-			glBindVertexArray(0);
-			glCullFace(GL_BACK);
+			m_shader->SetMat4("u_transforms[" + std::to_string(i) + "]", model);
 		}
+
+
+		glCullFace(GL_FRONT);
+		glBindVertexArray(m_quadVA);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, m_particles.size());
+		glBindVertexArray(0);
+		glCullFace(GL_BACK);
 	}
 }
