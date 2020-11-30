@@ -71,13 +71,19 @@ namespace Crimson {
 		}
 	}
 
-	void ParticleSystem::Draw(Camera& camera) {
-		m_shader->Bind();
+	void ParticleSystem::Draw(Camera& camera, const std::shared_ptr<Shader>& shader) {
+		std::shared_ptr<Shader> s = m_shader;
 
-		m_shader->SetInt("u_numParticles", m_particles.size());
+		if (shader) {
+			s = shader;
+		}
+
+		s->Bind();
+
+		s->SetInt("u_numParticles", m_particles.size());
 		glm::mat4 view = camera.GetView();
-		m_shader->SetMat4("u_view", view);
-		m_shader->SetMat4("u_projection", camera.projection);
+		s->SetMat4("u_view", view);
+		s->SetMat4("u_projection", camera.projection);
 
 		for (int i = 0; i < m_particles.size(); i++) {
 			auto& p = m_particles[i];
@@ -98,7 +104,7 @@ namespace Crimson {
 
 			model *= scale;
 
-			m_shader->SetMat4("u_transforms[" + std::to_string(i) + "]", model);
+			s->SetMat4("u_transforms[" + std::to_string(i) + "]", model);
 		}
 
 

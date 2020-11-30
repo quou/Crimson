@@ -47,7 +47,13 @@ namespace Crimson {
 
 		lua_getglobal(L, "albedo");
 		if (lua_isstring(L, -1)) {
-			m_albedo = std::make_shared<Texture>(assetManager.LoadSurface(lua_tostring(L, -1)));
+			auto surface = assetManager.LoadSurface(lua_tostring(L, -1));
+
+			if (surface) {
+				m_albedo = std::make_shared<Texture>(surface);
+			} else {
+				m_albedo = std::make_shared<Texture>(assetManager.LoadSurface("Default"));
+			}
 		}
 		lua_pop(L, 1);
 
@@ -177,6 +183,12 @@ namespace Crimson {
 
 	void Material::SetMat4(const std::string& name, glm::mat4 value) {
 		m_shader->SetMat4(name, value);
+	}
+
+	void Material::Bind(unsigned int unit) {
+		if (m_albedo) {
+			m_albedo->Bind(unit);
+		}
 	}
 
 	Material::~Material() {

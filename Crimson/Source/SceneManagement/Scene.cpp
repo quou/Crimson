@@ -318,8 +318,17 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
 
+				std::shared_ptr<Shader> shader;
+				if (m_registry.has<MaterialComponent>(ent)) {
+					auto mat = m_assetManager.LoadMaterial(m_registry.get<MaterialComponent>(ent).path);
+					if (mat) {
+						mat->Bind(0);
+						shader = mat->m_shader;
+					}
+				}
+
 				if (sys.context) {
-					sys.context->Draw(*mainCamera);
+					sys.context->Draw(*mainCamera, shader);
 				}
 			}
 		}

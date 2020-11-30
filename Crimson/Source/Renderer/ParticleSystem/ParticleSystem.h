@@ -33,6 +33,6 @@ namespace Crimson {
 		ParticleSystem(const glm::vec3& position);
 
 		void Update(float delta);
-		void Draw(Camera& camera);
+		void Draw(Camera& camera, const std::shared_ptr<Shader>& shader = NULL);
 	};
 }

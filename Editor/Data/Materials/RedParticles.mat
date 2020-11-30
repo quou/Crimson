@@ -1,0 +1,9 @@
+-- Crimson Material
+
+shader = "Particle"
+
+albedo = "Data/Textures/FireParticle.png"
+
+material = {
+	 color = {1, 1, 1}
+}
