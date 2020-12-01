@@ -49,6 +49,5 @@ All dependencies are included in [`Crimson/Dependencies`](https://github.com/geo
  - [Lua](https://www.lua.org/)
  - [Physics FS](https://icculus.org/physfs/)
  - [React Physics 3D](https://www.reactphysics3d.com/)
- - [YAML-cpp](https://github.com/jbeder/yaml-cpp)
  - [Entt](https://github.com/skypjack/entt)
  - [Miniz](https://github.com/richgel999/miniz)
