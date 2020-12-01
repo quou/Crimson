@@ -28,6 +28,10 @@
 #include "Scripting/ScriptManager.h"
 #include "Scripting/Linter.h"
 
+// UI
+#include "UI/UIElement.h"
+#include "UI/UIManager.h"
+
 // Scene management
 #include "SceneManagement/Scene.h"
 #include "SceneManagement/Components.h"
