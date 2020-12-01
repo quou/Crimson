@@ -83,6 +83,9 @@ void main() {
 	}
 
 	void UIManager::Draw() {
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glDepthMask(GL_FALSE);
+
 		for (auto el : m_elements) {
 			m_shader->Bind();
 
@@ -97,6 +100,8 @@ void main() {
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glBindVertexArray(0);
 		}
+
+		glDepthMask(GL_TRUE);
 	}
 
 	void UIManager::Update(const glm::vec2& screenSize) {
