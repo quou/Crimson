@@ -13,6 +13,8 @@
 
 #include <reactphysics3d/reactphysics3d.h>
 
+#include <future>
+
 namespace rp3d = ::reactphysics3d;
 
 namespace Crimson {
@@ -49,7 +51,7 @@ namespace Crimson {
 
 		void ApplyLighting();
 		void RenderShadows(Camera* mainCamera);
-		void RenderMeshes(Camera* mainCamera);
+		void RenderMeshes(Camera* mainCamera, float delta);
 
 		void PhysicsComponentCreate(entt::registry& r, entt::entity ent);
 		void ScriptComponentCreate(entt::registry& r, entt::entity ent);
@@ -58,6 +60,9 @@ namespace Crimson {
 		SceneConfig m_config;
 
 		std::shared_ptr<Skybox> m_skybox;
+
+		std::vector<std::future<void>> m_meshFutures;
+		std::vector<std::future<void>> m_materialFutures;
 
 	public:
 		AssetManager m_assetManager;
@@ -85,15 +90,18 @@ namespace Crimson {
 		Entity GetEntityByGUID(const GUID& guid);
 
 		void LoadSkybox();
+		void LoadScripts();
+		void LoadMeshes();
+		void LoadMaterials();
 
 		// Events
 		void Init();
 		void Update(float delta);
 		void PhysicsUpdate(float delta);
-		void Render(RenderTarget& renderTarget);
-		void Render(RenderTarget& renderTarget, Camera* camera);
+		void Render(RenderTarget& renderTarget, float delta);
+		void Render(RenderTarget& renderTarget, Camera* camera, float delta);
 		void DrawWireframe(Entity ent);
-		void Render();
+		void Render(float delta);
 		void ContactStay(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactEnter(rp3d::CollisionBody* body, rp3d::CollisionBody* other);
 		void ContactExit(rp3d::CollisionBody* body, rp3d::CollisionBody* other);

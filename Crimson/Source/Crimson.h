@@ -17,6 +17,8 @@
 #include "Renderer/Renderer3D/Camera.h"
 #include "Renderer/Renderer3D/LightScene.h"
 #include "Renderer/RenderTarget.h"
+#include "Renderer/ParticleSystem/Particle.h"
+#include "Renderer/ParticleSystem/ParticleSystem.h"
 
 // Physics
 #include "Physics/PhysicsScene.h"

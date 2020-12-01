@@ -33,9 +33,13 @@ private:
 		m_camera.UpdateViewport(m_sceneRenderTarget->GetSize());
 
 		m_scene->UpdateViewport(m_sceneRenderTarget->GetSize());
-		m_scene->Render(*m_sceneRenderTarget, m_camera.GetCamera());
+		m_scene->Render(*m_sceneRenderTarget, m_camera.GetCamera(), delta);
+
+		m_sceneRenderTarget->Unbind();
+
 		m_scene->UpdateViewport(m_gameRenderTarget->GetSize());
-		m_scene->Render(*m_gameRenderTarget);
+		m_scene->Render(*m_gameRenderTarget, delta);
+		m_gameRenderTarget->Unbind();
    }
 
 	void OnExit() override {

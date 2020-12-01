@@ -6,6 +6,7 @@
 
 #include "Renderer/Renderer3D/Mesh.h"
 #include "Renderer/Renderer3D/Camera.h"
+#include "Renderer/ParticleSystem/ParticleSystem.h"
 #include "Renderer/Material.h"
 #include "Physics/Rigidbody.h"
 
@@ -54,6 +55,23 @@ namespace Crimson {
 
 		CameraComponent() = default;
 		CameraComponent(std::pair<int, int> size, float fov, float near=0.01f, float far=100.0f, bool active=true) : camera(size, fov, near, far), active(active) {}
+	};
+
+	struct ParticleSystemComponent {
+		int maxParticles{100};
+		int rateOverTime{10};
+		float gravity{0.5f};
+		float randomVelocityMin{0.0f};
+		float randomVelocityMax{1.0f};
+		float sizeOverLifetime{0.0f};
+		float randomLifetimeMin{0.5f};
+		float randomLifetimeMax{1.0f};
+		float startSize{1.0f};
+
+		ParticleSystem* context;
+
+		ParticleSystemComponent() = default;
+		ParticleSystemComponent(int maxParticles, int rateOverTime, float gravity) : maxParticles(maxParticles), rateOverTime(rateOverTime), gravity(gravity) {}
 	};
 
 	struct BoxColliderComponent {

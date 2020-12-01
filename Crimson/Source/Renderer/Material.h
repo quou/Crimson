@@ -29,6 +29,6 @@ namespace Crimson {
 	   void SetVec4(const std::string& name, glm::vec4 value);
 	   void SetMat4(const std::string& name, glm::mat4 value);
 
-		void Bind();
+		void Bind(unsigned int unit);
 	};
 }

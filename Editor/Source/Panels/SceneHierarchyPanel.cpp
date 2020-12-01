@@ -138,6 +138,10 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 					m_selectedEntity.AddComponent<Crimson::MaterialComponent>("Default");
 				}
 
+				if (ImGui::MenuItem("Particle System")) {
+					m_selectedEntity.AddComponent<Crimson::ParticleSystemComponent>(100, 10, 0.5f);
+				}
+
 				if (ImGui::MenuItem("Camera")) {
 					m_selectedEntity.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f, 0.01f, 1000.0f, true);
 				}
@@ -189,7 +193,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawVec3Control("Scale", component.scale, 1.0f);
 
 		newRotation = oldRotation - newRotation;
-		
+
 		glm::normalize(component.rotation);
 		component.rotation *= glm::quat(glm::radians(newRotation));
 	}, false);
@@ -257,6 +261,18 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawBoolControl("Active", &component.active);
 	});
 
+	DrawComponent<Crimson::ParticleSystemComponent>("Particle System", ent, [](auto& component){
+		DrawIntControl("Max Particles", &component.maxParticles, 10);
+		DrawIntControl("Rate Over Time", &component.rateOverTime);
+		DrawFloatControl("Gravity Multiplier", &component.gravity, 0.001f);
+		DrawFloatControl("Size Over Lifetime", &component.sizeOverLifetime, 0.001f);
+		DrawFloatControl("Max Velocity", &component.randomVelocityMax, 0.001f);
+		DrawFloatControl("Min Velocity", &component.randomVelocityMin, 0.001f);
+		DrawFloatControl("Max Lifetime", &component.randomLifetimeMax, 0.001f);
+		DrawFloatControl("Min Lifetime", &component.randomLifetimeMin, 0.001f);
+		DrawFloatControl("Start Size", &component.startSize, 0.001f);
+	});
+
 	DrawComponent<Crimson::BoxColliderComponent>("Box Collider", ent, [](auto& component){
 		DrawVec3Control("Extents", component.extents);
 	});
@@ -302,6 +318,8 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		titleString = ICON_FK_CAMERA + ("   " + name);
 	} else if (ent.HasComponent<Crimson::ScriptComponent>()) {
 		titleString = ICON_FK_CODE + ("   " + name);
+	} else if (ent.HasComponent<Crimson::ParticleSystemComponent>()) {
+		titleString = ICON_FK_FIRE + ("   " + name);
 	}
 
 	bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, "%s", titleString.c_str());

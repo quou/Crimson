@@ -107,6 +107,28 @@ void DrawFloatControl(const std::string& label, float* val, float step, float mi
 	ImGui::PopID();
 }
 
+void DrawIntControl(const std::string& label, int* val, int step, float colWidth) {
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2, NULL, false);
+
+
+	ImGui::SetColumnWidth(0, colWidth);
+	ImGui::Text("%s", label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
+
+	ImGui::InputInt("##ILIN", val, step);
+
+	ImGui::PopItemWidth();
+
+	ImGui::Columns(1, NULL, false);
+
+	ImGui::PopID();
+}
+
+
 void DrawBoolControl(const std::string& label, bool* val, float colWidth) {
 	ImGui::PushID(label.c_str());
 

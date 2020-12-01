@@ -10,6 +10,7 @@
 
 #include "DefaultAssets/GridTexture.h"
 #include "DefaultAssets/StandardShader.h"
+#include "DefaultAssets/ParticleShader.h"
 
 namespace Crimson {
 	AssetManager::AssetManager(bool loadFromArchive) : m_loadFromArchive(loadFromArchive) {
@@ -65,6 +66,7 @@ namespace Crimson {
 		m_textures["Default"] = Surface{1023,1007,3,GridTexture};
 
 		m_textFiles["Standard"] = StandardShader;
+		m_textFiles["Particle"] = ParticleShader;
 
 		m_materials["Default"] = new Material(
 			R"(

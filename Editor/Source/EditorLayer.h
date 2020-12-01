@@ -27,6 +27,8 @@ private:
 
 	bool m_showProfiler{false};
 
+	bool m_unsavedChanges{false};
+
 	friend class AssetManagerPanel;
 public:
 	bool m_isRunning{false};
@@ -43,4 +45,5 @@ public:
 
 	void OnInit() override;
 	void OnUpdate(float delta) override;
+	void OnExit() override;
 };
