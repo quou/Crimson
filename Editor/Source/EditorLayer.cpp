@@ -251,6 +251,7 @@ void EditorLayer::StopRunning() {
 void EditorLayer::OnUpdate(float delta) {
 	auto editor = (Editor*)m_userData;
 
+	editor->m_scene->m_isUpdating = m_isRunning;
 	if (m_isRunning) {
 		editor->m_scene->Update(delta);
 	}

@@ -29,6 +29,8 @@ private:
 	}
 
 	void OnUpdate(float delta) override {
+		m_scene->m_isUpdating = true;
+
 		m_scene->Update(delta);
 		m_scene->UpdateViewport(GetWindowSize());
 		m_scene->Render(delta);

@@ -4,8 +4,6 @@ Crimson uses AngelScript for powerful and fast scripting
 
 Example script:
 ```cpp
-#include "Crimson"
-
 class PlayerController : CrimsonBehaviour {
 	float m_moveForce = 20.0f;
 

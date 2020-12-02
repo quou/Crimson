@@ -27,6 +27,7 @@ namespace Crimson {
 		std::vector<std::string> m_codeFiles;
 		std::vector<std::string> m_classNames;
 		std::map<unsigned int, std::pair<asIScriptObject*, asITypeInfo*>> m_objects;
+		asITypeInfo* m_baseTypeInfo;
 
 		bool m_compilationSuccess;
 

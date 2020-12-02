@@ -231,7 +231,11 @@ namespace Crimson {
 			transform.scale = ParseVec3(eComponent, "scale");
 		}
 
-		eComponent = node->FirstChildElement("meshfilter");
+		return ent;
+	}
+
+	static void ParseComponents(XMLElement* node, Entity ent) {
+		auto eComponent = node->FirstChildElement("meshfilter");
 		if (eComponent) {
 			auto resourceNode = eComponent->FirstChildElement("resource");
 			if (resourceNode) {
@@ -335,8 +339,6 @@ namespace Crimson {
 			light.quadratic = eComponent->FloatAttribute("quadratic");
 			light.color = ParseVec3(eComponent, "color");
 		}
-
-		return ent;
 	}
 
 	void SceneSerialiser::ParseEntities(XMLElement* node, Entity parent) {
@@ -347,6 +349,8 @@ namespace Crimson {
 				ent.GetComponent<TransformComponent>().parent = parent;
 				parent.GetComponent<TransformComponent>().children.push_back(ent);
 			}
+
+			ParseComponents(element, ent);
 
 			ParseEntities(element, ent);
 		}

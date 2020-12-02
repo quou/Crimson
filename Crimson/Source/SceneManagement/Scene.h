@@ -65,6 +65,8 @@ namespace Crimson {
 		std::vector<std::future<void>> m_materialFutures;
 
 	public:
+		bool m_isUpdating{false};
+
 		AssetManager m_assetManager;
 		Scene(bool release);
 		~Scene();
@@ -98,6 +100,7 @@ namespace Crimson {
 		void Init();
 		void Update(float delta);
 		void PhysicsUpdate(float delta);
+		void UpdateTransforms();
 		void Render(RenderTarget& renderTarget, float delta);
 		void Render(RenderTarget& renderTarget, Camera* camera, float delta);
 		void DrawWireframe(Entity ent);
