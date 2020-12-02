@@ -65,6 +65,8 @@ namespace Crimson {
 		std::vector<std::future<void>> m_materialFutures;
 
 	public:
+		bool m_isUpdating{false};
+
 		AssetManager m_assetManager;
 		Scene(bool release);
 		~Scene();

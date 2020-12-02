@@ -364,6 +364,13 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto& transform = view.get<TransformComponent>(ent);
 
+			// This is a really ugly equivelent of letting PhysicsComponent modify the world position
+			// I was lazy with this, but it works..... for now.
+			if (m_registry.has<PhysicsComponent>(ent) && m_isUpdating) {
+				transform.worldPosition = transform.position;
+				continue;
+			}
+
 			if (!transform.parent) {
 				transform.worldPosition = transform.position;
 			} else {
