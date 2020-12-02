@@ -1,5 +1,3 @@
-#include "Crimson"
-
 class KeyControl : CrimsonBehaviour {
 	void OnInit() {
 

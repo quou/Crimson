@@ -32,11 +32,6 @@ namespace Crimson {
 	static unsigned int memoryUsage;
 
 	static int IncludeCallback(const char *include, const char *from, CScriptBuilder *builder, void *userParam) {
-      if (std::string(include) == "Crimson" || std::string(include) == "Crimson.as") {
-         builder->AddSectionFromMemory("Crimson", g_behaviourBase);
-         return 0;
-      }
-
 		auto assetManager = (AssetManager*)userParam;
 
       return builder->AddSectionFromMemory(include, assetManager->LoadText(include).c_str());
@@ -111,6 +106,8 @@ namespace Crimson {
 			return;
 		}
 
+		builder.AddSectionFromMemory("CrimsonBase", g_behaviourBase);
+
 		int i = 0;
 		for (auto& s : m_codeFiles) {
 			i++;
@@ -129,6 +126,8 @@ namespace Crimson {
 		}
 
 		m_asModule = m_asEngine->GetModule("CrimsonBehaviours");
+
+		m_baseTypeInfo = m_asModule->GetTypeInfoByDecl("CrimsonBehaviour");
 
 		m_compilationSuccess = true;
 
@@ -149,6 +148,10 @@ namespace Crimson {
 		std::string c = e.GetComponent<ScriptComponent>().className.c_str();
 
 		asITypeInfo* type = m_asModule->GetTypeInfoByDecl(c.c_str());
+		if (!type->DerivesFrom(m_baseTypeInfo)) {
+			CR_LOG_ERROR("%s", "A script class must derive from CrimsonBehaviour");
+			return;
+		}
 		if (!type) {
 			CR_LOG_ERROR("Class '%s' doesn't exist in the current module", c.c_str());
 			return;

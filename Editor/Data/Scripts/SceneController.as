@@ -1,5 +1,3 @@
-#include "Crimson"
-
 class SceneController : CrimsonBehaviour {
 	private float m_count;
 	private int m_iteration;

@@ -1,12 +1,10 @@
-#include "Crimson"
-
 class Monkey : CrimsonBehaviour {
 	private float m_moveForce = 20.0f;
 
 	void OnInit() {
 		print("Monkey says hello");
 	}
-	
+
 	void OnUpdate(float delta) {
 		vec3 move(0);
 
@@ -21,8 +19,8 @@ class Monkey : CrimsonBehaviour {
 		} else if (Input::GetButton("left").pressed) {
 			move.x = -m_moveForce;
 		}
-		
-		m_entity.GetPhysicsComponent().ApplyForce(move); 
+
+		m_entity.GetPhysicsComponent().ApplyForce(move);
 	}
 
 	void OnContactEnter(Entity other) {

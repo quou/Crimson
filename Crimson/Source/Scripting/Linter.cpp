@@ -14,15 +14,6 @@ namespace Crimson {
 		}
 	}
 
-	static int IncludeCallback(const char *include, const char *from, CScriptBuilder *builder, void *userParam) {
-      if (std::string(include) == "Crimson" || std::string(include) == "Crimson.as") {
-         builder->AddSectionFromMemory("Crimson", g_behaviourBase);
-         return 0;
-      }
-
-      return builder->AddSectionFromFile(include);
-   }
-
 	Linter::Linter() {
 		m_asEngine = asCreateScriptEngine();
 
@@ -40,13 +31,14 @@ namespace Crimson {
 
 		CScriptBuilder builder;
 
-		builder.SetIncludeCallback(IncludeCallback, NULL);
 
 		int r = builder.StartNewModule(m_asEngine, "CrimsonBehaviours");
 		if (r < 0) {
 			CR_LOG_ERROR("%s", "Unrecoverable error starting new AngelScript module");
 			return m_messages;
 		}
+
+		builder.AddSectionFromMemory("CrimsonBase", g_behaviourBase);
 
 		r = builder.AddSectionFromMemory("Main", code.c_str());
 		if (r < 0) {

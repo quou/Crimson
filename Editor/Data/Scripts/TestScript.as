@@ -1,5 +1,3 @@
-#include "Crimson"
-
 class TestBehaviour : CrimsonBehaviour {
 	private vec3 m_testVec(1, 3, 4);
 
