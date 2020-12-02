@@ -23,7 +23,7 @@ namespace Crimson {
 		auto& sys = r.get<ParticleSystemComponent>(ent);
 		auto& trans = r.get<TransformComponent>(ent);
 
-		sys.context = new ParticleSystem(trans.position);
+		sys.context = new ParticleSystem(trans.worldPosition);
 	}
 
 	static void ParticleSystemDestroy(entt::registry&r, entt::entity ent) {
@@ -33,6 +33,8 @@ namespace Crimson {
 	}
 
 	void Scene::PhysicsComponentCreate(entt::registry& r, entt::entity ent) {
+		UpdateTransforms();
+
 		if (!r.has<TransformComponent>(ent)) {
 			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a transform");
 			abort();
@@ -42,7 +44,7 @@ namespace Crimson {
 
 		auto& trans = r.get<TransformComponent>(ent);
 
-		phys.context = new Rigidbody(m_physicsScene.get(), trans.position, trans.rotation);
+		phys.context = new Rigidbody(m_physicsScene.get(), trans.worldPosition, trans.rotation);
 
 		if (r.has<SphereColliderComponent>(ent)) {
 			phys.context->AddSphereCollider(r.get<SphereColliderComponent>(ent).radius);
@@ -241,7 +243,7 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(ent);
 
-				camera.camera.position = transform.position;
+				camera.camera.position = transform.worldPosition;
 				camera.camera.rotation = glm::degrees(glm::eulerAngles(transform.rotation));
 
 				if (camera.active) {
@@ -279,7 +281,7 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, PointLightComponent>(ent);
 
-				m_lightScene->m_pointLights.push_back(PointLight{t.position, l.constant, l.linear, l.quadratic, l.color, l.intensity});
+				m_lightScene->m_pointLights.push_back(PointLight{t.worldPosition, l.constant, l.linear, l.quadratic, l.color, l.intensity});
 			}
 		}
 	}
@@ -299,6 +301,8 @@ namespace Crimson {
 	}
 
 	void Scene::RenderMeshes(Camera* mainCamera, float delta) {
+		UpdateTransforms();
+
 		if (m_skybox) {
 			m_skybox->Draw(*mainCamera);
 		}
@@ -339,7 +343,7 @@ namespace Crimson {
 				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
 
 				if (sys.context) {
-					sys.context->m_position = transform.position;
+					sys.context->m_position = transform.worldPosition;
 					sys.context->m_maxParticles = sys.maxParticles;
 					sys.context->m_rateOverTime = sys.rateOverTime;
 					sys.context->m_gravity = sys.gravity;
@@ -351,6 +355,19 @@ namespace Crimson {
 					sys.context->m_startSize = sys.startSize;
 					sys.context->Update(delta);
 				}
+			}
+		}
+	}
+
+	void Scene::UpdateTransforms() {
+		auto view = m_registry.view<TransformComponent>();
+		for (auto ent : view) {
+			auto& transform = view.get<TransformComponent>(ent);
+
+			if (!transform.parent) {
+				transform.worldPosition = transform.position;
+			} else {
+				transform.worldPosition = transform.position + transform.parent.GetComponent<TransformComponent>().worldPosition;
 			}
 		}
 	}

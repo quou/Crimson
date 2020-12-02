@@ -25,9 +25,11 @@ namespace Crimson {
 		Entity parent;
 		std::vector<Entity> children;
 
+		glm::vec3 worldPosition;
+
 		TransformComponent() = default;
 		glm::mat4 GetTransform() {
-			glm::mat4 positionMatrix = glm::translate(glm::mat4(1.0f), position);
+			glm::mat4 positionMatrix = glm::translate(glm::mat4(1.0f), worldPosition);
 			glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 			glm::mat4 rotationMatrix = glm::toMat4(rotation);
 

@@ -251,7 +251,7 @@
         </entity>
         <entity name="Lights" tag="Default">
             <transform>
-                <position x="0" y="0" z="0"/>
+                <position x="-0.40000000596046448" y="0" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
@@ -288,17 +288,6 @@
                     <color x="1" y="0" z="0"/>
                 </pointlight>
             </entity>
-        </entity>
-        <entity name="Fire" tag="Default">
-            <transform>
-                <position x="4.0999999046325684" y="-3" z="-3.7999999523162842"/>
-                <rotation w="1" x="0" y="0" z="0"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <material>
-                <resource path="Data/Materials/RedParticles.mat"/>
-            </material>
-            <particlesystem maxparticles="200" rateovertime="10" gravity="-0.032000001519918442" randomvelocitymax="3.7170000076293945" randomvelocitymin="-0.57200002670288086" sizeoverlifetime="0.55500000715255737" randomlifetimemax="2" randomlifetimemin="1" startsize="1.9900000095367432"/>
         </entity>
     </entities>
 </scene>
