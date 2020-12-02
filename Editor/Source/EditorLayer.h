@@ -30,6 +30,7 @@ private:
 	bool m_unsavedChanges{false};
 
 	friend class AssetManagerPanel;
+	friend class Editor;
 public:
 	bool m_isRunning{false};
 
