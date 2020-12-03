@@ -33,8 +33,6 @@ namespace Crimson {
 	}
 
 	void Scene::PhysicsComponentCreate(entt::registry& r, entt::entity ent) {
-		UpdateTransforms();
-
 		if (!r.has<TransformComponent>(ent)) {
 			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a transform");
 			abort();

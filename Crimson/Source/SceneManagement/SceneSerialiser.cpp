@@ -350,6 +350,7 @@ namespace Crimson {
 				parent.GetComponent<TransformComponent>().children.push_back(ent);
 			}
 
+			m_scene.UpdateTransforms();
 			ParseComponents(element, ent);
 
 			ParseEntities(element, ent);
