@@ -31,6 +31,10 @@ private:
 
 	friend class AssetManagerPanel;
 	friend class Editor;
+
+	int m_gizmoType = -1;
+	float m_snapRotation = 45.0f;
+	float m_snapTranslation = 0.5f;
 public:
 	bool m_isRunning{false};
 

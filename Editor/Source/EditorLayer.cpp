@@ -15,6 +15,9 @@
 
 #include "UIUtils.h"
 
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
@@ -355,7 +358,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 
 	if (ImGui::BeginMenu("Scene")) {
-		if (ImGui::MenuItem("Reload", "CTRL+R")) {
+		if (ImGui::MenuItem("Reload", "CTRL+SHIFT+R")) {
 			ReloadScene();
 		}
 
@@ -406,8 +409,28 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 
 	// CTRL+R
-	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
+	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL)  && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyPressed(CR_KEY_R)) {
 		ReloadScene();
+	}
+
+	if (!ImGuizmo::IsUsing()) {
+		// Gizmo shortcuts
+		// CTRL+Q
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_Q)) {
+			m_gizmoType = -1;
+		}
+		// CTRL+W
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_W)) {
+			m_gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+		}
+		// CTRL+E
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_E)) {
+			m_gizmoType = ImGuizmo::OPERATION::ROTATE;
+		}
+		// CTRL+Q
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
+			m_gizmoType = ImGuizmo::OPERATION::SCALE;
+		}
 	}
 
 	ImGui::Begin("Game Viewport");
@@ -430,6 +453,41 @@ void EditorLayer::OnUpdate(float delta) {
 				m_camera->Update(delta);
 			}
 			m_camera->UpdateScroll(delta);
+		}
+
+		// Gizmos
+		auto selectedEntity = m_sceneHierarchyPanel.m_selectedEntity;
+		if (selectedEntity && m_gizmoType > -1) {
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+
+			// Camera
+			auto camera = editor->m_camera.GetCamera();
+			glm::mat4 view = camera->GetView();
+			glm::mat4 projection = camera->projection;
+
+			// Entity transform
+			auto& tc = selectedEntity.GetComponent<Crimson::TransformComponent>();
+			glm::mat4 transform = tc.GetTransform();
+
+			// Snapping
+			bool snap = ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL);
+			float snapValue = m_snapTranslation;
+			if (m_gizmoType == ImGuizmo::OPERATION::ROTATE) {
+				snapValue = m_snapRotation;
+			}
+
+			float snapValues[3] = {snapValue, snapValue, snapValue};
+
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection),
+										(ImGuizmo::OPERATION)m_gizmoType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
+										NULL, snap ? snapValues : NULL);
+
+			if (ImGuizmo::IsUsing()) {
+				glm::vec3 skew; glm::vec4 perspective; // Needed for glm::decompose, not actually in use
+				glm::decompose(transform, tc.scale, tc.rotation, tc.position, skew, perspective);
+			}
 		}
 	}
 	ImGui::End();

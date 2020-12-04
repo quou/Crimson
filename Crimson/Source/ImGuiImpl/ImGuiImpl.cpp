@@ -6,6 +6,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "ImGuizmo.h"
+
 namespace Crimson {
 	void ImGuiImpl::Init(GLFWwindow* window) {
 		ImGui::CreateContext();
@@ -24,6 +26,7 @@ namespace Crimson {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 	void ImGuiImpl::EndFrame() {
