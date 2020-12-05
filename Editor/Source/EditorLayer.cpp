@@ -18,6 +18,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
@@ -186,7 +192,7 @@ void EditorLayer::NewScene() {
 
 	const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
 
-	const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
+	const char* file = tinyfd_saveFileDialog("Create New Scene", "NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
 
 	if (file) {
 		m_currentSavePath = file;
@@ -194,6 +200,7 @@ void EditorLayer::NewScene() {
 		editor->m_scene = std::make_shared<Crimson::Scene>(false);
 		m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 		m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+		editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
 
 		auto light = editor->m_scene->CreateEntity("Main Light");
 		light.GetComponent<Crimson::TransformComponent>().rotation = glm::radians(glm::vec3(10.0f, -20.0f, 25.0f));
@@ -290,6 +297,59 @@ void EditorLayer::OnUpdate(float delta) {
 		if (ImGui::MenuItem("Open Project Folder", "CTRL+O")) {
 			OpenProject();
 		}
+
+		if (ImGui::MenuItem("New Project")) {
+			const char* folder = tinyfd_selectFolderDialog("Select Folder for New Project", "");
+
+			if (folder) {
+				std::string f = folder;
+
+				std::replace(f.begin(), f.end(), '\\', '/');
+
+				mkdir(std::string(f + "/Data/").c_str(),0777);
+				mkdir(std::string(f + "/Data/Scenes/").c_str(),0777);
+
+				// Create project config
+				std::ofstream configF(f + "/" + "Data/ProjectConfig.conf");
+				if (configF.good()) {
+					configF << "project = {\n";
+					configF << "\t" << "startup = \"" << "Data/Scenes/SampleScene.cscn" << "\"\n";
+					configF << "}";
+				}
+				configF.close();
+
+				Crimson::Input::SaveConfig(std::string(f + "/" + "Data/InputConfig.conf").c_str());
+
+
+				// Create Sample Scene
+				editor->m_scene = std::make_shared<Crimson::Scene>(false);
+				m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+				m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+				auto light = editor->m_scene->CreateEntity("Main Light");
+				light.GetComponent<Crimson::TransformComponent>().rotation = glm::radians(glm::vec3(10.0f, -20.0f, 25.0f));
+				light.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+				light.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+
+				auto cam = editor->m_scene->CreateEntity("Main Camera");
+				cam.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f);
+
+				auto cube = editor->m_scene->CreateEntity("Cube");
+				cube.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				cube.AddComponent<Crimson::MaterialComponent>("Default");
+
+				Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+				sceneSerialiser.SerialiseText(f + "/Data/Scenes/SampleScene.cscn");
+				m_currentSavePath = f + "/Data/Scenes/SampleScene.cscn";
+
+				m_workingDir = std::string(folder) + "/";
+				editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
+				m_assetManagerPanel.Refresh();
+				Crimson::Input::LoadConfig(editor->m_scene->m_assetManager.LoadText("Data/InputConfig.conf").c_str());
+			}
+		}
+
+		ImGui::Separator();
 
 		if (ImGui::MenuItem("New Scene", "CTRL+N")) {
 			NewScene();
