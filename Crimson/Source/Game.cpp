@@ -8,6 +8,8 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "Renderer/Renderer.h"
 
+#include "CrimsonIcon.h"
+
 #include "Input.h"
 
 namespace Crimson {
@@ -46,6 +48,9 @@ namespace Crimson {
 
 		m_window = glfwCreateWindow(windowSize.first, windowSize.second, windowTitle, NULL, NULL);
 		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");
+
+		GLFWimage iconImage = {75, 75, CrimsonIconImage};
+		glfwSetWindowIcon(m_window, 1, &iconImage);
 
 		glfwMakeContextCurrent(m_window);
 		glfwSwapInterval(true);
