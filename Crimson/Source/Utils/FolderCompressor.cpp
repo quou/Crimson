@@ -18,17 +18,26 @@
 #include <filesystem>
 
 namespace Crimson {
-	void CompressFolder(const std::string& folder, const std::string& zipName) {
+	void CompressFolder(const std::string& folder, const std::string& zipName, const std::string& workingDir) {
 		const char* comment = "No comment";
 
 		mz_zip_archive archive;
 		memset(&archive, 0, sizeof(archive));
 		mz_zip_writer_init_file(&archive, zipName.c_str(), 0);
 
-		for (const auto& entry : std::filesystem::recursive_directory_iterator(folder)) {
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(workingDir + folder)) {
 
 			if (!entry.is_directory()) {
-				mz_bool status = mz_zip_writer_add_file(&archive, entry.path().string().c_str(), entry.path().string().c_str(), comment, (uint16_t)strlen(comment), MZ_BEST_COMPRESSION);
+
+				std::string folderPath = entry.path().string();
+
+				// Erase the working directory
+				size_t pos = folderPath.find(workingDir);
+				if (pos != std::string::npos) {
+					folderPath.erase(pos, workingDir.length());
+				}
+
+				mz_bool status = mz_zip_writer_add_file(&archive, folderPath.c_str(), std::string(entry.path().string()).c_str(), comment, (uint16_t)strlen(comment), MZ_BEST_COMPRESSION);
 				if (!status) {
 					CR_LOG_ERROR("%s", "Failed to write data to archive");
 				}

@@ -52,6 +52,8 @@ namespace Crimson {
 		static void Draw(Mesh& mesh);
 		static void DrawWireframe(Camera& camera, const glm::mat4& transform, Mesh& mesh);
 
+		static void ClearDepth();
+
 		static void SetClearColor(const glm::vec3& clearColor);
 	};
 

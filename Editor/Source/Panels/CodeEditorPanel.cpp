@@ -52,7 +52,9 @@ void CodeEditorPanel::Render(float delta) {
 	}
 }
 
-void CodeEditorPanel::OpenFile(const std::string& path, const std::string& extension) {
+void CodeEditorPanel::OpenFile(const std::string& path, const std::string& extension, const std::string& workingDir) {
+	m_workingDir = workingDir;
+
 	m_sourceType = extension;
 
 	TextEditor::LanguageDefinition lang;
@@ -72,7 +74,7 @@ void CodeEditorPanel::OpenFile(const std::string& path, const std::string& exten
 
 	m_currentFile = path;
 
-	std::ifstream t(path);
+	std::ifstream t(workingDir + path);
 	if (t.good()) {
 		std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 		m_textEditor.SetText(str);
@@ -94,7 +96,7 @@ void CodeEditorPanel::Save() {
 		}
 	}
 
-	std::ofstream out(m_currentFile);
+	std::ofstream out(m_workingDir + m_currentFile);
 
 	std::string text = m_textEditor.GetText();
 	m_unsavedText = text;

@@ -73,11 +73,19 @@ static bool CompareDir(DirectoryEntry a, DirectoryEntry b) {
     return a.isDirectory;
 }
 
-static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
+std::vector<DirectoryEntry> AssetManagerPanel::GetFiles(const std::string& directory) {
 	std::vector<DirectoryEntry> result;
 
 	for (const auto& entry : std::filesystem::directory_iterator(directory)) {
-		DirectoryEntry e = {entry.path().stem().string(), entry.path().extension().string(), entry.path().string(), entry.is_directory()};
+		std::string path = entry.path().string();
+
+		// Erase the working directory
+		size_t pos = path.find(m_editorLayer->m_workingDir);
+		if (pos != std::string::npos) {
+			path.erase(pos, m_editorLayer->m_workingDir.length());
+		}
+
+		DirectoryEntry e = {entry.path().stem().string(), entry.path().extension().string(), path, entry.is_directory()};
 
 		if (entry.is_directory()) {
 			e.subEntries = GetFiles(entry.path().string());
@@ -92,7 +100,8 @@ static std::vector<DirectoryEntry> GetFiles(const std::string& directory) {
 }
 
 AssetManagerPanel::AssetManagerPanel(EditorLayer* editorLayer) : m_editorLayer(editorLayer) {
-	m_files = GetFiles("Data/");
+	// auto editor = (Editor*)editorLayer->m_userData;
+	// m_files = GetFiles(editor->m_scene->m_assetManager.GetWorkingDir() + "Data/");
 }
 
 void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel) {
@@ -150,18 +159,20 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 					m_editorLayer->m_currentSavePath = entry.absPath;
 
 					editor->m_scene = std::make_shared<Crimson::Scene>(false);
+					editor->m_scene->m_assetManager.SetWorkingDir(m_editorLayer->m_workingDir);
 					sceneHierarchyPanel.SetContext(&*editor->m_scene);
 					sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
 
 					Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 					sceneSerialiser.DeserialiseText(editor->m_scene->m_assetManager.LoadText(entry.absPath));
 
+
 				} else if (entry.extension == ".lua" ||
 							  entry.extension == ".conf" ||
 							  entry.extension == ".mat" ||
 							  entry.extension == ".as" ||
 						  	  entry.extension == ".glsl") {
-					codeEditorPanel.OpenFile(entry.absPath, entry.extension);
+					codeEditorPanel.OpenFile(entry.absPath, entry.extension, editor->m_scene->m_assetManager.GetWorkingDir());
 				} else if (entry.extension == ".png" ||
 							  entry.extension == ".jpg" ||
 							  entry.extension == ".gif" ||
@@ -180,8 +191,8 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 
 	if (ImGui::BeginMenuBar()) {
 		if (ImGui::MenuItem("Refresh")) {
-			m_files = GetFiles("Data/");
-			Editor* editor = (Editor*)m_editorLayer->m_userData;
+			auto editor = (Editor*)m_editorLayer->m_userData;
+			m_files = GetFiles(editor->m_scene->m_assetManager.GetWorkingDir() + "Data/");
 		}
 
 		if (ImGui::BeginMenu("Create...")) {
@@ -250,4 +261,11 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 	}
 
 	ImGui::End();
+}
+
+void AssetManagerPanel::Refresh() {
+	auto editor = (Editor*)m_editorLayer->m_userData;
+	if (editor) {
+		m_files = GetFiles(editor->m_scene->m_assetManager.GetWorkingDir() + "Data/");
+	}
 }

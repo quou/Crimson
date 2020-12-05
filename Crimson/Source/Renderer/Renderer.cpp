@@ -57,6 +57,10 @@ namespace Crimson {
 		i.m_timeSinceStart = glfwGetTime();
 	}
 
+	void Renderer::ClearDepth() {
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
+
 	void Renderer::ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
 		int oldViewport[4];
 

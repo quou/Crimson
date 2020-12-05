@@ -33,8 +33,6 @@ namespace Crimson {
 	}
 
 	void Scene::PhysicsComponentCreate(entt::registry& r, entt::entity ent) {
-		UpdateTransforms();
-
 		if (!r.has<TransformComponent>(ent)) {
 			CR_LOG_FATAL_ERROR("%s", "PhysicsComponent requires the entity to have a transform");
 			abort();
@@ -76,7 +74,6 @@ namespace Crimson {
 		m_scriptManager = std::make_shared<ScriptManager>();
 
 		Input::Init();
-		Input::LoadConfig(m_assetManager.LoadText("Data/InputConfig.conf").c_str());
 
 		m_registry.on_construct<PhysicsComponent>().connect<&Scene::PhysicsComponentCreate>(this);
 		m_registry.on_destroy<PhysicsComponent>().connect<&PhysicsComponentDestroy>();
@@ -112,22 +109,26 @@ namespace Crimson {
 
 
 	void Scene::LoadScripts() {
-		for (auto& p : m_assetManager.GetFilesFromDir("Data")) {
-			if (p.second == ".as") {
-				m_scriptManager->AddScript(m_assetManager.LoadText(p.first));
+		try {
+			for (auto& p : m_assetManager.GetFilesFromDir("Data")) {
+				if (p.second == ".as") {
+					m_scriptManager->AddScript(m_assetManager.LoadText(p.first, false, false));
+				}
 			}
+
+			m_scriptManager->Compile(m_assetManager);
+
+			auto view = m_registry.view<ScriptComponent>();
+			for (auto ent : view) {
+				auto script = view.get<ScriptComponent>(ent);
+
+				m_scriptManager->SetupEntity(ent, this);
+			}
+
+			m_scriptManager->Init();
+		} catch (const std::exception& e) {
+			CR_LOG_ERROR("%s", "Failed to load scripts: Data folder nonexistant");
 		}
-
-		m_scriptManager->Compile(m_assetManager);
-
-		auto view = m_registry.view<ScriptComponent>();
-		for (auto ent : view) {
-			auto script = view.get<ScriptComponent>(ent);
-
-			m_scriptManager->SetupEntity(ent, this);
-		}
-
-		m_scriptManager->Init();
 	}
 
 	static std::mutex assetManagerMutex;
@@ -220,6 +221,8 @@ namespace Crimson {
 	}
 
 	void Scene::Render(float delta) {
+		Renderer::SetClearColor(m_config.clearColor);
+
 		Camera* mainCamera = GetMainCamera();
 
 		if (mainCamera) {
@@ -230,6 +233,8 @@ namespace Crimson {
 	}
 
 	void Scene::Render(RenderTarget& renderTarget, Camera* camera, float delta) {
+		Renderer::SetClearColor(m_config.clearColor);
+		
 		ApplyLighting();
 		RenderShadows(camera);
 		renderTarget.Bind();

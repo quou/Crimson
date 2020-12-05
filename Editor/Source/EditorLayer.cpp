@@ -15,6 +15,15 @@
 
 #include "UIUtils.h"
 
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 EditorLayer::EditorLayer(SceneCamera* sceneCamera, Crimson::RenderTarget* sceneRenderTarget, Crimson::RenderTarget* gameRenderTarget, Crimson::Scene* scene)
  : m_camera(sceneCamera), m_sceneRenderTarget(sceneRenderTarget), m_gameRenderTarget(gameRenderTarget),
   	m_sceneHierarchyPanel(scene), m_assetManagerPanel(this) {}
@@ -183,7 +192,7 @@ void EditorLayer::NewScene() {
 
 	const char* const acceptedExtensions[] = {"*.cscn", "*.scene", "*.crimson", "*.yaml"};
 
-	const char* file = tinyfd_saveFileDialog("Create New Scene", "Data/NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
+	const char* file = tinyfd_saveFileDialog("Create New Scene", "NewScene.cscn", 4, acceptedExtensions, "Crimson Scene Files");
 
 	if (file) {
 		m_currentSavePath = file;
@@ -191,6 +200,7 @@ void EditorLayer::NewScene() {
 		editor->m_scene = std::make_shared<Crimson::Scene>(false);
 		m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 		m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+		editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
 
 		auto light = editor->m_scene->CreateEntity("Main Light");
 		light.GetComponent<Crimson::TransformComponent>().rotation = glm::radians(glm::vec3(10.0f, -20.0f, 25.0f));
@@ -209,6 +219,18 @@ void EditorLayer::NewScene() {
 	}
 }
 
+void EditorLayer::OpenProject() {
+	auto editor = (Editor*)m_userData;
+
+	auto folder = tinyfd_selectFolderDialog("Open Project Folder", "");
+	if (folder) {
+		m_workingDir = std::string(folder) + "/";
+		editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
+		m_assetManagerPanel.Refresh();
+		Crimson::Input::LoadConfig(editor->m_scene->m_assetManager.LoadText("Data/InputConfig.conf").c_str());
+	}
+}
+
 void EditorLayer::RunScene() {
 	ImGui::StyleColorsDark();
 
@@ -222,6 +244,8 @@ void EditorLayer::RunScene() {
 	editor->m_scene = std::make_shared<Crimson::Scene>(false);
 	m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 	m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+	editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
 
 	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
 	inSerialiser.DeserialiseText(m_currentSerialiseString);
@@ -241,6 +265,8 @@ void EditorLayer::StopRunning() {
 	editor->m_scene = std::make_shared<Crimson::Scene>(false);
 	m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 	m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+	editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
 
 	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
 	inSerialiser.DeserialiseText(m_currentSerialiseString);
@@ -268,6 +294,63 @@ void EditorLayer::OnUpdate(float delta) {
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("File")) {
+		if (ImGui::MenuItem("Open Project Folder", "CTRL+O")) {
+			OpenProject();
+		}
+
+		if (ImGui::MenuItem("New Project")) {
+			const char* folder = tinyfd_selectFolderDialog("Select Folder for New Project", "");
+
+			if (folder) {
+				std::string f = folder;
+
+				std::replace(f.begin(), f.end(), '\\', '/');
+
+				mkdir(std::string(f + "/Data/").c_str(),0777);
+				mkdir(std::string(f + "/Data/Scenes/").c_str(),0777);
+
+				// Create project config
+				std::ofstream configF(f + "/" + "Data/ProjectConfig.conf");
+				if (configF.good()) {
+					configF << "project = {\n";
+					configF << "\t" << "startup = \"" << "Data/Scenes/SampleScene.cscn" << "\"\n";
+					configF << "}";
+				}
+				configF.close();
+
+				Crimson::Input::SaveConfig(std::string(f + "/" + "Data/InputConfig.conf").c_str());
+
+
+				// Create Sample Scene
+				editor->m_scene = std::make_shared<Crimson::Scene>(false);
+				m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
+				m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
+
+				auto light = editor->m_scene->CreateEntity("Main Light");
+				light.GetComponent<Crimson::TransformComponent>().rotation = glm::radians(glm::vec3(10.0f, -20.0f, 25.0f));
+				light.AddComponent<Crimson::AmbientLightComponent>(glm::vec3(1,1,1), 0.1f);
+				light.AddComponent<Crimson::DirectionalLightComponent>(glm::vec3(1,1,1), 1.0f);
+
+				auto cam = editor->m_scene->CreateEntity("Main Camera");
+				cam.AddComponent<Crimson::CameraComponent>(std::pair<int, int>{1366, 768}, 45.0f);
+
+				auto cube = editor->m_scene->CreateEntity("Cube");
+				cube.AddComponent<Crimson::MeshFilterComponent>("Cube");
+				cube.AddComponent<Crimson::MaterialComponent>("Default");
+
+				Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
+				sceneSerialiser.SerialiseText(f + "/Data/Scenes/SampleScene.cscn");
+				m_currentSavePath = f + "/Data/Scenes/SampleScene.cscn";
+
+				m_workingDir = std::string(folder) + "/";
+				editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
+				m_assetManagerPanel.Refresh();
+				Crimson::Input::LoadConfig(editor->m_scene->m_assetManager.LoadText("Data/InputConfig.conf").c_str());
+			}
+		}
+
+		ImGui::Separator();
+
 		if (ImGui::MenuItem("New Scene", "CTRL+N")) {
 			NewScene();
 		}
@@ -303,7 +386,7 @@ void EditorLayer::OnUpdate(float delta) {
 	if (ImGui::BeginPopupModal("Export Runtime")) {
 
 		std::vector<std::string> scenePaths;
-		std::string path = "Data/";
+		std::string path = m_workingDir + "Data/";
 		for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
 			if (entry.path().extension().string() == ".cscn") {
 				scenePaths.push_back(entry.path().string());
@@ -312,6 +395,11 @@ void EditorLayer::OnUpdate(float delta) {
 
 		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
 		std::replace(startupScenePath.begin(), startupScenePath.end(), '\\', '/');
+		// Erase the working directory
+		size_t pos = startupScenePath.find(m_workingDir);
+		if (pos != std::string::npos) {
+			startupScenePath.erase(pos, m_workingDir.length());
+		}
 		ImGui::Text("%s", startupScenePath.c_str());
 
 		if (ImGui::Button("Export")) {
@@ -319,9 +407,9 @@ void EditorLayer::OnUpdate(float delta) {
 			const char* folder = tinyfd_selectFolderDialog("Export Runtime", "");
 
 			if (folder) {
-				Crimson::Input::SaveConfig("Data/InputConfig.conf");
+				Crimson::Input::SaveConfig(std::string(m_workingDir + "Data/InputConfig.conf").c_str());
 
-				std::ofstream configF("Data/ProjectConfig.conf");
+				std::ofstream configF(m_workingDir + "Data/ProjectConfig.conf");
 				if (configF.good()) {
 					configF << "project = {\n";
 					configF << "\t" << "startup = \"" << startupScenePath << "\"\n";
@@ -338,7 +426,7 @@ void EditorLayer::OnUpdate(float delta) {
 				#endif
 
 				remove(std::string(std::string(folder) + "/" + "Data.pck").c_str());
-				Crimson::CompressFolder("Data", std::string(std::string(folder) + "/" + "Data.pck").c_str());
+				Crimson::CompressFolder("Data", std::string(folder) + "/" + "Data.pck", m_workingDir);
 			}
 
 
@@ -355,7 +443,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 
 	if (ImGui::BeginMenu("Scene")) {
-		if (ImGui::MenuItem("Reload", "CTRL+R")) {
+		if (ImGui::MenuItem("Reload", "CTRL+SHIFT+R")) {
 			ReloadScene();
 		}
 
@@ -367,6 +455,26 @@ void EditorLayer::OnUpdate(float delta) {
 
 		if (ImGui::MenuItem("Stop")) {
 			StopRunning();
+		}
+
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("Tools")) {
+		if (ImGui::MenuItem("Select", "CTRL+Q")) {
+			m_gizmoType = -1;
+		}
+
+		if (ImGui::MenuItem("Translate", "CTRL+W")) {
+			m_gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+		}
+
+		if (ImGui::MenuItem("Rotate", "CTRL+E")) {
+			m_gizmoType = ImGuizmo::OPERATION::ROTATE;
+		}
+
+		if (ImGui::MenuItem("Scale", "CTRL+R")) {
+			m_gizmoType = ImGuizmo::OPERATION::SCALE;
 		}
 
 		ImGui::EndMenu();
@@ -390,6 +498,11 @@ void EditorLayer::OnUpdate(float delta) {
 
 	ImGui::EndMainMenuBar();
 
+	// CTRL+O
+	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_O)) {
+		OpenProject();
+	}
+
 	// CTRL+N
 	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_N)) {
 		NewScene();
@@ -405,9 +518,29 @@ void EditorLayer::OnUpdate(float delta) {
 		SaveAs();
 	}
 
-	// CTRL+R
-	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
+	// CTRL+SHIFT+R
+	if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL)  && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyPressed(CR_KEY_R)) {
 		ReloadScene();
+	}
+
+	// Gizmo shortcuts
+	if (!ImGuizmo::IsUsing()) {
+		// CTRL+Q
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_Q)) {
+			m_gizmoType = -1;
+		}
+		// CTRL+W
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_W)) {
+			m_gizmoType = ImGuizmo::OPERATION::TRANSLATE;
+		}
+		// CTRL+E
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_E)) {
+			m_gizmoType = ImGuizmo::OPERATION::ROTATE;
+		}
+		// CTRL+Q
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_R)) {
+			m_gizmoType = ImGuizmo::OPERATION::SCALE;
+		}
 	}
 
 	ImGui::Begin("Game Viewport");
@@ -430,6 +563,41 @@ void EditorLayer::OnUpdate(float delta) {
 				m_camera->Update(delta);
 			}
 			m_camera->UpdateScroll(delta);
+		}
+
+		// Gizmos
+		auto selectedEntity = m_sceneHierarchyPanel.m_selectedEntity;
+		if (selectedEntity && m_gizmoType > -1) {
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+
+			// Camera
+			auto camera = editor->m_camera.GetCamera();
+			glm::mat4 view = camera->GetView();
+			glm::mat4 projection = camera->projection;
+
+			// Entity transform
+			auto& tc = selectedEntity.GetComponent<Crimson::TransformComponent>();
+			glm::mat4 transform = tc.GetTransform();
+
+			// Snapping
+			bool snap = ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL);
+			float snapValue = m_snapTranslation;
+			if (m_gizmoType == ImGuizmo::OPERATION::ROTATE) {
+				snapValue = m_snapRotation;
+			}
+
+			float snapValues[3] = {snapValue, snapValue, snapValue};
+
+			ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection),
+										(ImGuizmo::OPERATION)m_gizmoType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
+										NULL, snap ? snapValues : NULL);
+
+			if (ImGuizmo::IsUsing()) {
+				glm::vec3 skew; glm::vec4 perspective; // Needed for glm::decompose, not actually in use
+				glm::decompose(transform, tc.scale, tc.rotation, tc.position, skew, perspective);
+			}
 		}
 	}
 	ImGui::End();

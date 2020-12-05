@@ -30,6 +30,10 @@ private:
 public:
 	AssetManagerPanel(EditorLayer* editorLayer);
 
+	std::vector<DirectoryEntry> GetFiles(const std::string& directory);
+
 	void DrawDir(DirectoryEntry& entry, Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel);
 	void Render(Editor* editor, SceneHierarchyPanel& sceneHierarchyPanel, CodeEditorPanel& codeEditorPanel);
+
+	void Refresh();
 };

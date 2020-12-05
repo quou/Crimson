@@ -22,11 +22,12 @@ private:
 	std::string m_unsavedText;
 
 	std::string m_sourceType;
+	std::string m_workingDir;
 public:
 	void Init();
 	void Render(float delta);
 
-	void OpenFile(const std::string& path, const std::string& extension=".as");
+	void OpenFile(const std::string& path, const std::string& extension=".as", const std::string& workingDir = "");
 	void Save();
 
 	inline bool IsFocused() {return m_isFocused;};

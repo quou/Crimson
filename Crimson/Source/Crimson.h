@@ -32,6 +32,9 @@
 #include "UI/UIElement.h"
 #include "UI/UIManager.h"
 
+// ImGui
+#include "ImGuiImpl/ImGuizmo.h"
+
 // Scene management
 #include "SceneManagement/Scene.h"
 #include "SceneManagement/Components.h"

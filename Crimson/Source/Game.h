@@ -33,12 +33,16 @@ namespace Crimson {
 		void Run(const char* windowTitle, std::pair<int, int> windowSize);
 
 		template <typename T, typename... Args>
-		void AddLayer(void* userData, Args... constructorArgs) {
-			m_layers.push_back(std::make_shared<T>(constructorArgs...));
+		std::shared_ptr<T> AddLayer(void* userData, Args... constructorArgs) {
+			auto l = std::make_shared<T>(constructorArgs...);
+
+			m_layers.push_back(l);
 
 			if (userData) {
 				m_layers.at(m_layers.size() - 1)->m_userData = userData;
 			}
+
+			return l;
 		}
 	};
 }

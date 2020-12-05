@@ -54,6 +54,21 @@ static void DrawComponent(const std::string& componentName, Crimson::Entity ent,
 void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 	ImGui::Begin("Scene Hierarchy");
 
+	if (ImGui::BeginDragDropTarget()) {
+		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent Entity")) {
+			auto draggedEnt = *static_cast<Crimson::Entity*>(payload->Data);
+
+			auto& parent = draggedEnt.GetComponent<Crimson::TransformComponent>().parent;
+			if (parent) {
+				auto& parentChildren = parent.GetComponent<Crimson::TransformComponent>().children;
+
+				parentChildren.erase(std::remove(parentChildren.begin(), parentChildren.end(), draggedEnt), parentChildren.end());
+				parent = Crimson::Entity();
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
+
 	for (auto ent : m_scene->GetEntitiesWithComponent<Crimson::TransformComponent>()) {
 		if (!ent.GetComponent<Crimson::TransformComponent>().parent) {
 			DrawEntityNode(ent);
@@ -344,11 +359,12 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		if (ImGuiPayload const* payload = ImGui::AcceptDragDropPayload("Reparent Entity")) {
 			auto draggedEnt = *static_cast<Crimson::Entity*>(payload->Data);
 
-			if (draggedEnt != ent) {
+			if (draggedEnt != ent && ent.GetComponent<Crimson::TransformComponent>().parent != draggedEnt) {
 				if (draggedEnt.GetComponent<Crimson::TransformComponent>().parent) {
 					auto& parent = draggedEnt.GetComponent<Crimson::TransformComponent>().parent;
-					auto& children = parent.GetComponent<Crimson::TransformComponent>().children;
-					children.erase(std::remove(children.begin(), children.end(), draggedEnt), children.end());
+					auto& parentChildren = parent.GetComponent<Crimson::TransformComponent>().children;
+
+					parentChildren.erase(std::remove(parentChildren.begin(), parentChildren.end(), draggedEnt), parentChildren.end());
 				}
 
 				draggedEnt.GetComponent<Crimson::TransformComponent>().parent = ent;
