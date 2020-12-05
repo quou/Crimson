@@ -144,8 +144,8 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, mesh] = view.get<TransformComponent, MeshFilterComponent>(ent);
 
-			//m_assetManager.LoadMesh(mesh.path);
-			m_meshFutures.push_back(std::async(std::launch::async, LoadMesh, &m_assetManager, mesh.path));
+			m_assetManager.LoadMesh(mesh.path);
+			//m_meshFutures.push_back(std::async(std::launch::async, LoadMesh, &m_assetManager, mesh.path));
 		}
 	}
 
@@ -234,7 +234,7 @@ namespace Crimson {
 
 	void Scene::Render(RenderTarget& renderTarget, Camera* camera, float delta) {
 		Renderer::SetClearColor(m_config.clearColor);
-		
+
 		ApplyLighting();
 		RenderShadows(camera);
 		renderTarget.Bind();
