@@ -4,3 +4,5 @@ cd ../../
 ./premake5 gmake
 
 make -j12 config=release
+
+cp -i bin/Release-linux-x86_64/Game/Game Editor/Game
