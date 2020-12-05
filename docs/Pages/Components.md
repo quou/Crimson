@@ -31,4 +31,23 @@ struct MaterialComponent {
 struct MeshFilterComponent {
 	string resource;
 };
+
+struct DirectionalLightComponent {
+	vec3 color;
+	float intensity;
+};
+
+struct AmbientLightComponent {
+	vec3 color;
+	float intensity;
+};
+
+struct PointLightComponent {
+	vec3 color;
+	float intensity;
+
+	float constant;
+	float linear;
+	float quadratic;
+};
 ```

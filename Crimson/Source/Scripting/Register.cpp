@@ -148,6 +148,30 @@ namespace Crimson {
 		return ent->HasComponent<MaterialComponent>();
 	}
 
+	static DirectionalLightComponent& Entity_GetDirectionalLightComponent(Entity* ent) {
+		return ent->GetComponent<DirectionalLightComponent>();
+	}
+
+	static bool Entity_HasDirectionalLightComponent(Entity* ent) {
+		return ent->HasComponent<DirectionalLightComponent>();
+	}
+
+	static AmbientLightComponent& Entity_GetAmbientLightComponent(Entity* ent) {
+		return ent->GetComponent<AmbientLightComponent>();
+	}
+
+	static bool Entity_HasAmbientLightComponent(Entity* ent) {
+		return ent->HasComponent<AmbientLightComponent>();
+	}
+
+	static PointLightComponent& Entity_GetPointLightComponent(Entity* ent) {
+		return ent->GetComponent<PointLightComponent>();
+	}
+
+	static bool Entity_HasPointLightComponent(Entity* ent) {
+		return ent->HasComponent<PointLightComponent>();
+	}
+
 	static bool Entity_HasScriptComponent(Entity* ent) {
 		return ent->HasComponent<ScriptComponent>();
 	}
@@ -465,6 +489,22 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("PhysicsComponent", "void ApplyTorque(const vec3 &in)", asMETHOD(PhysicsComponent, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &context", asOFFSET(PhysicsComponent,context)); assert(r >= 0);
 
+		r = engine->RegisterObjectType("DirectionalLightComponent", sizeof(DirectionalLightComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("DirectionalLightComponent", "vec3 color", asOFFSET(DirectionalLightComponent,color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("DirectionalLightComponent", "float intensity", asOFFSET(DirectionalLightComponent,intensity)); assert(r >= 0);
+
+		r = engine->RegisterObjectType("AmbientLightComponent", sizeof(AmbientLightComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("AmbientLightComponent", "vec3 color", asOFFSET(AmbientLightComponent,color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("AmbientLightComponent", "float intensity", asOFFSET(AmbientLightComponent,intensity)); assert(r >= 0);
+
+		r = engine->RegisterObjectType("PointLightComponent", sizeof(PointLightComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLightComponent", "vec3 color", asOFFSET(PointLightComponent,color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLightComponent", "float intensity", asOFFSET(PointLightComponent,intensity)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLightComponent", "float constant", asOFFSET(PointLightComponent,constant)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLightComponent", "float linear", asOFFSET(PointLightComponent,linear)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLightComponent", "float quadratic", asOFFSET(PointLightComponent,quadratic)); assert(r >= 0);
+
+
 		r = engine->RegisterObjectType("MeshFilterComponent", sizeof(MeshFilterComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = engine->RegisterObjectProperty("MeshFilterComponent", "string resource", asOFFSET(MeshFilterComponent,path)); assert(r >= 0);
 
@@ -493,6 +533,13 @@ namespace Crimson {
 
 		r = engine->RegisterObjectMethod("Entity", "MaterialComponent& GetMaterialComponent()", asFUNCTION(Entity_GetMaterialComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool HasMaterialComponent()", asFUNCTION(Entity_HasMaterialComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Entity", "DirectionalLightComponent& GetDirectionalLightComponent()", asFUNCTION(Entity_GetDirectionalLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasDirectionalLightComponent()", asFUNCTION(Entity_HasDirectionalLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "AmbientLightComponent& GetAmbientLightComponent()", asFUNCTION(Entity_GetAmbientLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasAmbientLightComponent()", asFUNCTION(Entity_HasAmbientLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "PointLightComponent& GetPointLightComponent()", asFUNCTION(Entity_GetPointLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasPointLightComponent()", asFUNCTION(Entity_HasPointLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		engine->SetDefaultNamespace("Input");
 
