@@ -50,4 +50,12 @@ struct PointLightComponent {
 	float linear;
 	float quadratic;
 };
+
+struct BoxColliderComponent {
+	vec3 extents;
+};
+
+struct SphereColliderComponent {
+	float radius;
+}
 ```

@@ -140,6 +140,22 @@ namespace Crimson {
 		return ent->HasComponent<MeshFilterComponent>();
 	}
 
+	static BoxColliderComponent& Entity_GetBoxColliderComponent(Entity* ent) {
+		return ent->GetComponent<BoxColliderComponent>();
+	}
+
+	static bool Entity_HasBoxColliderComponent(Entity* ent) {
+		return ent->HasComponent<BoxColliderComponent>();
+	}
+
+	static SphereColliderComponent& Entity_GetSphereColliderComponent(Entity* ent) {
+		return ent->GetComponent<SphereColliderComponent>();
+	}
+
+	static bool Entity_HasSphereColliderComponent(Entity* ent) {
+		return ent->HasComponent<SphereColliderComponent>();
+	}
+
 	static MaterialComponent& Entity_GetMaterialComponent(Entity* ent) {
 		return ent->GetComponent<MaterialComponent>();
 	}
@@ -489,6 +505,12 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("PhysicsComponent", "void ApplyTorque(const vec3 &in)", asMETHOD(PhysicsComponent, ApplyTorque), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectProperty("PhysicsComponent", "Rigidbody &context", asOFFSET(PhysicsComponent,context)); assert(r >= 0);
 
+		r = engine->RegisterObjectType("BoxColliderComponent", sizeof(BoxColliderComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("BoxColliderComponent", "vec3 extents", asOFFSET(BoxColliderComponent,extents)); assert(r >= 0);
+
+		r = engine->RegisterObjectType("SphereColliderComponent", sizeof(SphereColliderComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectProperty("SphereColliderComponent", "float radius", asOFFSET(SphereColliderComponent,radius)); assert(r >= 0);
+
 		r = engine->RegisterObjectType("DirectionalLightComponent", sizeof(DirectionalLightComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 		r = engine->RegisterObjectProperty("DirectionalLightComponent", "vec3 color", asOFFSET(DirectionalLightComponent,color)); assert(r >= 0);
 		r = engine->RegisterObjectProperty("DirectionalLightComponent", "float intensity", asOFFSET(DirectionalLightComponent,intensity)); assert(r >= 0);
@@ -540,6 +562,12 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("Entity", "bool HasAmbientLightComponent()", asFUNCTION(Entity_HasAmbientLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "PointLightComponent& GetPointLightComponent()", asFUNCTION(Entity_GetPointLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Entity", "bool HasPointLightComponent()", asFUNCTION(Entity_HasPointLightComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Entity", "BoxColliderComponent& GetBoxColliderComponent()", asFUNCTION(Entity_GetBoxColliderComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasBoxColliderComponent()", asFUNCTION(Entity_HasBoxColliderComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Entity", "SphereColliderComponent& GetSphereColliderComponent()", asFUNCTION(Entity_GetSphereColliderComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "bool HasSphereColliderComponent()", asFUNCTION(Entity_HasSphereColliderComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		engine->SetDefaultNamespace("Input");
 
