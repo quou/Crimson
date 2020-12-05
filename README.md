@@ -31,13 +31,14 @@ Installation of dependencies isn't required, they are all built and linked on th
 ### Unix-based systems (make)
 ```
 ~/Crimson$ ./Scripts/Unix/Build.sh
-~/Crimson$ make -j6 config=release
 ```
 
 ### Windows (Visual Studio & Clang)
 **MSVC is not supported. Use Clang instead**
 
 Run `Scripts/Windows/Build.bat` to generate a Visual Studio project (includes dependencies).
+
+The game executable must be copied from the `bin` folder into the Editor working directory. On Unix this happens automatically via the `cp` command
 
 ## Dependencies
 All dependencies are included in [`Crimson/Dependencies`](https://github.com/georgelam6/Crimson/tree/master/Crimson/Dependencies) and are automatically built by Premake
