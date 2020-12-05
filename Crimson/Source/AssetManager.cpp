@@ -5,6 +5,7 @@
 #include <physfs.h>
 #include <tuple>
 #include <filesystem>
+#include <algorithm>
 
 #include "Utils/stb_image.h"
 
@@ -13,10 +14,18 @@
 #include "DefaultAssets/ParticleShader.h"
 
 namespace Crimson {
-	AssetManager::AssetManager(bool loadFromArchive) : m_loadFromArchive(loadFromArchive) {
+	AssetManager::AssetManager(bool loadFromArchive, const std::string& workingDir) :
+	 	m_workingDir(workingDir), m_loadFromArchive(loadFromArchive) {
 		if (loadFromArchive) {
 			PHYSFS_init(NULL);
 			PHYSFS_mount("Data.pck", "/", 1);
+
+			// Replace all \\ in the working directory with /, so that it works on windows as well
+			std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
+
+			if (m_workingDir.back() != '/') {
+				m_workingDir += '/';
+			}
 		}
 
 		m_meshes["Cube"] = new Mesh(
@@ -144,7 +153,12 @@ namespace Crimson {
 		return result;
 	}
 
-	Surface* AssetManager::LoadSurface(const std::string& filePath, bool reload) {
+	Surface* AssetManager::LoadSurface(const std::string& f, bool reload) {
+		std::string filePath = f;
+		if (f != "Default") {
+			filePath = m_workingDir + f;
+		}
+
 		if (m_textures.count(filePath) == 0 && !reload) {
 			unsigned char* imageData;
 			size_t fileSize;
@@ -194,7 +208,12 @@ namespace Crimson {
 		return &m_textures[filePath];
 	}
 
-	std::string AssetManager::LoadText(const std::string& filePath, bool reload) {
+	std::string AssetManager::LoadText(const std::string& f, bool reload, bool useWorkingDir) {
+		std::string filePath = f;
+		if (f != "Standard" && f != "Particle" && useWorkingDir) {
+			filePath = m_workingDir + f;
+		}
+
 		if (m_textFiles.count(filePath) == 0 && !reload) {
 			char* buffer;
 
@@ -239,21 +258,23 @@ namespace Crimson {
 		return m_textFiles[filePath];
 	}
 
-	Mesh* AssetManager::LoadMesh(const std::string& filePath) {
-		if (m_meshes.count(filePath) == 0) {
-			m_meshes[filePath] = new Mesh(LoadText(filePath).c_str());
+	Mesh* AssetManager::LoadMesh(const std::string& f) {
+		if (m_meshes.count(f) == 0) {
+			m_meshes[f] = new Mesh(LoadText(f).c_str());
 		}
-		return m_meshes[filePath];
+		return m_meshes[f];
 	}
 
-	Material* AssetManager::LoadMaterial(const std::string& filePath) {
-		if (m_materials.count(filePath) == 0) {
-			m_materials[filePath] = new Material(LoadText(filePath).c_str(), *this);
+	Material* AssetManager::LoadMaterial(const std::string& f) {
+		if (m_materials.count(f) == 0) {
+			m_materials[f] = new Material(LoadText(f).c_str(), *this);
 		}
-		return m_materials[filePath];
+		return m_materials[f];
 	}
 
-	std::vector<std::pair<std::string, std::string>> AssetManager::GetFilesFromDir(const std::string& dir) {
+	std::vector<std::pair<std::string, std::string>> AssetManager::GetFilesFromDir(const std::string& d) {
+		std::string dir = m_workingDir + d;
+
 		std::vector<std::pair<std::string, std::string>> result;
 
 		if (m_loadFromArchive) {

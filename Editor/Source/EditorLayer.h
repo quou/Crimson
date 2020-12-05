@@ -35,6 +35,8 @@ private:
 	int m_gizmoType = -1;
 	float m_snapRotation = 45.0f;
 	float m_snapTranslation = 0.5f;
+
+	std::string m_workingDir;
 public:
 	bool m_isRunning{false};
 
@@ -44,6 +46,7 @@ public:
 	void SaveScene();
 	void ReloadScene();
 	void NewScene();
+	void OpenProject();
 
 	void RunScene();
 	void StopRunning();

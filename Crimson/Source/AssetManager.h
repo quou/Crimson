@@ -17,14 +17,19 @@ namespace Crimson {
 		std::map<std::string, Material*> m_materials;
 
 		bool m_loadFromArchive;
+
+		std::string m_workingDir;
 	public:
-		AssetManager(bool loadFromArchive);
-		Surface* LoadSurface(const std::string& filePath, bool reload=false);
-		std::string LoadText(const std::string& filePath, bool reload=false);
-		Mesh* LoadMesh(const std::string& filePath);
-		Material* LoadMaterial(const std::string& filePath);
+		AssetManager(bool loadFromArchive, const std::string& workingDir = "");
+		Surface* LoadSurface(const std::string& f, bool reload=false);
+		std::string LoadText(const std::string& f, bool reload=false, bool useWorkingDir=true);
+		Mesh* LoadMesh(const std::string& f);
+		Material* LoadMaterial(const std::string& f);
 		~AssetManager();
 
 		std::vector<std::pair<std::string, std::string>> GetFilesFromDir(const std::string& dir);
+
+		inline const std::string& GetWorkingDir() {return m_workingDir;}
+		inline void SetWorkingDir(const std::string& workingDir) {m_workingDir = workingDir;}
 	};
 }

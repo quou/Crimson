@@ -25,6 +25,8 @@ private:
 		auto s = Crimson::SceneSerialiser(*m_scene);
 		s.DeserialiseText(m_scene->m_assetManager.LoadText(config.startup));
 
+		Crimson::Input::LoadConfig(m_scene->m_assetManager.LoadText("Data/InputConfig.conf").c_str());
+
 		m_scene->Init();
 	}
 
