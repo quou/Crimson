@@ -162,6 +162,8 @@ void EditorLayer::ReloadScene() {
 	m_sceneHierarchyPanel.SetContext(&*editor->m_scene);
 	m_sceneHierarchyPanel.SetSelectionContext(Crimson::Entity());
 
+	editor->m_scene->m_assetManager.SetWorkingDir(m_workingDir);
+
 	Crimson::SceneSerialiser inSerialiser(*editor->m_scene);
 	inSerialiser.DeserialiseText(file);
 }
@@ -177,7 +179,8 @@ void EditorLayer::SaveScene() {
 	if (!m_codeEditorPanel.IsFocused()) {
 		if (!m_currentSavePath.empty()) {
 			Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
-			sceneSerialiser.SerialiseText(m_currentSavePath);
+			sceneSerialiser.SerialiseText(m_workingDir + m_currentSavePath);
+			CR_LOG("%s", "Scene saved");
 		} else {
 			SaveAs();
 		}

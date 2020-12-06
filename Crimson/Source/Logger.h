@@ -12,6 +12,21 @@ enum LogType {
 	CR_LOGTYPE_WARNING,
 };
 
+#ifdef _WIN32
+	#define CR_CONSOLE_COLOR_RESET ""
+	#define CR_CONSOLE_COLOR_GREEN ""
+	#define CR_CONSOLE_COLOR_RED ""
+	#define CR_CONSOLE_COLOR_PURPLE ""
+	#define CR_CONSOLE_COLOR_CYAN ""
+#else
+	#define CR_CONSOLE_COLOR_RESET "\033[0m"
+	#define CR_CONSOLE_COLOR_GREEN "\033[1;32m"
+	#define CR_CONSOLE_COLOR_RED "\033[1;31m"
+	#define CR_CONSOLE_COLOR_PURPLE "\033[0;36m"
+	#define CR_CONSOLE_COLOR_CYAN "\033[0;36m"
+#endif
+
+
 namespace Crimson {
 	void Log(LogType logType, const char* fmt, ...);
 	void MemoryLog(LogType logType, const char* fmt, ...);

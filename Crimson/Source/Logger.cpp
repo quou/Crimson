@@ -38,16 +38,16 @@ namespace Crimson {
 		const char* type;
 		switch (logType) {
 		case CR_LOGTYPE_INFO:
-			type = "\033[1;32minfo: \033[0m";
+			type = CR_CONSOLE_COLOR_GREEN "info: " CR_CONSOLE_COLOR_RESET;
 			break;
 		case CR_LOGTYPE_ERROR:
-			type = "\033[1;31merror: \033[0m";
+			type = CR_CONSOLE_COLOR_RED "error: " CR_CONSOLE_COLOR_RESET;
 			break;
 		case CR_LOGTYPE_FATAL_ERROR:
-			type = "\033[1;31mfatal error: \033[0m";
+			type = CR_CONSOLE_COLOR_CYAN "fatal error: " CR_CONSOLE_COLOR_RESET;
 			break;
 		case CR_LOGTYPE_WARNING:
-			type = "\033[1;35mwarning: \033[0m";
+			type = CR_CONSOLE_COLOR_PURPLE "warning: " CR_CONSOLE_COLOR_RESET;
 			break;
 		default:
 			break;
@@ -60,7 +60,7 @@ namespace Crimson {
 		time(&rawtime);
 		timeinfo = localtime(&rawtime);
 
-		strftime(buffer,sizeof(buffer),"\033[0;36m[%d-%m-%Y %H:%M:%S]\033[0m ",timeinfo);
+		strftime(buffer,sizeof(buffer),CR_CONSOLE_COLOR_PURPLE "[%d-%m-%Y %H:%M:%S] " CR_CONSOLE_COLOR_RESET,timeinfo);
 		std::string timeStr(buffer);
 
 		std::string absFormat = timeStr + std::string(type) + std::string(fmt) + "\n";
