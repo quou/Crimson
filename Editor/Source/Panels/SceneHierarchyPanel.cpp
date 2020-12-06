@@ -4,6 +4,8 @@
 #include <imgui_internal.h>
 
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "../FontAwesome.h"
 
@@ -201,16 +203,12 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		DrawTextControl("Tag", tag);
 
 		glm::vec3 newRotation = glm::degrees(glm::eulerAngles(component.rotation));
-		glm::vec3 oldRotation = glm::degrees(glm::eulerAngles(component.rotation));
 
 		DrawVec3Control("Translation", component.position);
-		DrawVec3Control("Rotation", newRotation);
+		if (DrawVec3Control("Rotation", newRotation)) {
+			component.rotation = glm::radians(newRotation);
+		}
 		DrawVec3Control("Scale", component.scale, 1.0f);
-
-		newRotation = oldRotation - newRotation;
-
-		glm::normalize(component.rotation);
-		component.rotation *= glm::quat(glm::radians(newRotation));
 	}, false);
 
 	DrawComponent<Crimson::DirectionalLightComponent>("Directional Light", ent, [](auto& component){
