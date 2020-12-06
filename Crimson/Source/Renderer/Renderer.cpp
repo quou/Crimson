@@ -19,7 +19,7 @@ namespace Crimson {
 			case GL_DEBUG_SEVERITY_HIGH: CR_LOG_ERROR("%s", message); break;
 			case GL_DEBUG_SEVERITY_MEDIUM: CR_LOG_WARNING("%s", message); break;
 			case GL_DEBUG_SEVERITY_LOW: CR_LOG("%s", message); break;
-			case GL_DEBUG_SEVERITY_NOTIFICATION: CR_LOG("%s", message); break;
+			default: break;
 		}
 	}
 
