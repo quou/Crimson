@@ -370,7 +370,11 @@ void EditorLayer::OnUpdate(float delta) {
 
 
 		if (ImGui::MenuItem("Export Runtime")) {
-			showExportPopup = true;
+			if (!m_workingDir.empty()) {
+				showExportPopup = true;
+			} else {
+				CR_LOG_ERROR("%s", "Cannot export without a project folder being open");
+			}
 		}
 
 		ImGui::Separator();
@@ -387,13 +391,18 @@ void EditorLayer::OnUpdate(float delta) {
 	}
 
 	if (ImGui::BeginPopupModal("Export Runtime")) {
-
 		std::vector<std::string> scenePaths;
-		std::string path = m_workingDir + "Data/";
-		for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
-			if (entry.path().extension().string() == ".cscn") {
-				scenePaths.push_back(entry.path().string());
+
+		try {
+			std::string path = m_workingDir + "Data/";
+			for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
+				if (entry.path().extension().string() == ".cscn") {
+					scenePaths.push_back(entry.path().string());
+				}
 			}
+		} catch (const std::exception& e) {
+			CR_LOG_ERROR("%s", e.what());
+			ImGui::CloseCurrentPopup();
 		}
 
 		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
