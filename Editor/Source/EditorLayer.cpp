@@ -20,7 +20,6 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -277,6 +276,10 @@ void EditorLayer::StopRunning() {
 void EditorLayer::OnUpdate(float delta) {
 	auto editor = (Editor*)m_userData;
 
+	if (!m_workingDir.empty()) {
+		std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
+	}
+
 	editor->m_scene->m_isUpdating = m_isRunning;
 	if (m_isRunning) {
 		editor->m_scene->Update(delta);
@@ -306,8 +309,8 @@ void EditorLayer::OnUpdate(float delta) {
 
 				std::replace(f.begin(), f.end(), '\\', '/');
 
-				mkdir(std::string(f + "/Data/").c_str(),0777);
-				mkdir(std::string(f + "/Data/Scenes/").c_str(),0777);
+				std::filesystem::create_directories(f + "/Data/");
+				std::filesystem::create_directories(f + "/Data/Scenes/");
 
 				// Create project config
 				std::ofstream configF(f + "/" + "Data/ProjectConfig.conf");
@@ -395,6 +398,10 @@ void EditorLayer::OnUpdate(float delta) {
 
 		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
 		std::replace(startupScenePath.begin(), startupScenePath.end(), '\\', '/');
+
+		CR_LOG("%s", startupScenePath.c_str());
+		CR_LOG("%s", m_workingDir.c_str());
+
 		// Erase the working directory
 		size_t pos = startupScenePath.find(m_workingDir);
 		if (pos != std::string::npos) {

@@ -26,9 +26,9 @@ class Script : CrimsonBehaviour {
 )";
 
 static const char* defaultMaterial = R"(-- Crimson Material
-shader = "Data/Shaders/Standard.glsl"
+shader = "Standard"
 
-albedo = "Data/GridTexture.png"
+albedo = "Default"
 
 material = {
 	 color = {1, 1, 1},
