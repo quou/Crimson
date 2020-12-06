@@ -23,8 +23,10 @@ namespace Crimson {
 			// Replace all \\ in the working directory with /, so that it works on windows as well
 			std::replace(m_workingDir.begin(), m_workingDir.end(), '\\', '/');
 
-			if (m_workingDir.back() != '/') {
-				m_workingDir += '/';
+			if (!m_workingDir.empty()) {
+				if (m_workingDir.back() != '/') {
+					m_workingDir += '/';
+				}
 			}
 		}
 

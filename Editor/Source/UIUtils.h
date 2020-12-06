@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f);
+bool DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f);
 void DrawQuatControl(const std::string& label, glm::quat& values, float colWidth = 100.0f);
 void DrawTextControl(const std::string& label, std::string& string, float colWidth = 100.0f);
 void DrawFloatControl(const std::string& label, float* val, float step = 1.0f, float min=0.0f, float max=0.0f, float colWidth = 100.0f);

@@ -6,7 +6,11 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue, float columnWidth) {
+bool DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue, float columnWidth) {
+	bool xEdited = false;
+	bool yEdited = false;
+	bool zEdited = false;
+
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2, NULL, false);
@@ -28,7 +32,7 @@ void DrawVec3Control(const std::string& label, glm::vec3& values, float resetVal
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
+	xEdited = ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -40,7 +44,7 @@ void DrawVec3Control(const std::string& label, glm::vec3& values, float resetVal
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
+	yEdited = ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -52,7 +56,7 @@ void DrawVec3Control(const std::string& label, glm::vec3& values, float resetVal
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
+	zEdited = ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -60,6 +64,8 @@ void DrawVec3Control(const std::string& label, glm::vec3& values, float resetVal
 	ImGui::Columns(1, NULL, false);
 
 	ImGui::PopID();
+
+	return xEdited || yEdited || zEdited;
 }
 
 void DrawTextControl(const std::string& label, std::string& string, float colWidth) {
