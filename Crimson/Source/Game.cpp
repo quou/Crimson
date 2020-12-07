@@ -8,7 +8,7 @@
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "Renderer/Renderer.h"
 
-#include "CrimsonIcon.h"
+#include "Utils/stb_image.h"
 
 #include "Input.h"
 
@@ -49,7 +49,10 @@ namespace Crimson {
 		m_window = glfwCreateWindow(windowSize.first, windowSize.second, windowTitle, NULL, NULL);
 		CR_ASSERT(m_window != NULL, "%s", "Unable to create window");
 
-		GLFWimage iconImage = {75, 75, CrimsonIconImage};
+		int x,y;
+		int n = 4;
+		unsigned char* pixels = stbi_load("crimson-icon.png", &x, &y, &n, 0);
+		GLFWimage iconImage = {x, y, pixels};
 		glfwSetWindowIcon(m_window, 1, &iconImage);
 
 		glfwMakeContextCurrent(m_window);
@@ -123,6 +126,8 @@ namespace Crimson {
 		ImGuiImpl::Quit();
 
 		glfwTerminate();
+
+		stbi_image_free(pixels);
 	}
 
 	void Game::CancelExit() {
