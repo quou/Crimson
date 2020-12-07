@@ -180,7 +180,7 @@ void EditorLayer::SaveScene() {
 		if (!m_currentSavePath.empty()) {
 			Crimson::SceneSerialiser sceneSerialiser(*editor->m_scene);
 			sceneSerialiser.SerialiseText(m_workingDir + m_currentSavePath);
-			CR_LOG("%s", "Scene saved");
+			CR_LOG("Scene saved to %s%s", m_workingDir.c_str(), m_currentSavePath.c_str());
 		} else {
 			SaveAs();
 		}

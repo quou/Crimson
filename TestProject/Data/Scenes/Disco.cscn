@@ -9,9 +9,9 @@
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <entity name="Lamp A" tag="Default">
+            <entity name="Red Lamp" tag="Default">
                 <transform>
-                    <position x="2.5480198860168457" y="0" z="0"/>
+                    <position x="2.678624153137207" y="0" z="-0.72341310977935791"/>
                     <rotation w="1" x="0" y="0" z="0"/>
                     <scale x="1" y="1" z="1"/>
                 </transform>
@@ -20,7 +20,7 @@
                     <color x="1" y="0" z="0"/>
                 </pointlight>
             </entity>
-            <entity name="Lamp B" tag="Default">
+            <entity name="Green Lamp" tag="Default">
                 <transform>
                     <position x="0" y="0" z="-1.731062650680542"/>
                     <rotation w="1" x="0" y="0" z="0"/>
@@ -28,10 +28,10 @@
                 </transform>
                 <script class="DiscoLight"/>
                 <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="0" y="1" z="0.035714387893676758"/>
+                    <color x="0" y="1" z="0"/>
                 </pointlight>
             </entity>
-            <entity name="Lamp C" tag="Default">
+            <entity name="Blue Lamp" tag="Default">
                 <transform>
                     <position x="-0.28106087446212769" y="1.939720630645752" z="0.4591643214225769"/>
                     <rotation w="1" x="0" y="0" z="0"/>
@@ -39,7 +39,7 @@
                 </transform>
                 <script class="DiscoLight"/>
                 <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="0.19479387998580933" y="0.17306651175022125" z="0.46511626243591309"/>
+                    <color x="0" y="0" z="1"/>
                 </pointlight>
             </entity>
         </entity>
@@ -65,6 +65,16 @@
             <camera active="true">
                 <perspective fov="45" near="0.0099999997764825821" far="100"/>
             </camera>
+        </entity>
+        <entity name="Sun" tag="Default">
+            <transform>
+                <position x="0" y="0" z="0"/>
+                <rotation w="1" x="0" y="0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <ambientlight intensity="0.0010000000474974513">
+                <color x="1" y="1" z="1"/>
+            </ambientlight>
         </entity>
     </entities>
 </scene>

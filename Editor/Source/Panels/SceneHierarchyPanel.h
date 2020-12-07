@@ -15,6 +15,7 @@ private:
 
 	friend class EditorLayer;
 	friend class Editor;
+	friend class AssetManagerPanel;
 public:
 	SceneHierarchyPanel(Crimson::Scene* scene);
 
