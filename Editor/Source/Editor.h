@@ -94,6 +94,7 @@ private:
 		m_sceneRenderTarget.reset();
 		m_gameRenderTarget.reset();
 		m_scene.reset();
+		m_editorLayer.reset();
 	}
 public:
 };

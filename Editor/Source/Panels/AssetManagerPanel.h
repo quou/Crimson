@@ -22,6 +22,7 @@ private:
 	std::vector<DirectoryEntry> m_files;
 
 	std::shared_ptr<Crimson::Texture> m_texturePreview;
+	std::string m_texturePreviewPath;
 
 	EditorLayer* m_editorLayer;
 

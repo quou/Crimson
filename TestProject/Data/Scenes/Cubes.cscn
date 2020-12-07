@@ -33,9 +33,9 @@
                 <transform>
                     <position x="0" y="0" z="0"/>
                     <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
+                    <scale x="1.0000021457672119" y="1" z="1.0000022649765015"/>
                 </transform>
-                <ambientlight intensity="0.0099999997764825821">
+                <ambientlight intensity="0.019999999552965164">
                     <color x="1" y="1" z="1"/>
                 </ambientlight>
             </entity>
@@ -87,8 +87,8 @@
             <entity name="Physics Cube #3" tag="Default">
                 <transform>
                     <position x="5.5" y="3.4000000953674316" z="0"/>
-                    <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
-                    <scale x="1" y="1" z="1"/>
+                    <rotation w="0.65641200542449951" x="0.12143142521381378" y="0.70420151948928833" z="0.24182207882404327"/>
+                    <scale x="1.0000028610229492" y="0.9999997615814209" z="1.0000020265579224"/>
                 </transform>
                 <meshfilter>
                     <resource path="Cube"/>

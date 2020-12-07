@@ -189,6 +189,9 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 			ImGui::EndPopup();
 		}
 	} else if (assetManagerPanel.m_texturePreview) {
+		ImGui::Text("Texture Preview");
+		ImGui::Text("%s", assetManagerPanel.m_texturePreviewPath.c_str());
+
 		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(ImGui::GetWindowSize().x-16, ImGui::GetWindowSize().x-16), ImVec2(0, 0), ImVec2(1, 1));
 	}
 	ImGui::End();
