@@ -123,6 +123,10 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 
 	ImGui::Begin("Properties");
 	if (m_selectedEntity) {
+		if (assetManagerPanel.m_texturePreview) {
+			assetManagerPanel.m_texturePreview.reset();
+		}
+
 		DrawComponents(m_selectedEntity);
 
 		if (ImGui::Button("Add Component")) {
@@ -189,10 +193,41 @@ void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
 			ImGui::EndPopup();
 		}
 	} else if (assetManagerPanel.m_texturePreview) {
-		ImGui::Text("Texture Preview");
-		ImGui::Text("%s", assetManagerPanel.m_texturePreviewPath.c_str());
+		float texWidth = ImGui::GetWindowSize().x-16;
+		float texHeight = ImGui::GetWindowSize().x-16;
 
-		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(ImGui::GetWindowSize().x-16, ImGui::GetWindowSize().x-16), ImVec2(0, 0), ImVec2(1, 1));
+		ImGui::Text("Texture Preview");
+
+		ImGui::Text("%s", assetManagerPanel.m_texturePreviewPath.c_str());
+		ImGui::Text("%dx%d", assetManagerPanel.m_texturePreview->GetSize().first, assetManagerPanel.m_texturePreview->GetSize().second);
+
+		ImVec2 pos = ImGui::GetCursorScreenPos();
+
+
+		ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(texWidth, texHeight), ImVec2(0, 0), ImVec2(1, 1));
+
+		ImGuiIO& io = ImGui::GetIO();
+
+		ImVec4 tintColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+		ImVec4 borderColor = ImVec4(1.0f, 1.0f, 1.0f, 0.5f);
+
+		if (ImGui::IsItemHovered()){
+			 ImGui::BeginTooltip();
+			 float region_sz = 32.0f;
+			 float region_x = io.MousePos.x - pos.x - region_sz * 0.5f;
+			 float region_y = io.MousePos.y - pos.y - region_sz * 0.5f;
+			 float zoom = 4.0f;
+			 if (region_x < 0.0f) { region_x = 0.0f; }
+			 else if (region_x > texWidth - region_sz) { region_x = texWidth - region_sz; }
+			 if (region_y < 0.0f) { region_y = 0.0f; }
+			 else if (region_y > texHeight - region_sz) { region_y = texHeight - region_sz; }
+			 ImGui::Text("Min: (%.2f, %.2f)", region_x, region_y);
+			 ImGui::Text("Max: (%.2f, %.2f)", region_x + region_sz, region_y + region_sz);
+			 ImVec2 uv0 = ImVec2((region_x) / texWidth, (region_y) / texHeight);
+			 ImVec2 uv1 = ImVec2((region_x + region_sz) / texWidth, (region_y + region_sz) / texHeight);
+			 ImGui::Image((ImTextureID)assetManagerPanel.m_texturePreview->GetID(), ImVec2(region_sz * zoom, region_sz * zoom), uv0, uv1, tintColor, borderColor);
+			 ImGui::EndTooltip();
+		}
 	}
 	ImGui::End();
 }

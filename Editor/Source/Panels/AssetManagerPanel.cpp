@@ -179,6 +179,7 @@ void AssetManagerPanel::DrawDir(DirectoryEntry& entry, Editor* editor, SceneHier
 							  entry.extension == ".psd") {
 				   m_texturePreview = std::make_shared<Crimson::Texture>(editor->m_scene->m_assetManager.LoadSurface(entry.absPath));
 					m_texturePreviewPath = entry.absPath;
+					sceneHierarchyPanel.m_selectedEntity = Crimson::Entity();
 			   }
 			}
 		}
