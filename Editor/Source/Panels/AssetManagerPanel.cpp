@@ -194,7 +194,11 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 	if (ImGui::BeginMenuBar()) {
 		if (ImGui::MenuItem("Refresh")) {
 			auto editor = (Editor*)m_editorLayer->m_userData;
-			m_files = GetFiles(editor->m_scene->m_assetManager.GetWorkingDir() + "Data/");
+			if (!editor->m_scene->m_assetManager.GetWorkingDir().empty()) {
+				m_files = GetFiles(editor->m_scene->m_assetManager.GetWorkingDir() + "Data/");
+			} else {
+				CR_LOG_WARNING("%s", "Cannot refresh asset manager without a project folder being open")
+			}
 		}
 
 		if (ImGui::BeginMenu("Create...")) {

@@ -352,7 +352,7 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 	std::string name = ent.GetComponent<Crimson::TransformComponent>().name;
 
-	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 	if (ent.GetComponent<Crimson::TransformComponent>().children.size() <= 0) {
 		flags |= ImGuiTreeNodeFlags_Leaf;
@@ -373,6 +373,10 @@ void SceneHierarchyPanel::DrawEntityNode(Crimson::Entity ent) {
 		titleString = ICON_FK_CODE + ("   " + name);
 	} else if (ent.HasComponent<Crimson::ParticleSystemComponent>()) {
 		titleString = ICON_FK_FIRE + ("   " + name);
+	}
+
+	if (ent.GetComponent<Crimson::TransformComponent>().active) {
+		flags |= ImGuiTreeNodeFlags_DefaultOpen;
 	}
 
 	bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)ent, flags, "%s", titleString.c_str());
