@@ -44,8 +44,9 @@ namespace Crimson {
 	}
 
 	void LightScene::Apply(Camera& camera, Shader& shader) {
+		shader.SetInt("u_useSun", m_useSun);
+
 		shader.SetInt("u_ambientLightCount", m_ambientLights.size());
-		shader.SetInt("u_directionalLightCount", m_directionalLights.size());
 		shader.SetInt("u_pointLightCount", m_pointLights.size());
 		shader.SetFloat("u_gamma", m_gamma);
 		shader.SetInt("u_shadowmapResolution", m_shadowmapResolution);
@@ -57,18 +58,12 @@ namespace Crimson {
 			i++;
 		}
 
-		i = 0;
-		for (auto& light : m_directionalLights) {
-			if (i >= m_maxDirectionalLights) {break;}
-			shader.SetFloat("u_directionalLights[" + std::to_string(i) + "].intensity", light.intensity);
-			shader.SetVec3("u_directionalLights[" + std::to_string(i) + "].direction", light.direction);
-			shader.SetVec3("u_directionalLights[" + std::to_string(i) + "].color", light.color);
+		shader.SetFloat("u_sun.intensity", m_sun.intensity);
+		shader.SetVec3("u_sun.direction", m_sun.direction);
+		shader.SetVec3("u_sun.color", m_sun.color);
 
-			shader.SetMat4("u_directionalLights[" + std::to_string(i) + "].transform", light.CalculateTransform(camera));
-			shader.SetInt("u_directionalLights[" + std::to_string(i) + "].index", i);
-
-			i++;
-		}
+		shader.SetMat4("u_sun.transform", m_sun.CalculateTransform(camera));
+		shader.SetInt("u_sun.index", i);
 
 		i = 0;
 		for (auto& light : m_pointLights) {

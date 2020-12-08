@@ -263,7 +263,6 @@ namespace Crimson {
 
 	void Scene::ApplyLighting() {
 		m_lightScene->m_ambientLights.clear();
-		m_lightScene->m_directionalLights.clear();
 		m_lightScene->m_pointLights.clear();
 		{
 			auto view = m_registry.view<TransformComponent, AmbientLightComponent>();
@@ -274,11 +273,16 @@ namespace Crimson {
 			}
 		}
 		{
+			m_lightScene->m_useSun = false;
+
 			auto view = m_registry.view<TransformComponent, DirectionalLightComponent>();
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
 
-				m_lightScene->m_directionalLights.push_back(DirectionalLight{glm::degrees(glm::eulerAngles(t.rotation)), l.color, l.intensity});
+				m_lightScene->m_sun = DirectionalLight{glm::degrees(glm::eulerAngles(t.rotation)), l.color, l.intensity};
+				m_lightScene->m_useSun = true;
+
+				break;
 			}
 		}
 		{

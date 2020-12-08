@@ -33,7 +33,6 @@ void main() {
 out vec4 FragColor;
 
 uniform int u_ambientLightCount = 0;
-uniform int u_directionalLightCount = 0;
 uniform int u_pointLightCount = 0;
 
 uniform float u_gamma = 2.2;
@@ -83,7 +82,8 @@ struct Material {
 
 uniform vec3 u_cameraPosition;
 uniform AmbientLight u_ambientLights[100];
-uniform DirectionalLight u_directionalLights[10];
+uniform DirectionalLight u_sun;
+uniform int u_useSun;
 uniform PointLight u_pointLights[100];
 
 uniform Material u_material;
@@ -154,7 +154,7 @@ void main() {
 
 	vec3 lightingResult = vec3(1);
 
-	if (u_ambientLightCount > 0 || u_directionalLightCount > 0 || u_pointLightCount > 0) {
+	if (u_ambientLightCount > 0 || u_useSun != 0 || u_pointLightCount > 0) {
 		lightingResult = vec3(0);
 	}
 
@@ -162,8 +162,8 @@ void main() {
 		lightingResult += u_ambientLights[i].color * vec3(u_ambientLights[i].intensity);
 	}
 
-	for (int i = 0; i < u_directionalLightCount; i++) {
-		lightingResult += CalculateDirectionalLight(u_directionalLights[i], norm, viewDir);
+	if (u_useSun != 0) {
+		lightingResult += CalculateDirectionalLight(u_sun, norm, viewDir);
 	}
 
 	for (int i = 0; i < u_pointLightCount; i++) {

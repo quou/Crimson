@@ -62,6 +62,9 @@ namespace Crimson {
 	}
 
 	void Renderer::ShadowPass(Camera& camera, LightScene& lightScene, std::vector<glm::mat4>& transforms, std::vector<Mesh*>& meshes) {
+		// No point re-rendering the scene if we don't need to
+		if (!lightScene.m_useSun) {return;}
+
 		int oldViewport[4];
 
 		glGetIntegerv(GL_VIEWPORT, oldViewport);
@@ -71,24 +74,15 @@ namespace Crimson {
 
 		lightScene.BindShadowmapForWrite();
 
-		int i = 0;
-		for (auto& light : lightScene.m_directionalLights) {
+		int res = lightScene.m_shadowmapResolution;
 
-			int res = lightScene.m_shadowmapResolution;
+		glViewport(0,0,res,res);
+		glClear(GL_DEPTH_BUFFER_BIT);
 
-			glViewport(0,0,res,res);
-			glClear(GL_DEPTH_BUFFER_BIT);
-
-			int ii = 0;
-			for (auto mesh : meshes) {
-				lightScene.m_shadowmapShader->SetMat4("u_model", transforms[ii]);
-				lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", light.CalculateTransform(camera));
-				Draw(*mesh);
-
-				ii++;
-			}
-
-			i++;
+		for (unsigned int i = 0; i < meshes.size(); i++) {
+			lightScene.m_shadowmapShader->SetMat4("u_model", transforms[i]);
+			lightScene.m_shadowmapShader->SetMat4("u_directionalLightModel", lightScene.m_sun.CalculateTransform(camera));
+			Draw(*meshes[i]);
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
