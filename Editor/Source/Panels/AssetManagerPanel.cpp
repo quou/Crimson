@@ -249,10 +249,13 @@ void AssetManagerPanel::Render(Editor* editor, SceneHierarchyPanel& sceneHierarc
 				const char* const acceptedExtensionsIn[] = {"*.obj"};
 				const char* const acceptedExtensionsOut[] = {"*.obj"};
 				const char* in = tinyfd_openFileDialog("Import Mesh", "Data/", 1, acceptedExtensionsIn, "Mesh files", 0);
-				const char* out = tinyfd_saveFileDialog("Save Mesh", "Data/Mesh.mesh", 1, acceptedExtensionsOut, "Crimson Mesh Files");
 
-				if (in && out) {
-					Crimson::ConvertFromObj(in, out);
+				if (in) {
+					const char* out = tinyfd_saveFileDialog("Save Mesh", "Data/Mesh.mesh", 1, acceptedExtensionsOut, "Crimson Mesh Files");
+
+					if (out) {
+						Crimson::ConvertFromObj(in, out);
+					}
 				}
 			}
 
