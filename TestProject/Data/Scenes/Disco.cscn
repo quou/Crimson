@@ -3,47 +3,27 @@
         <clearcolor x="0" y="0" z="0"/>
     </config>
     <entities>
-        <entity name="Disco Lights" tag="Default">
+        <entity name="Sun" tag="Default" active="true">
             <transform>
                 <position x="0" y="0" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <entity name="Red Lamp" tag="Default">
-                <transform>
-                    <position x="2.678624153137207" y="0" z="-0.72341310977935791"/>
-                    <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <script class="DiscoLight"/>
-                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="1" y="0" z="0"/>
-                </pointlight>
-            </entity>
-            <entity name="Green Lamp" tag="Default">
-                <transform>
-                    <position x="0" y="0" z="-1.731062650680542"/>
-                    <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <script class="DiscoLight"/>
-                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="0" y="1" z="0"/>
-                </pointlight>
-            </entity>
-            <entity name="Blue Lamp" tag="Default">
-                <transform>
-                    <position x="-0.28106087446212769" y="1.939720630645752" z="0.4591643214225769"/>
-                    <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <script class="DiscoLight"/>
-                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="0" y="0" z="1"/>
-                </pointlight>
-            </entity>
+            <ambientlight intensity="0.0099999997764825821">
+                <color x="1" y="1" z="1"/>
+            </ambientlight>
         </entity>
-        <entity name="Cube" tag="Default">
+        <entity name="Main Camera" tag="Default" active="true">
+            <transform>
+                <position x="7.1999998092651367" y="4.9000000953674316" z="-11.899999618530273"/>
+                <rotation w="0.94162815809249878" x="-0.15248540043830872" y="-0.29796317219734192" z="-0.036091826856136322"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <camera active="true">
+                <perspective fov="45" near="0.0099999997764825821" far="100"/>
+            </camera>
+        </entity>
+        <entity name="Cube" tag="Default" active="true">
             <transform>
                 <position x="0" y="0" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
@@ -56,25 +36,45 @@
                 <resource path="Default"/>
             </material>
         </entity>
-        <entity name="Main Camera" tag="Default">
-            <transform>
-                <position x="7.1999998092651367" y="4.9000000953674316" z="-11.899999618530273"/>
-                <rotation w="0.94162815809249878" x="-0.15248540043830872" y="-0.29796317219734192" z="-0.036091826856136322"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <camera active="true">
-                <perspective fov="45" near="0.0099999997764825821" far="100"/>
-            </camera>
-        </entity>
-        <entity name="Sun" tag="Default">
+        <entity name="Disco Lights" tag="Default" active="true">
             <transform>
                 <position x="0" y="0" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <ambientlight intensity="0.0010000000474974513">
-                <color x="1" y="1" z="1"/>
-            </ambientlight>
+            <entity name="Red Lamp" tag="Default" active="true">
+                <transform>
+                    <position x="2.678624153137207" y="0" z="-0.72341310977935791"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <script class="DiscoLight"/>
+                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
+                    <color x="1" y="0" z="0"/>
+                </pointlight>
+            </entity>
+            <entity name="Green Lamp" tag="Default" active="true">
+                <transform>
+                    <position x="0" y="0" z="-1.731062650680542"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <script class="DiscoLight"/>
+                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
+                    <color x="0" y="1" z="0"/>
+                </pointlight>
+            </entity>
+            <entity name="Blue Lamp" tag="Default" active="true">
+                <transform>
+                    <position x="-0.28106087446212769" y="1.939720630645752" z="0.4591643214225769"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <script class="DiscoLight"/>
+                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
+                    <color x="0" y="0" z="1"/>
+                </pointlight>
+            </entity>
         </entity>
     </entities>
 </scene>
