@@ -237,6 +237,8 @@ void SceneHierarchyPanel::DrawComponents(Crimson::Entity ent) {
 		auto& name = component.name;
 		auto& tag = component.tag;
 
+		DrawBoolControl("Active", &component.active);
+
 		DrawTextControl("Name", name);
 		DrawTextControl("Tag", tag);
 

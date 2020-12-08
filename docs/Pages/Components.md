@@ -7,6 +7,7 @@ struct TransformComponent {
 	vec3 scale;
 	std::string name;
 	std::string tag;
+	bool active;
 };
 
 struct PhysicsComponent {

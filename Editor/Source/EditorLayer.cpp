@@ -586,7 +586,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 		// Gizmos
 		auto selectedEntity = m_sceneHierarchyPanel.m_selectedEntity;
-		if (selectedEntity && m_gizmoType > -1) {
+		if (selectedEntity && selectedEntity.GetComponent<Crimson::TransformComponent>().active && m_gizmoType > -1) {
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);

@@ -144,6 +144,8 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, mesh] = view.get<TransformComponent, MeshFilterComponent>(ent);
 
+			if (!transform.active) {continue;}
+
 			m_assetManager.LoadMesh(mesh.path);
 			//m_meshFutures.push_back(std::async(std::launch::async, LoadMesh, &m_assetManager, mesh.path));
 		}
@@ -153,6 +155,8 @@ namespace Crimson {
 		auto view = m_registry.view<TransformComponent, MaterialComponent>();
 		for (auto ent : view) {
 			auto [transform, material] = view.get<TransformComponent, MaterialComponent>(ent);
+
+			if (!transform.active) {continue;}
 
 			m_assetManager.LoadMaterial(material.path);
 		}
@@ -170,6 +174,8 @@ namespace Crimson {
 		auto view = m_registry.view<TransformComponent, PhysicsComponent>();
 		for (auto ent : view) {
 			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+
+			if (!transform.active) {continue;}
 
 			auto b = physics.context->m_body;
 
@@ -248,6 +254,8 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(ent);
 
+				if (!transform.active) {continue;}
+
 				camera.camera.position = transform.worldPosition;
 				camera.camera.rotation = glm::degrees(glm::eulerAngles(transform.rotation));
 
@@ -269,6 +277,8 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, AmbientLightComponent>(ent);
 
+				if (!t.active) {continue;}
+
 				m_lightScene->m_ambientLights.push_back(AmbientLight{l.color, l.intensity});
 			}
 		}
@@ -278,6 +288,8 @@ namespace Crimson {
 			auto view = m_registry.view<TransformComponent, DirectionalLightComponent>();
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, DirectionalLightComponent>(ent);
+
+				if (!t.active) {continue;}
 
 				m_lightScene->m_sun = DirectionalLight{glm::degrees(glm::eulerAngles(t.rotation)), l.color, l.intensity};
 				m_lightScene->m_useSun = true;
@@ -290,6 +302,8 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [t, l] = view.get<TransformComponent, PointLightComponent>(ent);
 
+				if (!t.active) {continue;}
+
 				m_lightScene->m_pointLights.push_back(PointLight{t.worldPosition, l.constant, l.linear, l.quadratic, l.color, l.intensity});
 			}
 		}
@@ -301,6 +315,8 @@ namespace Crimson {
 		auto view = m_registry.view<TransformComponent, MeshFilterComponent, MaterialComponent>();
 		for (auto ent : view) {
 			auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
+
+			if (!transform.active) {continue;}
 
 			meshes.push_back(m_assetManager.LoadMesh(mesh.path));
 			transforms.push_back(transform.GetTransform());
@@ -321,6 +337,8 @@ namespace Crimson {
 			for (auto ent : view) {
 				auto [transform, mesh, material] = view.get<TransformComponent, MeshFilterComponent, MaterialComponent>(ent);
 
+				if (!transform.active) {continue;}
+
 				Renderer::ShaderPass(*mainCamera, *m_lightScene, transform.GetTransform(), *m_assetManager.LoadMaterial(material.path));
 				Renderer::Draw(*m_assetManager.LoadMesh(mesh.path));
 			}
@@ -330,6 +348,8 @@ namespace Crimson {
 			auto view = m_registry.view<TransformComponent, ParticleSystemComponent>();
 			for (auto ent : view) {
 				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
+
+				if (!transform.active) {continue;}
 
 				std::shared_ptr<Shader> shader;
 				if (m_registry.has<MaterialComponent>(ent)) {
@@ -350,6 +370,8 @@ namespace Crimson {
 			auto view = m_registry.view<TransformComponent, ParticleSystemComponent>();
 			for (auto ent : view) {
 				auto [transform, sys] = view.get<TransformComponent, ParticleSystemComponent>(ent);
+
+				if (!transform.active) {continue;}
 
 				if (sys.context) {
 					sys.context->m_position = transform.worldPosition;
@@ -384,6 +406,9 @@ namespace Crimson {
 				transform.worldPosition = transform.position;
 			} else {
 				transform.worldPosition = transform.position + transform.parent.GetComponent<TransformComponent>().worldPosition;
+				if (!transform.parent.GetComponent<TransformComponent>().active) {
+					transform.active = false;
+				}
 			}
 		}
 	}
@@ -392,6 +417,8 @@ namespace Crimson {
 		auto view = m_registry.view<TransformComponent, CameraComponent>();
 		for (auto ent : view) {
 			auto [transform, camera] = view.get<TransformComponent, CameraComponent>(ent);
+
+			if (!transform.active) {continue;}
 
 			camera.camera.UpdateProjection(size);
 		}
@@ -448,6 +475,8 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
+			if (!transform.active) {continue;}
+
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
 			} else if (physics.context->m_body == other) {
@@ -471,6 +500,8 @@ namespace Crimson {
 		for (auto ent : view) {
 			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
 
+			if (!transform.active) {continue;}
+
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);
 			} else if (physics.context->m_body == other) {
@@ -493,6 +524,8 @@ namespace Crimson {
 
 		for (auto ent : view) {
 			auto [transform, physics] = view.get<TransformComponent, PhysicsComponent>(ent);
+
+			if (!transform.active) {continue;}
 
 			if (physics.context->m_body == body) {
 				currentEnt = Entity(ent, this);

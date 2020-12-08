@@ -3,53 +3,62 @@
         <clearcolor x="0.69237422943115234" y="0.69239205121994019" z="0.86046510934829712"/>
     </config>
     <entities>
-        <entity name="Lights" tag="Default">
+        <entity name="Player" tag="Default" active="true">
             <transform>
-                <position x="-0.40000000596046448" y="0" z="0"/>
-                <rotation w="1" x="0" y="0" z="0"/>
+                <position x="0" y="4.0999999046325684" z="0"/>
+                <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <entity name="Blue Lamp" tag="Default">
-                <transform>
-                    <position x="-4.4000000953674316" y="0" z="0"/>
-                    <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="0" y="0.26191258430480957" z="1"/>
-                </pointlight>
-            </entity>
-            <entity name="Red Lamp" tag="Default">
-                <transform>
-                    <position x="5.3000001907348633" y="0.80000001192092896" z="0"/>
-                    <rotation w="1" x="0" y="0" z="0"/>
-                    <scale x="1" y="1" z="1"/>
-                </transform>
-                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
-                    <color x="1" y="0" z="0"/>
-                </pointlight>
-            </entity>
-            <entity name="Sun" tag="Default">
-                <transform>
-                    <position x="0" y="0" z="0"/>
-                    <rotation w="0.8689151406288147" x="-0.27623483538627625" y="-0.33315163850784302" z="-0.24018916487693787"/>
-                    <scale x="1.0000021457672119" y="1" z="1.0000022649765015"/>
-                </transform>
-                <ambientlight intensity="0.019999999552965164">
-                    <color x="1" y="1" z="1"/>
-                </ambientlight>
-                <directionallight intensity="1">
-                    <color x="1" y="1" z="1"/>
-                </directionallight>
-            </entity>
+            <meshfilter>
+                <resource path="Cube"/>
+            </meshfilter>
+            <material>
+                <resource path="Default"/>
+            </material>
+            <boxcollider>
+                <extents x="1" y="1" z="1"/>
+            </boxcollider>
+            <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
+                <cog x="0" y="0" z="0"/>
+            </physics>
+            <script class="PlayerController"/>
         </entity>
-        <entity name="Cubes" tag="Default">
+        <entity name="Ground" tag="Default" active="true">
+            <transform>
+                <position x="0" y="-2.9000000953674316" z="0"/>
+                <rotation w="1" x="4.3711217756481346e-08" y="0" z="0"/>
+                <scale x="10" y="0.20000000298023224" z="10"/>
+            </transform>
+            <meshfilter>
+                <resource path="Cube"/>
+            </meshfilter>
+            <material>
+                <resource path="Default"/>
+            </material>
+            <boxcollider>
+                <extents x="10" y="0.20000000298023224" z="10"/>
+            </boxcollider>
+            <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="true">
+                <cog x="0" y="0" z="0"/>
+            </physics>
+        </entity>
+        <entity name="Main Camera" tag="Default" active="true">
+            <transform>
+                <position x="-13.600000381469727" y="5.3000001907348633" z="-19.399999618530273"/>
+                <rotation w="0.92660564184188843" x="-0.13270056247711182" y="0.34828817844390869" z="0.049878880381584167"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <camera active="true">
+                <perspective fov="45" near="0.0099999997764825821" far="100"/>
+            </camera>
+        </entity>
+        <entity name="Cubes" tag="Default" active="true">
             <transform>
                 <position x="0" y="0" z="0"/>
                 <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <entity name="Physics Cube #1" tag="Default">
+            <entity name="Physics Cube #1" tag="Default" active="true">
                 <transform>
                     <position x="0" y="0" z="0"/>
                     <rotation w="1" x="0" y="0" z="0"/>
@@ -68,7 +77,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #2" tag="Default">
+            <entity name="Physics Cube #2" tag="Default" active="true">
                 <transform>
                     <position x="-3.0999999046325684" y="0.80000001192092896" z="0"/>
                     <rotation w="0.88923352956771851" x="0.3510192334651947" y="0.28036698698997498" z="-0.086276531219482422"/>
@@ -87,7 +96,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #3" tag="Default">
+            <entity name="Physics Cube #3" tag="Default" active="true">
                 <transform>
                     <position x="5.5" y="3.4000000953674316" z="0"/>
                     <rotation w="0.65641200542449951" x="0.12143142521381378" y="0.70420151948928833" z="0.24182207882404327"/>
@@ -106,7 +115,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #4" tag="Default">
+            <entity name="Physics Cube #4" tag="Default" active="true">
                 <transform>
                     <position x="-7" y="3.0999999046325684" z="0"/>
                     <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
@@ -125,7 +134,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #5" tag="Default">
+            <entity name="Physics Cube #5" tag="Default" active="true">
                 <transform>
                     <position x="3.0999999046325684" y="7.5" z="0"/>
                     <rotation w="1" x="0" y="0" z="0"/>
@@ -144,7 +153,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #6" tag="Default">
+            <entity name="Physics Cube #6" tag="Default" active="true">
                 <transform>
                     <position x="-2.5" y="4.5999999046325684" z="2.5999999046325684"/>
                     <rotation w="0.98897862434387207" x="0.0088803088292479515" y="0.13195791840553284" z="-0.066554784774780273"/>
@@ -163,7 +172,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #7" tag="Default">
+            <entity name="Physics Cube #7" tag="Default" active="true">
                 <transform>
                     <position x="0" y="8.8000001907348633" z="0"/>
                     <rotation w="0.86694025993347168" x="1.6108963052374747e-08" y="0.49841210246086121" z="1.6108963052374747e-08"/>
@@ -182,7 +191,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #8" tag="Default">
+            <entity name="Physics Cube #8" tag="Default" active="true">
                 <transform>
                     <position x="0" y="4.0999999046325684" z="3.9000000953674316"/>
                     <rotation w="1" x="0" y="0" z="0"/>
@@ -201,7 +210,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #9" tag="Default">
+            <entity name="Physics Cube #9" tag="Default" active="true">
                 <transform>
                     <position x="3.5" y="0" z="3.2000000476837158"/>
                     <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
@@ -220,7 +229,7 @@
                     <cog x="0" y="0" z="0"/>
                 </physics>
             </entity>
-            <entity name="Physics Cube #10" tag="Default">
+            <entity name="Physics Cube #10" tag="Default" active="true">
                 <transform>
                     <position x="3.4000000953674316" y="0" z="0"/>
                     <rotation w="0.9670749306678772" x="0.22148972749710083" y="-0.12216977030038834" z="0.027980618178844452"/>
@@ -240,54 +249,45 @@
                 </physics>
             </entity>
         </entity>
-        <entity name="Main Camera" tag="Default">
+        <entity name="Lights" tag="Default" active="true">
             <transform>
-                <position x="-13.600000381469727" y="5.3000001907348633" z="-19.399999618530273"/>
-                <rotation w="0.92660564184188843" x="-0.13270056247711182" y="0.34828817844390869" z="0.049878880381584167"/>
+                <position x="-0.40000000596046448" y="0" z="0"/>
+                <rotation w="1" x="0" y="0" z="0"/>
                 <scale x="1" y="1" z="1"/>
             </transform>
-            <camera active="true">
-                <perspective fov="45" near="0.0099999997764825821" far="100"/>
-            </camera>
-        </entity>
-        <entity name="Ground" tag="Default">
-            <transform>
-                <position x="0" y="-2.9000000953674316" z="0"/>
-                <rotation w="1" x="4.3711217756481346e-08" y="0" z="0"/>
-                <scale x="10" y="0.20000000298023224" z="10"/>
-            </transform>
-            <meshfilter>
-                <resource path="Cube"/>
-            </meshfilter>
-            <material>
-                <resource path="Default"/>
-            </material>
-            <boxcollider>
-                <extents x="10" y="0.20000000298023224" z="10"/>
-            </boxcollider>
-            <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="true">
-                <cog x="0" y="0" z="0"/>
-            </physics>
-        </entity>
-        <entity name="Player" tag="Default">
-            <transform>
-                <position x="0" y="4.0999999046325684" z="0"/>
-                <rotation w="0.84462320804595947" x="0.19134171307086945" y="0.46193981170654297" z="0.19134169816970825"/>
-                <scale x="1" y="1" z="1"/>
-            </transform>
-            <meshfilter>
-                <resource path="Cube"/>
-            </meshfilter>
-            <material>
-                <resource path="Default"/>
-            </material>
-            <boxcollider>
-                <extents x="1" y="1" z="1"/>
-            </boxcollider>
-            <physics usegravity="true" mass="1" friction="0.30000001192092896" bounciness="0.10000000149011612" iskinematic="false">
-                <cog x="0" y="0" z="0"/>
-            </physics>
-            <script class="PlayerController"/>
+            <entity name="Blue Lamp" tag="Default" active="true">
+                <transform>
+                    <position x="-4.4000000953674316" y="0" z="0"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
+                    <color x="0" y="0.26191258430480957" z="1"/>
+                </pointlight>
+            </entity>
+            <entity name="Red Lamp" tag="Default" active="true">
+                <transform>
+                    <position x="5.3000001907348633" y="0.80000001192092896" z="0"/>
+                    <rotation w="1" x="0" y="0" z="0"/>
+                    <scale x="1" y="1" z="1"/>
+                </transform>
+                <pointlight intensity="1" constant="1" linear="0.090000003576278687" quadratic="0.032000001519918442">
+                    <color x="1" y="0" z="0"/>
+                </pointlight>
+            </entity>
+            <entity name="Sun" tag="Default" active="true">
+                <transform>
+                    <position x="0" y="0" z="0"/>
+                    <rotation w="0.8689151406288147" x="-0.27623483538627625" y="-0.33315163850784302" z="-0.24018916487693787"/>
+                    <scale x="1.0000021457672119" y="1" z="1.0000022649765015"/>
+                </transform>
+                <ambientlight intensity="0.019999999552965164">
+                    <color x="1" y="1" z="1"/>
+                </ambientlight>
+                <directionallight intensity="1">
+                    <color x="1" y="1" z="1"/>
+                </directionallight>
+            </entity>
         </entity>
     </entities>
 </scene>

@@ -22,6 +22,8 @@ namespace Crimson {
 		std::string tag;
 		std::string guid;
 
+		bool active{true};
+
 		Entity parent;
 		std::vector<Entity> children;
 
