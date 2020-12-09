@@ -22,5 +22,5 @@ public:
 	inline void SetContext(Crimson::Scene* scene) {m_scene = scene;}
 	inline void SetSelectionContext(Crimson::Entity ent) {m_selectedEntity = ent;}
 
-	void Render(AssetManagerPanel& assetManagerPanel);
+	void Render(AssetManagerPanel& assetManagerPanel, float delta);
 };

@@ -22,8 +22,11 @@ namespace Crimson {
 	private:
 		std::string m_code;
 		std::vector<LinterMessage> m_messages;
+		std::vector<std::string> m_classes;
 
 		asIScriptEngine* m_asEngine;
+		asIScriptModule* m_asModule;
+		asITypeInfo* m_baseTypeInfo;
 	public:
 		Linter();
 		~Linter();
@@ -33,5 +36,8 @@ namespace Crimson {
 		}
 
 		std::vector<LinterMessage>& Lint(const std::string& code);
+		std::vector<LinterMessage>& LintDir(const std::string& dir);
+
+		inline std::vector<std::string>& GetClassNames() {return m_classes;}
 	};
 }

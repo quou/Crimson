@@ -93,7 +93,7 @@ void DrawTextControl(const std::string& label, std::string& string, float colWid
 	ImGui::PopID();
 }
 
-void DrawFloatControl(const std::string& label, float* val, float step, float min, float max, float colWidth) {
+void DrawFloatControl(const std::string& label, float* val, float step, float min, float max, const std::string& tooltip, float colWidth) {
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2, NULL, false);
@@ -101,6 +101,13 @@ void DrawFloatControl(const std::string& label, float* val, float step, float mi
 
 	ImGui::SetColumnWidth(0, colWidth);
 	ImGui::Text("%s", label.c_str());
+	if (ImGui::IsItemHovered() && !tooltip.empty()) {
+		ImGui::SetNextWindowSize(ImVec2(200.0f, 0.0f));
+
+		ImGui::BeginTooltip();
+		ImGui::TextWrapped("%s", tooltip.c_str());
+		ImGui::EndTooltip();
+	}
 	ImGui::NextColumn();
 
 	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
@@ -223,7 +230,11 @@ void DrawLinePlot(const std::string& label, float* values, unsigned int valueLen
 	ImGui::PopID();
 }
 
-std::string DrawComboBox(const std::string& label, const std::vector<std::string>& items, float colWidth) {
+std::string DrawComboBox(const std::string& label, const std::string& defaultItem, const std::vector<std::string>& items, float colWidth) {
+	if (items.size() <= 0) {
+		return defaultItem;
+	}
+
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2, NULL, false);
@@ -235,8 +246,13 @@ std::string DrawComboBox(const std::string& label, const std::vector<std::string
 
 	ImGui::PushMultiItemsWidths(1, ImGui::CalcItemWidth());
 
-	static int item_current_idx = 0;                    // Here our selection data is an index.
-	const char* combo_label = "Select";  // Label to preview before opening the combo (technically it could be anything)
+	static int item_current_idx = 0;
+	const char* combo_label = defaultItem.c_str();
+
+	if (item_current_idx < items.size()) {
+		combo_label = items[item_current_idx].c_str();
+	}
+
 	if (ImGui::BeginCombo("##COMBO", combo_label))
 	{
 		 for (int n = 0; n < items.size(); n++)

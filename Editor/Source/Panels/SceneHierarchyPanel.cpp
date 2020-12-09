@@ -53,7 +53,7 @@ static void DrawComponent(const std::string& componentName, Crimson::Entity ent,
 	}
 }
 
-void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel) {
+void SceneHierarchyPanel::Render(AssetManagerPanel& assetManagerPanel, float delta) {
 	ImGui::Begin("Scene Hierarchy");
 
 	if (ImGui::BeginDragDropTarget()) {

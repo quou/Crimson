@@ -126,7 +126,7 @@ namespace Crimson {
 			}
 
 			m_scriptManager->Init();
-		} catch (const std::exception& e) {
+		} catch (const std::filesystem::filesystem_error& e) {
 			CR_LOG_ERROR("%s", "Failed to load scripts: Data folder nonexistant");
 		}
 	}
