@@ -470,6 +470,7 @@ namespace Crimson {
       r = engine->RegisterObjectProperty("TransformComponent", "quat rotation", asOFFSET(TransformComponent,rotation)); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "string tag", asOFFSET(TransformComponent,tag)); assert(r >= 0);
       r = engine->RegisterObjectProperty("TransformComponent", "string name", asOFFSET(TransformComponent,name)); assert(r >= 0);
+      r = engine->RegisterObjectProperty("TransformComponent", "bool active", asOFFSET(TransformComponent,name)); assert(r >= 0);
 
 		r = engine->RegisterObjectType("ScriptComponent", sizeof(ScriptComponent), asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 

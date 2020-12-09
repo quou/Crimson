@@ -177,13 +177,9 @@ namespace Crimson {
 	}
 
 	void Mesh::DrawWireframe() {
-		glLineWidth(4.0f);
-
 		glBindVertexArray(m_va);
 		glDrawElements(GL_LINE_STRIP, m_indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
-
-		glLineWidth(1.0f);
 	}
 
 	Mesh::~Mesh() {

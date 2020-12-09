@@ -293,7 +293,7 @@ void EditorLayer::OnUpdate(float delta) {
 	m_consolePanel.Render();
 	m_codeEditorPanel.Render(delta);
 	m_assetManagerPanel.Render((Editor*)m_userData, m_sceneHierarchyPanel, m_codeEditorPanel);
-	m_sceneHierarchyPanel.Render(m_assetManagerPanel);
+	m_sceneHierarchyPanel.Render(m_assetManagerPanel, delta);
 
 	static bool showExportPopup = false;
 
@@ -400,7 +400,13 @@ void EditorLayer::OnUpdate(float delta) {
 			std::string path = m_workingDir + "Data/";
 			for (const auto& entry : std::filesystem::recursive_directory_iterator(path)) {
 				if (entry.path().extension().string() == ".cscn") {
-					scenePaths.push_back(entry.path().string());
+					auto p = entry.path().string();
+					std::replace(p.begin(), p.end(), '\\', '/');
+					size_t pos = p.find(m_workingDir);
+					if (pos != std::string::npos) {
+						p.erase(pos, m_workingDir.length());
+					}
+					scenePaths.push_back(p);
 				}
 			}
 		} catch (const std::exception& e) {
@@ -408,18 +414,7 @@ void EditorLayer::OnUpdate(float delta) {
 			ImGui::CloseCurrentPopup();
 		}
 
-		std::string startupScenePath = DrawComboBox("Startup Scene", scenePaths);
-		std::replace(startupScenePath.begin(), startupScenePath.end(), '\\', '/');
-
-		CR_LOG("%s", startupScenePath.c_str());
-		CR_LOG("%s", m_workingDir.c_str());
-
-		// Erase the working directory
-		size_t pos = startupScenePath.find(m_workingDir);
-		if (pos != std::string::npos) {
-			startupScenePath.erase(pos, m_workingDir.length());
-		}
-		ImGui::Text("%s", startupScenePath.c_str());
+		std::string startupScenePath = DrawComboBox("Startup Scene", "Select", scenePaths);
 
 		if (ImGui::Button("Export")) {
 
@@ -586,7 +581,7 @@ void EditorLayer::OnUpdate(float delta) {
 
 		// Gizmos
 		auto selectedEntity = m_sceneHierarchyPanel.m_selectedEntity;
-		if (selectedEntity && m_gizmoType > -1) {
+		if (selectedEntity && selectedEntity.GetComponent<Crimson::TransformComponent>().active && m_gizmoType > -1) {
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);

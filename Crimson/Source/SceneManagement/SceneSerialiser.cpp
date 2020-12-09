@@ -52,6 +52,7 @@ namespace Crimson {
 
 			printer.PushAttribute("name", transform.name.c_str());
 			printer.PushAttribute("tag", transform.tag.c_str());
+			printer.PushAttribute("active", transform.active);
 
 			printer.OpenElement("transform");
 				SerialiseVec3(printer, "position", transform.position);
@@ -221,6 +222,7 @@ namespace Crimson {
 
 	Entity SceneSerialiser::ParseEntity(XMLElement* node) {
 		Entity ent = m_scene.CreateEntity(node->Attribute("name"), node->Attribute("tag"));
+		bool active = node->BoolAttribute("active");
 
 		auto eComponent = node->FirstChildElement("transform");
 		if (eComponent) {
@@ -229,6 +231,8 @@ namespace Crimson {
 			transform.position = ParseVec3(eComponent, "position");
 			transform.rotation = ParseQuat(eComponent, "rotation");
 			transform.scale = ParseVec3(eComponent, "scale");
+
+			transform.active = active;
 		}
 
 		return ent;

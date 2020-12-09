@@ -6,6 +6,8 @@
 #include "Logger.h"
 #include "Register.h"
 
+#include <filesystem>
+
 namespace Crimson {
 	static void MessageCallback(const asSMessageInfo* msg, void* param) {
 		auto linter = (Linter*)param;
@@ -28,9 +30,9 @@ namespace Crimson {
 
 	std::vector<LinterMessage>& Linter::Lint(const std::string& code) {
 		m_messages.clear();
+		m_classes.clear();
 
 		CScriptBuilder builder;
-
 
 		int r = builder.StartNewModule(m_asEngine, "CrimsonBehaviours");
 		if (r < 0) {
@@ -47,8 +49,65 @@ namespace Crimson {
 
 		r = builder.BuildModule();
 		if (r < 0) {
-			// Erorr building
+			// Error building
 			return m_messages;
+		}
+
+		m_asModule = m_asEngine->GetModule("CrimsonBehaviours");
+
+		m_baseTypeInfo = m_asModule->GetTypeInfoByDecl("CrimsonBehaviour");
+
+		for (int i = 0; i < m_asModule->GetObjectTypeCount(); i++) {
+			auto info = m_asModule->GetObjectTypeByIndex(i);
+
+			if (info->DerivesFrom(m_baseTypeInfo)) {
+				m_classes.push_back(info->GetName());
+			}
+		}
+
+		return m_messages;
+	}
+
+	std::vector<LinterMessage>& Linter::LintDir(const std::string& dir) {
+		m_messages.clear();
+		m_classes.clear();
+
+		CScriptBuilder builder;
+
+		int r = builder.StartNewModule(m_asEngine, "CrimsonBehaviours");
+		if (r < 0) {
+			CR_LOG_ERROR("%s", "Unrecoverable error starting new AngelScript module");
+			return m_messages;
+		}
+
+		builder.AddSectionFromMemory("CrimsonBase", g_behaviourBase);
+
+		try {
+			for (const auto& entry : std::filesystem::recursive_directory_iterator(dir)) {
+				if (!entry.is_directory() && entry.path().extension().string() == ".as") {
+					builder.AddSectionFromFile(entry.path().string().c_str());
+				}
+			}
+		} catch (const std::filesystem::filesystem_error& e) {
+			CR_LOG_ERROR("%s", e.what());
+		}
+
+		r = builder.BuildModule();
+		if (r < 0) {
+			// Error building
+			return m_messages;
+		}
+
+		m_asModule = m_asEngine->GetModule("CrimsonBehaviours");
+
+		m_baseTypeInfo = m_asModule->GetTypeInfoByDecl("CrimsonBehaviour");
+
+		for (int i = 0; i < m_asModule->GetObjectTypeCount(); i++) {
+			auto info = m_asModule->GetObjectTypeByIndex(i);
+
+			if (info->DerivesFrom(m_baseTypeInfo)) {
+				m_classes.push_back(info->GetName());
+			}
 		}
 
 		return m_messages;

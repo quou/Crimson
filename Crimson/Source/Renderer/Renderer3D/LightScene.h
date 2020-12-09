@@ -16,7 +16,8 @@ namespace Crimson {
 		unsigned int m_depthMapFb;
 
 		std::vector<AmbientLight> m_ambientLights;
-		std::vector<DirectionalLight> m_directionalLights;
+		DirectionalLight m_sun;
+		bool m_useSun{false};
 		std::vector<PointLight> m_pointLights;
 		std::shared_ptr<Shader> m_shadowmapShader;
 
@@ -48,7 +49,6 @@ void main() {}
 
 	public:
 		int m_shadowmapResolution = 4096;
-		const int m_maxDirectionalLights = 3;
 		float m_gamma{2.2f};
 
 		void BindShadowmapForWrite();

@@ -8,7 +8,7 @@ class DiscoLight : CrimsonBehaviour {
 
 	}
 
-	// Called once per frame
+	// Called once per framea
 	void OnUpdate(float delta) {
 		m_entity.GetPointLightComponent().color.x += changeRate * delta;
 		if (m_entity.GetPointLightComponent().color.x >= 1.0f || m_entity.GetPointLightComponent().color.x <= 0.0f) {

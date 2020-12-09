@@ -75,7 +75,8 @@ private:
 			if (m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.HasComponent<Crimson::MeshFilterComponent>()) {
 				auto mc = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::MeshFilterComponent>();
 				auto mesh = m_scene->m_assetManager.LoadMesh(mc.path);
-				if (mesh) {
+				auto& transform = m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>();
+				if (mesh && transform.active) {
 					Crimson::Renderer::ClearDepth();
 					Crimson::Renderer::DrawWireframe(*m_camera.GetCamera(), m_editorLayer->m_sceneHierarchyPanel.m_selectedEntity.GetComponent<Crimson::TransformComponent>().GetTransform(), *mesh);
 				}
