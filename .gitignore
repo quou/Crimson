@@ -20,6 +20,7 @@ compile_commands.json
 *.filters
 *.user
 *.vs
+obj
 
 # Swap
 [._]*.s[a-v][a-z]
