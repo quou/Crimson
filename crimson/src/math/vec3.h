@@ -1,12 +1,14 @@
 #pragma once
 
+#include "core.h"
+
 #include "vec2.h"
 
 namespace Crimson {
 	struct vec4;
 	struct mat4;
 
-	struct vec3 {
+	struct CR_API vec3 {
 		float x, y, z;
 
 		vec3();

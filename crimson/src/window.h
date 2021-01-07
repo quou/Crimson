@@ -1,9 +1,11 @@
 #pragma once
 
+#include "core.h"
+
 struct GLFWwindow;
 
 namespace Crimson {
-	class Window {
+	class CR_API Window {
 	private:
 		GLFWwindow* m_window;
 

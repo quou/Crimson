@@ -2,9 +2,10 @@
 
 #include "memory.h"
 #include "window.h"
+#include "core.h"
 
 namespace Crimson {
-	class Application {
+	class CR_API Application {
 	private:
 		ref<Window> m_window;
 	protected:

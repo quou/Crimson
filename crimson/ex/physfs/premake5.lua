@@ -1,8 +1,6 @@
 project "physfs"
 	kind "StaticLib"
 	language "C"
-	staticruntime "on"
-
 	files {
 		"src/**.c",
 		"src/**.h"

@@ -1,7 +1,9 @@
 #pragma once
 
+#include "core.h"
+
 namespace Crimson {
-	struct vec2 {
+	struct CR_API vec2 {
 		float x;
 		float y;
 

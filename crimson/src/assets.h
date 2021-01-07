@@ -3,8 +3,10 @@
 #include <string>
 #include <map>
 
+#include "core.h"
+
 namespace Crimson {
-	class AssetManager {
+	class CR_API AssetManager {
 	private:
 		static AssetManager& instance() {
 			static AssetManager i;

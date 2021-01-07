@@ -1,10 +1,12 @@
 #pragma once
 
+#include "core.h"
+
 #include "vec4.h"
 #include "vec3.h"
 
 namespace Crimson {
-	struct mat4 {
+	struct CR_API mat4 {
 		union
 		{
 			// [row + col * 4]

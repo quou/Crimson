@@ -21,10 +21,9 @@ end
 
 project "crimson"
 	kind "SharedLib"
+	
 	language "C++"
 	cppdialect "C++11"
-
-	staticruntime "on"
 
 	targetdir "../bin"
 
@@ -48,6 +47,9 @@ project "crimson"
 	defines {
 		"GLFW_INCLUDE_NONE"
 	}
+
+	filter "system:windows"
+		defines { "CR_LIBRARY_EXPORT" }
 
 	filter "configurations:debug"
 		defines { "DEBUG" }

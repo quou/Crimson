@@ -2,8 +2,10 @@
 
 #include <stddef.h>
 
+#include "core.h"
+
 namespace Crimson {
-	class ref_count {
+	class CR_API ref_count {
 	private:
 		int m_count;
 	public:
@@ -19,7 +21,7 @@ namespace Crimson {
 	};
 
 	template <typename T>
-	class ref {
+	class CR_API ref {
 	private:
 		ref_count* m_count;
 		T* m_ptr;

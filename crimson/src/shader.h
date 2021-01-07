@@ -2,9 +2,11 @@
 
 #include <vector>
 
+#include "core.h"
+
 namespace Crimson {
 	/* A generic GLSL shader class */
-	class Shader {
+	class CR_API Shader {
 	private:
 		unsigned int m_id;
 	public:

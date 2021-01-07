@@ -1,7 +1,6 @@
 project "glfw"
 	kind "StaticLib"
 	language "C"
-	staticruntime "on"
 
 	files {
 		"include/GLFW/glfw3.h",
@@ -19,7 +18,6 @@ project "glfw"
 		pic "on"
 
 		systemversion "latest"
-		staticruntime "on"
 
 		files {
 			"src/x11_init.c",
@@ -40,7 +38,6 @@ project "glfw"
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "on"
 
 		files {
 			"src/win32_init.c",

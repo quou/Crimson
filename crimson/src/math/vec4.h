@@ -1,9 +1,11 @@
 #pragma once
 
+#include "core.h"
+
 #include "vec3.h"
 
 namespace Crimson {
-	struct vec4 {
+	struct CR_API vec4 {
 		float x, y, z, w;
 
 		vec4() = default;

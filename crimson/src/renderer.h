@@ -1,7 +1,9 @@
 #pragma once
 
+#include "core.h"
+
 namespace Crimson {
-	class Renderer {
+	class CR_API Renderer {
 	private:
 	public:
 		static void Init();

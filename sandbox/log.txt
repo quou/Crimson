@@ -33188,3 +33188,165 @@ void main() {
 [07-01-2021 11:51:59] info: u_thing
 [07-01-2021 11:51:59] info: u_material.hi
 [07-01-2021 11:51:59] info: u_material.something
+
+ === RESTART @ [06-01-2021 20:44:11] === 
+[06-01-2021 20:44:11] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+
+ === RESTART @ [06-01-2021 20:46:02] === 
+[06-01-2021 20:46:02] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+
+ === RESTART @ [06-01-2021 20:53:41] === 
+[06-01-2021 20:53:41] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+[06-01-2021 20:53:41] info: u_material.hi
+[06-01-2021 20:53:41] info: u_material.something
+[06-01-2021 20:53:41] info: u_thing
+
+ === RESTART @ [06-01-2021 20:55:43] === 
+[06-01-2021 20:55:43] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+[06-01-2021 20:55:43] info: u_material.hi
+[06-01-2021 20:55:43] info: u_material.something
+[06-01-2021 20:55:43] info: u_thing
+
+ === RESTART @ [06-01-2021 20:58:13] === 
+[06-01-2021 20:58:13] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+[06-01-2021 20:58:13] info: u_material.hi
+[06-01-2021 20:58:13] info: u_material.something
+[06-01-2021 20:58:13] info: u_thing
+
+ === RESTART @ [06-01-2021 21:01:07] === 
+[06-01-2021 21:01:07] info: #shader vertex
+#version 330 core
+
+uniform vec4 u_thing = vec4(1.0f);
+
+struct Material {
+	int hi;
+	int something;
+};
+
+uniform Material u_material = Material(0, 1);
+
+void main() {
+
+}
+
+#shader pixel
+#version 330 core
+
+void main() {
+
+}
+
+[06-01-2021 21:01:07] info: u_material.hi
+[06-01-2021 21:01:07] info: u_material.something
+[06-01-2021 21:01:07] info: u_thing
