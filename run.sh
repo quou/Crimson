@@ -1,0 +1,2 @@
+cd sandbox
+./../bin/sandbox

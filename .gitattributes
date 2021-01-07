@@ -1,0 +1,4 @@
+* linguist-vendored
+*.cpp linguist-vendored=false
+*.as linguist-vendored=false
+*.lua linguist-vendored=false
