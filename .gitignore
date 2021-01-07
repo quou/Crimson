@@ -21,6 +21,8 @@ compile_commands.json
 *.user
 *.vs
 obj
+premake5.exe
+premake5
 
 # Swap
 [._]*.s[a-v][a-z]
