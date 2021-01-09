@@ -3,6 +3,7 @@
 group "ex"
 include "ex/glfw"
 include "ex/physfs"
+include "ex/glad"
 group ""
 
 systemDeps = {}
@@ -11,7 +12,8 @@ if os.host() == "linux" then
 		"pthread",
 		"dl",
 		"X11",
-		"GL"
+		"GL",
+		"glad"
 	}
 elseif os.host() == "windows" then
 	systemDeps = {
@@ -21,18 +23,16 @@ end
 
 project "crimson"
 	kind "SharedLib"
-	
+
 	language "C++"
 	cppdialect "C++11"
 
 	targetdir "../bin"
 
-	files { "include/**.h", "src/**.h", "src/**.cpp" }
-
 	includedirs {
 		"src",
-		"include",
 		"ex/glfw/include",
+		"ex/glad/include",
 		"ex/physfs/src",
 		"ex/angelscript/angelscript/include",
 		"ex/angelscript/angelscript/",
@@ -40,9 +40,12 @@ project "crimson"
 
 	links {
 		systemDeps,
+		"glad",
 		"physfs",
 		"glfw"
 	}
+
+	files { "include/**.h", "src/**.h", "src/**.cpp" }
 
 	defines {
 		"GLFW_INCLUDE_NONE"

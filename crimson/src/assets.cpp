@@ -46,6 +46,30 @@ namespace Crimson {
 		return i.m_terminatedStrings[path].first;
 	}
 
+	ref<Shader>& AssetManager::LoadShader(const char* path, bool reload) {
+		AssetManager& i = instance();
+
+		/* Check if a cached version cannot be used */
+		if (i.m_shaders.count(path) == 0 || reload) {
+			/* Load the shader text */
+			std::string source = LoadTerminatedString(path, reload);
+
+			/* Parse the shader */
+			Shader::ShaderSource parsedSource = Shader::Parse(source.c_str());
+
+			/* To get the modtime */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(path, &stat);
+
+			i.m_shaders[path] = {ref<Shader>(new Shader(
+						parsedSource.vertex.c_str(),
+						parsedSource.pixel.c_str())),
+						stat.modtime};
+		}
+
+		return i.m_shaders[path].first;
+	}
+
 	void AssetManager::HotReload() {
 		AssetManager& i = instance();
 		
@@ -60,7 +84,20 @@ namespace Crimson {
 				/* Reload the file */
 				LoadTerminatedString(f.first.c_str(), true);
 			}
-		}	
+		}
+
+		/* Loop over cached shaders */
+		for (auto& f : i.m_shaders) {
+			/* Grab the file stats */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(f.first.c_str(), &stat);
+
+			/* If there are new changes */
+			if (stat.modtime > f.second.second) {
+				/* Reload the file */
+				LoadShader(f.first.c_str(), true);
+			}
+		}
 	}
 
 	void AssetManager::Quit() {

@@ -10,7 +10,7 @@ project "sandbox"
 	files { "src/**.h", "src/**.cpp" }
 
 	includedirs {
-		"../crimson/include"
+		"../crimson/src"
 	}
 
 	links {

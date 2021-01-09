@@ -1,23 +1,27 @@
 #include <crimson.h>
 
+using namespace Crimson;
+
 class Sandbox : public Crimson::Application {
+private:
+	ref<Mesh> m_mesh;
 public:
 	void OnInit() override {
-		std::string e = Crimson::AssetManager::LoadTerminatedString("standard.glsl");
-		Crimson::Log(Crimson::LogType::INFO, "%s", e.c_str());
-
-		Crimson::Shader::ShaderSource s = Crimson::Shader::Parse(e.c_str());	
-		Crimson::Shader shader(s.vertex.c_str(), s.pixel.c_str());
-
-		for (auto& u : shader.GetUniforms()) {
-			Crimson::Log(Crimson::LogType::INFO, "%s", u.name.c_str());
-		}
+		m_mesh = ref<Mesh>(new Mesh({
+			Vertex{vec3(0.5f, 0.5f, 0.0f), vec3(0.0f), vec2(0.0f)},
+			Vertex{vec3(0.5f, -0.5f, 0.0f), vec3(0.0f), vec2(0.0f)},
+			Vertex{vec3(-0.5f, -0.5f, 0.0f), vec3(0.0f), vec2(0.0f)},
+			Vertex{vec3(-0.5f, 0.5f, 0.0f), vec3(0.0f), vec2(0.0f)}},
+			{0, 1, 3, 1, 2, 3}));
 	}
 
 	void OnUpdate(float delta) override {
 		Crimson::AssetManager::HotReload();
 
-		Crimson::Renderer::Clear(1.0f, 1.0f, 1.0f);
+		Crimson::Renderer::Clear(0.0f, 0.0f, 0.0f);
+		
+		Crimson::AssetManager::LoadShader("standard.glsl")->Bind();
+		m_mesh->Draw();	
 	}
 };
 

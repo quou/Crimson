@@ -4,6 +4,8 @@
 #include <map>
 
 #include "core.h"
+#include "rendering/shader.h"
+#include "memory.h"
 
 namespace Crimson {
 	class CR_API AssetManager {
@@ -16,13 +18,20 @@ namespace Crimson {
 		/* Cache for null-terminated strings, in the format:
 		 * { "file-path" : { "file-contents", mod-time }} */
 		std::map<std::string, std::pair<std::string, uint64_t>> m_terminatedStrings;
+	
+		/* Cache for shaders, in the format:
+		 * { "file-path" : { ref<Shader>, mod-time }} */
+		std::map<std::string, std::pair<ref<Shader>, uint64_t>> m_shaders;
 	public:
 		static void Init(const char* resDir);
 		static void Quit();
 
 		/* Load a null-terminated string from disk */
 		static std::string LoadTerminatedString(const char* path, bool reload=false);
-	
+
+		/* Load, parse and compile a  shader from a text file */
+		static ref<Shader>& LoadShader(const char* path, bool reload = false);
+
 		/* Iterate currently loaded files, checking for changes.
 		 * If there are changes found, reload the file. */
 		static void HotReload();
