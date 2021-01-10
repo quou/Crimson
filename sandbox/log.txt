@@ -1,209 +1,388 @@
 
- === RESTART @ [07-01-2021 17:13:34] === 
-[07-01-2021 17:13:34] info: u_thing
-[07-01-2021 17:13:34] info: u_material.hi
-[07-01-2021 17:13:34] info: u_material.something
-[07-01-2021 17:13:34] info: u_material.hello
+ === RESTART @ [09-01-2021 19:38:16] === 
+[09-01-2021 19:38:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:38:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:38:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 17:13:40] === 
-[07-01-2021 17:13:40] info: u_thing
-[07-01-2021 17:13:40] info: u_material.hi
-[07-01-2021 17:13:40] info: u_material.something
-[07-01-2021 17:13:40] info: u_material.hello
+ === RESTART @ [09-01-2021 19:40:58] === 
+[09-01-2021 19:40:58] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:40:58] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 31 instructions in function
+[09-01-2021 19:40:58] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:40:58] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 18:38:35] === 
+ === RESTART @ [09-01-2021 19:41:16] === 
+[09-01-2021 19:41:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:41:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:41:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 18:38:39] === 
+ === RESTART @ [09-01-2021 19:41:39] === 
+[09-01-2021 19:41:39] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:41:39] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:41:39] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 18:47:48] === 
+ === RESTART @ [09-01-2021 19:42:03] === 
+[09-01-2021 19:42:03] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:03] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:03] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 18:49:45] === 
-[07-01-2021 18:49:45] error: 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
+ === RESTART @ [09-01-2021 19:42:14] === 
+[09-01-2021 19:42:14] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:14] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:14] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 18:51:24] === 
-[07-01-2021 18:51:24] error: (from shader compiler) 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
-[07-01-2021 18:51:44] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[07-01-2021 18:51:44] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 136 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[07-01-2021 18:51:45] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [09-01-2021 19:42:36] === 
+[09-01-2021 19:42:37] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:37] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:42:37] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [07-01-2021 20:37:21] === 
-[07-01-2021 20:37:21] error: (from shader compiler) 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
+ === RESTART @ [09-01-2021 19:45:08] === 
+[09-01-2021 19:45:08] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:45:08] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:45:08] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 08:39:55] === 
-[08-01-2021 08:39:55] error: (from shader compiler) 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
+ === RESTART @ [09-01-2021 19:46:19] === 
+[09-01-2021 19:46:20] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:46:20] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:46:20] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 11:35:40] === 
-[08-01-2021 11:35:40] error: (from shader compiler) 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
+ === RESTART @ [09-01-2021 19:57:40] === 
+[09-01-2021 19:57:40] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:57:40] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:57:40] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 14:51:14] === 
-[08-01-2021 14:51:15] error: (from shader compiler) 0:10(1): error: syntax error, unexpected NEW_IDENTIFIER
+ === RESTART @ [09-01-2021 19:58:20] === 
+[09-01-2021 19:58:20] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:58:20] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:58:20] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 14:53:13] === 
-[08-01-2021 14:53:13] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:53:13] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 8 instructions in function
-[08-01-2021 14:53:13] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [09-01-2021 19:59:02] === 
+[09-01-2021 19:59:02] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:59:02] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 19:59:02] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 14:53:16] === 
-[08-01-2021 14:53:16] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:53:16] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [09-01-2021 20:01:17] === 
+[09-01-2021 20:01:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 20:01:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 20:01:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[09-01-2021 20:01:46] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 20:01:46] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 136 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[09-01-2021 20:01:47] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
 
- === RESTART @ [08-01-2021 14:57:41] === 
-[08-01-2021 14:57:42] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:57:42] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [10-01-2021 08:09:02] === 
+[10-01-2021 08:09:02] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:09:02] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:09:02] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 14:58:03] === 
-[08-01-2021 14:58:03] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:58:03] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:58:03] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:58:03] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:10:05] === 
+[10-01-2021 08:10:05] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:10:05] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:10:05] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 14:59:39] === 
-[08-01-2021 14:59:39] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:59:39] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 14:59:39] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:10:59] === 
+[10-01-2021 08:10:59] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:10:59] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 51 instructions in function
+[10-01-2021 08:10:59] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:10:59] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 15:00:26] === 
-[08-01-2021 15:00:26] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:00:26] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:00:26] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:11:51] === 
+[10-01-2021 08:11:51] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:11:51] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:11:51] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[10-01-2021 08:11:59] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:11:59] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 136 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:11:59] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
 
- === RESTART @ [08-01-2021 15:02:17] === 
-[08-01-2021 15:02:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:02:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:02:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:12:34] === 
+[10-01-2021 08:12:34] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:12:34] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:12:34] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 15:03:20] === 
-[08-01-2021 15:03:20] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:03:20] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:03:20] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:13:36] === 
+[10-01-2021 08:13:36] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:13:36] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:13:36] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 15:03:36] === 
-[08-01-2021 15:03:37] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:03:37] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [10-01-2021 08:13:50] === 
+[10-01-2021 08:13:50] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:13:50] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:13:50] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 15:28:29] === 
-[08-01-2021 15:28:29] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:28:29] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 15:28:29] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:14:05] === 
+[10-01-2021 08:14:06] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:14:06] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:14:06] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [08-01-2021 17:57:32] === 
-[08-01-2021 17:57:32] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 17:57:32] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[08-01-2021 17:57:32] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 08:39:02] === 
+[10-01-2021 08:39:02] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:39:02] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 08:39:02] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:25:19] === 
-[09-01-2021 11:25:19] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:25:19] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:25:19] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 10:52:41] === 
+[10-01-2021 10:52:42] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:52:42] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:52:42] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:44:06] === 
-[09-01-2021 11:44:07] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:44:07] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [10-01-2021 10:53:21] === 
+[10-01-2021 10:53:21] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:53:21] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:53:21] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:44:45] === 
-[09-01-2021 11:44:45] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:44:45] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+ === RESTART @ [10-01-2021 10:53:31] === 
+[10-01-2021 10:53:32] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:53:32] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:53:32] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:45:26] === 
-[09-01-2021 11:45:26] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:45:26] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:45:26] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 10:57:56] === 
+[10-01-2021 10:57:56] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:57:56] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:57:56] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:45:58] === 
-[09-01-2021 11:45:58] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:45:58] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:45:58] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:45:58] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 10:58:59] === 
+[10-01-2021 10:59:00] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:59:00] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 10:59:00] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:46:50] === 
-[09-01-2021 11:46:50] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:46:50] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:46:50] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:46:50] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:02:46] === 
+[10-01-2021 11:02:46] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:02:46] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:46] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
+[10-01-2021 11:02:47] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)
 
- === RESTART @ [09-01-2021 11:50:24] === 
-[09-01-2021 11:50:24] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:50:24] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:50:24] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:50:24] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:03:49] === 
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:03:49] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:03:49] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
+[10-01-2021 11:03:49] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 1, 1, 1)
 
- === RESTART @ [09-01-2021 11:51:31] === 
-[09-01-2021 11:51:31] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:31] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:31] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:31] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:04:30] === 
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:04:30] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:04:30] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:30] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:04:31] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
 
- === RESTART @ [09-01-2021 11:51:54] === 
-[09-01-2021 11:51:54] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:54] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:54] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:51:54] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:05:04] === 
+[10-01-2021 11:05:04] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:05:04] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:04] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
+[10-01-2021 11:05:05] info: mat4: (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 1)
 
- === RESTART @ [09-01-2021 11:53:31] === 
-[09-01-2021 11:53:31] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:53:31] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:53:31] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:53:31] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:05:55] === 
+[10-01-2021 11:05:55] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:05:55] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:05:55] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 11:55:14] === 
-[09-01-2021 11:55:14] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:55:14] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:55:14] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 11:55:14] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:06:06] === 
+[10-01-2021 11:06:06] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:06:06] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:06:06] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 
- === RESTART @ [09-01-2021 14:01:06] === 
-[09-01-2021 14:01:06] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:06] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:06] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:06] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 14:01:44] === 
-[09-01-2021 14:01:44] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:44] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:44] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:01:44] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 14:02:06] === 
-[09-01-2021 14:02:06] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 68 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:02:06] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 176 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:02:06] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 12 Code Size: 228 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:02:06] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 14:02:21] === 
-[09-01-2021 14:02:21] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:02:21] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:02:21] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 14:33:42] === 
-
- === RESTART @ [09-01-2021 14:48:40] === 
-[09-01-2021 14:48:40] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:48:40] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 14:48:40] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 16:47:11] === 
-[09-01-2021 16:47:11] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:11] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:11] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 16:47:17] === 
-[09-01-2021 16:47:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 16:47:25] === 
-[09-01-2021 16:47:26] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:26] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:26] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 16:47:37] === 
-[09-01-2021 16:47:37] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:37] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:47:37] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
-
- === RESTART @ [09-01-2021 16:48:48] === 
-
- === RESTART @ [09-01-2021 16:49:24] === 
-[09-01-2021 16:49:24] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:49:24] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 64 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
-[09-01-2021 16:49:24] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+ === RESTART @ [10-01-2021 11:06:25] === 
+[10-01-2021 11:06:25] info: (from shader compiler) Shader Stats: SGPRS: 32 VGPRS: 8 Code Size: 272 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:06:25] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 36 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[10-01-2021 11:06:25] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function

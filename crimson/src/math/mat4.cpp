@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <math.h>
+#include <sstream>
 
 #include "mat4.h"
 #include "maths.h"

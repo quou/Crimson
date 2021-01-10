@@ -6,6 +6,18 @@
 #include "renderer.h"
 
 namespace Crimson {
+	void ResizeCallback(GLFWwindow* window, int w, int h) {
+		Window* windowClass = (Window*)glfwGetWindowUserPointer(window);
+
+		if (!windowClass) {
+			Log(LogType::WARNING, "No window user pointer");
+			return;
+		}
+
+		windowClass->m_width = w;
+		windowClass->m_height = h;
+	}
+	
 	Window::Window(const char* title, int w, int h) 
 	: m_width(w), m_height(h) {
 		glfwInit();
@@ -17,6 +29,13 @@ namespace Crimson {
 		m_window = glfwCreateWindow(w, h, title, NULL, NULL);
 		glfwMakeContextCurrent(m_window);
 
+		/* Needed by ResizeCallback to set the window's width and height
+		 * member variables */
+		glfwSetWindowUserPointer(m_window, this);
+
+		/* GLFW callbacks */
+		glfwSetWindowSizeCallback(m_window, ResizeCallback);
+
 		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	}
 
@@ -24,12 +43,12 @@ namespace Crimson {
 		glfwTerminate();
 	}
 
-	void Window::Update() {
+	void Window::Update() const {
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
 
-	bool Window::ShouldClose() {
+	bool Window::ShouldClose() const {
 		return glfwWindowShouldClose(m_window);
 	}
 }

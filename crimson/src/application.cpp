@@ -10,7 +10,7 @@ namespace Crimson {
 		m_window = ref<Window>(new Window(windowTitle, w, h));
 
 		AssetManager::Init("res");
-		Renderer::Init();
+		Renderer::Init(m_window);
 
 		OnInit();
 

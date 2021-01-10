@@ -6,9 +6,9 @@
 
 namespace Crimson {
 	class CR_API Application {
-	private:
-		ref<Window> m_window;
 	protected:
+		ref<Window> m_window;
+		
 		virtual void OnInit() {}
 		virtual void OnUpdate(float delta) {}
 	public:

@@ -28,7 +28,8 @@ namespace Crimson {
 
 	}
 	
-	void Renderer::Init() {
+	void Renderer::Init(const ref<Window>& window) {
+		instance().m_window = window;
 #ifdef DEBUG
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); 
@@ -39,7 +40,13 @@ namespace Crimson {
 	}
 
 	void Renderer::Clear(float r, float g, float b) {
+		Renderer& i = instance();
+		
 		glClearColor(r, g, b, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		if (i.m_window) {
+			glViewport(0, 0, i.m_window->GetWidth(), i.m_window->GetHeight());
+		}
 	}
 }

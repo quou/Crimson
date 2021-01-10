@@ -40,8 +40,11 @@ namespace Crimson {
 		}
 	public:
 		ref() : m_ptr(NULL), m_count(NULL) {}
-		ref(T* o) : m_ptr(o), m_count(new ref_count()) {
+		ref(T* o) try : m_ptr(o), m_count(new ref_count()){
 			m_count->AddRef();
+		} catch (...) {
+			delete m_ptr;
+			throw;
 		}
 
 		/* Copy constructor */
@@ -67,6 +70,14 @@ namespace Crimson {
 
 		T* operator->() {
 			return m_ptr;
+		}
+
+		T* get() {
+			return m_ptr;
+		}
+
+		explicit operator bool() {
+			return m_ptr != NULL;
 		}
 	};
 }

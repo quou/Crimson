@@ -10,13 +10,17 @@ namespace Crimson {
 		GLFWwindow* m_window;
 
 		int m_width, m_height;
+
+		friend void ResizeCallback(GLFWwindow* window, int w, int h);
 	public:
 		Window(const char* title, int w, int h);
 		virtual ~Window();
 
-		void Update();
-		void Clear();
+		void Update() const;
 		
-		bool ShouldClose();
+		bool ShouldClose() const;
+	
+		inline int GetWidth() const { return m_width; }
+		inline int GetHeight() const { return m_height; }
 	};
 }

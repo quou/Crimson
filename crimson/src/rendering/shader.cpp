@@ -99,7 +99,7 @@ namespace Crimson {
 	}
 
 	void Shader::Bind() {
-		if (m_panicMode) { printf("hi\n"); }
+		if (m_panicMode) { return; }
 
 		glUseProgram(m_id);
 	}
@@ -143,6 +143,6 @@ namespace Crimson {
 		if (m_panicMode) { return; }
 
 		int loc = glGetUniformLocation(m_id, name);
-		glUniformMatrix4fv(loc, 1, GL_FALSE, value.elements);
+		glUniformMatrix4fv(loc, 1, GL_TRUE, value.elements);
 	}
 }
