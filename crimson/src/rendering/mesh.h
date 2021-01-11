@@ -10,17 +10,16 @@ namespace Crimson {
 	private:
 		unsigned int m_va, m_vb, m_ib;
 
-		std::vector<Vertex> m_vertices;
-		std::vector<unsigned int> m_indices;
+		unsigned int m_indexCount;
 	public:
 		Mesh(const std::vector<Vertex>& vertices, 
 				const std::vector<unsigned int>& indices);
 		
 		virtual ~Mesh();
 
-		void LoadFromData(const std::vector<Vertex>& vertices,
+		void LoadFromVertexData(const std::vector<Vertex>& vertices,
 				const std::vector<unsigned int>& indices);
-		
+
 		void Draw();
 	};
 }

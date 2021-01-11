@@ -46,6 +46,42 @@ namespace Crimson {
 		return i.m_terminatedStrings[path].first;
 	}
 
+	unsigned char* AssetManager::LoadBinary(const char* path, bool reload) {
+		AssetManager& i = instance();
+
+		/* Check if we cannot use a cached file */
+		if (i.m_binary.count(path) == 0 || reload) {
+			/* Make sure to free any existing data that might be cached */
+			if (reload || i.m_binary[path].first != NULL) {
+				free(i.m_binary[path].first);
+			}
+
+			PHYSFS_file* file = PHYSFS_openRead(path);
+			if (file == NULL) {
+				Log(LogType::ERROR, "Failed to load: %s", path);
+				return NULL;
+			}
+
+			size_t fileSize = PHYSFS_fileLength(file);
+
+			unsigned char* buffer = (unsigned char*)malloc(fileSize + 1);
+
+			PHYSFS_readBytes(file, buffer, fileSize);
+
+			/* To get the modtime */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(path, &stat);
+
+			i.m_binary[path] = {buffer, stat.modtime};
+			
+			/* Cleanup */
+			PHYSFS_close(file);
+		}
+
+		/* Return the cached version of the file */
+		return i.m_binary[path].first;
+	}
+
 	ref<Shader>& AssetManager::LoadShader(const char* path, bool reload) {
 		AssetManager& i = instance();
 
@@ -86,6 +122,19 @@ namespace Crimson {
 			}
 		}
 
+		/* Loop over cached binary files */
+		for (auto& f : i.m_binary) {
+			/* Grab the file stats */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(f.first.c_str(), &stat);
+
+			/* If there are new changes */
+			if (stat.modtime > f.second.second) {
+				/* Reload the file */
+				LoadBinary(f.first.c_str(), true);
+			}
+		}
+
 		/* Loop over cached shaders */
 		for (auto& f : i.m_shaders) {
 			/* Grab the file stats */
@@ -101,6 +150,12 @@ namespace Crimson {
 	}
 
 	void AssetManager::Quit() {
+		AssetManager& i = instance();
+
+		/* Loop over cached binary files */
+		for (auto& f : i.m_binary) {
+			free(f.second.first);
+		}
 		PHYSFS_deinit();
 	}
 }

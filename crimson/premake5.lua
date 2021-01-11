@@ -1,6 +1,7 @@
 -- Crimson premake file
 
 group "ex"
+include "ex/tinyxml2"
 include "ex/glfw"
 include "ex/physfs"
 include "ex/glad"
@@ -34,6 +35,7 @@ project "crimson"
 		"ex/glfw/include",
 		"ex/glad/include",
 		"ex/physfs/src",
+		"ex/tinyxml2/src",
 		"ex/angelscript/angelscript/include",
 		"ex/angelscript/angelscript/",
 	}
@@ -42,7 +44,8 @@ project "crimson"
 		systemDeps,
 		"glad",
 		"physfs",
-		"glfw"
+		"glfw",
+		"tinyxml2"
 	}
 
 	files { "include/**.h", "src/**.h", "src/**.cpp" }

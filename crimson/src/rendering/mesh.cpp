@@ -3,12 +3,13 @@
 #include <glad/glad.h>
 
 #include "mesh.h"
+#include "logger.h"
 
 namespace Crimson {
-	void Mesh::LoadFromData(const std::vector<Vertex>& vertices, 
+	void Mesh::LoadFromVertexData(const std::vector<Vertex>& vertices, 
 			const std::vector<unsigned int>& indices) {
-		m_vertices = vertices;
-		m_indices = indices;
+
+		m_indexCount = indices.size();
 
 		glGenVertexArrays(1, &m_va);
 		glGenBuffers(1, &m_vb);
@@ -17,7 +18,7 @@ namespace Crimson {
 		glBindVertexArray(m_va);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vb);
 
-		glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * 
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * 
 				sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib);
@@ -39,9 +40,10 @@ namespace Crimson {
 		glBindVertexArray(0);
 	}
 
+
 	Mesh::Mesh(const std::vector<Vertex>& vertices, 
 			const std::vector<unsigned int>& indices) {
-		LoadFromData(vertices, indices);
+		LoadFromVertexData(vertices, indices);
 	}
 
 	Mesh::~Mesh() {
@@ -52,7 +54,7 @@ namespace Crimson {
 
 	void Mesh::Draw() {
 		glBindVertexArray(m_va);
-		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 }

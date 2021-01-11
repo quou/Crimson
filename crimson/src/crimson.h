@@ -19,3 +19,5 @@
 #include "rendering/shader.h"
 #include "rendering/window.h"
 #include "rendering/mesh.h"
+#include "rendering/meshfactory.h"
+#include "rendering/model.h"
