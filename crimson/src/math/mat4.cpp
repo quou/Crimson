@@ -254,7 +254,7 @@ namespace Crimson {
 	}
 
 	mat4 mat4::lookat(const vec3& camera, const vec3& object, const vec3& up) {
-		mat4 result = identity();
+		mat4 result(1.0f);
 		vec3 f = (object - camera).normalised();
 		vec3 s = f.cross(up.normalised());
 		vec3 u = s.cross(f);
@@ -337,5 +337,14 @@ namespace Crimson {
 			vec4(matrix.rows[0].w, matrix.rows[1].w,
 				matrix.rows[2].w, matrix.rows[3].w)
 			);
+	}
+
+	std::string mat4::str() {
+		std::stringstream result;
+		result << "mat4: (" << rows[0].x << ", " << rows[1].x << ", " << rows[2].x << ", " << rows[3].x << "), ";
+		result << "(" << rows[0].y << ", " << rows[1].y << ", " << rows[2].y << ", " << rows[3].y << "), ";
+		result << "(" << rows[0].z << ", " << rows[1].z << ", " << rows[2].z << ", " << rows[3].z << "), ";
+		result << "(" << rows[0].w << ", " << rows[1].w << ", " << rows[2].w << ", " << rows[3].w << ")";
+		return result.str();
 	}
 }

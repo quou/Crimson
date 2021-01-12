@@ -21,3 +21,5 @@
 #include "rendering/mesh.h"
 #include "rendering/meshfactory.h"
 #include "rendering/model.h"
+#include "rendering/camera.h"
+#include "rendering/pbrmaterial.h"

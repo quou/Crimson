@@ -37,13 +37,15 @@ namespace Crimson {
     		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, 
 				GL_DONT_CARE, 0, nullptr, GL_TRUE);
 #endif
+
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void Renderer::Clear(float r, float g, float b) {
 		Renderer& i = instance();
 		
 		glClearColor(r, g, b, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if (i.m_window) {
 			glViewport(0, 0, i.m_window->GetWidth(), i.m_window->GetHeight());

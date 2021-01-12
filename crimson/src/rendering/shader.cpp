@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 #include "shader.h"
+#include "logger.h"
 #include "math/vec2.h"
 #include "math/vec3.h"
 #include "math/vec4.h"

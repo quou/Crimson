@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "core.h"
 #include "vec4.h"
 #include "vec3.h"
@@ -49,5 +51,7 @@ namespace Crimson {
 		static mat4 invert(const mat4& matrix);
 
 		static mat4 transpose(const mat4& matrix);
+
+		std::string str();
 	};
 }
