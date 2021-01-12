@@ -7,7 +7,7 @@ private:
 	PBRMaterial m_material;
 	ref<Model> m_model;
 	float m_pos = 0.0f;
-
+ 
 	Crimson::Camera camera;
 public:
 	void OnInit() override {
@@ -44,6 +44,7 @@ public:
 		s->SetUniformInt("u_pointLightCount", 1);
 		s->SetUniformVec3("u_pointLights[0].position", vec3(2.0f, 0.0f, 5.0f));
 		s->SetUniformVec3("u_pointLights[0].color", vec3(1.0f, 1.0f, 1.0f));
+		s->SetUniformFloat("u_pointLights[0].intensity", 5.0f);
 
 		m_material.Apply(s);
 
