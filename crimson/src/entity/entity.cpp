@@ -11,4 +11,10 @@ namespace Crimson {
 			c->OnUpdate(delta);
 		}
 	}
+
+	void Entity::Draw(const Camera& camera) {
+		for (auto& c : m_components) {
+			c->OnDraw(camera);
+		}
+	}
 }

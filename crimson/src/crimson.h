@@ -28,3 +28,4 @@
 #include "entity/entity.h"
 #include "entity/scene.h"
 #include "entity/components/renderable.h"
+#include "entity/components/transform.h"

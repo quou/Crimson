@@ -13,6 +13,7 @@
 #include "core.h"
 #include "memory.h"
 #include "logger.h"
+#include "rendering/camera.h"
 
 namespace Crimson {
 	class Entity;
@@ -43,6 +44,7 @@ namespace Crimson {
 
 		virtual void OnInit() {}
 		virtual void OnUpdate(float delta) {}
+		virtual void OnDraw(const Camera& camera) {}
 	public:
 		virtual ~Component() {}
 	};
@@ -58,6 +60,7 @@ namespace Crimson {
 		friend class Scene;
 	public:
 		void Update(float delta);
+		void Draw(const Camera& camera);
 
 		inline void Destroy() { m_alive = false; }
 

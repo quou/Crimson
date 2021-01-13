@@ -15,6 +15,12 @@ namespace Crimson {
 		);
 	}
 
+	void Scene::Draw(const Camera& camera) const {
+		for (auto& e : m_entities) {
+			e->Draw(camera);
+		}
+	}
+
 	Entity* Scene::CreateEntity() {
 		Entity* e = new Entity();
 		ref<Entity> r(e);

@@ -24,7 +24,7 @@ obj
 premake5.exe
 premake5
 
-*.vscode
+.vscode
 
 # Swap
 [._]*.s[a-v][a-z]
