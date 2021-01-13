@@ -14,6 +14,7 @@ project "sandbox"
 	}
 
 	links {
+		crimsonExternalDeps,
 		"crimson"
 	}
 

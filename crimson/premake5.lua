@@ -7,9 +7,9 @@ include "ex/physfs"
 include "ex/glad"
 group ""
 
-systemDeps = {}
+crimsonSystemDeps = {}
 if os.host() == "linux" then
-	systemDeps = {
+	crimsonSystemDeps = {
 		"pthread",
 		"dl",
 		"X11",
@@ -17,13 +17,21 @@ if os.host() == "linux" then
 		"glad"
 	}
 elseif os.host() == "windows" then
-	systemDeps = {
+	crimsonSystemDeps = {
 		"opengl32"
 	}
 end
 
+crimsonExternalDeps = {
+	crimsonSystemDeps,
+	"glad",
+	"physfs",
+	"glfw",
+	"tinyxml2"
+}
+
 project "crimson"
-	kind "SharedLib"
+	kind "StaticLib"
 
 	language "C++"
 	cppdialect "C++11"
@@ -41,17 +49,14 @@ project "crimson"
 	}
 
 	links {
-		systemDeps,
-		"glad",
-		"physfs",
-		"glfw",
-		"tinyxml2"
+		crimsonExternalDeps,
 	}
 
 	files { "include/**.h", "src/**.h", "src/**.cpp" }
 
 	defines {
-		"GLFW_INCLUDE_NONE"
+		"GLFW_INCLUDE_NONE",
+		"CR_STATIC"
 	}
 
 	filter "system:windows"
