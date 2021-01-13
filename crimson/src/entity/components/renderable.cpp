@@ -5,10 +5,16 @@
 #include "assets.h"
 
 namespace Crimson {
-	RenderableComponent::RenderableComponent(const ref<Model>& model, const std::string& shader) 
-		: m_model(model), m_shader(shader) {}
+	RenderableComponent::RenderableComponent(const ref<Model>& model, 
+		const ref<Material>& material, const std::string& shader) 
+		: m_model(model), m_material(material), m_shader(shader) {}
 
 	void RenderableComponent::OnDraw(const Camera& camera) {
+		if (!m_entity->HasComponent<TransformComponent>()) {
+			Log(LogType::WARNING, "A transform component is required for rendering");
+			return;
+		}
+
 		TransformComponent tc = m_entity->GetComponent<TransformComponent>();
 
 		ref<Shader> s = AssetManager::LoadShader(m_shader.c_str());
@@ -24,6 +30,8 @@ namespace Crimson {
 		s->SetUniformMat4("u_view", camera.GetView());
 		s->SetUniformMat4("u_projection", camera.projection);
 		s->SetUniformVec3("u_cameraPos", camera.position);
+
+		m_material->Apply(s);
 		
 		m_model->Draw();
 	}
