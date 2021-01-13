@@ -23,6 +23,7 @@ compile_commands.json
 obj
 premake5.exe
 premake5
+log.txt
 
 .vscode
 
