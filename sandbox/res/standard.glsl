@@ -83,10 +83,35 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
     return ggx1 * ggx2;
 }
 
-vec3 fresnelSchlick(float cosTheta, vec3 F0) {
+vec3 FresnelSchlick(float cosTheta, vec3 F0) {
     return F0 + (1.0 - F0) * pow(max(1.0 - cosTheta, 0.0), 5.0);
 }
 
+vec3 CalculatePointLight(PointLight light, vec3 N, vec3 V, vec3 F0) {
+	vec3 L = normalize(light.position - v_worldPos);
+	vec3 H = normalize(V + L);
+	float distance = length(light.position - v_worldPos);
+	float attenuation = 1.0 / (distance * distance);
+	vec3 radiance = light.color * attenuation;
+
+	float NDF = DistributionGGX(N, H, u_material.roughness);   
+	float G   = GeometrySmith(N, V, L, u_material.roughness);      
+	vec3 F    = FresnelSchlick(clamp(dot(H, V), 0.0, 1.0), F0);
+		
+	vec3 nominator    = NDF * G * F; 
+	float denominator = 4 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0);
+	vec3 specular = nominator / max(denominator, 0.001);
+	
+	vec3 kS = F;
+	
+	vec3 kD = vec3(1.0) - kS;
+	
+	kD *= 1.0 - u_material.metallic;	  
+
+	float NdotL = max(dot(N, L), 0.0);        
+
+	return (kD * u_material.albedo / PI + specular) * radiance * NdotL * light.intensity;
+}
 
 void main() {
 	vec3 N = normalize(v_normal);
@@ -97,31 +122,7 @@ void main() {
 
     vec3 Lo = vec3(0.0);
     for(int i = 0; i < u_pointLightCount; ++i)  {
-		PointLight light = u_pointLights[i];
-
-        vec3 L = normalize(light.position - v_worldPos);
-        vec3 H = normalize(V + L);
-        float distance = length(light.position - v_worldPos);
-        float attenuation = 1.0 / (distance * distance);
-        vec3 radiance = light.color * attenuation;
-
-        float NDF = DistributionGGX(N, H, u_material.roughness);   
-        float G   = GeometrySmith(N, V, L, u_material.roughness);      
-        vec3 F    = fresnelSchlick(clamp(dot(H, V), 0.0, 1.0), F0);
-           
-        vec3 nominator    = NDF * G * F; 
-        float denominator = 4 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0);
-        vec3 specular = nominator / max(denominator, 0.001);
-        
-        vec3 kS = F;
-		
-        vec3 kD = vec3(1.0) - kS;
-        
-		kD *= 1.0 - u_material.metallic;	  
-
-        float NdotL = max(dot(N, L), 0.0);        
-
-        Lo += (kD * u_material.albedo / PI + specular) * radiance * NdotL * light.intensity;
+        Lo += CalculatePointLight(u_pointLights[i], N, V, F0);
     }   
     
     vec3 ambient = vec3(0.03) * u_material.albedo * 0.3;
