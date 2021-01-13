@@ -1,10 +1,11 @@
 #pragma once
 
+#include "core.h"
 #include "math/mat4.h"
 #include "entity/entity.h"
 
 namespace Crimson {
-	class TransformComponent : public Component {
+	class CR_API TransformComponent : public Component {
 	private:
 		mat4 m_transform;
 	public:

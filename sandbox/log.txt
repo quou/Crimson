@@ -19,3 +19,49 @@
 [13-01-2021 15:56:37] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
 [13-01-2021 15:56:37] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 [13-01-2021 15:56:37] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 15:57:38] === 
+[13-01-2021 15:57:38] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:38] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:38] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:38] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 15:57:38] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+[13-01-2021 15:57:41] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:41] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 136 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:42] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 24 Code Size: 80 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:57:44] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 8 Code Size: 108 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+
+ === RESTART @ [13-01-2021 16:01:17] === 
+[13-01-2021 16:01:17] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:17] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:17] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 16:01:17] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 16:01:26] === 
+[13-01-2021 16:01:26] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:26] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:26] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:26] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 16:01:26] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 16:01:34] === 
+[13-01-2021 16:01:34] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:34] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:34] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 16:01:34] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 16:01:34] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 17:50:32] === 
+[13-01-2021 17:50:32] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 17:50:32] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 17:50:32] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 17:50:32] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 17:50:32] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 20:01:49] === 
+[13-01-2021 20:01:49] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 20:01:49] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 20:01:49] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 20:01:49] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 20:01:49] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
