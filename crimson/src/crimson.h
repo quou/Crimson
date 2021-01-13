@@ -23,3 +23,7 @@
 #include "rendering/model.h"
 #include "rendering/camera.h"
 #include "rendering/pbrmaterial.h"
+
+/* Scene Management */
+#include "entity/entity.h"
+#include "entity/scene.h"

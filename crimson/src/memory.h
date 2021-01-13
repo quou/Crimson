@@ -20,6 +20,7 @@ namespace Crimson {
 		}
 	};
 
+	/* ref - Generic managed heap allocation */
 	template <typename T>
 	class CR_API ref {
 	private:

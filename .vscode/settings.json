@@ -1,7 +1,13 @@
 {
 	"files.associations": {
 		"iosfwd": "cpp",
-		"functional": "cpp"
+		"functional": "cpp",
+		"*.tcc": "cpp",
+		"string": "cpp",
+		"unordered_map": "cpp",
+		"string_view": "cpp",
+		"initializer_list": "cpp",
+		"valarray": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "Disabled"
 }
