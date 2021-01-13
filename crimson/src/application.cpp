@@ -1,3 +1,5 @@
+#include <GLFW/glfw3.h>
+
 #include "application.h"
 #include "rendering/renderer.h"
 #include "assets.h"
@@ -14,8 +16,16 @@ namespace Crimson {
 
 		OnInit();
 
+		/* For calculating delta time */
+		float last, now, delta;
+
 		while (!m_window->ShouldClose()) {
-			OnUpdate(1.0f);
+			/* Calculate delta time */
+			now = glfwGetTime();
+			delta = now - last;
+			last = now;
+
+			OnUpdate(delta);
 
 			m_window->Update();
 		}

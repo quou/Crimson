@@ -88,5 +88,9 @@ namespace Crimson {
 		explicit operator bool() {
 			return m_ptr != NULL;
 		}
+
+		void reset() const {
+			release();
+		}
 	};
 }
