@@ -27,3 +27,4 @@
 /* Scene Management */
 #include "entity/entity.h"
 #include "entity/scene.h"
+#include "entity/components/renderable.h"

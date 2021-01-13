@@ -200,3 +200,19 @@
 [13-01-2021 15:16:00] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
 [13-01-2021 15:16:00] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
 [13-01-2021 15:16:00] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 15:17:42] === 
+[13-01-2021 15:17:42] info: hello from OnInit
+[13-01-2021 15:17:42] info: hello from OnUpdate
+[13-01-2021 15:17:42] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:17:42] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:17:42] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:17:42] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 15:17:42] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function
+
+ === RESTART @ [13-01-2021 15:25:51] === 
+[13-01-2021 15:25:51] info: (from shader compiler) Shader Stats: SGPRS: 56 VGPRS: 16 Code Size: 412 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:25:51] info: (from shader compiler) Shader Stats: SGPRS: 16 VGPRS: 36 Code Size: 1020 LDS: 0 Scratch: 0 Max Waves: 7 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:25:51] info: (from shader compiler) Shader Stats: SGPRS: 8 VGPRS: 24 Code Size: 40 LDS: 0 Scratch: 0 Max Waves: 8 Spilled SGPRs: 0 Spilled VGPRs: 0 PrivMem VGPRs: 0
+[13-01-2021 15:25:51] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 2 instructions in function
+[13-01-2021 15:25:51] info: (from shader compiler) LLVM diagnostic (remark): <unknown>:0:0: 3 instructions in function

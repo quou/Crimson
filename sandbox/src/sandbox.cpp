@@ -2,23 +2,9 @@
 
 using namespace Crimson;
 
-struct TestComponent : public Component {
-	int thing = 10;
-	std::string greeting = "hello, there";
-
-	void OnInit() override {
-		Log(LogType::INFO, "hello from OnInit");
-	}
-
-	void OnUpdate(float delta) override {
-		Log(LogType::INFO, "hello from OnUpdate");
-	}
-};
-
 class Sandbox : public Crimson::Application {
 private:
 	PBRMaterial m_material;
-	ref<Model> m_model;
 	float m_pos = 0.0f;
 
 	ref<Scene> m_scene;
@@ -29,24 +15,19 @@ public:
 	void OnInit() override {
 		m_scene = ref<Scene>(new Scene());
 
-		ent = m_scene->CreateEntity();
-		ent->AddComponent<TestComponent>();
-
 		m_material = {vec3(1.0f, 0.0f, 0.0f), 1.0, 0.3f};
 
-		m_model = ref<Model>(new Model());
-		m_model->AddMesh(MeshFactory::NewCubeMesh());
+		ref<Model> model = ref<Model>(new Model());
+		model->AddMesh(MeshFactory::NewCubeMesh());
+
+		ent = m_scene->CreateEntity();
+		ent->AddComponent<RenderableComponent>(model);
 
 		camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		camera.position = vec3(0.0f, 0.5f, 5.0f);
 	}
 
 	void OnUpdate(float delta) override {
-		m_scene->Update(delta);
-
-
-		ent->RemoveComponent<TestComponent>();
-
 		m_pos += 0.1f;
 
 		Crimson::AssetManager::HotReload();
@@ -74,7 +55,7 @@ public:
 
 		m_material.Apply(s);
 
-		m_model->Draw();
+		m_scene->Update(delta);
 	}
 };
 
