@@ -10,6 +10,7 @@ project "sandbox"
 	files { "src/**.h", "src/**.cpp" }
 
 	includedirs {
+		"../crimson/ex/imgui/include",
 		"../crimson/src"
 	}
 

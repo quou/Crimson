@@ -12,6 +12,8 @@ namespace Crimson {
 		int m_width, m_height;
 
 		friend void ResizeCallback(GLFWwindow* window, int w, int h);
+
+		friend class ImGuiManager;
 	public:
 		Window(const char* title, int w, int h);
 		virtual ~Window();

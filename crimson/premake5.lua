@@ -5,6 +5,8 @@ include "ex/tinyxml2"
 include "ex/glfw"
 include "ex/physfs"
 include "ex/glad"
+include "ex/imgui"
+include "ex/angelscript"
 group ""
 
 crimsonSystemDeps = {}
@@ -14,7 +16,8 @@ if os.host() == "linux" then
 		"dl",
 		"X11",
 		"GL",
-		"glad"
+		"glad",
+		"imgui"
 	}
 elseif os.host() == "windows" then
 	crimsonSystemDeps = {
@@ -27,7 +30,8 @@ crimsonExternalDeps = {
 	"glad",
 	"physfs",
 	"glfw",
-	"tinyxml2"
+	"tinyxml2",
+	"angelscript"
 }
 
 project "crimson"
@@ -42,6 +46,7 @@ project "crimson"
 		"src",
 		"ex/glfw/include",
 		"ex/glad/include",
+		"ex/imgui/include",
 		"ex/physfs/src",
 		"ex/tinyxml2/src",
 		"ex/angelscript/angelscript/include",

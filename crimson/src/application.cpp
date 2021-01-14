@@ -4,6 +4,7 @@
 #include "rendering/renderer.h"
 #include "assets.h"
 #include "logger.h"
+#include "imgui/imguimanager.h"
 
 namespace Crimson {
 	void Application::Run(const char* windowTitle, int w, int h) {

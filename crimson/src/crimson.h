@@ -29,3 +29,6 @@
 #include "entity/scene.h"
 #include "entity/components/renderable.h"
 #include "entity/components/transform.h"
+
+/* Dear ImGui */
+#include "imgui/imguimanager.h"

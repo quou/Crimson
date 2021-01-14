@@ -125,7 +125,7 @@ void main() {
         Lo += CalculatePointLight(u_pointLights[i], N, V, F0);
     }   
     
-    vec3 ambient = vec3(0.03) * u_material.albedo * 0.3;
+    vec3 ambient = vec3(0.03) * u_material.albedo * 1.0;
 
     vec3 color = ambient + Lo;
 

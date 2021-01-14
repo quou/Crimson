@@ -1,4 +1,5 @@
 #include <crimson.h>
+#include <imgui.h>
 
 using namespace Crimson;
 
@@ -12,9 +13,11 @@ private:
 	Crimson::Camera camera;
 public:
 	void OnInit() override {
+		ImGuiManager::Init(m_window);
+
 		m_scene = ref<Scene>(new Scene());
 
-		ref<Material> material(new PBRMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
+		ref<Material> material(new PBRMaterial("standard.glsl", vec3(1.0f, 0.0f, 0.0f), 1.0, 0.3f));
 
 		ref<Model> model = ref<Model>(new Model());
 		model->AddMesh(MeshFactory::NewCubeMesh(material));
@@ -35,6 +38,18 @@ public:
 		camera.projection = mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
 
 		m_scene->Draw(camera);
+
+		ImGuiManager::BeginFrame();
+
+		ImGui::Begin("Test Window");
+
+		ImGui::End();
+
+		ImGuiManager::EndFrame();
+	}
+
+	void OnExit() {
+		ImGuiManager::Quit();
 	}
 };
 
