@@ -42,6 +42,10 @@ namespace Crimson {
 		/* Load, parse and compile a  shader from a text file */
 		static ref<Shader>& LoadShader(const char* path, bool reload = false);
 
+		inline static const std::map<std::string, std::pair<ref<Shader>, uint64_t>>& GetShaders() {
+			return instance().m_shaders;
+		}
+
 		/* Iterate currently loaded files, checking for changes.
 		 * If there are changes found, reload the file. */
 		static void HotReload();

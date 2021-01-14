@@ -8,9 +8,12 @@ namespace Crimson {
 	/* A generic material class, for specific materials to inherit from */
 	class CR_API Material {
 	public:
+		std::string m_shader;
+
+		Material(const std::string& shader) : m_shader(shader) {}
 
 		/* Set the shader's Material uniform */
-		virtual void Apply(const ref<Shader>& shader) {}
+		virtual void Apply() {}
 		
 		virtual ~Material() {}
 	};

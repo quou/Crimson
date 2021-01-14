@@ -42,7 +42,8 @@ namespace Crimson {
 
 
 	Mesh::Mesh(const std::vector<Vertex>& vertices, 
-			const std::vector<unsigned int>& indices) {
+			const std::vector<unsigned int>& indices, const ref<Material>& material) {
+		UseMaterial(material);
 		LoadFromVertexData(vertices, indices);
 	}
 
@@ -53,6 +54,8 @@ namespace Crimson {
 	}
 
 	void Mesh::Draw() {
+		m_material->Apply();
+
 		glBindVertexArray(m_va);
 		glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

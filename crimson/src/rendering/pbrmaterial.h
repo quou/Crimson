@@ -13,10 +13,10 @@ namespace Crimson {
 		float metallic;
 		float roughness;
 
-		PBRMaterial(const vec3& albedo, float metallic, float roughness)
-			: albedo(albedo), metallic(metallic), roughness(roughness) {}
+		PBRMaterial(const std::string& shader, const vec3& albedo, float metallic, float roughness)
+			: Material(shader), albedo(albedo), metallic(metallic), roughness(roughness) {}
 
 		/* Set the shader's Material uniform */
-		void Apply(const ref<Shader>& shader) override;
+		void Apply() override;
 	};
 }

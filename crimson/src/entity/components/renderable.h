@@ -11,11 +11,8 @@ namespace Crimson {
 	class CR_API RenderableComponent : public Component {
 	private:
 		ref<Model> m_model;
-		ref<Material> m_material;
-
-		std::string m_shader;
 	public:
-		RenderableComponent(const ref<Model>& model, const ref<Material>& material, const std::string& shader);
+		RenderableComponent(const ref<Model>& model);
 
 		void OnDraw(const Camera& camera) override;
 	};

@@ -14,14 +14,14 @@ public:
 	void OnInit() override {
 		m_scene = ref<Scene>(new Scene());
 
-		ref<Material> material(new PBRMaterial(vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
+		ref<Material> material(new PBRMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
 
 		ref<Model> model = ref<Model>(new Model());
-		model->AddMesh(MeshFactory::NewCubeMesh());
+		model->AddMesh(MeshFactory::NewCubeMesh(material));
 
 		ent = m_scene->CreateEntity();
 		ent->AddComponent<TransformComponent>().Rotate(45.0f, vec3(0.0f, 1.0f, 0.0f));
-		ent->AddComponent<RenderableComponent>(model, material, "standard.glsl");
+		ent->AddComponent<RenderableComponent>(model);
 
 		camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		camera.position = vec3(0.0f, 0.5f, 5.0f);
