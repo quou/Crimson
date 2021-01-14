@@ -50,7 +50,7 @@ project "crimson"
 		"ex/physfs/src",
 		"ex/tinyxml2/src",
 		"ex/angelscript/angelscript/include",
-		"ex/angelscript/angelscript/",
+		"ex/angelscript/angelscript/add_on",
 	}
 
 	links {

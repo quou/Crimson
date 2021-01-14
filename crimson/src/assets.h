@@ -49,5 +49,8 @@ namespace Crimson {
 		/* Iterate currently loaded files, checking for changes.
 		 * If there are changes found, reload the file. */
 		static void HotReload();
+
+		/* Get a vector of files and their extensions */
+		static std::vector<std::pair<std::string, std::string>> GetDir(const std::string& dir = "/");
 	};
 }
