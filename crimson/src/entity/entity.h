@@ -18,6 +18,7 @@
 namespace Crimson {
 	class Entity;
 	class Component;
+	class Scene;
 
 	using ComponentID = size_t;
 
@@ -56,7 +57,8 @@ namespace Crimson {
 
 		ComponentArray m_componentArray;
 		ComponentBitset m_componentBitset;
-	
+
+		Scene* m_scene;
 		friend class Scene;
 	public:
 		void Update(float delta);
@@ -70,28 +72,28 @@ namespace Crimson {
 		}
 
 		template <typename T>
-		T& GetComponent() const {
+		T* GetComponent() const {
 			assert(HasComponent<T>());
 			auto ptr(m_componentArray[GetComponentTypeID<T>()]);
-			return *static_cast<T*>(ptr);
+			return static_cast<T*>(ptr);
 		}
 
 		template <typename T, typename... TArgs>
-		T& AddComponent(TArgs&&... args) {
+		T* AddComponent(TArgs&&... args) {
 			if (HasComponent<T>()) {
 				return GetComponent<T>();
 			}
 
-			T* c(new T(std::forward<TArgs>(args)...));
+			ref<Component> c(new T(std::forward<TArgs>(args)...));
 			c->m_entity = this;
-			m_components.emplace_back<ref<Component>>(c);
+			m_components.emplace_back(std::move(c));
 
-			m_componentArray[GetComponentTypeID<T>()] = c;
+			m_componentArray[GetComponentTypeID<T>()] = c.get();
 			m_componentBitset[GetComponentTypeID<T>()] = true;
 
 			c->OnInit();
 
-			return *c;
+			return static_cast<T*>(c.get());
 		}
 
 		template <typename T>

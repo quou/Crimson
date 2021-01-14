@@ -23,7 +23,7 @@ public:
 		model->AddMesh(MeshFactory::NewCubeMesh(material));
 
 		ent = m_scene->CreateEntity();
-		ent->AddComponent<TransformComponent>().Rotate(45.0f, vec3(0.0f, 1.0f, 0.0f));
+		ent->AddComponent<TransformComponent>()->Rotate(45.0f, vec3(0.0f, 1.0f, 0.0f));
 		ent->AddComponent<RenderableComponent>(model);
 
 		camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);

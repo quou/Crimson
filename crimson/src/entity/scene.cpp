@@ -22,9 +22,9 @@ namespace Crimson {
 	}
 
 	Entity* Scene::CreateEntity() {
-		Entity* e = new Entity();
-		ref<Entity> r(e);
-		m_entities.emplace_back(std::move(r));
-		return e;
+		ref<Entity> e(new Entity());
+		e->m_scene = this;
+		m_entities.emplace_back(std::move(e));
+		return e.get();
 	}
 }

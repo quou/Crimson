@@ -14,9 +14,9 @@ namespace Crimson {
 			return;
 		}
 
-		TransformComponent tc = m_entity->GetComponent<TransformComponent>();
+		TransformComponent* tc = m_entity->GetComponent<TransformComponent>();
 
-		m_model->SetTransform(tc.GetMatrix());	
+		m_model->SetTransform(tc->GetMatrix());	
 		m_model->Draw(camera);
 	}
 }
