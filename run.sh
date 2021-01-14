@@ -1,2 +1,2 @@
-cd editor
-./../bin/editor
+cd sandbox
+./../bin/sandbox

@@ -94,25 +94,10 @@ namespace Crimson {
 		ImGuizmo::BeginFrame();
 
 		ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
-
-		if (instance().m_useScript && instance().m_scriptManager) {
-			instance().m_scriptManager->CallFunc("void main()");
-		}
 	}
 
 	void ImGuiManager::EndFrame() {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	}
-
-	void ImGuiManager::UseScript(const char* scriptPath) {
-		if (!instance().m_scriptManager) {
-			instance().m_scriptManager = ref<ScriptManager>(new ScriptManager());
-		}
-
-		instance().m_scriptManager->AddScript(AssetManager::LoadTerminatedString(scriptPath));
-		instance().m_useScript = true;
-
-		instance().m_scriptManager->Compile("Editor Behaviour");
 	}
 }
