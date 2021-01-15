@@ -1,65 +1,66 @@
 #include <crimson.h>
 #include <imgui.h>
 
-using namespace Crimson;
-
 class Sandbox : public Crimson::Application {
 private:
-	float m_pos = 0.0f;
-
-	ref<Scene> m_scene;
-	Entity* ent;
-	Entity* pointLight;
-	Entity* pointLight2;
+	Crimson::ref<Crimson::Scene> m_scene;
+	Crimson::Entity* ent;
+	Crimson::Entity* pointLight;
+	Crimson::Entity* pointLight2;
 	
-	Crimson::Camera camera;
+	Crimson::Camera m_camera;
 public:
 	void OnInit() override {
-		ImGuiManager::Init(m_window);
+		Crimson::ImGuiManager::Init(m_window);
 
-		m_scene = ref<Scene>(new Scene());
+		/* Create the scene */
+		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
 
-		ref<Material> material(new PBRMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
+		/* Create a cube model */
+		Crimson::ref<Crimson::Material> material(new Crimson::PBRMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
+		Crimson::ref<Crimson::Model> model(new Crimson::Model());
+		model->AddMesh(Crimson::MeshFactory::NewCubeMesh(material));
 
-		ref<Model> model = ref<Model>(new Model());
-		model->AddMesh(MeshFactory::NewCubeMesh(material));
-
+		/* Create the cube entity */
 		ent = m_scene->CreateEntity();
-		ent->AddComponent<TransformComponent>()->Rotate(45.0f, vec3(0.0f, 1.0f, 0.0f));
-		ent->AddComponent<RenderableComponent>(model);
+		ent->AddComponent<Crimson::TransformComponent>()->Rotate(45.0f, Crimson::vec3(0.0f, 1.0f, 0.0f));
+		ent->AddComponent<Crimson::RenderableComponent>(model);
 
+		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();
-		pointLight->AddComponent<TransformComponent>()->Translate(vec3(2.0f, -1.0f, 5.0f));
-		pointLight->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
-
+		pointLight->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(2.0f, -1.0f, 5.0f));
+		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
 		pointLight2 = m_scene->CreateEntity();
-		pointLight2->AddComponent<TransformComponent>()->Translate(vec3(2.0f, 0.0f, 5.0f));
-		pointLight2->AddComponent<PointLightComponent>(vec3(1.0f, 0.0f, 0.0f), 3.0f);
+		pointLight2->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(2.0f, 0.0f, 5.0f));
+		pointLight2->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f, 0.0f, 0.0f), 3.0f);
 
-		camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
-		camera.position = vec3(0.0f, 0.5f, 5.0f);
+		/* Create the camera */
+		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
+		m_camera.position = Crimson::vec3(0.0f, 0.5f, 5.0f);
 	}
 
 	void OnUpdate(float delta) override {
 		m_scene->Update(delta);
 		Crimson::AssetManager::HotReload();
+
 		Crimson::Renderer::Clear(0.0f, 0.0f, 0.0f);
 
-		camera.projection = mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
+		/* Update perspective */
+		m_camera.projection = Crimson::mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
 
-		m_scene->Draw(camera);
+		m_scene->Draw(m_camera);
 
-		ImGuiManager::BeginFrame();
+		Crimson::ImGuiManager::BeginFrame();
 
 		ImGui::Begin("Test Window");
-
+		ImGui::Text("%g", 1.0f/delta);
 		ImGui::End();
 
-		ImGuiManager::EndFrame();
+		Crimson::ImGuiManager::EndFrame();
 	}
 
 	void OnExit() {
-		ImGuiManager::Quit();
+		Crimson::ImGuiManager::Quit();
 	}
 };
 
