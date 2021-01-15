@@ -40,12 +40,14 @@ namespace Crimson {
 	class CR_API Component {
 	private:
 		friend class Entity;
+		friend class Scene;
 	protected:
 		Entity* m_entity;
 
 		virtual void OnInit() {}
 		virtual void OnUpdate(float delta) {}
 		virtual void OnDraw(const Camera& camera) {}
+		virtual void OnDestroy() {}
 	public:
 		virtual ~Component() {}
 	};
@@ -58,11 +60,14 @@ namespace Crimson {
 		ComponentArray m_componentArray;
 		ComponentBitset m_componentBitset;
 
-		Scene* m_scene;
 		friend class Scene;
 	public:
+		Scene* m_scene;
+
 		void Update(float delta);
 		void Draw(const Camera& camera);
+
+		virtual ~Entity();
 
 		inline void Destroy() { m_alive = false; }
 
@@ -101,6 +106,8 @@ namespace Crimson {
 			if (!HasComponent<T>()) {
 				return;
 			}
+
+			m_componentArray[GetComponentTypeID<T>()]->OnDestroy();
 
 			m_components.erase(
 				std::remove_if(std::begin(m_components), std::end(m_components), 

@@ -4,6 +4,7 @@
 #include "mesh.h"
 #include "memory.h"
 #include "camera.h"
+#include "entity/scene.h"
 #include "math/mat4.h"
 
 namespace Crimson {
@@ -21,5 +22,6 @@ namespace Crimson {
 		inline void SetTransform(const mat4& t) { m_transform = t; }
 
 		void Draw(const Camera& camera);
+		void DrawLitScene(const Camera& camera, Scene* scene);
 	};
 }

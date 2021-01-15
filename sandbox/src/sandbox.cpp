@@ -9,6 +9,7 @@ private:
 
 	ref<Scene> m_scene;
 	Entity* ent;
+	Entity* pointLight;
 	
 	Crimson::Camera camera;
 public:
@@ -25,6 +26,10 @@ public:
 		ent = m_scene->CreateEntity();
 		ent->AddComponent<TransformComponent>()->Rotate(45.0f, vec3(0.0f, 1.0f, 0.0f));
 		ent->AddComponent<RenderableComponent>(model);
+
+		pointLight = m_scene->CreateEntity();
+		pointLight->AddComponent<TransformComponent>()->Translate(vec3(2.0f, -1.0f, 5.0f));
+		pointLight->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
 
 		camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		camera.position = vec3(0.0f, 0.5f, 5.0f);

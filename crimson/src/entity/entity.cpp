@@ -17,4 +17,10 @@ namespace Crimson {
 			c->OnDraw(camera);
 		}
 	}
+
+	Entity::~Entity() {
+		for (auto& c : m_components) {
+			c->OnDestroy();
+		}
+	}
 }

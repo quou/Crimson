@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "components/lights.h"
 
 namespace Crimson {
 	void Scene::Update(float delta) {
@@ -26,5 +27,24 @@ namespace Crimson {
 		e->m_scene = this;
 		m_entities.emplace_back(std::move(e));
 		return e.get();
+	}
+
+	void Scene::RemoveLight(Entity* entity) {
+		m_lights.erase(
+			std::remove_if(std::begin(m_lights), std::end(m_lights), 
+				[entity](Entity* e) {
+					return e == entity;
+				}),
+			std::end(m_lights)
+		);
+	}
+
+
+	Scene::~Scene() {
+		for (auto& e : m_entities) {
+			for (auto& c : e->m_components) {
+				c->OnDestroy();
+			}
+		}
 	}
 }

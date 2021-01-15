@@ -17,6 +17,6 @@ namespace Crimson {
 		TransformComponent* tc = m_entity->GetComponent<TransformComponent>();
 
 		m_model->SetTransform(tc->GetMatrix());	
-		m_model->Draw(camera);
+		m_model->DrawLitScene(camera, m_entity->m_scene);
 	}
 }
