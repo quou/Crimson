@@ -18,16 +18,19 @@ namespace Crimson {
 		windowClass->m_height = h;
 	}
 	
-	Window::Window(const char* title, int w, int h) 
+	Window::Window(const char* title, int w, int h)
 	: m_width(w), m_height(h) {
 		glfwInit();
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+
 
 		m_window = glfwCreateWindow(w, h, title, NULL, NULL);
 		glfwMakeContextCurrent(m_window);
+		glfwSwapInterval(0);
 
 		/* Needed by ResizeCallback to set the window's width and height
 		 * member variables */
