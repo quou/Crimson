@@ -37,6 +37,10 @@ public:
 		/* Create the camera */
 		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		m_camera.position = Crimson::vec3(0.0f, 0.5f, 5.0f);
+
+		Crimson::ScriptCompiler compiler;
+		compiler.AddCode("test.as");
+		compiler.Compile("MainModule", "res/scriptassembly.asb");
 	}
 
 	void OnUpdate(float delta) override {
