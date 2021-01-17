@@ -6,7 +6,6 @@ include "ex/glfw"
 include "ex/physfs"
 include "ex/glad"
 include "ex/imgui"
-include "ex/angelscript"
 group ""
 
 crimsonSystemDeps = {}
@@ -31,7 +30,6 @@ crimsonExternalDeps = {
 	"physfs",
 	"glfw",
 	"tinyxml2",
-	"angelscript"
 }
 
 project "crimson"

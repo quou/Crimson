@@ -33,7 +33,3 @@
 
 /* Dear ImGui */
 #include "imgui/imguimanager.h"
-
-/* Scripting */
-#include "scripting/scriptcompiler.h"
-#include "scripting/scriptregister.h"
