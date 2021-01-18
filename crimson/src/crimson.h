@@ -30,6 +30,10 @@
 #include "entity/components/renderable.h"
 #include "entity/components/transform.h"
 #include "entity/components/lights.h"
+#include "entity/components/script.h"
 
 /* Dear ImGui */
 #include "imgui/imguimanager.h"
+
+/* Scripting */
+#include "scripting/scriptmanager.h"

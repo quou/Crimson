@@ -2,6 +2,7 @@
 
 #include "core.h"
 #include "entity.h"
+#include "scripting/scriptmanager.h"
 
 namespace Crimson {
 	class CR_API Scene {
@@ -12,6 +13,10 @@ namespace Crimson {
 
 		void UpdateLights();
 	public:
+		ref<ScriptManager> m_scriptManager;
+
+		Scene();
+
 		void Update(float delta);
 		void Draw(const Camera& camera) const;
 

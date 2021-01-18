@@ -2,6 +2,11 @@
 #include "components/lights.h"
 
 namespace Crimson {
+	Scene::Scene() {
+		m_scriptManager = ref<ScriptManager>(new ScriptManager());
+		m_scriptManager->Compile("SceneBehaviours");
+	}
+
 	void Scene::Update(float delta) {
 		for (auto& e : m_entities) {
 			e->Update(delta);

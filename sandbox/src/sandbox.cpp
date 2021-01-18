@@ -25,6 +25,7 @@ public:
 		ent = m_scene->CreateEntity();
 		ent->AddComponent<Crimson::TransformComponent>()->Rotate(45.0f, Crimson::vec3(0.0f, 1.0f, 0.0f));
 		ent->AddComponent<Crimson::RenderableComponent>(model);
+		ent->AddComponent<Crimson::ScriptComponent>("TestBehaviour");
 
 		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();

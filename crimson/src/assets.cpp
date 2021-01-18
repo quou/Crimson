@@ -157,10 +157,10 @@ namespace Crimson {
 			extension = fname.substr(idx+1);
 		}
 
-		return "." + extension;
+		return extension;
 	}
 
-	std::vector<std::pair<std::string, std::string>> GetDir(const std::string& dir) {
+	std::vector<std::pair<std::string, std::string>> AssetManager::GetDir(const std::string& dir) {
 		std::vector<std::pair<std::string, std::string>> result;
 
 		char **rc = PHYSFS_enumerateFiles(dir.c_str());
