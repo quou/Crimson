@@ -7,6 +7,8 @@
 namespace Crimson {
 	static const char* CrimsonDefaultLibrary = R"(
 abstract class CrimsonBehaviour {
+	Entity@ entity;
+	
 	void OnInit() {}
 	void OnUpdate() {}
 };
@@ -65,7 +67,12 @@ abstract class CrimsonBehaviour {
 		m_context->Execute();
 
 		asIScriptObject* instance = 
-			*(asIScriptObject**)m_context->GetAddressOfReturnValue();
+			*(asIScriptObject**)m_context->GetAddressOfReturnValue(); /* Create the instance */
+		
+		/* Set the instance's entity property */
+		Entity* p = (Entity*)instance->GetAddressOfProperty(0);
+		p = entity;
+
 		instance->AddRef();
 
 		return BehaviourInstance{type, instance, true};
