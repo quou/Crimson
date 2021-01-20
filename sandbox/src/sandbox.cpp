@@ -7,6 +7,8 @@ private:
 	Crimson::Entity* ent;
 	Crimson::Entity* pointLight;
 	Crimson::Entity* pointLight2;
+
+	float m_rot;
 	
 	Crimson::Camera m_camera;
 public:
@@ -18,13 +20,13 @@ public:
 
 		/* Create a cube model */
 		Crimson::ref<Crimson::Material> material(new Crimson::PBRMaterial("standard.glsl", 
-			Crimson::vec3(1.0f, 0.0f, 1.0f), 1.0, 0.3f, "rustediron2_basecolor.png"));
+			Crimson::vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f, "rustediron2_basecolor.png"));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
-		model->AddMesh(Crimson::MeshFactory::NewCubeMesh(material));
+		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 
 		/* Create the cube entity */
 		ent = m_scene->CreateEntity();
-		ent->AddComponent<Crimson::TransformComponent>()->Rotate(45.0f, Crimson::vec3(0.0f, 1.0f, 0.0f));
+		ent->AddComponent<Crimson::TransformComponent>();
 		ent->AddComponent<Crimson::RenderableComponent>(model);
 
 		/* Create point light entities */

@@ -8,5 +8,6 @@ namespace Crimson {
 	class CR_API MeshFactory {
 	public:
 		static ref<Mesh> NewCubeMesh(const ref<Material>& material);
+		static ref<Mesh> NewSphereMesh(const ref<Material>& material);
 	};
 }
