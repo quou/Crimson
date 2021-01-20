@@ -20,7 +20,7 @@ public:
 
 		/* Create a cube model */
 		Crimson::ref<Crimson::Material> material(new Crimson::PBRMaterial("standard.glsl", 
-			Crimson::vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f, "rustediron2_basecolor.png"));
+			Crimson::vec3(1.0f, 1.0f, 1.0f), 1.0, 0.6f, "rustediron2_basecolor.png"));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
 		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 
@@ -31,11 +31,11 @@ public:
 
 		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();
-		pointLight->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(2.0f, -1.0f, 5.0f));
-		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
+		pointLight->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(2.0f, -1.0f, 2.0f));
+		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 5.0f);
 		pointLight2 = m_scene->CreateEntity();
-		pointLight2->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(2.0f, 0.0f, 5.0f));
-		pointLight2->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f, 0.0f, 0.0f), 3.0f);
+		pointLight2->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(-2.0f, 0.0f, 2.0f));
+		pointLight2->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f, 0.0f, 0.0f), 1.0f);
 
 		/* Create the camera */
 		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
