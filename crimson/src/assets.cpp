@@ -1,5 +1,6 @@
 #include "logger.h"
 #include "assets.h"
+#include "utils/stb_image.h"
 
 #include <physfs.h>
 
@@ -106,6 +107,38 @@ namespace Crimson {
 		return i.m_shaders[path].first;
 	}
 
+	ref<Texture>& AssetManager::LoadTexture(const char* path, bool reload) {
+		AssetManager& i = instance();
+
+		if (i.m_textures.count(path) == 0 || reload) {
+			/* Load the compressed binary data */
+			unsigned char* rawData = LoadBinary(path, reload);
+
+			unsigned char* pixels;
+			int w, h, componentCount;
+	
+			/* To get the modtime & file size */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(path, &stat);
+
+			/* Uncompress and parse the data */
+			pixels = stbi_load_from_memory(rawData, stat.filesize, &w, &h,
+					&componentCount, 0);
+			
+			if (pixels == NULL) {
+				Log(LogType::ERROR, "Failed to load %s: %s",
+						path, stbi_failure_reason());
+			}
+
+			i.m_textures[path] = {ref<Texture>(new Texture(
+						pixels, w, h, componentCount)),
+						stat.modtime};
+		}
+
+		return i.m_textures[path].first;
+	}
+
+
 	void AssetManager::HotReload() {
 		AssetManager& i = instance();
 		
@@ -147,6 +180,20 @@ namespace Crimson {
 				LoadShader(f.first.c_str(), true);
 			}
 		}
+
+		/* Loop over cached textures */
+		for (auto& f : i.m_textures) {
+			/* Grab the file stats */
+			PHYSFS_Stat stat;
+			PHYSFS_stat(f.first.c_str(), &stat);
+
+			/* If there are new changes */
+			if (stat.modtime > f.second.second) {
+				/* Reload the file */
+				LoadTexture(f.first.c_str(), true);
+			}
+		}
+
 	}
 	
 	static std::string GetExtension(const std::string& fname) {

@@ -17,7 +17,8 @@ public:
 		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
 
 		/* Create a cube model */
-		Crimson::ref<Crimson::Material> material(new Crimson::PBRMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 1.0, 0.3f));
+		Crimson::ref<Crimson::Material> material(new Crimson::PBRMaterial("standard.glsl", 
+			Crimson::vec3(1.0f, 0.0f, 1.0f), 1.0, 0.3f, "rustediron2_basecolor.png"));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
 		model->AddMesh(Crimson::MeshFactory::NewCubeMesh(material));
 
@@ -25,7 +26,6 @@ public:
 		ent = m_scene->CreateEntity();
 		ent->AddComponent<Crimson::TransformComponent>()->Rotate(45.0f, Crimson::vec3(0.0f, 1.0f, 0.0f));
 		ent->AddComponent<Crimson::RenderableComponent>(model);
-		ent->AddComponent<Crimson::ScriptComponent>("TestBehaviour");
 
 		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();

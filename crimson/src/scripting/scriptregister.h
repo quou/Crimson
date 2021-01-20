@@ -1,9 +1,11 @@
 #pragma once
 
+#include "core.h"
+
 class asIScriptEngine;
 
 namespace Crimson {
-	class ScriptRegister {
+	class CR_API ScriptRegister {
 	public:
 		static void Register(asIScriptEngine* engine);
 	};

@@ -43,6 +43,12 @@ struct PointLight {
 
 uniform Material u_material = Material(vec3(1.0, 0.0, 0.0), 1.0, 0.3);
 
+uniform sampler2D u_albedoMap;
+uniform bool u_useAlbedoMap = false;
+uniform sampler2D u_normalMap;
+uniform sampler2D u_metallicMap;
+uniform sampler2D u_roughnessMap;
+
 uniform PointLight u_pointLights[100];
 uniform int u_pointLightCount;
 
@@ -52,50 +58,49 @@ const float PI = 3.14159265359;
 
 
 float DistributionGGX(vec3 N, vec3 H, float roughness) {
-    float a = roughness*roughness;
-    float a2 = a*a;
-    float NdotH = max(dot(N, H), 0.0);
-    float NdotH2 = NdotH*NdotH;
+	float a = roughness*roughness;
+	float a2 = a*a;
+	float NdotH = max(dot(N, H), 0.0);
+	float NdotH2 = NdotH*NdotH;
 
-    float nom   = a2;
-    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-    denom = PI * denom * denom;
+	float nom   = a2;
+	float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+	denom = PI * denom * denom;
 
-    return nom / max(denom, 0.0000001);
+	return nom / max(denom, 0.0000001);
 }
 
 float GeometrySchlickGGX(float NdotV, float roughness) {
-    float r = (roughness + 1.0);
-    float k = (r*r) / 8.0;
+	float r = (roughness + 1.0);
+	float k = (r*r) / 8.0;
 
-    float nom   = NdotV;
-    float denom = NdotV * (1.0 - k) + k;
+	float nom   = NdotV;
+	float denom = NdotV * (1.0 - k) + k;
 
-    return nom / denom;
+	return nom / denom;
 }
 
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
-    float NdotV = max(dot(N, V), 0.0);
-    float NdotL = max(dot(N, L), 0.0);
-    float ggx2 = GeometrySchlickGGX(NdotV, roughness);
-    float ggx1 = GeometrySchlickGGX(NdotL, roughness);
-
-    return ggx1 * ggx2;
+	float NdotV = max(dot(N, V), 0.0);
+	float NdotL = max(dot(N, L), 0.0);
+	float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+	float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+	return ggx1 * ggx2;
 }
 
 vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-    return F0 + (1.0 - F0) * pow(max(1.0 - cosTheta, 0.0), 5.0);
+	return F0 + (1.0 - F0) * pow(max(1.0 - cosTheta, 0.0), 5.0);
 }
 
-vec3 CalculatePointLight(PointLight light, vec3 N, vec3 V, vec3 F0) {
+vec3 CalculatePointLight(PointLight light, Material material, vec3 N, vec3 V, vec3 F0) {
 	vec3 L = normalize(light.position - v_worldPos);
 	vec3 H = normalize(V + L);
 	float distance = length(light.position - v_worldPos);
 	float attenuation = 1.0 / (distance * distance);
 	vec3 radiance = light.color * attenuation;
 
-	float NDF = DistributionGGX(N, H, u_material.roughness);   
-	float G   = GeometrySmith(N, V, L, u_material.roughness);      
+	float NDF = DistributionGGX(N, H, material.roughness);   
+	float G   = GeometrySmith(N, V, L, material.roughness);      
 	vec3 F    = FresnelSchlick(clamp(dot(H, V), 0.0, 1.0), F0);
 		
 	vec3 nominator    = NDF * G * F; 
@@ -106,31 +111,36 @@ vec3 CalculatePointLight(PointLight light, vec3 N, vec3 V, vec3 F0) {
 	
 	vec3 kD = vec3(1.0) - kS;
 	
-	kD *= 1.0 - u_material.metallic;	  
+	kD *= 1.0 - material.metallic;	  
 
 	float NdotL = max(dot(N, L), 0.0);        
 
-	return (kD * u_material.albedo / PI + specular) * radiance * NdotL * light.intensity;
+	return (kD * material.albedo / PI + specular) * radiance * NdotL * light.intensity;
 }
 
 void main() {
 	vec3 N = normalize(v_normal);
-    vec3 V = normalize(u_cameraPos - v_worldPos);
+	vec3 V = normalize(u_cameraPos - v_worldPos);
 
-    vec3 F0 = vec3(0.04); 
-    F0 = mix(F0, u_material.albedo, u_material.metallic);
+	Material actualMaterial = u_material;
+	if (u_useAlbedoMap) {
+		actualMaterial.albedo *= pow(texture(u_albedoMap, v_uv).rgb, vec3(2.2));
+	}
 
-    vec3 Lo = vec3(0.0);
-    for(int i = 0; i < u_pointLightCount; ++i)  {
-        Lo += CalculatePointLight(u_pointLights[i], N, V, F0);
-    }   
-    
-    vec3 ambient = vec3(0.03) * u_material.albedo * 1.0;
+	vec3 F0 = vec3(0.04); 
+	F0 = mix(F0, actualMaterial.albedo, actualMaterial.metallic);
 
-    vec3 color = ambient + Lo;
+	vec3 Lo = vec3(0.0);
+	for(int i = 0; i < u_pointLightCount; ++i)  {
+		Lo += CalculatePointLight(u_pointLights[i], actualMaterial, N, V, F0);
+	}
 
-    color = color / (color + vec3(1.0));
-    color = pow(color, vec3(1.0/2.2)); 
+	vec3 ambient = vec3(0.03) * actualMaterial.albedo * 1.0;
+
+	vec3 color = ambient + Lo;
+
+	color = color / (color + vec3(1.0));
+	color = pow(color, vec3(1.0/2.2)); 
 
 	v_color = vec4(color, 1.0f);
 }
