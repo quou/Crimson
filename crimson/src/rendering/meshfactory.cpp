@@ -123,9 +123,6 @@ namespace Crimson {
 			}
 		}
 
-		Log(LogType::INFO, "%d", vertices.size());
-		Log(LogType::INFO, "%d", indices.size());
-
 		return ref<Mesh>(new Mesh(vertices, indices, material));
 	}
 }
