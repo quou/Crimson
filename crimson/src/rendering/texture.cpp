@@ -11,6 +11,7 @@ namespace Crimson {
        		: m_width(w), m_height(h), m_components(components) {
 		if (pixels == NULL) {
 			Log(LogType::ERROR, "Cannot construct texture with null pixel data");
+			return;
 		}
 
 		glGenTextures(1, &m_id);
@@ -30,6 +31,8 @@ namespace Crimson {
 				0, mode, GL_UNSIGNED_BYTE, pixels);
 
 		stbi_image_free(pixels);
+
+		m_error = false;
 	}
 
 	Texture::~Texture() {
@@ -37,6 +40,8 @@ namespace Crimson {
 	}
 
 	void Texture::Bind(unsigned int unit) {
+		if (m_error) { return; }
+
 		assert(unit <= 32 && "Texture unit too high");
 
 		glActiveTexture(GL_TEXTURE0 + unit);

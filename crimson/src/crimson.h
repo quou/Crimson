@@ -22,7 +22,7 @@
 #include "rendering/meshfactory.h"
 #include "rendering/model.h"
 #include "rendering/camera.h"
-#include "rendering/pbrmaterial.h"
+#include "rendering/phongmaterial.h"
 
 /* Scene Management */
 #include "entity/entity.h"

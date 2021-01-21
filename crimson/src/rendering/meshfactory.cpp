@@ -119,7 +119,6 @@ namespace Crimson {
 					indices.push_back(k2);
 					indices.push_back(k2 + 1);
 				}
-
 			}
 		}
 

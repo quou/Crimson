@@ -8,6 +8,8 @@ namespace Crimson {
 		unsigned int m_id;
 
 		int m_width, m_height, m_components;
+
+		bool m_error = true;
 	public:
 		Texture(unsigned char* pixels, int w, int h, int components);
 		virtual ~Texture();
