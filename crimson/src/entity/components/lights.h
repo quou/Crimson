@@ -10,9 +10,26 @@ namespace Crimson {
 		vec3 color;
 		float intensity;
 
+		float constant = 1.0;
+		float linear = 0.09;
+		float quadratic = 0.032;
+		
 		PointLightComponent(const vec3& color, float intensity)
 			: color(color), intensity(intensity) {}
 
+		void OnInit() override;
+		void OnDestroy() override;
+	};
+
+	class SkyLightComponent : public Component {
+	public:
+		vec3 color;
+		float intensity;
+
+		SkyLightComponent(const vec3& color, float intensity)
+			: color(color), intensity(intensity) {}
+
+		
 		void OnInit() override;
 		void OnDestroy() override;
 	};

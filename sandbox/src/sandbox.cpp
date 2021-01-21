@@ -7,8 +7,6 @@ private:
 	Crimson::Entity* ent;
 	Crimson::Entity* pointLight;
 	Crimson::Entity* pointLight2;
-
-	float m_rot;
 	
 	Crimson::Camera m_camera;
 public:
@@ -19,7 +17,7 @@ public:
 		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
 
 		/* Create a sphere model */
-		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(0.7f, 0.0f, 0.1f)));
+		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(0.7f, 0.0f, 0.1f), 32.0f));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
 		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 
@@ -31,7 +29,8 @@ public:
 		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();
 		pointLight->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(5.0f, -1.0f, 4.0f));
-		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 20.0f);
+		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
+		pointLight->AddComponent<Crimson::SkyLightComponent>(Crimson::vec3(1.0f), 0.1f);
 
 		/* Create the camera */
 		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
@@ -39,13 +38,6 @@ public:
 	}
 
 	void OnUpdate(float delta) override {
-		m_rot += 0.001f * delta;
-		if (m_rot >= 360) {
-			m_rot = 0.0f;
-		}
-
-		ent->GetComponent<Crimson::TransformComponent>()->Rotate(m_rot, Crimson::vec3(0.0f, 1.0f, 0.0f));
-
 		m_scene->Update(delta);
 		Crimson::AssetManager::HotReload();
 

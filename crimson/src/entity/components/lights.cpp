@@ -14,4 +14,12 @@ namespace Crimson {
 	void PointLightComponent::OnDestroy() {
 		m_entity->m_scene->RemoveLight(m_entity);
 	}
+
+	void SkyLightComponent::OnInit() {
+		m_entity->m_scene->GetLights()->push_back(m_entity);
+	}
+
+	void SkyLightComponent::OnDestroy() {
+		m_entity->m_scene->RemoveLight(m_entity);
+	}
 }

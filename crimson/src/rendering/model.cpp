@@ -46,20 +46,41 @@ namespace Crimson {
 			ref<Shader> s = AssetManager::LoadShader(mesh->m_material->m_shader.c_str());
 			s->Bind();
 
-			s->SetUniformVec3("u_cameraPos", camera.position);
-			s->SetUniformInt("u_pointLightCount", scene->GetLights()->size());
+			s->SetUniformVec3("u_cameraPosition", camera.position);
 
+			int pointLightCount = 0;
+			int skyLightCount = 0;
 
 			for (unsigned int i = 0; i < scene->GetLights()->size(); i++) {
-				PointLightComponent* plc = scene->GetLights()->at(i)->GetComponent<PointLightComponent>();
-				TransformComponent* tc = scene->GetLights()->at(i)->GetComponent<TransformComponent>();
+				Entity* ent = scene->GetLights()->at(i);
 
+				if (!ent->HasComponent<TransformComponent>()) { continue; }
+				TransformComponent* tc = ent->GetComponent<TransformComponent>();
 				mat4 tmat = tc->GetMatrix();
 
-				s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].position").c_str(), tmat.GetPosition());
-				s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].color").c_str(), plc->color);
-				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].intensity").c_str(), plc->intensity);
+				if (ent->HasComponent<PointLightComponent>()) {
+					pointLightCount++;
+					PointLightComponent* plc = ent->GetComponent<PointLightComponent>();
+
+					s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].position").c_str(), tmat.GetPosition());
+					s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].color").c_str(), plc->color);
+					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].intensity").c_str(), plc->intensity);
+					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].constant").c_str(), plc->constant);
+					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].linear").c_str(), plc->linear);
+					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].quadratic").c_str(), plc->quadratic);
+				}
+
+				if (ent->HasComponent<SkyLightComponent>()) {
+					skyLightCount++;
+					SkyLightComponent* slc = ent->GetComponent<SkyLightComponent>();
+
+					s->SetUniformVec3(("u_skyLights[" + std::to_string(i) + "].color").c_str(), slc->color);
+					s->SetUniformFloat(("u_skyLights[" + std::to_string(i) + "].intensity").c_str(), slc->intensity);
+				}
 			}
+
+			s->SetUniformInt("u_pointLightCount", pointLightCount);
+			s->SetUniformInt("u_skyLightCount", skyLightCount);
 
 			s->SetUniformMat4("u_model", m_transform);
 			s->SetUniformMat4("u_view", camera.GetView());

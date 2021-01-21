@@ -8,9 +8,11 @@ namespace Crimson {
 	class CR_API PhongMaterial : public Material {
 	private:
 	public:
-		vec3 albedo;
+		vec3 color;
+		float shininess;
 
-		PhongMaterial(const std::string& shader, const vec3& albedo) : Material(shader), albedo(albedo) {}
+		PhongMaterial(const std::string& shader, const vec3& color, float shininess) 
+			: Material(shader), color(color), shininess(shininess) {}
 
 		void Apply() override;
 	};
