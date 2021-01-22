@@ -124,10 +124,11 @@ namespace Crimson {
 		};
 
 		int r;
+
 		r = engine->RegisterObjectType("Transform", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Transform", "void Translate(const vec3 &in)", asMETHOD(TransformComponent, Translate), asCALL_THISCALL);
-		r = engine->RegisterObjectMethod("Transform", "void Rotate(float angle, const vec3 &in)", asMETHOD(TransformComponent, Rotate), asCALL_THISCALL);
-		r = engine->RegisterObjectMethod("Transform", "void Scale(const vec3 &in)", asMETHOD(TransformComponent, Scale), asCALL_THISCALL);
+		r = engine->RegisterObjectProperty("Transform", "vec3 translation", asOFFSET(TransformComponent, translation)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Transform", "vec3 rotation", asOFFSET(TransformComponent, rotation)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Transform", "vec3 scale", asOFFSET(TransformComponent, scale)); assert(r >= 0);
 	}
 
 	static void RegisterEntity(asIScriptEngine* e) {

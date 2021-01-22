@@ -29,7 +29,7 @@ public:
 
 		/* Create point light entities */
 		pointLight = m_scene->CreateEntity();
-		pointLight->AddComponent<Crimson::TransformComponent>()->Translate(Crimson::vec3(5.0f, -1.0f, 4.0f));
+		pointLight->AddComponent<Crimson::TransformComponent>()->translation = Crimson::vec3(5.0f, -1.0f, 4.0f);
 		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
 		pointLight->AddComponent<Crimson::SkyLightComponent>(Crimson::vec3(1.0f), 0.1f);
 
