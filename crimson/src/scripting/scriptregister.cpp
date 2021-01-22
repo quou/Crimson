@@ -18,6 +18,7 @@
 #include "math/vec4.h"
 #include "math/mat4.h"
 #include "entity/entity.h"
+#include "entity/components/transform.h"
 
 namespace Crimson {
 	void MessageCallback(const asSMessageInfo *msg, void *param) {
@@ -117,13 +118,37 @@ namespace Crimson {
 		r = engine->RegisterObjectMethod("vec3", "float dot(const vec3&in) const", asMETHOD(vec3, dot), asCALL_THISCALL);
 	}
 
-	static void RegisterEntity(asIScriptEngine* engine) {
+	static void RegisterComponents(asIScriptEngine* engine) {
 		struct X {
-			
+
 		};
 
 		int r;
-		r = engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT); assert( r >= 0 );
+		r = engine->RegisterObjectType("Transform", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Transform", "void Translate(const vec3 &in)", asMETHOD(TransformComponent, Translate), asCALL_THISCALL);
+		r = engine->RegisterObjectMethod("Transform", "void Rotate(float angle, const vec3 &in)", asMETHOD(TransformComponent, Rotate), asCALL_THISCALL);
+		r = engine->RegisterObjectMethod("Transform", "void Scale(const vec3 &in)", asMETHOD(TransformComponent, Scale), asCALL_THISCALL);
+	}
+
+	static void RegisterEntity(asIScriptEngine* e) {
+		/* So that nested functions can also use the engine */
+		static asIScriptEngine* engine = e;
+
+		/* Wrappers */
+		struct X {
+			static void GetComponent(void *ref, int typeID, Entity* entity) {
+				if (typeID == engine->GetTypeIdByDecl("Transform@")) {
+					TransformComponent** t = (TransformComponent**)ref;
+					(*t) = entity->GetComponent<TransformComponent>();
+				} else {
+					Log(LogType::ERROR, "%s is not a valid component type", engine->GetTypeDeclaration(typeID));
+				}
+			}
+		};
+
+		int r;
+		r = engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "void GetComponent(?&out)", asFUNCTION(X::GetComponent), asCALL_CDECL_OBJLAST);
 		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL);
 	}
 
@@ -188,6 +213,7 @@ namespace Crimson {
 		RegisterVec4(engine);
 
 		/* Entity */
+		RegisterComponents(engine);
 		RegisterEntity(engine);
 	}
 }
