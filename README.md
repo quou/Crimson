@@ -1,6 +1,8 @@
 # Crimson
 A WIP 3D game engine written in C++ 17
 
+If you have any questions or comments - I will respond quicker on Discord rather than GitHub or email: https://discord.gg/6pUUArRWhK
+
 ![Screenshot](https://raw.githubusercontent.com/georgelam6/Crimson/master/Screenshots/05.png)
 
 Master branch is stable. Development branch may have bugs, or not build at all.
