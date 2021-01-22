@@ -70,7 +70,8 @@ abstract class CrimsonBehaviour {
 			*(asIScriptObject**)m_context->GetAddressOfReturnValue(); /* Create the instance */
 		
 		/* Set the instance's entity property */
-		instance->GetAddressOfProperty(0);
+		Entity** e = (Entity**)instance->GetAddressOfProperty(0);
+		(*e) = entity;
 
 		instance->AddRef();
 

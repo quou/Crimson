@@ -119,12 +119,11 @@ namespace Crimson {
 
 	static void RegisterEntity(asIScriptEngine* engine) {
 		struct X {
-
+			
 		};
 
 		int r;
-
-		r = engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT); assert( r >= 0 );
 		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL);
 	}
 
