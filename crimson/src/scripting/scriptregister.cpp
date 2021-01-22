@@ -125,6 +125,7 @@ namespace Crimson {
 
 		int r;
 
+		/* Transform */
 		r = engine->RegisterObjectType("Transform", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
 		r = engine->RegisterObjectProperty("Transform", "vec3 translation", asOFFSET(TransformComponent, translation)); assert(r >= 0);
 		r = engine->RegisterObjectProperty("Transform", "vec3 rotation", asOFFSET(TransformComponent, rotation)); assert(r >= 0);

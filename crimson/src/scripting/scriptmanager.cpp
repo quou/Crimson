@@ -16,6 +16,10 @@ abstract class CrimsonBehaviour {
 
 	ScriptManager::ScriptManager() {
 		m_engine = asCreateScriptEngine();
+
+		/* Engine config */
+		m_engine->SetEngineProperty(asEP_REQUIRE_ENUM_SCOPE, true);
+
 		m_context = m_engine->CreateContext();
 		ScriptRegister::Register(m_engine);
 	}
