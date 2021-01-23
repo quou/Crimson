@@ -1,6 +1,7 @@
 project "glfw"
 	kind "StaticLib"
 	language "C"
+	staticruntime "on"
 
 	files {
 		"include/GLFW/glfw3.h",

@@ -1,6 +1,7 @@
 project "tinyxml2"
 	kind "StaticLib"
 	language "C"
+	staticruntime "on"
 
 	pic "on"
 

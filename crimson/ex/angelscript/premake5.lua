@@ -2,6 +2,7 @@ project "angelscript"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++11"
+	staticruntime "on"
 
 	includedirs {
 		"angelscript/include/angelscript"

@@ -66,6 +66,7 @@ namespace Crimson {
 	}
 
 	void Heirarchy::OnDraw(const Camera& camera, const ref<Scene>& scene) {
+		/* Heriarchy */
 		ImGui::Begin("Heriarchy");
 
 		for (const ref<Entity>& ent : scene->GetEntities()) {
@@ -78,6 +79,7 @@ namespace Crimson {
 
 		ImGui::End();
 
+		/* Properties */
 		if (m_selectionContext != NULL) {
 			std::string propertiesTitle = m_selectionContext->m_name + " Properties";
 			ImGui::Begin((propertiesTitle + "###PROPERTIES").c_str());

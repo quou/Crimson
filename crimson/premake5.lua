@@ -36,6 +36,7 @@ crimsonExternalDeps = {
 
 project "crimson"
 	kind "StaticLib"
+	staticruntime "on"
 
 	language "C++"
 	cppdialect "C++11"

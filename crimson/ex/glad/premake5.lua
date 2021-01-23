@@ -1,6 +1,7 @@
 project "glad"
 	kind "StaticLib"
 	language "C"
+	staticruntime "on"
 
 	pic "on"
 

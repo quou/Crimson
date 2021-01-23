@@ -4,6 +4,7 @@ project "editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++11"
+	staticruntime "on"
 
 	targetdir "../bin"
 
