@@ -8,3 +8,4 @@ workspace "crimson"
 
 include "crimson"
 include "sandbox"
+include "editor"

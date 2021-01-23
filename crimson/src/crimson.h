@@ -34,6 +34,7 @@
 
 /* Dear ImGui */
 #include "imgui/imguimanager.h"
+#include "imgui/gui.h"
 
 /* Scripting */
 #include "scripting/scriptmanager.h"

@@ -1,7 +1,7 @@
 #include <crimson.h>
 #include <imgui.h>
 
-class Sandbox : public Crimson::Application {
+class Editor : public Crimson::Application {
 private:
 	Crimson::ref<Crimson::Scene> m_scene;
 	Crimson::Entity* ent;
@@ -61,6 +61,6 @@ public:
 };
 
 int main() {
-	Sandbox app;
-	app.Run("Sandbox", 800, 600);
+	Editor app;
+	app.Run("Crimson Editor", 1366, 768);
 }
