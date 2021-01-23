@@ -60,6 +60,8 @@ abstract class CrimsonBehaviour {
 			 return BehaviourInstance{NULL, NULL, false};
 		}
 
+		/* Build the factory declaration from via [classname]@ [classname]()
+		 * eg. ExampleBehaviour@ ExampleBehaviour() */
 		asIScriptFunction* factory = type->GetFactoryByDecl(
 				(std::string(classDecl) + " @" + (classDecl) + "()").c_str());
 		if (!factory) {

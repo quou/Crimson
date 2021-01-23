@@ -17,7 +17,7 @@ public:
 		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
 
 		/* Create a sphere model */
-		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(0.7f, 0.0f, 0.1f), 32.0f));
+		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
 		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 
@@ -32,6 +32,7 @@ public:
 		pointLight->AddComponent<Crimson::TransformComponent>()->translation = Crimson::vec3(5.0f, -1.0f, 4.0f);
 		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
 		pointLight->AddComponent<Crimson::SkyLightComponent>(Crimson::vec3(1.0f), 0.1f);
+		pointLight->AddComponent<Crimson::ScriptComponent>("DiscoLight");
 
 		/* Create the camera */
 		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);

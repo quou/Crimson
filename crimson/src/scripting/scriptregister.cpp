@@ -19,6 +19,7 @@
 #include "math/mat4.h"
 #include "entity/entity.h"
 #include "entity/components/transform.h"
+#include "entity/components/lights.h"
 
 namespace Crimson {
 	void MessageCallback(const asSMessageInfo *msg, void *param) {
@@ -130,6 +131,19 @@ namespace Crimson {
 		r = engine->RegisterObjectProperty("Transform", "vec3 translation", asOFFSET(TransformComponent, translation)); assert(r >= 0);
 		r = engine->RegisterObjectProperty("Transform", "vec3 rotation", asOFFSET(TransformComponent, rotation)); assert(r >= 0);
 		r = engine->RegisterObjectProperty("Transform", "vec3 scale", asOFFSET(TransformComponent, scale)); assert(r >= 0);
+
+		/* Point Light */
+		r = engine->RegisterObjectType("PointLight", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLight", "vec3 color", asOFFSET(PointLightComponent, color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLight", "float intensity", asOFFSET(PointLightComponent, intensity)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLight", "float constant", asOFFSET(PointLightComponent, constant)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLight", "float linear", asOFFSET(PointLightComponent, linear)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("PointLight", "float quadratic", asOFFSET(PointLightComponent, quadratic)); assert(r >= 0);
+
+		/* Sky Light */
+		r = engine->RegisterObjectType("SkyLight", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectProperty("SkyLight", "vec3 color", asOFFSET(SkyLightComponent, color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("SkyLight", "float intensity", asOFFSET(SkyLightComponent, intensity)); assert(r >= 0);
 	}
 
 	static void RegisterEntity(asIScriptEngine* e) {
@@ -139,9 +153,18 @@ namespace Crimson {
 		/* Wrappers */
 		struct X {
 			static void GetComponent(void *ref, int typeID, Entity* entity) {
-				if (typeID == engine->GetTypeIdByDecl("Transform@")) {
+				if (typeID == engine->GetTypeIdByDecl("Transform@")) { /* Transform */
 					TransformComponent** t = (TransformComponent**)ref;
 					(*t) = entity->GetComponent<TransformComponent>();
+				
+				} else if (typeID == engine->GetTypeIdByDecl("PointLight@")) /* Point Light */ {
+					PointLightComponent** t = (PointLightComponent**)ref;
+					(*t) = entity->GetComponent<PointLightComponent>();
+
+				} else if (typeID == engine->GetTypeIdByDecl("SkyLight@")) /* Sky Light */ {
+					SkyLightComponent** t = (SkyLightComponent**)ref;
+					(*t) = entity->GetComponent<SkyLightComponent>();
+				
 				} else {
 					Log(LogType::ERROR, "%s is not a valid component type", engine->GetTypeDeclaration(typeID));
 				}
