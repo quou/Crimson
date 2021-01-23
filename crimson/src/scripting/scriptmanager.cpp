@@ -119,8 +119,8 @@ abstract class CrimsonBehaviour {
 		
 		int r = m_context->Execute();
 		if (r == asEXECUTION_EXCEPTION) {
-			Log(LogType::ERROR, "Script exception: %s",
-					m_context->GetExceptionString());
+			Log(LogType::ERROR, "Script exception in %s::%s: %s",
+					func->GetObjectName(), func->GetName(), m_context->GetExceptionString());
 			return;
 		}
 	}
