@@ -64,6 +64,8 @@ namespace Crimson {
 	public:
 		Scene* m_scene;
 
+		std::string m_name;
+
 		void Update(float delta);
 		void Draw(const Camera& camera);
 

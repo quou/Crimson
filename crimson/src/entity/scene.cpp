@@ -27,9 +27,10 @@ namespace Crimson {
 		}
 	}
 
-	Entity* Scene::CreateEntity() {
+	Entity* Scene::CreateEntity(const std::string& name) {
 		ref<Entity> e(new Entity());
 		e->m_scene = this;
+		e->m_name = name;
 		m_entities.emplace_back(std::move(e));
 		return e.get();
 	}

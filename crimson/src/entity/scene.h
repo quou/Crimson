@@ -22,10 +22,11 @@ namespace Crimson {
 
 		virtual ~Scene();
 
-		Entity* CreateEntity();
+		Entity* CreateEntity(const std::string& name = "Untitled Entity");
 
 		void RemoveLight(Entity* entity);
 
 		std::vector<Entity*>* GetLights() { return &m_lights; }
+		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
 	};
 }

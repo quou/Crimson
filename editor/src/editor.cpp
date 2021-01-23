@@ -1,66 +1,79 @@
 #include <crimson.h>
 #include <imgui.h>
 
-class Editor : public Crimson::Application {
-private:
-	Crimson::ref<Crimson::Scene> m_scene;
-	Crimson::Entity* ent;
-	Crimson::Entity* pointLight;
-	Crimson::Entity* pointLight2;
-	
-	Crimson::Camera m_camera;
-public:
-	void OnInit() override {
-		Crimson::ImGuiManager::Init(m_window);
+#include "panel.h"
+#include "heirarchy.h"
 
-		/* Create the scene */
-		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
+namespace Crimson {
+	class Editor : public Application {
+	private:
+		ref<Scene> m_scene;
+		Entity* ent;
+		Entity* pointLight;
+		Entity* pointLight2;
+		
+		Camera m_camera;
 
-		/* Create a sphere model */
-		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
-		Crimson::ref<Crimson::Model> model(new Crimson::Model());
-		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
+		ref<PanelManager> m_panelManager;
+	public:
+		void OnInit() override {
+			ImGuiManager::Init(m_window);
 
-		/* Create the sphere entity */
-		ent = m_scene->CreateEntity();
-		ent->AddComponent<Crimson::TransformComponent>();
-		ent->AddComponent<Crimson::RenderableComponent>(model);
-		ent->AddComponent<Crimson::ScriptComponent>("TestBehaviour");
+			/* Create panels */
+			m_panelManager = ref<PanelManager>(new PanelManager());
+			m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
 
-		/* Create point light entities */
-		pointLight = m_scene->CreateEntity();
-		pointLight->AddComponent<Crimson::TransformComponent>()->translation = Crimson::vec3(5.0f, -1.0f, 4.0f);
-		pointLight->AddComponent<Crimson::PointLightComponent>(Crimson::vec3(1.0f), 1.0f);
-		pointLight->AddComponent<Crimson::SkyLightComponent>(Crimson::vec3(1.0f), 0.1f);
-		pointLight->AddComponent<Crimson::ScriptComponent>("DiscoLight");
+			/* Create the scene */
+			m_scene = ref<Scene>(new Scene());
 
-		/* Create the camera */
-		m_camera = Crimson::Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
-		m_camera.position = Crimson::vec3(0.0f, 0.5f, 5.0f);
-	}
+			/* Create a sphere model */
+			ref<Material> material(new PhongMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 32.0f));
+			ref<Model> model(new Model());
+			model->AddMesh(MeshFactory::NewSphereMesh(material));
 
-	void OnUpdate(float delta) override {
-		m_scene->Update(delta);
-		Crimson::AssetManager::HotReload();
+			/* Create the sphere entity */
+			ent = m_scene->CreateEntity("Sphere");
+			ent->AddComponent<TransformComponent>();
+			ent->AddComponent<RenderableComponent>(model);
+			ent->AddComponent<ScriptComponent>("TestBehaviour");
 
-		Crimson::Renderer::Clear(0.0f, 0.0f, 0.0f);
+			/* Create point light entities */
+			pointLight = m_scene->CreateEntity("Disco Light");
+			pointLight->AddComponent<TransformComponent>()->translation = vec3(5.0f, -1.0f, 4.0f);
+			pointLight->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
+			pointLight->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
+			pointLight->AddComponent<ScriptComponent>("DiscoLight");
 
-		/* Update perspective */
-		m_camera.projection = Crimson::mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
+			/* Create the camera */
+			m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
+			m_camera.position = vec3(0.0f, 0.5f, 5.0f);
+		}
 
-		m_scene->Draw(m_camera);
+		void OnUpdate(float delta) override {
+			m_scene->Update(delta);
+			AssetManager::HotReload();
 
-		Crimson::ImGuiManager::BeginFrame();
+			Renderer::Clear(0.0f, 0.0f, 0.0f);
 
-		Crimson::ImGuiManager::EndFrame();
-	}
+			/* Update perspective */
+			m_camera.projection = mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
 
-	void OnExit() {
-		Crimson::ImGuiManager::Quit();
-	}
-};
+			m_scene->Draw(m_camera);
+
+			/* Draw panels */
+			ImGuiManager::BeginFrame();
+			m_panelManager->Draw(m_scene);
+			ImGuiManager::EndFrame();
+		}
+
+		void OnExit() {
+			ImGuiManager::Quit();
+		}
+	};
+
+}
 
 int main() {
-	Editor app;
+	Crimson::Editor app;
 	app.Run("Crimson Editor", 1366, 768);
 }
