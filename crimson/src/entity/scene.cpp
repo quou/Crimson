@@ -2,6 +2,11 @@
 #include "components/lights.h"
 
 namespace Crimson {
+	static unsigned long NewEntityID() {
+		static unsigned long id = 0;
+		return id++;
+	}
+
 	Scene::Scene() {
 		m_scriptManager = ref<ScriptManager>(new ScriptManager());
 		m_scriptManager->Compile("SceneBehaviours");
@@ -31,6 +36,7 @@ namespace Crimson {
 		ref<Entity> e(new Entity());
 		e->m_scene = this;
 		e->m_name = name;
+		e->m_id = NewEntityID();
 		m_entities.emplace_back(std::move(e));
 		return e.get();
 	}

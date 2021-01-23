@@ -60,11 +60,15 @@ namespace Crimson {
 		ComponentArray m_componentArray;
 		ComponentBitset m_componentBitset;
 
+		unsigned long m_id;
+
 		friend class Scene;
 	public:
 		Scene* m_scene;
 
 		std::string m_name;
+
+		inline unsigned long GetID() const { return m_id; }
 
 		void Update(float delta);
 		void Draw(const Camera& camera);
