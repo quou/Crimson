@@ -3,7 +3,7 @@
 #include "heirarchy.h"
 
 namespace Crimson {
-	void Heirarchy::OnDraw(const ref<Scene>& scene) {
+	void Heirarchy::OnDraw(const Camera& camera, const ref<Scene>& scene) {
 		ImGui::Begin("Heriarchy");
 
 		for (const ref<Entity>& ent : scene->GetEntities()) {

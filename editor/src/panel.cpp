@@ -5,9 +5,9 @@ namespace Crimson {
 		m_panels.push_back(panel);
 	}
 
-	void PanelManager::Draw(const ref<Scene>& scene) {
+	void PanelManager::Draw(const Camera& camera, const ref<Scene>& scene) {
 		for (auto& panel : m_panels) {
-			panel->OnDraw(scene);
+			panel->OnDraw(camera, scene);
 		}
 	}
 }

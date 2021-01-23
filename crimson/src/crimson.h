@@ -23,6 +23,7 @@
 #include "rendering/model.h"
 #include "rendering/camera.h"
 #include "rendering/phongmaterial.h"
+#include "rendering/rendertarget.h"
 
 /* Scene Management */
 #include "entity/entity.h"

@@ -3,6 +3,7 @@
 
 #include "panel.h"
 #include "heirarchy.h"
+#include "viewport.h"
 
 namespace Crimson {
 	class Editor : public Application {
@@ -22,6 +23,7 @@ namespace Crimson {
 			/* Create panels */
 			m_panelManager = ref<PanelManager>(new PanelManager());
 			m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
+			m_panelManager->AddPanel(ref<Panel>(new Viewport()));
 
 			/* Create the scene */
 			m_scene = ref<Scene>(new Scene());
@@ -55,14 +57,9 @@ namespace Crimson {
 
 			Renderer::Clear(0.0f, 0.0f, 0.0f);
 
-			/* Update perspective */
-			m_camera.projection = mat4::persp(70.0f, (float)m_window->GetWidth()/(float)m_window->GetHeight(), 0.1f, 20.0f);
-
-			m_scene->Draw(m_camera);
-
 			/* Draw panels */
 			ImGuiManager::BeginFrame();
-			m_panelManager->Draw(m_scene);
+			m_panelManager->Draw(m_camera, m_scene);
 			ImGuiManager::EndFrame();
 		}
 

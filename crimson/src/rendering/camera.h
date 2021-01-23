@@ -12,8 +12,8 @@ namespace Crimson {
 	public:
 		float fov, near, far;
 
-		mat4 projection;
-		vec3 position, rotation;
+		mutable mat4 projection;
+		mutable vec3 position, rotation;
 
 		Camera() {}
 		Camera(int width, int height, float fov, float near, float far) :

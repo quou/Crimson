@@ -3,9 +3,12 @@
 #include "panel.h"
 
 namespace Crimson {
-	class Heirarchy : public Panel {
+	class Viewport : public Panel {
 	private:
+		ref<RenderTarget> m_renderTarget;
 	public:
+		Viewport();
+
 		void OnDraw(const Camera& camera, const ref<Scene>& scene) override;
 	};
 }

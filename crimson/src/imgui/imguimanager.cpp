@@ -27,6 +27,7 @@ namespace Crimson {
 		style.PopupRounding = 0.0f;
 		style.ScrollbarRounding = 0.0f;
 		style.WindowMenuButtonPosition = ImGuiDir_None;
+		style.WindowMinSize = ImVec2(100, 150);
 
 		ImVec4* colors = style.Colors;
 		colors[ImGuiCol_Text]                   = ImVec4(1.000f, 1.000f, 1.000f, 1.000f);
