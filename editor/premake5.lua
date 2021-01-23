@@ -20,6 +20,10 @@ project "editor"
 		"crimson"
 	}
 
+	defines {
+		"CR_STATIC"
+	}
+
 	filter "configurations:debug"
 		defines { "DEBUG" }
 		symbols "on"
