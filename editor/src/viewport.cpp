@@ -20,7 +20,7 @@ namespace Crimson {
 		scene->Draw(camera);
 		m_renderTarget->Unbind();
 
-		ImGui::Image((ImTextureID)m_renderTarget->GetOutput(), ImVec2(size.x, size.y));
+		ImGui::Image((ImTextureID)(unsigned long)m_renderTarget->GetOutput(), ImVec2(size.x, size.y));
 
 		ImGui::End();
 	}
