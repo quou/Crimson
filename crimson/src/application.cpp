@@ -18,7 +18,7 @@ namespace Crimson {
 		OnInit();
 
 		/* For calculating delta time */
-		float last, now, delta;
+		float last = 0.0f, now = 0.0f, delta = 0.0f;
 
 		while (!m_window->ShouldClose()) {
 			/* Calculate delta time */
