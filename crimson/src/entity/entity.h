@@ -80,7 +80,7 @@ namespace Crimson {
 
 		template <typename T>
 		T* GetComponent() const {
-			assert(HasComponent<T>());
+			if (!HasComponent<T>()) { return NULL; }
 			auto ptr(m_componentArray[GetComponentTypeID<T>()]);
 			return static_cast<T*>(ptr);
 		}
