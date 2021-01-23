@@ -6,6 +6,9 @@
 #include "ImGuizmo.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "imguifontawesome.h"
+#include "fonts/roboto.h"
+#include "fonts/fontawesome.h"
 
 namespace Crimson {
 	void ImGuiManager::Init(const ref<Window>& window) {
@@ -16,6 +19,13 @@ namespace Crimson {
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+		io.Fonts->AddFontFromMemoryCompressedTTF(Roboto_compressed_data, Roboto_compressed_size, 14.0f);
+
+		ImFontConfig config;
+		config.MergeMode = true;
+		static const ImWchar icon_ranges[] = { ICON_MIN_FK, ICON_MAX_FK, 0 };
+		io.Fonts->AddFontFromMemoryCompressedTTF(FontAwesome4_compressed_data, FontAwesome4_compressed_size, 14.0f, &config, icon_ranges);
 
 		ImGuiStyle& style = ImGui::GetStyle();
 
