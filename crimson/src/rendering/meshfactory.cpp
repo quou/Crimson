@@ -6,6 +6,7 @@
 
 namespace Crimson {
 	static ref<Mesh> g_cubeMesh;
+	static ref<Mesh> g_sphereMesh;
 
 	ref<Mesh> MeshFactory::NewCubeMesh(const ref<Material>& material) {
 		if (!g_cubeMesh) {
@@ -58,6 +59,8 @@ namespace Crimson {
 	}
 
 	ref<Mesh> MeshFactory::NewSphereMesh(const ref<Material>& material) {
+		if (g_sphereMesh) { return g_sphereMesh; }
+
 		float radius = 2.0f;
 		float sectorCount = 36.0f;
 		float stackCount = 18.0f;
@@ -122,6 +125,7 @@ namespace Crimson {
 			}
 		}
 
-		return ref<Mesh>(new Mesh(vertices, indices, material));
+		g_sphereMesh = ref<Mesh>(new Mesh(vertices, indices, material));
+		return g_sphereMesh;
 	}
 }
