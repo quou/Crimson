@@ -97,6 +97,23 @@ namespace Crimson {
 			DrawVec3Control("scale", tc->scale);
 		}, true);
 
+		DrawComponent<PointLightComponent>("Point Light", m_selectionContext, [](void* component){
+			PointLightComponent* plc = (PointLightComponent*)component;
+
+			DrawColorControl("colour", plc->color);
+			DrawFloatControl("intensity", &plc->intensity);
+			DrawFloatControl("constant", &plc->constant);
+			DrawFloatControl("linear", &plc->linear);
+			DrawFloatControl("quadratic", &plc->quadratic);
+		}, true);
+
+		DrawComponent<SkyLightComponent>("Sky Light", m_selectionContext, [](void* component){
+			SkyLightComponent* slc = (SkyLightComponent*)component;
+
+			DrawColorControl("colour", slc->color);
+			DrawFloatControl("intensity", &slc->intensity);
+		}, true);
+
 		ImGui::End();
 	}
 }
