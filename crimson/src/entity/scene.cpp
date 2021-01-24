@@ -44,7 +44,7 @@ namespace Crimson {
 	void Scene::RemoveLight(Entity* entity) {
 		m_lights.erase(
 			std::remove_if(std::begin(m_lights), std::end(m_lights), 
-				[entity](Entity* e) {
+				[this, entity](Entity* e) {
 					return e == entity;
 				}),
 			std::end(m_lights)
@@ -54,9 +54,8 @@ namespace Crimson {
 
 	Scene::~Scene() {
 		for (auto& e : m_entities) {
-			for (auto& c : e->m_components) {
-				c->OnDestroy();
-			}
+			e->Destroy();
 		}
+		Update(1.0f);
 	}
 }
