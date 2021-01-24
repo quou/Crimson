@@ -9,9 +9,9 @@
 namespace Crimson {
 	/* A renderer for the system of entities and components */
 	class CR_API RenderableComponent : public Component {
-	private:
-		ref<Model> m_model;
 	public:
+		ref<Model> m_model;
+
 		RenderableComponent(const ref<Model>& model);
 
 		void OnDraw(const Camera& camera) override;

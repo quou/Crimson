@@ -114,6 +114,35 @@ namespace Crimson {
 			DrawFloatControl("intensity", &slc->intensity);
 		}, true);
 
+		DrawComponent<RenderableComponent>("Renderable", m_selectionContext, [](void* component){
+			RenderableComponent* rc = (RenderableComponent*)component;
+
+			ref<Model> m = rc->m_model;
+
+			int i = 0;
+			for (ref<Mesh>& mesh : m->GetMeshList()) {
+				std::string meshName = "mesh " + std::to_string(i);
+				if (ImGui::TreeNode(meshName.c_str())) {
+					ref<Material> material = mesh->GetMaterial();
+
+					if (material->m_type == "phong") {
+						if (ImGui::TreeNodeEx((void*)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
+							PhongMaterial* phongMat = (PhongMaterial*)material.get();
+
+							DrawColorControl("color", phongMat->color);
+							DrawFloatControl("shininess", &phongMat->shininess);
+						
+							ImGui::TreePop();
+						}
+					}
+
+					ImGui::TreePop();
+				}
+
+				i++;
+			}
+		}, true);
+
 		ImGui::End();
 	}
 }

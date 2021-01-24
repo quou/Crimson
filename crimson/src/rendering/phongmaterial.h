@@ -12,7 +12,7 @@ namespace Crimson {
 		float shininess;
 
 		PhongMaterial(const std::string& shader, const vec3& color, float shininess) 
-			: Material(shader), color(color), shininess(shininess) {}
+			: Material(shader, "phong"), color(color), shininess(shininess) {}
 
 		void Apply() override;
 	};

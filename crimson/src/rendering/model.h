@@ -23,5 +23,7 @@ namespace Crimson {
 
 		void Draw(const Camera& camera);
 		void DrawLitScene(const Camera& camera, Scene* scene);
+
+		inline std::vector<ref<Mesh>>& GetMeshList() { return m_meshes; }
 	};
 }

@@ -29,5 +29,7 @@ namespace Crimson {
 				const std::vector<unsigned int>& indices);
 
 		void Draw();
+
+		inline const ref<Material>& GetMaterial() const { return m_material; }
 	};
 }

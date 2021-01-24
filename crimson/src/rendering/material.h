@@ -9,8 +9,10 @@ namespace Crimson {
 	class CR_API Material {
 	public:
 		std::string m_shader;
+		const std::string m_type;
 
-		Material(const std::string& shader) : m_shader(shader) {}
+		Material(const std::string& shader, const std::string& type) 
+			: m_shader(shader), m_type(type) {}
 
 		/* Set the shader's Material uniform */
 		virtual void Apply() {}
