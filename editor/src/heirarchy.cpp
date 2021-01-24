@@ -89,7 +89,7 @@ namespace Crimson {
 			ImGui::Begin("Properties###PROPERTIES");
 		}
 
-		DrawComponent<TransformComponent>("Transform", m_selectionContext, [](void* component){
+		DrawComponent<TransformComponent>("transform", m_selectionContext, [](void* component){
 			TransformComponent* tc = (TransformComponent*)component;
 
 			DrawVec3Control("translation", tc->translation);
@@ -97,7 +97,7 @@ namespace Crimson {
 			DrawVec3Control("scale", tc->scale);
 		}, true);
 
-		DrawComponent<PointLightComponent>("Point Light", m_selectionContext, [](void* component){
+		DrawComponent<PointLightComponent>("point light", m_selectionContext, [](void* component){
 			PointLightComponent* plc = (PointLightComponent*)component;
 
 			DrawColorControl("colour", plc->color);
@@ -107,14 +107,14 @@ namespace Crimson {
 			DrawFloatControl("quadratic", &plc->quadratic);
 		}, true);
 
-		DrawComponent<SkyLightComponent>("Sky Light", m_selectionContext, [](void* component){
+		DrawComponent<SkyLightComponent>("sky light", m_selectionContext, [](void* component){
 			SkyLightComponent* slc = (SkyLightComponent*)component;
 
 			DrawColorControl("colour", slc->color);
 			DrawFloatControl("intensity", &slc->intensity);
 		}, true);
 
-		DrawComponent<RenderableComponent>("Renderable", m_selectionContext, [](void* component){
+		DrawComponent<RenderableComponent>("renderable", m_selectionContext, [](void* component){
 			RenderableComponent* rc = (RenderableComponent*)component;
 
 			ref<Model> m = rc->m_model;
@@ -126,7 +126,7 @@ namespace Crimson {
 					ref<Material> material = mesh->GetMaterial();
 
 					if (material->m_type == "phong") {
-						if (ImGui::TreeNodeEx((void*)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
+						if (ImGui::TreeNodeEx((void*)(unsigned long)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
 							PhongMaterial* phongMat = (PhongMaterial*)material.get();
 
 							DrawColorControl("color", phongMat->color);
