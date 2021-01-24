@@ -61,6 +61,8 @@ namespace Crimson {
 	ref<Mesh> MeshFactory::NewSphereMesh(const ref<Material>& material) {
 		if (g_sphereMesh) { return g_sphereMesh; }
 
+		/* Algorithm courtesy of http://www.songho.ca/opengl/gl_sphere.html */
+
 		float radius = 2.0f;
 		float sectorCount = 36.0f;
 		float stackCount = 18.0f;
@@ -78,31 +80,28 @@ namespace Crimson {
 		float sectorAngle, stackAngle;
 
 		for(int i = 0; i <= stackCount; ++i) {	
-			int k1 = i * (sectorCount + 1);     // beginning of current stack
-    			int k2 = k1 + sectorCount + 1;      // beginning of next stack
+			int k1 = i * (sectorCount + 1);
+			int k2 = k1 + sectorCount + 1;
 
 
 			stackAngle = CR_PI / 2 - i * stackStep;
-			xy = radius * cosf(stackAngle);             // r * cos(u)
-			z = radius * sinf(stackAngle);              // r * sin(u)
+			xy = radius * cosf(stackAngle);
+			z = radius * sinf(stackAngle);
 
 			for(int j = 0; j <= sectorCount; ++j, ++k1, ++k2) {
 				sectorAngle = j * sectorStep;
 
 				Vertex vertex;
 
-				// vertex position (x, y, z)
-				x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
-				y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
+				x = xy * cosf(sectorAngle);
+				y = xy * sinf(sectorAngle);
 				vertex.position = vec3(x, y, z);
 
-				// normalized vertex normal (nx, ny, nz)
 				nx = x * lengthInv;
 				ny = y * lengthInv;
 				nz = z * lengthInv;
 				vertex.normal = vec3(nx, ny, nz);
 
-				// vertex tex coord (s, t) range between [0, 1]
 				s = (float)j / sectorCount;
 				t = (float)i / stackCount;
 				vertex.uv = vec2(s, t);
@@ -116,7 +115,7 @@ namespace Crimson {
 					indices.push_back(k1 + 1);
 				}
 
-				// k1+1 => k2 => k2+1
+
 				if (i != (stackCount-1)) {
 					indices.push_back(k1 + 1);
 					indices.push_back(k2);
