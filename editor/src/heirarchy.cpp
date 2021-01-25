@@ -85,12 +85,12 @@ namespace Crimson {
 		if (m_selectionContext != NULL) {
 			std::string propertiesTitle = m_selectionContext->m_name + " Properties";
 			ImGui::Begin((propertiesTitle + "###PROPERTIES").c_str());
+
+			if (ImGui::Button("add component")) {
+				ImGui::OpenPopup("addcomponent");
+			}
 		} else {
 			ImGui::Begin("Properties###PROPERTIES");
-		}
-
-		if (ImGui::Button("add component")) {
-			ImGui::OpenPopup("addcomponent");
 		}
 
 		if (ImGui::BeginPopup("addcomponent")) {
