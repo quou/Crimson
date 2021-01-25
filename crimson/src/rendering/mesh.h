@@ -9,6 +9,18 @@
 
 namespace Crimson {
 	class CR_API Mesh {
+	public:
+		/* Tells us where the mesh came from */
+		enum InstanceType {
+			CUSTOM, /* Created by the user */
+			INSTANCE, /* A mesh factory built-in mesh */
+		};
+
+		/* Only used for mesh factory meshes */
+		enum Type {
+			CUBE,
+			SPHERE
+		};
 	private:
 		unsigned int m_va, m_vb, m_ib;
 
@@ -16,7 +28,11 @@ namespace Crimson {
 
 		ref<Material> m_material;
 
+		InstanceType m_instanceType;
+		Type m_factoryType;
+
 		friend class Model;
+		friend class MeshFactory;
 	public:
 		Mesh(const std::vector<Vertex>& vertices, 
 				const std::vector<unsigned int>& indices, const ref<Material>& material);
@@ -31,5 +47,7 @@ namespace Crimson {
 		void Draw();
 
 		inline const ref<Material>& GetMaterial() const { return m_material; }
+		inline InstanceType GetInstanceType() const { return m_instanceType; }
+		inline Type GetFactoryType() const { return m_factoryType; }
 	};
 }

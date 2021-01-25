@@ -45,6 +45,8 @@ namespace Crimson {
 			const std::vector<unsigned int>& indices, const ref<Material>& material) {
 		UseMaterial(material);
 		LoadFromVertexData(vertices, indices);
+
+		m_instanceType = CUSTOM;
 	}
 
 	Mesh::~Mesh() {

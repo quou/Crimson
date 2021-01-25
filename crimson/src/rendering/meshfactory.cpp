@@ -55,6 +55,9 @@ namespace Crimson {
 			));
 		}
 
+		g_cubeMesh->m_instanceType = Mesh::INSTANCE;
+		g_cubeMesh->m_factoryType = Mesh::CUBE;
+
 		return g_cubeMesh;
 	}
 
@@ -125,6 +128,10 @@ namespace Crimson {
 		}
 
 		g_sphereMesh = ref<Mesh>(new Mesh(vertices, indices, material));
+
+		g_sphereMesh->m_instanceType = Mesh::INSTANCE;
+		g_sphereMesh->m_factoryType = Mesh::SPHERE;
+		
 		return g_sphereMesh;
 	}
 }

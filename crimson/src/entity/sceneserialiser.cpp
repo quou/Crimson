@@ -82,8 +82,19 @@ namespace Crimson {
 
 				int i = 0;
 				for (ref<Mesh>& mesh : m->GetMeshList()) {
-					std::string meshName = "mesh" + std::to_string(i);
-					printer.OpenElement(meshName.c_str());
+					printer.OpenElement("mesh");
+						printer.PushAttribute("index", i);
+						printer.OpenElement("source");
+							if (mesh->GetInstanceType() == Mesh::INSTANCE) {
+								printer.OpenElement("instance");
+									Mesh::Type ft = mesh->GetFactoryType();
+									printer.PushAttribute("type", ft == Mesh::CUBE ? "cube" : "sphere");
+								printer.CloseElement();
+							} else if (mesh->GetInstanceType() == Mesh::CUSTOM) {
+								assert(false && "Cannot serialise custom meshes yet");
+							}
+						printer.CloseElement();
+
 						ref<Material> material = mesh->GetMaterial();
 
 						if (material->m_type == "phong") {

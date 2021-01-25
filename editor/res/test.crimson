@@ -9,12 +9,15 @@
             <class v="TestBehaviour"/>
         </script>
         <renderable>
-            <mesh0>
+            <mesh index="0">
+                <source>
+                    <instance type="sphere"/>
+                </source>
                 <phongmaterial>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
                 </phongmaterial>
-            </mesh0>
+            </mesh>
         </renderable>
     </entity>
     <entity name="Disco Light">
