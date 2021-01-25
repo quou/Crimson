@@ -42,6 +42,8 @@ namespace Crimson {
 		friend class Entity;
 		friend class Scene;
 	protected:
+		friend class SceneSerialiser;
+		
 		Entity* m_entity;
 
 		virtual void OnInit() {}
@@ -63,6 +65,7 @@ namespace Crimson {
 		unsigned long m_id;
 
 		friend class Scene;
+		friend class SceneSerialiser;
 	public:
 		Scene* m_scene;
 

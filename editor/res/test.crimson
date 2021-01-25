@@ -1,0 +1,41 @@
+<scene>
+    <entity name="Sphere">
+        <transform>
+            <translation x="0" y="0" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <script>
+            <class v="TestBehaviour"/>
+        </script>
+        <renderable>
+            <mesh0>
+                <phongmaterial>
+                    <color x="1" y="1" z="1"/>
+                    <shininess v="32"/>
+                </phongmaterial>
+            </mesh0>
+        </renderable>
+    </entity>
+    <entity name="Disco Light">
+        <transform>
+            <translation x="5" y="-1" z="4"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <script>
+            <class v="DiscoLight"/>
+        </script>
+        <pointlight>
+            <color x="1" y="1" z="1"/>
+            <intensity v="1"/>
+            <constant v="1"/>
+            <linear v="0.090000003576278687"/>
+            <quadratic v="0.032000001519918442"/>
+        </pointlight>
+        <skylight>
+            <color x="1" y="1" z="1"/>
+            <intensity v="0.10000000149011612"/>
+        </skylight>
+    </entity>
+</scene>

@@ -10,8 +10,9 @@ namespace Crimson {
 	private:
 		BehaviourInstance m_behaviour;
 
-		std::string m_behaviourDecl;
 	public:
+		std::string m_behaviourDecl;
+		
 		ScriptComponent(const char* behaviourDecl);
 
 		void OnInit();

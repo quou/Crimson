@@ -62,5 +62,8 @@ namespace Crimson {
 		/* Get a vector of files and their extensions */
 		static std::vector<std::pair<std::string, std::string>> 
 		GetDir(const std::string& dir = "");
+
+		/* Write a null-terminated string to a file */
+		static void WriteTerminatedString(const char* path, const std::string& text);
 	};
 }

@@ -12,6 +12,7 @@ namespace Crimson {
 
 		PHYSFS_init(NULL);
 		PHYSFS_mount(resDir, "/", 1);
+		PHYSFS_setWriteDir(resDir);
 	}
 
 	std::string AssetManager::LoadTerminatedString(const char* path, bool reload) {
@@ -138,6 +139,17 @@ namespace Crimson {
 		return i.m_textures[path].first;
 	}
 
+
+	void AssetManager::WriteTerminatedString(const char* path, const std::string& text) {
+		PHYSFS_File* file = PHYSFS_openWrite(path);
+
+		if (file) {
+			PHYSFS_writeBytes(file, text.c_str(), text.size());
+			PHYSFS_close(file);
+		} else {
+			Log(LogType::ERROR, "Failed to write %s, %s", path, PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+		}
+	}
 
 	void AssetManager::HotReload() {
 		AssetManager& i = instance();

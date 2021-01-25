@@ -4,6 +4,10 @@
 #include "entity.h"
 #include "scripting/scriptmanager.h"
 
+namespace tinyxml2 {
+	class XMLPrinter;
+};
+
 namespace Crimson {
 	class CR_API Scene {
 	private:
@@ -12,6 +16,8 @@ namespace Crimson {
 		std::vector<Entity*> m_lights;
 
 		void UpdateLights();
+
+		friend class SceneSerialiser;
 	public:
 		ref<ScriptManager> m_scriptManager;
 
@@ -28,5 +34,18 @@ namespace Crimson {
 
 		std::vector<Entity*>* GetLights() { return &m_lights; }
 		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
+	};
+
+	class SceneSerialiser {
+	private:
+		ref<Scene> m_scene;
+	public:
+		SceneSerialiser(const ref<Scene>& scene)
+			: m_scene(scene) {}
+
+		void SerialiseEntity(const ref<Entity>& entity, tinyxml2::XMLPrinter& printer);
+
+		void SerialiseScene(const char* path);
+		void DeserialiseScene(const char* path);
 	};
 }
