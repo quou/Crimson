@@ -89,6 +89,37 @@ namespace Crimson {
 			ImGui::Begin("Properties###PROPERTIES");
 		}
 
+		if (ImGui::Button("add component")) {
+			ImGui::OpenPopup("addcomponent");
+		}
+
+		if (ImGui::BeginPopup("addcomponent")) {
+			if (ImGui::MenuItem("transform")) {
+					m_selectionContext->AddComponent<TransformComponent>();
+			}
+
+			if (ImGui::BeginMenu("rendering")) {
+				if (ImGui::MenuItem("point light")) {
+					m_selectionContext->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
+				}
+
+				if (ImGui::MenuItem("sky light")) {
+					m_selectionContext->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
+				}
+
+				if (ImGui::MenuItem("renderable")) {
+					Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+					Crimson::ref<Crimson::Model> model(new Crimson::Model());
+					model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
+					m_selectionContext->AddComponent<Crimson::RenderableComponent>(model);
+				}
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndPopup();
+		}
+
 		DrawComponent<TransformComponent>("transform", m_selectionContext, [](void* component){
 			TransformComponent* tc = (TransformComponent*)component;
 
