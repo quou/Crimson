@@ -208,7 +208,22 @@ namespace Crimson {
 							Log(LogType::WARNING, "No material");
 						}
 
-						model->AddMesh(MeshFactory::NewSphereMesh(material));
+						XMLElement* sourceNode = meshNode->FirstChildElement("source");
+						if (sourceNode) {
+							XMLElement* instanceNode = sourceNode->FirstChildElement("instance");
+							if (instanceNode) {
+								std::string instanceType = instanceNode->Attribute("type");
+								if (instanceType == "sphere") {
+									model->AddMesh(MeshFactory::NewSphereMesh(material));
+								} else if (instanceType == "cube") {
+									model->AddMesh(MeshFactory::NewCubeMesh(material));
+								} else {
+									Log(LogType::ERROR, "Unknown mesh instance type: %s", instanceType.c_str());
+								}
+							}
+						} else {
+							Log(LogType::WARNING, "No mesh source for renderable component");
+						}
 
 						meshNode = meshNode->NextSiblingElement("mesh");
 					}

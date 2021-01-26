@@ -59,7 +59,7 @@ namespace Crimson {
 	ref<Mesh> MeshFactory::NewSphereMesh(const ref<Material>& material) {
 		/* Algorithm courtesy of http://www.songho.ca/opengl/gl_sphere.html */
 
-		float radius = 2.0f;
+		float radius = 1.0f;
 		float sectorCount = 36.0f;
 		float stackCount = 18.0f;
 
