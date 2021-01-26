@@ -14,6 +14,7 @@
                     <instance type="sphere"/>
                 </source>
                 <phongmaterial>
+                    <shader v="standard.glsl"/>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
                 </phongmaterial>

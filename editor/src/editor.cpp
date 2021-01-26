@@ -29,29 +29,29 @@ namespace Crimson {
 			m_scene = ref<Scene>(new Scene());
 
 			/* Create a sphere model */
-			ref<Material> material(new PhongMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 32.0f));
-			ref<Model> model(new Model());
-			model->AddMesh(MeshFactory::NewSphereMesh(material));
+			// ref<Material> material(new PhongMaterial("standard.glsl", vec3(1.0f, 1.0f, 1.0f), 32.0f));
+			// ref<Model> model(new Model());
+			// model->AddMesh(MeshFactory::NewSphereMesh(material));
 
-			/* Create the sphere entity */
-			ent = m_scene->CreateEntity("Sphere");
-			ent->AddComponent<TransformComponent>();
-			ent->AddComponent<RenderableComponent>(model);
-			ent->AddComponent<ScriptComponent>("TestBehaviour");
+			// /* Create the sphere entity */
+			// ent = m_scene->CreateEntity("Sphere");
+			// ent->AddComponent<TransformComponent>();
+			// ent->AddComponent<RenderableComponent>(model);
+			// ent->AddComponent<ScriptComponent>("TestBehaviour");
 
-			/* Create point light entities */
-			pointLight = m_scene->CreateEntity("Disco Light");
-			pointLight->AddComponent<TransformComponent>()->translation = vec3(5.0f, -1.0f, 4.0f);
-			pointLight->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
-			pointLight->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
-			pointLight->AddComponent<ScriptComponent>("DiscoLight");
+			// /* Create point light entities */
+			// pointLight = m_scene->CreateEntity("Disco Light");
+			// pointLight->AddComponent<TransformComponent>()->translation = vec3(5.0f, -1.0f, 4.0f);
+			// pointLight->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
+			// pointLight->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
+			// pointLight->AddComponent<ScriptComponent>("DiscoLight");
 
 			/* Create the camera */
 			m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 			m_camera.position = vec3(0.0f, 0.5f, 5.0f);
 
 			SceneSerialiser s(m_scene);
-			s.SerialiseScene("test.crimson");
+			s.DeserialiseScene("test.crimson");
 		}
 
 		void OnUpdate(float delta) override {

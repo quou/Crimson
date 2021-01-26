@@ -36,7 +36,7 @@ namespace Crimson {
 		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
 	};
 
-	class SceneSerialiser {
+	class CR_API SceneSerialiser {
 	private:
 		ref<Scene> m_scene;
 	public:

@@ -4,6 +4,7 @@
 
 #include "scene.h"
 #include "assets.h"
+#include "rendering/meshfactory.h"
 #include "rendering/phongmaterial.h"
 #include "components/transform.h"
 #include "components/script.h"
@@ -42,6 +43,41 @@ namespace Crimson {
 		printer.OpenElement(name);
 			printer.PushAttribute("v", val);
 		printer.CloseElement();
+	}
+
+	static vec3 DeserialiseVec3(XMLElement* node, const char* name) {
+		vec3 result;
+
+		XMLElement* el = node->FirstChildElement(name);
+		if (el) {
+			result.x = el->FloatAttribute("x");
+			result.y = el->FloatAttribute("y");
+			result.z = el->FloatAttribute("z");
+		}
+
+		return result;
+	}
+
+	static std::string DeserialiseString(XMLElement* node, const char* name) {
+		std::string result;
+		
+		XMLElement* el = node->FirstChildElement(name);
+		if (el) {
+			result = el->Attribute("v");
+		}
+
+		return result;
+	}
+
+	static float DeserialiseFloat(XMLElement* node, const char* name) {
+		float result = 0.0f;
+		
+		XMLElement* el = node->FirstChildElement(name);
+		if (el) {
+			result = el->FloatAttribute("v");
+		}
+
+		return result;
 	}
 
 	void SceneSerialiser::SerialiseEntity(const ref<Entity>& entity, XMLPrinter& printer) {
@@ -101,6 +137,7 @@ namespace Crimson {
 							printer.OpenElement("phongmaterial");
 								PhongMaterial* phongMat = (PhongMaterial*)material.get();
 
+								SerialiseString("shader", phongMat->m_shader.c_str(), printer);
 								SerialiseVec3("color", phongMat->color, printer);
 								SerialiseFloat("shininess", phongMat->shininess, printer);
 							printer.CloseElement();
@@ -130,6 +167,79 @@ namespace Crimson {
 	}
 
 	void SceneSerialiser::DeserialiseScene(const char* path) {
-		assert(false && "Function not implemented");
+		XMLDocument doc;
+		std::string src = AssetManager::LoadTerminatedString(path);
+		doc.Parse(src.c_str(), src.size());
+		if (doc.Error()) { 
+			Log(LogType::ERROR, "Error parsing scene: %s", doc.ErrorStr());
+			return;
+		}
+
+		XMLElement* sceneNode = doc.RootElement();
+		if (sceneNode) {
+			XMLElement* entityNode = sceneNode->FirstChildElement("entity");
+			while (entityNode) {
+				Entity* newEntity = m_scene->CreateEntity(entityNode->Attribute("name"));
+
+				XMLElement* componentNode = entityNode->FirstChildElement("transform");
+				if (componentNode) {
+					TransformComponent* tc = newEntity->AddComponent<TransformComponent>();
+
+					tc->translation = DeserialiseVec3(componentNode, "translation");
+					tc->rotation = DeserialiseVec3(componentNode, "rotation");
+					tc->scale = DeserialiseVec3(componentNode, "scale");
+				}
+
+				componentNode = entityNode->FirstChildElement("renderable");
+				if (componentNode) {
+					ref<Model> model(new Model());
+					XMLElement* meshNode = componentNode->FirstChildElement("mesh");
+					while (meshNode) {
+						ref<Material> material;
+
+						XMLElement* materialNode = meshNode->FirstChildElement("phongmaterial");
+						if (materialNode) {
+							material = ref<Material>(new PhongMaterial(
+								DeserialiseString(materialNode, "shader").c_str(),
+								DeserialiseVec3(materialNode, "color"),
+								DeserialiseFloat(materialNode, "shininess")
+							));
+						} else {
+							Log(LogType::WARNING, "No material");
+						}
+
+						model->AddMesh(MeshFactory::NewSphereMesh(material));
+
+						meshNode = meshNode->NextSiblingElement("mesh");
+					}
+
+					newEntity->AddComponent<RenderableComponent>(model);
+				}
+
+				componentNode = entityNode->FirstChildElement("pointlight");
+				if (componentNode) {
+					PointLightComponent* plc = newEntity->AddComponent<PointLightComponent>(
+						DeserialiseVec3(componentNode, "color"),
+						DeserialiseFloat(componentNode, "intensity")
+					);
+
+					plc->constant = DeserialiseFloat(componentNode, "constant");
+					plc->linear = DeserialiseFloat(componentNode, "linear");
+					plc->quadratic = DeserialiseFloat(componentNode, "quadratic");
+				}
+
+				componentNode = entityNode->FirstChildElement("skylight");
+				if (componentNode) {
+					newEntity->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
+				}
+
+				componentNode = entityNode->FirstChildElement("script");
+				if (componentNode) {
+					newEntity->AddComponent<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());
+				}
+
+				entityNode = entityNode->NextSiblingElement("entity");
+			}
+		}
 	}
 }
