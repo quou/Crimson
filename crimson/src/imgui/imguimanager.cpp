@@ -7,7 +7,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "imguifontawesome.h"
-#include "fonts/roboto.h"
+#include "fonts/ubuntumono.h"
 #include "fonts/fontawesome.h"
 
 namespace Crimson {
@@ -21,7 +21,7 @@ namespace Crimson {
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-		io.Fonts->AddFontFromMemoryCompressedTTF(Roboto_compressed_data, Roboto_compressed_size, 14.0f);
+		io.Fonts->AddFontFromMemoryCompressedTTF(UbuntuMono_compressed_data, UbuntuMono_compressed_size, 14.0f);
 
 		ImFontConfig config;
 		config.MergeMode = true;
