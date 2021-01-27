@@ -32,7 +32,7 @@ namespace Crimson {
 
 		virtual ~Scene();
 
-		Entity* CreateEntity(const std::string& name = "Untitled Entity");
+		Entity* CreateEntity(const std::string& name = "untitled entity");
 
 		void RemovePointLight(PointLightComponent* plc);
 		void RemoveSkyLight(SkyLightComponent* slc);
