@@ -69,7 +69,11 @@ namespace Crimson {
 
 	void Heirarchy::OnDraw(const Camera& camera, const ref<Scene>& scene) {
 		/* Heriarchy */
-		ImGui::Begin("Heriarchy");
+		ImGui::Begin("heirarchy");
+
+		if (ImGui::Button("create entity")) {
+			scene->CreateEntity();
+		}
 
 		for (const ref<Entity>& ent : scene->GetEntities()) {
 			DrawEntityNode(ent);
@@ -89,6 +93,8 @@ namespace Crimson {
 			if (ImGui::Button("add component")) {
 				ImGui::OpenPopup("addcomponent");
 			}
+
+			DrawTextControl("name", m_selectionContext->m_name);
 		} else {
 			ImGui::Begin("Properties###PROPERTIES");
 		}

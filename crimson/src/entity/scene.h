@@ -9,11 +9,15 @@ namespace tinyxml2 {
 };
 
 namespace Crimson {
+	class PointLightComponent;
+	class SkyLightComponent;
+
 	class CR_API Scene {
 	private:
 		std::vector<ref<Entity>> m_entities;
 
-		std::vector<Entity*> m_lights;
+		std::vector<PointLightComponent*> m_pointLights;
+		std::vector<SkyLightComponent*> m_skyLights;
 
 		void UpdateLights();
 
@@ -30,9 +34,11 @@ namespace Crimson {
 
 		Entity* CreateEntity(const std::string& name = "Untitled Entity");
 
-		void RemoveLight(Entity* entity);
+		void RemovePointLight(PointLightComponent* plc);
+		void RemoveSkyLight(SkyLightComponent* slc);
 
-		std::vector<Entity*>* GetLights() { return &m_lights; }
+		std::vector<PointLightComponent*>* GetPointLights() { return &m_pointLights; }
+		std::vector<SkyLightComponent*>* GetSkyLights() { return &m_skyLights; }
 		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
 	};
 

@@ -41,16 +41,25 @@ namespace Crimson {
 		return e.get();
 	}
 
-	void Scene::RemoveLight(Entity* entity) {
-		m_lights.erase(
-			std::remove_if(std::begin(m_lights), std::end(m_lights), 
-				[this, entity](Entity* e) {
-					return e == entity;
+	void Scene::RemovePointLight(PointLightComponent* plc) {
+		m_pointLights.erase(
+			std::remove_if(std::begin(m_pointLights), std::end(m_pointLights), 
+				[plc](PointLightComponent* p) {
+					return p == plc;
 				}),
-			std::end(m_lights)
+			std::end(m_pointLights)
 		);
 	}
 
+	void Scene::RemoveSkyLight(SkyLightComponent* slc) {
+		m_skyLights.erase(
+			std::remove_if(std::begin(m_skyLights), std::end(m_skyLights), 
+				[slc](SkyLightComponent* s) {
+					return s == slc;
+				}),
+			std::end(m_skyLights)
+		);
+	}
 
 	Scene::~Scene() {
 		for (auto& e : m_entities) {

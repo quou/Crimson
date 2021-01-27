@@ -48,39 +48,29 @@ namespace Crimson {
 
 			s->SetUniformVec3("u_cameraPosition", camera.position);
 
-			int pointLightCount = 0;
-			int skyLightCount = 0;
+			/* Apply point lights */
+			for (unsigned int i = 0; i < scene->GetPointLights()->size(); i++) {
+				PointLightComponent* light = scene->GetPointLights()->at(i);
+				vec3 position = light->GetPosition();
 
-			for (unsigned int i = 0; i < scene->GetLights()->size(); i++) {
-				Entity* ent = scene->GetLights()->at(i);
-
-				if (!ent->HasComponent<TransformComponent>()) { continue; }
-				TransformComponent* tc = ent->GetComponent<TransformComponent>();
-				mat4 tmat = tc->GetMatrix();
-
-				if (ent->HasComponent<PointLightComponent>()) {
-					pointLightCount++;
-					PointLightComponent* plc = ent->GetComponent<PointLightComponent>();
-
-					s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].position").c_str(), tmat.GetPosition());
-					s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].color").c_str(), plc->color);
-					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].intensity").c_str(), plc->intensity);
-					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].constant").c_str(), plc->constant);
-					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].linear").c_str(), plc->linear);
-					s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].quadratic").c_str(), plc->quadratic);
-				}
-
-				if (ent->HasComponent<SkyLightComponent>()) {
-					skyLightCount++;
-					SkyLightComponent* slc = ent->GetComponent<SkyLightComponent>();
-
-					s->SetUniformVec3(("u_skyLights[" + std::to_string(i) + "].color").c_str(), slc->color);
-					s->SetUniformFloat(("u_skyLights[" + std::to_string(i) + "].intensity").c_str(), slc->intensity);
-				}
+				s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].position").c_str(), position);
+				s->SetUniformVec3(("u_pointLights[" + std::to_string(i) + "].color").c_str(), light->color);
+				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].intensity").c_str(), light->intensity);
+				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].constant").c_str(), light->constant);
+				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].linear").c_str(), light->linear);
+				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].quadratic").c_str(), light->quadratic);
 			}
 
-			s->SetUniformInt("u_pointLightCount", pointLightCount);
-			s->SetUniformInt("u_skyLightCount", skyLightCount);
+			/* Apply sky lights */
+			for (unsigned int i = 0; i < scene->GetSkyLights()->size(); i++) {
+				SkyLightComponent* light = scene->GetSkyLights()->at(i);
+
+				s->SetUniformVec3(("u_skyLights[" + std::to_string(i) + "].color").c_str(), light->color);
+				s->SetUniformFloat(("u_skyLights[" + std::to_string(i) + "].intensity").c_str(), light->intensity);
+			}
+
+			s->SetUniformInt("u_pointLightCount", scene->GetPointLights()->size());
+			s->SetUniformInt("u_skyLightCount", scene->GetSkyLights()->size());
 
 			s->SetUniformMat4("u_model", m_transform);
 			s->SetUniformMat4("u_view", camera.GetView());

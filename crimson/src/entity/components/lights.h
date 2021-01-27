@@ -19,6 +19,8 @@ namespace Crimson {
 
 		void OnInit() override;
 		void OnDestroy() override;
+
+		const vec3& GetPosition();
 	};
 
 	class SkyLightComponent : public Component {
