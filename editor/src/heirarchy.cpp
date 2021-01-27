@@ -87,7 +87,7 @@ namespace Crimson {
 
 		/* Properties */
 		if (m_selectionContext != NULL) {
-			std::string propertiesTitle = m_selectionContext->m_name + " Properties";
+			std::string propertiesTitle = m_selectionContext->m_name + " properties";
 			ImGui::Begin((propertiesTitle + "###PROPERTIES").c_str());
 
 			if (ImGui::Button("add component")) {
@@ -96,7 +96,7 @@ namespace Crimson {
 
 			DrawTextControl("name", m_selectionContext->m_name);
 		} else {
-			ImGui::Begin("Properties###PROPERTIES");
+			ImGui::Begin("properties###PROPERTIES");
 		}
 
 		if (ImGui::BeginPopup("addcomponent")) {
