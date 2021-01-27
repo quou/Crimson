@@ -7,3 +7,20 @@
 A WIP 3D game engine
 
 If you have any questions or comments - I will respond quicker on Discord rather than GitHub or email: https://discord.gg/6pUUArRWhK
+
+# Current Features
+ - Basic 3D rendering
+ - Scripting with AngelScript
+ - Bare-bones editor
+ - Scene serialisation
+
+# Building
+### Prerequisites
+ - Premake5
+ - A C++11 compiler
+ - A GPU with OpenGL 4.2+
+
+```bash
+./build.sh
+./run.sh
+```
