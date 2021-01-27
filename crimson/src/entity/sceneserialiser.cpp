@@ -121,6 +121,7 @@ namespace Crimson {
 					printer.OpenElement("mesh");
 						printer.PushAttribute("index", i);
 						printer.OpenElement("source");
+							/* Determine the type of mesh */
 							if (mesh->GetInstanceType() == Mesh::INSTANCE) {
 								printer.OpenElement("instance");
 									Mesh::Type ft = mesh->GetFactoryType();
@@ -181,6 +182,7 @@ namespace Crimson {
 			while (entityNode) {
 				Entity* newEntity = m_scene->CreateEntity(entityNode->Attribute("name"));
 
+				/* Deserialise transform */
 				XMLElement* componentNode = entityNode->FirstChildElement("transform");
 				if (componentNode) {
 					TransformComponent* tc = newEntity->AddComponent<TransformComponent>();
@@ -190,6 +192,7 @@ namespace Crimson {
 					tc->scale = DeserialiseVec3(componentNode, "scale");
 				}
 
+				/* Deserialise renderable */
 				componentNode = entityNode->FirstChildElement("renderable");
 				if (componentNode) {
 					ref<Model> model(new Model());
@@ -231,6 +234,7 @@ namespace Crimson {
 					newEntity->AddComponent<RenderableComponent>(model);
 				}
 
+				/* Deserialise point light */
 				componentNode = entityNode->FirstChildElement("pointlight");
 				if (componentNode) {
 					PointLightComponent* plc = newEntity->AddComponent<PointLightComponent>(
@@ -243,11 +247,13 @@ namespace Crimson {
 					plc->quadratic = DeserialiseFloat(componentNode, "quadratic");
 				}
 
+				/* Deserialise sky light */
 				componentNode = entityNode->FirstChildElement("skylight");
 				if (componentNode) {
 					newEntity->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
 				}
 
+				/* Deserialise script */
 				componentNode = entityNode->FirstChildElement("script");
 				if (componentNode) {
 					newEntity->AddComponent<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());

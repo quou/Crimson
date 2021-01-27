@@ -12,6 +12,7 @@ namespace Crimson {
 	class PointLightComponent;
 	class SkyLightComponent;
 
+	/* Manages creating, destroying and updating entities */
 	class CR_API Scene {
 	private:
 		std::vector<ref<Entity>> m_entities;
@@ -42,6 +43,7 @@ namespace Crimson {
 		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
 	};
 
+	/* Responsible for serialising scenes to XML files */
 	class CR_API SceneSerialiser {
 	private:
 		ref<Scene> m_scene;

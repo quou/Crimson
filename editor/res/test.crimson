@@ -1,7 +1,7 @@
 <scene>
     <entity name="sphere">
         <transform>
-            <translation x="3.2395515441894531" y="0" z="0"/>
+            <translation x="4.1830453872680664" y="0" z="0"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -31,7 +31,7 @@
             <class v="DiscoLight"/>
         </script>
         <pointlight>
-            <color x="0" y="1" z="1"/>
+            <color x="0" y="1" z="0"/>
             <intensity v="1"/>
             <constant v="1"/>
             <linear v="0.090000003576278687"/>

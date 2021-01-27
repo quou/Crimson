@@ -8,6 +8,7 @@ namespace Crimson {
 	}
 
 	Scene::Scene() {
+		/* Compile scripts */
 		m_scriptManager = ref<ScriptManager>(new ScriptManager());
 		m_scriptManager->Compile("SceneBehaviours");
 	}
@@ -17,6 +18,7 @@ namespace Crimson {
 			e->Update(delta);
 		}
 
+		/* Remove entities that are marked as destroyed */
 		m_entities.erase(
 			std::remove_if(std::begin(m_entities), std::end(m_entities), 
 				[](const ref<Entity>& entity) {
