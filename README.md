@@ -20,7 +20,11 @@ If you have any questions or comments - I will respond quicker on Discord rather
  - A C++11 compiler
  - A GPU with OpenGL 4.2+
 
-```bash
+### Unix
+```
 ./build.sh
 ./run.sh
 ```
+
+### Windows
+Generate Visual Studio/CodeLite project using Premake5, open the project and click "build".
