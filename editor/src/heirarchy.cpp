@@ -162,18 +162,20 @@ namespace Crimson {
 				if (ImGui::TreeNode(meshName.c_str())) {
 					std::string selectedMeshType = mesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
 
-					if (ImGui::BeginCombo("mesh", selectedMeshType.c_str())) {
-						if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
-							mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
+					DrawComboBox("mesh", [&](){
+						if (ImGui::BeginCombo("###COMBO", selectedMeshType.c_str())) {
+							if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
+								mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
+							}
+
+							if (ImGui::Selectable("cube", "cube" == selectedMeshType)) {
+								mesh = MeshFactory::NewCubeMesh(mesh->GetMaterial());
+							}
+
+							ImGui::EndCombo();
 						}
-
-						if (ImGui::Selectable("cube", "cube" == selectedMeshType)) {
-							mesh = MeshFactory::NewCubeMesh(mesh->GetMaterial());
-						}
-
-						ImGui::EndCombo();
-					}
-
+					});
+					
 					ref<Material> material = mesh->GetMaterial();
 
 					if (material->m_type == "phong") {
