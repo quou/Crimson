@@ -8,7 +8,7 @@ namespace Crimson {
 	}
 	
 	void Viewport::OnDraw(const Camera& camera, const ref<Scene>& scene) {
-		ImGui::Begin("Viewport");
+		ImGui::Begin("viewport");
 
 		vec2 size = vec2(ImGui::GetWindowSize().x - 17, ImGui::GetWindowSize().y - 37);
 		m_renderTarget->Resize(size);
