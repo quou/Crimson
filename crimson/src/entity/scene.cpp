@@ -13,11 +13,7 @@ namespace Crimson {
 		m_scriptManager->Compile("SceneBehaviours");
 	}
 
-	void Scene::Update(float delta) {
-		for (auto& e : m_entities) {
-			e->Update(delta);
-		}
-
+	void Scene::Refresh() {
 		/* Remove entities that are marked as destroyed */
 		m_entities.erase(
 			std::remove_if(std::begin(m_entities), std::end(m_entities), 
@@ -26,6 +22,17 @@ namespace Crimson {
 				}),
 			std::end(m_entities)
 		);
+	}
+
+	void Scene::Update(float delta) {
+		for (auto& e : m_entities) {
+			e->Update(delta);
+		}
+	}
+
+	void Scene::UpdateAndRefresh(float delta) {
+		Refresh();
+		Update(delta);
 	}
 
 	void Scene::Draw(const Camera& camera) const {
@@ -64,9 +71,6 @@ namespace Crimson {
 	}
 
 	Scene::~Scene() {
-		for (auto& e : m_entities) {
-			e->Destroy();
-		}
-		Update(1.0f);
+		m_entities.clear();
 	}
 }

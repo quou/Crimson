@@ -28,8 +28,13 @@ namespace Crimson {
 
 		Scene();
 
+		void Refresh();
+
 		void Update(float delta);
+		void UpdateAndRefresh(float delta);
+
 		void Draw(const Camera& camera) const;
+
 
 		virtual ~Scene();
 

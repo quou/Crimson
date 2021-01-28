@@ -11,7 +11,7 @@ class asIScriptObject;
 namespace Crimson {
 	class Entity;
 
-	/* Container for the type info and the insance addresses
+	/* Container for the type info and the instance addresses
 	 * of a behaviour. */
 	struct BehaviourInstance {
 		asITypeInfo* typeInfo;

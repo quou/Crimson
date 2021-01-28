@@ -37,7 +37,7 @@ namespace Crimson {
 		}
 
 		void OnUpdate(float delta) override {
-			m_scene->Update(delta);
+			m_scene->UpdateAndRefresh(delta);
 			AssetManager::HotReload();
 
 			Renderer::Clear(0.0f, 0.0f, 0.0f);
