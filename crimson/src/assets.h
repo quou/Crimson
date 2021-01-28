@@ -63,6 +63,9 @@ namespace Crimson {
 		static std::vector<std::pair<std::string, std::string>> 
 		GetDir(const std::string& dir = "");
 
+		/* Tells whether a file has been modified on disk. Only works for text files */
+		static bool TextFileModified(const char* path);
+
 		/* Write a null-terminated string to a file */
 		static void WriteTerminatedString(const char* path, const std::string& text);
 	};

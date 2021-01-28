@@ -163,8 +163,22 @@ namespace Crimson {
 				DrawFloatControl("intensity", &slc->intensity);
 			}, true);
 
-			DrawComponent<ScriptComponent>("script", m_selectionContext, [](void* component){
+			DrawComponent<ScriptComponent>("script", m_selectionContext, [&](void* component){
 				ScriptComponent* slc = (ScriptComponent*)component;
+
+				if (scene->m_scriptManager->CompiliationSuccess()) {
+					if (scene->m_scriptManager->CheckBehaviourExistance(slc->m_behaviourDecl.c_str())) {
+						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
+						ImGui::Text(ICON_FK_CHECK " valid behaviour");
+					} else {
+						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
+						ImGui::Text(ICON_FK_TIMES " invalid behaviour");
+					}
+				} else {
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.8f, 0.15f, 1.0f));
+					ImGui::Text(ICON_FK_EXCLAMATION_TRIANGLE " behaviours not compiled");
+				}
+				ImGui::PopStyleColor();
 
 				DrawTextControl("behaviour", slc->m_behaviourDecl);
 			}, true);

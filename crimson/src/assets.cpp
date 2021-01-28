@@ -207,6 +207,21 @@ namespace Crimson {
 		}
 
 	}
+
+	bool AssetManager::TextFileModified(const char* path) {
+		auto f = instance().m_terminatedStrings[path];
+
+		PHYSFS_Stat stat;
+		PHYSFS_stat(path, &stat);
+
+		/* If there are new changes */
+		if (stat.modtime > f.second) {
+			return true;
+		}
+
+		return false;
+	}
+
 	
 	static std::string GetExtension(const std::string& fname) {
 		auto idx = fname.rfind('.');

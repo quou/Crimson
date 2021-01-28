@@ -43,6 +43,11 @@ namespace Crimson {
 		/* Call the script's OnUpdate function */
 		void CallUpdate(const BehaviourInstance& behaviour, float delta);
 
+		bool CheckBehaviourExistance(const char* decl);
+
+		/* Recompile scripts if the asset manager has reloaded the text files */
+		void HotReload();
+
 		inline bool CompiliationSuccess() const { return m_compilationSuccess; }
 	};
 }

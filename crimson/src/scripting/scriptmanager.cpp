@@ -35,10 +35,9 @@ abstract class CrimsonBehaviour {
 		/* Iterate the resources and find files with the .as extension */
 		for (auto& entry : AssetManager::GetDir()) {
 			if (entry.second == "as") {
+				std::string src = AssetManager::LoadTerminatedString(entry.first.c_str(), true);
 				m_module->AddScriptSection(
-					entry.first.c_str(), 
-					AssetManager::LoadTerminatedString(
-						entry.first.c_str()).c_str());
+					entry.first.c_str(), src.c_str());
 			}
 		}
 
@@ -127,6 +126,25 @@ abstract class CrimsonBehaviour {
 			Log(LogType::ERROR, "Script exception in %s::%s: %s",
 					func->GetObjectName(), func->GetName(), m_context->GetExceptionString());
 			return;
+		}
+	}
+
+	bool ScriptManager::CheckBehaviourExistance(const char* decl) {
+		if (!m_compilationSuccess) { return false; }
+
+		if (std::string(decl) == "~") { return true; }
+
+		asITypeInfo* type = m_module->GetTypeInfoByDecl(decl);
+	
+		return type == NULL ? false : true;
+	}
+
+	void ScriptManager::HotReload() {
+		for (auto& entry : AssetManager::GetDir()) {
+			if (entry.second == "as" && AssetManager::TextFileModified(entry.first.c_str())) {
+				Compile(m_module->GetName());
+				return; /* All scripts get recompiled, so no point looping over any others */
+			}
 		}
 	}
 

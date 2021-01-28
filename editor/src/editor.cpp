@@ -34,6 +34,10 @@ namespace Crimson {
 			m_scene->Refresh();
 		}
 
+		/* Must be called before AssetManager::HotReload, otherwise
+		 * it won't detect any changes */
+		m_scene->m_scriptManager->HotReload();
+		
 		AssetManager::HotReload();
 
 		Renderer::Clear(0.0f, 0.0f, 0.0f);
