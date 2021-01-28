@@ -182,20 +182,33 @@ namespace Crimson {
 
 				DrawTextControl("behaviour", slc->m_behaviourDecl);
 
+				ImGui::Separator();
+
 				for (const BehaviourFeild& f : scene->m_scriptManager->GetBehaviourFeilds(slc->GetInstance())) {
+					std::string name;
+					for (auto c : f.name) {
+						if (std::isupper(c)) {
+							name += " ";
+							name += (std::tolower(c));
+							continue;
+						}
+
+						name += c;
+					}
+
 					if (scene->m_scriptManager->IsFloat(f)) {
 						float v = scene->m_scriptManager->GetFloatProperty(slc->GetInstance(), f);
-						DrawFloatControl(f.name.c_str(), &v);
+						DrawFloatControl(name.c_str(), &v);
 						scene->m_scriptManager->SetFloatProperty(slc->GetInstance(), f, v);
 						slc->m_serialisableFloats[f] = v;
 					} else if (scene->m_scriptManager->IsInt(f)) {
 						int v = scene->m_scriptManager->GetIntProperty(slc->GetInstance(), f);
-						DrawIntControl(f.name.c_str(), &v);
+						DrawIntControl(name.c_str(), &v);
 						scene->m_scriptManager->SetIntProperty(slc->GetInstance(), f, v);
 						slc->m_serialisableInts[f] = v;
 					} else if (scene->m_scriptManager->IsString(f)) {
 						std::string v = scene->m_scriptManager->GetStringProperty(slc->GetInstance(), f);
-						DrawTextControl(f.name.c_str(), v);
+						DrawTextControl(name.c_str(), v);
 						scene->m_scriptManager->SetStringProperty(slc->GetInstance(), f, v);
 						slc->m_serialisableStrings[f] = v;
 					}
