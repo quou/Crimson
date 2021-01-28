@@ -2,8 +2,16 @@ class TestBehaviour : CrimsonBehaviour {
 	private Transform@ m_transform;
 	private float m_posOffset;
 
+	int someInt = 10;
+	float someFloat = 22.2;
+	string someString = "hello, world";
+
 	void OnInit() {
 		entity.GetComponent(@m_transform);
+
+		print(someString);
+		print(ToString(someFloat));
+		print(ToString(someInt));
 	}
 
 	void OnUpdate(float delta) {
@@ -17,9 +25,9 @@ class TestBehaviour : CrimsonBehaviour {
 class DiscoLight : CrimsonBehaviour {
 	private PointLight@ m_light;
 
-	array<vec3> m_colours;
-	uint m_colorIndex;
-	float m_counter;
+	private array<vec3> m_colours;
+	private uint m_colorIndex;
+	private float m_counter;
 
 	void OnInit() {
 		entity.GetComponent(@m_light);

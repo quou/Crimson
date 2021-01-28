@@ -94,6 +94,13 @@ namespace Crimson {
 
 		template <typename T, typename... TArgs>
 		T* AddComponent(TArgs&&... args) {
+			T* c = AddComponentManualInit<T>(std::forward<TArgs>(args)...);
+			c->OnInit();
+			return c;
+		}
+
+		template <typename T, typename... TArgs>
+		T* AddComponentManualInit(TArgs&&... args) {
 			if (HasComponent<T>()) {
 				return GetComponent<T>();
 			}
@@ -104,8 +111,6 @@ namespace Crimson {
 
 			m_componentArray[GetComponentTypeID<T>()] = c.get();
 			m_componentBitset[GetComponentTypeID<T>()] = true;
-
-			c->OnInit();
 
 			return static_cast<T*>(c.get());
 		}

@@ -36,7 +36,9 @@ namespace Crimson {
 
 		/* Must be called before AssetManager::HotReload, otherwise
 		 * it won't detect any changes */
-		m_scene->m_scriptManager->HotReload();
+		if (m_scene->m_scriptManager->HotReload()) {
+			m_scene->UpdateBehaviourInstances();
+		}
 		
 		AssetManager::HotReload();
 

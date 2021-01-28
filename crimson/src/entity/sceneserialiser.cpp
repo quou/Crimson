@@ -1,6 +1,7 @@
 #include <assert.h>
 
 #include <tinyxml2.h>
+#include <angelscript/angelscript.h>
 
 #include "scene.h"
 #include "assets.h"
@@ -94,6 +95,33 @@ namespace Crimson {
 			SerialiseComponent<ScriptComponent>("script", entity, printer, [](void* component, XMLPrinter& printer){
 				ScriptComponent* sc = (ScriptComponent*)component;
 				SerialiseString("class", sc->m_behaviourDecl.c_str(), printer);
+
+				printer.OpenElement("serialisablefloats");
+				for (auto& f : sc->m_serialisableFloats) {
+					printer.OpenElement(f.first.name.c_str());
+						printer.PushAttribute("v", f.second);
+						printer.PushAttribute("i", f.first.index);
+					printer.CloseElement();
+				}
+				printer.CloseElement();
+
+				printer.OpenElement("serialisableints");
+				for (auto& f : sc->m_serialisableInts) {
+					printer.OpenElement(f.first.name.c_str());
+						printer.PushAttribute("v", f.second);
+						printer.PushAttribute("i", f.first.index);
+					printer.CloseElement();
+				}
+				printer.CloseElement();
+
+				printer.OpenElement("serialisablestrings");
+				for (auto& f : sc->m_serialisableStrings) {
+					printer.OpenElement(f.first.name.c_str());
+						printer.PushAttribute("v", f.second.c_str());
+						printer.PushAttribute("i", f.first.index);
+					printer.CloseElement();
+				}
+				printer.CloseElement();
 			});
 
 			SerialiseComponent<PointLightComponent>("pointlight", entity, printer, [](void* component, XMLPrinter& printer){
@@ -267,7 +295,45 @@ namespace Crimson {
 				/* Deserialise script */
 				componentNode = entityNode->FirstChildElement("script");
 				if (componentNode) {
-					newEntity->AddComponent<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());
+					ScriptComponent* sc = newEntity->AddComponentManualInit<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());
+
+					XMLElement* sfloatNode = componentNode->FirstChildElement("serialisablefloats");
+					if (sfloatNode) {
+						XMLElement* node = sfloatNode->FirstChildElement();
+						while (node) {
+							BehaviourFeild feild = BehaviourFeild{node->Name(), asTYPEID_FLOAT, node->UnsignedAttribute("i")};
+
+							sc->m_serialisableFloats[feild] = node->FloatAttribute("v");
+
+							node = node->NextSiblingElement();
+						}
+					}
+
+					XMLElement* sintNode = componentNode->FirstChildElement("serialisableints");
+					if (sintNode) {
+						XMLElement* node = sintNode->FirstChildElement();
+						while (node) {
+							BehaviourFeild feild = BehaviourFeild{node->Name(), asTYPEID_INT32, node->UnsignedAttribute("i")};
+
+							sc->m_serialisableInts[feild] = node->IntAttribute("v");
+
+							node = node->NextSiblingElement();
+						}
+					}
+
+					XMLElement* sstringNode = componentNode->FirstChildElement("serialisablestrings");
+					if (sstringNode) {
+						XMLElement* node = sstringNode->FirstChildElement();
+						while (node) {
+							BehaviourFeild feild = BehaviourFeild{node->Name(), m_scene->m_scriptManager->GetStringTypeID(), node->UnsignedAttribute("i")};
+
+							sc->m_serialisableStrings[feild] = node->Attribute("v");
+
+							node = node->NextSiblingElement();
+						}
+					}
+
+					sc->OnInit();
 				}
 
 				entityNode = entityNode->NextSiblingElement("entity");

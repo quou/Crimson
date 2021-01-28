@@ -33,6 +33,8 @@ namespace Crimson {
 		void Update(float delta);
 		void UpdateAndRefresh(float delta);
 
+		void UpdateBehaviourInstances();
+
 		void Draw(const Camera& camera) const;
 
 

@@ -7,7 +7,7 @@
 namespace Crimson {
 	static const char* CrimsonDefaultLibrary = R"(
 abstract class CrimsonBehaviour {
-	Entity@ entity;
+	protected Entity@ entity;
 	
 	void OnInit() {}
 	void OnUpdate() {}
@@ -139,13 +139,145 @@ abstract class CrimsonBehaviour {
 		return type == NULL ? false : true;
 	}
 
-	void ScriptManager::HotReload() {
+	bool ScriptManager::HotReload() {
 		for (auto& entry : AssetManager::GetDir()) {
 			if (entry.second == "as" && AssetManager::TextFileModified(entry.first.c_str())) {
 				Compile(m_module->GetName());
-				return; /* All scripts get recompiled, so no point looping over any others */
+				return true; /* All scripts get recompiled, so no point looping over any others */
 			}
 		}
+
+		return false;
+	}
+
+	std::vector<BehaviourFeild> ScriptManager::GetBehaviourFeilds(const BehaviourInstance& behaviour) {
+		std::vector<BehaviourFeild> result;
+
+		if (!behaviour.instance || !behaviour.typeInfo) { return result; }
+
+		for (unsigned int i = 0; i < behaviour.instance->GetPropertyCount(); i++) {
+			bool isPrivate;
+			bool isProtected;
+			int typeID;
+
+			behaviour.typeInfo->GetProperty(i, NULL, &typeID, &isPrivate, &isProtected);
+
+			if (!isPrivate && !isProtected) {
+				result.push_back(BehaviourFeild{
+					behaviour.instance->GetPropertyName(i),
+					typeID,
+					i
+				});
+			}
+		}
+
+		return result;
+	}
+
+	bool ScriptManager::IsFloat(const BehaviourFeild& feild) {
+		return feild.typeID == asTYPEID_FLOAT;
+	}
+
+	float ScriptManager::GetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+		if (!instance.instance) {
+			return 0.0f;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+
+		if (!prop) {
+			return 0.0f;
+		}
+
+		return *(float*)prop;
+	}
+
+	bool ScriptManager::SetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, float value) {
+		if (!instance.instance) {
+			return false;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		if (!prop) {
+			return false;
+		}
+
+		float* v = (float*)prop;
+		(*v) = value;
+
+		return true;
+	}
+
+	bool ScriptManager::IsInt(const BehaviourFeild& feild) {
+		return feild.typeID == asTYPEID_INT32;
+	}
+
+	int ScriptManager::GetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+		if (!instance.instance) {
+			return 0;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+
+		if (!prop) {
+			return 0;
+		}
+
+		return *(int*)prop;
+	}
+
+	bool ScriptManager::SetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, int value) {
+		if (!instance.instance) {
+			return false;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		if (!prop) {
+			return false;
+		}
+
+		int* v = (int*)prop;
+		(*v) = value;
+
+		return true;
+	}
+	
+	int ScriptManager::GetStringTypeID() {
+		return m_engine->GetTypeIdByDecl("string");
+	}
+
+	bool ScriptManager::IsString(const BehaviourFeild& feild) {
+		return feild.typeID == m_engine->GetTypeIdByDecl("string");
+	}
+
+	std::string ScriptManager::GetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+		if (!instance.instance) {
+			return 0;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+
+		if (!prop) {
+			return 0;
+		}
+
+		return *(std::string*)prop;
+	}
+
+	bool ScriptManager::SetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, std::string value) {
+		if (!instance.instance) {
+			return false;
+		}
+
+		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		if (!prop) {
+			return false;
+		}
+
+		std::string* v = (std::string*)prop;
+		(*v) = value;
+
+		return true;
 	}
 
 	ScriptManager::~ScriptManager() {

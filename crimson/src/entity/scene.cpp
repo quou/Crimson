@@ -1,6 +1,8 @@
 #include "scene.h"
 #include "components/lights.h"
 
+#include "components/script.h"
+
 namespace Crimson {
 	static unsigned long NewEntityID() {
 		static unsigned long id = 0;
@@ -33,6 +35,18 @@ namespace Crimson {
 	void Scene::UpdateAndRefresh(float delta) {
 		Refresh();
 		Update(delta);
+	}
+
+
+	void Scene::UpdateBehaviourInstances() {
+		/* Re-init script components, to prevent a dangling pointer
+		 * to the behaviour instance */
+		for (auto& e : m_entities) {
+			if (e->HasComponent<ScriptComponent>()) {
+				e->GetComponent<ScriptComponent>()->OnDestroy();
+				e->GetComponent<ScriptComponent>()->OnInit();
+			}
+		}
 	}
 
 	void Scene::Draw(const Camera& camera) const {

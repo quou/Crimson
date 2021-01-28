@@ -7,6 +7,15 @@
         </transform>
         <script>
             <class v="TestBehaviour"/>
+            <serialisablefloats>
+                <someFloat v="22.200000762939453" i="4"/>
+            </serialisablefloats>
+            <serialisableints>
+                <someInt v="10" i="3"/>
+            </serialisableints>
+            <serialisablestrings>
+                <someString v="haha, it works" i="5"/>
+            </serialisablestrings>
         </script>
         <renderable>
             <mesh index="0">
@@ -29,6 +38,9 @@
         </transform>
         <script>
             <class v="DiscoLight"/>
+            <serialisablefloats/>
+            <serialisableints/>
+            <serialisablestrings/>
         </script>
         <pointlight>
             <color x="0" y="1" z="0"/>
