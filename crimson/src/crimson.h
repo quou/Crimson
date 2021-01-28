@@ -36,6 +36,7 @@
 /* Dear ImGui */
 #include "imgui/imguimanager.h"
 #include "imgui/gui.h"
+#include "imgui/imguifontawesome.h"
 
 /* Scripting */
 #include "scripting/scriptmanager.h"

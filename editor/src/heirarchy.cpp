@@ -4,6 +4,7 @@
 #include <imgui_internal.h>
 
 #include "heirarchy.h"
+#include "editor.h"
 
 namespace Crimson {
 	void Heirarchy::DrawEntityNode(const ref<Entity>& ent) {
@@ -68,18 +69,24 @@ namespace Crimson {
 	}
 
 	void Heirarchy::OnDraw(const Camera& camera, const ref<Scene>& scene) {
+		Editor* editor = (Editor*)m_userData;
+		
 		/* Heriarchy */
 		ImGui::Begin("heirarchy");
 
-		if (ImGui::Button("create entity")) {
-			scene->CreateEntity();
-		}
+		if (!editor->m_isRunning) {
+			if (ImGui::Button("create entity")) {
+				scene->CreateEntity();
+			}
 
-		for (const ref<Entity>& ent : scene->GetEntities()) {
-			DrawEntityNode(ent);
-		}
+			for (const ref<Entity>& ent : scene->GetEntities()) {
+				DrawEntityNode(ent);
+			}
 
-		if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+			if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+				m_selectionContext = NULL;
+			}
+		} else {
 			m_selectionContext = NULL;
 		}
 
@@ -99,103 +106,104 @@ namespace Crimson {
 			ImGui::Begin("properties###PROPERTIES");
 		}
 
-		if (ImGui::BeginPopup("addcomponent")) {
-			if (ImGui::MenuItem("transform")) {
-					m_selectionContext->AddComponent<TransformComponent>();
-			}
-
-			if (ImGui::BeginMenu("rendering")) {
-				if (ImGui::MenuItem("point light")) {
-					m_selectionContext->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
+		if (!editor->m_isRunning) {
+			if (ImGui::BeginPopup("addcomponent")) {
+				if (ImGui::MenuItem("transform")) {
+						m_selectionContext->AddComponent<TransformComponent>();
 				}
 
-				if (ImGui::MenuItem("sky light")) {
-					m_selectionContext->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
-				}
-
-				if (ImGui::MenuItem("renderable")) {
-					Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
-					Crimson::ref<Crimson::Model> model(new Crimson::Model());
-					model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
-					m_selectionContext->AddComponent<Crimson::RenderableComponent>(model);
-				}
-
-				ImGui::EndMenu();
-			}
-
-			ImGui::EndPopup();
-		}
-
-		DrawComponent<TransformComponent>("transform", m_selectionContext, [](void* component){
-			TransformComponent* tc = (TransformComponent*)component;
-
-			DrawVec3Control("translation", tc->translation);
-			DrawVec3Control("rotation", tc->rotation);
-			DrawVec3Control("scale", tc->scale);
-		}, true);
-
-		DrawComponent<PointLightComponent>("point light", m_selectionContext, [](void* component){
-			PointLightComponent* plc = (PointLightComponent*)component;
-
-			DrawColorControl("colour", plc->color);
-			DrawFloatControl("intensity", &plc->intensity);
-			DrawFloatControl("constant", &plc->constant);
-			DrawFloatControl("linear", &plc->linear);
-			DrawFloatControl("quadratic", &plc->quadratic);
-		}, true);
-
-		DrawComponent<SkyLightComponent>("sky light", m_selectionContext, [](void* component){
-			SkyLightComponent* slc = (SkyLightComponent*)component;
-
-			DrawColorControl("colour", slc->color);
-			DrawFloatControl("intensity", &slc->intensity);
-		}, true);
-
-		DrawComponent<RenderableComponent>("renderable", m_selectionContext, [](void* component){
-			RenderableComponent* rc = (RenderableComponent*)component;
-
-			ref<Model> m = rc->m_model;
-
-			int i = 0;
-			for (ref<Mesh>& mesh : m->GetMeshList()) {
-				std::string meshName = "mesh " + std::to_string(i);
-				if (ImGui::TreeNode(meshName.c_str())) {
-					std::string selectedMeshType = mesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
-
-					DrawComboBox("mesh", [&](){
-						if (ImGui::BeginCombo("###COMBO", selectedMeshType.c_str())) {
-							if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
-								mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
-							}
-
-							if (ImGui::Selectable("cube", "cube" == selectedMeshType)) {
-								mesh = MeshFactory::NewCubeMesh(mesh->GetMaterial());
-							}
-
-							ImGui::EndCombo();
-						}
-					});
-					
-					ref<Material> material = mesh->GetMaterial();
-
-					if (material->m_type == "phong") {
-						if (ImGui::TreeNodeEx((void*)(unsigned long)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
-							PhongMaterial* phongMat = (PhongMaterial*)material.get();
-
-							DrawColorControl("color", phongMat->color);
-							DrawFloatControl("shininess", &phongMat->shininess);
-						
-							ImGui::TreePop();
-						}
+				if (ImGui::BeginMenu("rendering")) {
+					if (ImGui::MenuItem("point light")) {
+						m_selectionContext->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
 					}
 
-					ImGui::TreePop();
+					if (ImGui::MenuItem("sky light")) {
+						m_selectionContext->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
+					}
+
+					if (ImGui::MenuItem("renderable")) {
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Model> model(new Crimson::Model());
+						model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
+						m_selectionContext->AddComponent<Crimson::RenderableComponent>(model);
+					}
+
+					ImGui::EndMenu();
 				}
 
-				i++;
+				ImGui::EndPopup();
 			}
-		}, true);
 
+			DrawComponent<TransformComponent>("transform", m_selectionContext, [](void* component){
+				TransformComponent* tc = (TransformComponent*)component;
+
+				DrawVec3Control("translation", tc->translation);
+				DrawVec3Control("rotation", tc->rotation);
+				DrawVec3Control("scale", tc->scale);
+			}, true);
+
+			DrawComponent<PointLightComponent>("point light", m_selectionContext, [](void* component){
+				PointLightComponent* plc = (PointLightComponent*)component;
+
+				DrawColorControl("colour", plc->color);
+				DrawFloatControl("intensity", &plc->intensity);
+				DrawFloatControl("constant", &plc->constant);
+				DrawFloatControl("linear", &plc->linear);
+				DrawFloatControl("quadratic", &plc->quadratic);
+			}, true);
+
+			DrawComponent<SkyLightComponent>("sky light", m_selectionContext, [](void* component){
+				SkyLightComponent* slc = (SkyLightComponent*)component;
+
+				DrawColorControl("colour", slc->color);
+				DrawFloatControl("intensity", &slc->intensity);
+			}, true);
+
+			DrawComponent<RenderableComponent>("renderable", m_selectionContext, [](void* component){
+				RenderableComponent* rc = (RenderableComponent*)component;
+
+				ref<Model> m = rc->m_model;
+
+				int i = 0;
+				for (ref<Mesh>& mesh : m->GetMeshList()) {
+					std::string meshName = "mesh " + std::to_string(i);
+					if (ImGui::TreeNode(meshName.c_str())) {
+						std::string selectedMeshType = mesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
+
+						DrawComboBox("mesh", [&](){
+							if (ImGui::BeginCombo("###COMBO", selectedMeshType.c_str())) {
+								if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
+									mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
+								}
+
+								if (ImGui::Selectable("cube", "cube" == selectedMeshType)) {
+									mesh = MeshFactory::NewCubeMesh(mesh->GetMaterial());
+								}
+
+								ImGui::EndCombo();
+							}
+						});
+						
+						ref<Material> material = mesh->GetMaterial();
+
+						if (material->m_type == "phong") {
+							if (ImGui::TreeNodeEx((void*)(unsigned long)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
+								PhongMaterial* phongMat = (PhongMaterial*)material.get();
+
+								DrawColorControl("color", phongMat->color);
+								DrawFloatControl("shininess", &phongMat->shininess);
+							
+								ImGui::TreePop();
+							}
+						}
+
+						ImGui::TreePop();
+					}
+
+					i++;
+				}
+			}, true);
+		}
 		ImGui::End();
 	}
 }

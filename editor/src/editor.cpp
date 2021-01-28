@@ -5,64 +5,73 @@
 #include "heirarchy.h"
 #include "viewport.h"
 
+#include "editor.h"
+
 namespace Crimson {
-	class Editor : public Application {
-	private:
-		ref<Scene> m_scene;
-		Entity* ent;
-		Entity* pointLight;
-		Entity* pointLight2;
-		
-		Camera m_camera;
+	void Editor::OnInit() {
+		ImGuiManager::Init(m_window);
 
-		ref<PanelManager> m_panelManager;
-	public:
-		void OnInit() override {
-			ImGuiManager::Init(m_window);
+		/* Create panels */
+		m_panelManager = ref<PanelManager>(new PanelManager(this));
+		m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
+		m_panelManager->AddPanel(ref<Panel>(new Viewport()));
 
-			/* Create panels */
-			m_panelManager = ref<PanelManager>(new PanelManager());
-			m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
-			m_panelManager->AddPanel(ref<Panel>(new Viewport()));
+		/* Create the scene */
+		m_scene = ref<Scene>(new Scene());
 
-			/* Create the scene */
-			m_scene = ref<Scene>(new Scene());
+		/* Create the camera */
+		m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
+		m_camera.position = vec3(0.0f, 0.5f, 5.0f);
 
-			/* Create the camera */
-			m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
-			m_camera.position = vec3(0.0f, 0.5f, 5.0f);
+		SceneSerialiser s(m_scene);
+		s.DeserialiseScene("test.crimson");
+	}
 
-			SceneSerialiser s(m_scene);
-			s.DeserialiseScene("test.crimson");
-		}
-
-		void OnUpdate(float delta) override {
+	void Editor::OnUpdate(float delta) {
+		if (m_isRunning) {
 			m_scene->UpdateAndRefresh(delta);
-			AssetManager::HotReload();
+		} else {
+			m_scene->Refresh();
+		}
 
-			Renderer::Clear(0.0f, 0.0f, 0.0f);
+		AssetManager::HotReload();
 
-			/* Draw panels */
-			ImGuiManager::BeginFrame();
-			m_panelManager->Draw(m_camera, m_scene);
-			ImGui::BeginMainMenuBar();
-			if (ImGui::BeginMenu("file")) {
-				if (ImGui::MenuItem("save")) {
-					SceneSerialiser s(m_scene);
-					s.SerialiseScene("test.crimson");
-				}
+		Renderer::Clear(0.0f, 0.0f, 0.0f);
 
-				ImGui::EndMenu();
+		/* Draw panels */
+		ImGuiManager::BeginFrame();
+		m_panelManager->Draw(m_camera, m_scene);
+		ImGui::BeginMainMenuBar();
+		if (ImGui::BeginMenu("file")) {
+			if (ImGui::MenuItem("save")) {
+				SceneSerialiser s(m_scene);
+				s.SerialiseScene("test.crimson");
 			}
-			ImGui::EndMainMenuBar(); 
-			ImGuiManager::EndFrame();
+
+			ImGui::EndMenu();
 		}
 
-		void OnExit() {
-			ImGuiManager::Quit();
-		}
-	};
+		if (ImGui::Button(m_isRunning ? ICON_FK_STOP : ICON_FK_PLAY)) {
+			if (m_isRunning) {
+				m_scene = ref<Scene>(new Scene());
+				SceneSerialiser ss(m_scene);
 
+				ss.DeserialiseSceneFromMemory(m_currentSave);
+			} else {
+				SceneSerialiser ss(m_scene);
+				m_currentSave = ss.SerialiseScene();
+			}
+
+			m_isRunning = !m_isRunning;
+		}
+
+		ImGui::EndMainMenuBar(); 
+		ImGuiManager::EndFrame();
+	}
+
+	void Editor::OnExit() {
+		ImGuiManager::Quit();
+	}
 }
 
 int main() {

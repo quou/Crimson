@@ -146,35 +146,37 @@ namespace Crimson {
 		r = engine->RegisterObjectProperty("SkyLight", "float intensity", asOFFSET(SkyLightComponent, intensity)); assert(r >= 0);
 	}
 
-	static void RegisterEntity(asIScriptEngine* e) {
+	asIScriptEngine* g_engine;
+
+	static void RegisterEntity(asIScriptEngine* engine) {
 		/* So that nested functions can also use the engine */
-		static asIScriptEngine* engine = e;
+		g_engine = engine;
 
 		/* Wrappers */
 		struct X {
 			static void GetComponent(void *ref, int typeID, Entity* entity) {
-				if (typeID == engine->GetTypeIdByDecl("Transform@")) { /* Transform */
+				if (typeID == g_engine->GetTypeIdByDecl("Transform@")) { /* Transform */
 					TransformComponent** t = (TransformComponent**)ref;
 					(*t) = entity->GetComponent<TransformComponent>();
 				
-				} else if (typeID == engine->GetTypeIdByDecl("PointLight@")) /* Point Light */ {
+				} else if (typeID == g_engine->GetTypeIdByDecl("PointLight@")) /* Point Light */ {
 					PointLightComponent** t = (PointLightComponent**)ref;
 					(*t) = entity->GetComponent<PointLightComponent>();
 
-				} else if (typeID == engine->GetTypeIdByDecl("SkyLight@")) /* Sky Light */ {
+				} else if (typeID == g_engine->GetTypeIdByDecl("SkyLight@")) /* Sky Light */ {
 					SkyLightComponent** t = (SkyLightComponent**)ref;
 					(*t) = entity->GetComponent<SkyLightComponent>();
 				
 				} else {
-					Log(LogType::ERROR, "%s is not a valid component type", engine->GetTypeDeclaration(typeID));
+					Log(LogType::ERROR, "%s is not a valid component type", g_engine->GetTypeDeclaration(typeID));
 				}
 			}
 		};
 
 		int r;
 		r = engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Entity", "void GetComponent(?&out)", asFUNCTION(X::GetComponent), asCALL_CDECL_OBJLAST);
-		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL);
+		r = engine->RegisterObjectMethod("Entity", "void GetComponent(?&out)", asFUNCTION(X::GetComponent), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Entity", "void Destroy()", asMETHOD(Entity, Destroy), asCALL_THISCALL); assert(r >= 0);
 	}
 
 	/* Register Crimson::vec4 */

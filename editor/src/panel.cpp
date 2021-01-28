@@ -2,6 +2,7 @@
 
 namespace Crimson {
 	void PanelManager::AddPanel(const ref<Panel>& panel) {
+		panel->m_userData = m_userData;
 		m_panels.push_back(panel);
 	}
 

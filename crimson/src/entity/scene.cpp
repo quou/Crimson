@@ -71,6 +71,8 @@ namespace Crimson {
 	}
 
 	Scene::~Scene() {
+		/* Make sure the entities' destructors get called 
+		 * before the script manager exists, to prevent a double-free */
 		m_entities.clear();
 	}
 }

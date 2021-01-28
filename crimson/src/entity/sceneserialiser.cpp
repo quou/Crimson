@@ -153,7 +153,7 @@ namespace Crimson {
 		printer.CloseElement();
 	}
 
-	void SceneSerialiser::SerialiseScene(const char* path) {
+	std::string SceneSerialiser::SerialiseScene(const char* path) {
 		XMLPrinter printer;
 
 		printer.OpenElement("scene");
@@ -164,13 +164,24 @@ namespace Crimson {
 
 		printer.CloseElement();
 
-		AssetManager::WriteTerminatedString(path, printer.CStr());
+		/* Only save to a file if the path isn't NULL, 
+		 * to allow serialisation to memory only */
+		if (path != NULL) { 
+			AssetManager::WriteTerminatedString(path, printer.CStr());
+		}
+
+		return printer.CStr();
 	}
 
 	void SceneSerialiser::DeserialiseScene(const char* path) {
-		XMLDocument doc;
 		std::string src = AssetManager::LoadTerminatedString(path);
-		doc.Parse(src.c_str(), src.size());
+		DeserialiseSceneFromMemory(src);
+	}
+
+	void SceneSerialiser::DeserialiseSceneFromMemory(const std::string& xml) {
+		XMLDocument doc;
+
+		doc.Parse(xml.c_str(), xml.size());
 		if (doc.Error()) { 
 			Log(LogType::ERROR, "Error parsing scene: %s", doc.ErrorStr());
 			return;

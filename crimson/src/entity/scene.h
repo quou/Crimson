@@ -58,7 +58,14 @@ namespace Crimson {
 
 		void SerialiseEntity(const ref<Entity>& entity, tinyxml2::XMLPrinter& printer);
 
-		void SerialiseScene(const char* path);
+		/* Serialise a scene and return the XML. If the path isn't null,
+		 * save the XML to the specified file */
+		std::string SerialiseScene(const char* path = NULL);
+
+		/* Deserialise a scene from a file */
 		void DeserialiseScene(const char* path);
+
+		/* Deserialise a scene from a string */
+		void DeserialiseSceneFromMemory(const std::string& xml);
 	};
 }
