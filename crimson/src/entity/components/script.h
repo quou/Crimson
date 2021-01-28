@@ -18,6 +18,8 @@ namespace Crimson {
 		std::map<BehaviourFeild, int> m_serialisableInts;
 		std::map<BehaviourFeild, std::string> m_serialisableStrings;
 
+		bool m_dontCallInit = false;
+
 		ScriptComponent(const char* behaviourDecl);
 
 		void OnInit();

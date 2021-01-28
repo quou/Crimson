@@ -44,6 +44,7 @@ namespace Crimson {
 		for (auto& e : m_entities) {
 			if (e->HasComponent<ScriptComponent>()) {
 				e->GetComponent<ScriptComponent>()->OnDestroy();
+				e->GetComponent<ScriptComponent>()->m_dontCallInit = true;
 				e->GetComponent<ScriptComponent>()->OnInit();
 			}
 		}

@@ -65,9 +65,9 @@ namespace Crimson {
 		std::string SerialiseScene(const char* path = NULL);
 
 		/* Deserialise a scene from a file */
-		void DeserialiseScene(const char* path);
+		void DeserialiseScene(const char* path, bool dontInitScripts = false);
 
 		/* Deserialise a scene from a string */
-		void DeserialiseSceneFromMemory(const std::string& xml);
+		void DeserialiseSceneFromMemory(const std::string& xml, bool dontInitScripts = false);
 	};
 }

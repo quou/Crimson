@@ -47,8 +47,10 @@ namespace Crimson {
 			} catch (const std::exception& e) {}
 		}
 
-		/* Call the script's OnInit function */
-		m_entity->m_scene->m_scriptManager->CallInit(m_behaviour);
+		if (!m_dontCallInit) {
+			/* Call the script's OnInit function */
+			m_entity->m_scene->m_scriptManager->CallInit(m_behaviour);
+		}
 	}
 
 	void ScriptComponent::OnUpdate(float delta) {

@@ -24,7 +24,7 @@ namespace Crimson {
 		m_camera.position = vec3(0.0f, 0.5f, 5.0f);
 
 		SceneSerialiser s(m_scene);
-		s.DeserialiseScene("test.crimson");
+		s.DeserialiseScene("test.crimson", true);
 	}
 
 	void Editor::OnUpdate(float delta) {
@@ -58,14 +58,18 @@ namespace Crimson {
 		}
 
 		if (ImGui::Button(m_isRunning ? ICON_FK_STOP : ICON_FK_PLAY)) {
-			if (m_isRunning) {
+			if (m_isRunning) { /* Stop execution */
 				m_scene = ref<Scene>(new Scene());
 				SceneSerialiser ss(m_scene);
 
-				ss.DeserialiseSceneFromMemory(m_currentSave);
-			} else {
+				ss.DeserialiseSceneFromMemory(m_currentSave, true);
+			} else { /* Start execution */
 				SceneSerialiser ss(m_scene);
 				m_currentSave = ss.SerialiseScene();
+
+				m_scene = ref<Scene>(new Scene());
+				ss = SceneSerialiser(m_scene);
+				ss.DeserialiseSceneFromMemory(m_currentSave);
 			}
 
 			m_isRunning = !m_isRunning;

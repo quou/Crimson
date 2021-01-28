@@ -201,12 +201,12 @@ namespace Crimson {
 		return printer.CStr();
 	}
 
-	void SceneSerialiser::DeserialiseScene(const char* path) {
+	void SceneSerialiser::DeserialiseScene(const char* path, bool dontInitScripts) {
 		std::string src = AssetManager::LoadTerminatedString(path);
-		DeserialiseSceneFromMemory(src);
+		DeserialiseSceneFromMemory(src, dontInitScripts);
 	}
 
-	void SceneSerialiser::DeserialiseSceneFromMemory(const std::string& xml) {
+	void SceneSerialiser::DeserialiseSceneFromMemory(const std::string& xml, bool dontInitScripts) {
 		XMLDocument doc;
 
 		doc.Parse(xml.c_str(), xml.size());
@@ -333,6 +333,7 @@ namespace Crimson {
 						}
 					}
 
+					sc->m_dontCallInit = dontInitScripts;
 					sc->OnInit();
 				}
 
