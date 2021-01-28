@@ -112,6 +112,10 @@ namespace Crimson {
 						m_selectionContext->AddComponent<TransformComponent>();
 				}
 
+				if (ImGui::MenuItem("script")) {
+						m_selectionContext->AddComponent<ScriptComponent>("~");
+				}
+
 				if (ImGui::BeginMenu("rendering")) {
 					if (ImGui::MenuItem("point light")) {
 						m_selectionContext->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
@@ -157,6 +161,12 @@ namespace Crimson {
 
 				DrawColorControl("colour", slc->color);
 				DrawFloatControl("intensity", &slc->intensity);
+			}, true);
+
+			DrawComponent<ScriptComponent>("script", m_selectionContext, [](void* component){
+				ScriptComponent* slc = (ScriptComponent*)component;
+
+				DrawTextControl("behaviour", slc->m_behaviourDecl);
 			}, true);
 
 			DrawComponent<RenderableComponent>("renderable", m_selectionContext, [](void* component){

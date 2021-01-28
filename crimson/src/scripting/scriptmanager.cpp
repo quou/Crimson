@@ -52,6 +52,11 @@ abstract class CrimsonBehaviour {
 	}
 
 	BehaviourInstance ScriptManager::CreateInstance(const char* classDecl, Entity* entity) {
+		/* Incase the user wants a script component that isn't attached to a behaviour */
+		if (std::string(classDecl) == "~") {
+			return BehaviourInstance{NULL, NULL, false}; 
+		}
+
 		if (!m_compilationSuccess) { return BehaviourInstance{NULL, NULL, false}; }
 
 		asITypeInfo* type = m_module->GetTypeInfoByDecl(classDecl);
