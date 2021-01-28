@@ -100,8 +100,20 @@ namespace Crimson {
 			if (ImGui::Button("add component")) {
 				ImGui::OpenPopup("addcomponent");
 			}
+			
+			ImGui::SameLine();
+			
+			bool shouldDestroy = false;
+			if (ImGui::Button("delete entity")) {
+				shouldDestroy = true;
+			}
 
 			DrawTextControl("name", m_selectionContext->m_name);
+
+			if (shouldDestroy) {
+				m_selectionContext->Destroy();
+				m_selectionContext = NULL;
+			}
 		} else {
 			ImGui::Begin("properties###PROPERTIES");
 		}
@@ -166,8 +178,10 @@ namespace Crimson {
 			DrawComponent<ScriptComponent>("script", m_selectionContext, [&](void* component){
 				ScriptComponent* slc = (ScriptComponent*)component;
 
+				bool exists = scene->m_scriptManager->CompiliationSuccess() && scene->m_scriptManager->CheckBehaviourExistance(slc->m_behaviourDecl.c_str());
+
 				if (scene->m_scriptManager->CompiliationSuccess()) {
-					if (scene->m_scriptManager->CheckBehaviourExistance(slc->m_behaviourDecl.c_str())) {
+					if (exists) {
 						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
 						ImGui::Text(ICON_FK_CHECK " valid behaviour");
 					} else {
@@ -182,35 +196,37 @@ namespace Crimson {
 
 				DrawTextControl("behaviour", slc->m_behaviourDecl);
 
-				ImGui::Separator();
+				if (exists) {
+					ImGui::Separator();
 
-				for (const BehaviourField& f : scene->m_scriptManager->GetBehaviourFields(slc->GetInstance())) {
-					std::string name;
-					for (auto c : f.name) {
-						if (std::isupper(c)) {
-							name += " ";
-							name += (std::tolower(c));
-							continue;
+					for (const BehaviourField& f : scene->m_scriptManager->GetBehaviourFields(slc->GetInstance())) {
+						std::string name;
+						for (auto c : f.name) {
+							if (std::isupper(c)) {
+								name += " ";
+								name += (std::tolower(c));
+								continue;
+							}
+
+							name += c;
 						}
 
-						name += c;
-					}
-
-					if (scene->m_scriptManager->IsFloat(f)) {
-						float v = scene->m_scriptManager->GetFloatProperty(slc->GetInstance(), f);
-						DrawFloatControl(name.c_str(), &v);
-						scene->m_scriptManager->SetFloatProperty(slc->GetInstance(), f, v);
-						slc->m_serialisableFloats[f] = v;
-					} else if (scene->m_scriptManager->IsInt(f)) {
-						int v = scene->m_scriptManager->GetIntProperty(slc->GetInstance(), f);
-						DrawIntControl(name.c_str(), &v);
-						scene->m_scriptManager->SetIntProperty(slc->GetInstance(), f, v);
-						slc->m_serialisableInts[f] = v;
-					} else if (scene->m_scriptManager->IsString(f)) {
-						std::string v = scene->m_scriptManager->GetStringProperty(slc->GetInstance(), f);
-						DrawTextControl(name.c_str(), v);
-						scene->m_scriptManager->SetStringProperty(slc->GetInstance(), f, v);
-						slc->m_serialisableStrings[f] = v;
+						if (scene->m_scriptManager->IsFloat(f)) {
+							float v = scene->m_scriptManager->GetFloatProperty(slc->GetInstance(), f);
+							DrawFloatControl(name.c_str(), &v);
+							scene->m_scriptManager->SetFloatProperty(slc->GetInstance(), f, v);
+							slc->m_serialisableFloats[f] = v;
+						} else if (scene->m_scriptManager->IsInt(f)) {
+							int v = scene->m_scriptManager->GetIntProperty(slc->GetInstance(), f);
+							DrawIntControl(name.c_str(), &v);
+							scene->m_scriptManager->SetIntProperty(slc->GetInstance(), f, v);
+							slc->m_serialisableInts[f] = v;
+						} else if (scene->m_scriptManager->IsString(f)) {
+							std::string v = scene->m_scriptManager->GetStringProperty(slc->GetInstance(), f);
+							DrawTextControl(name.c_str(), v);
+							scene->m_scriptManager->SetStringProperty(slc->GetInstance(), f, v);
+							slc->m_serialisableStrings[f] = v;
+						}
 					}
 				}
 			}, true);

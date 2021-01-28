@@ -8,13 +8,13 @@
         <script>
             <class v="TestBehaviour"/>
             <serialisablefloats>
-                <someFloat v="100" i="4"/>
+                <someFloat v="22.200000762939453" i="4"/>
             </serialisablefloats>
             <serialisableints>
-                <someInt v="13" i="3"/>
+                <someInt v="12" i="3"/>
             </serialisableints>
             <serialisablestrings>
-                <someString v="haha, it works" i="5"/>
+                <someString v="hello, world" i="5"/>
             </serialisablestrings>
         </script>
         <renderable>
