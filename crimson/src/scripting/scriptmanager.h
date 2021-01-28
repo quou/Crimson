@@ -22,13 +22,13 @@ namespace Crimson {
 		bool isValid;
 	};
 
-	/* Contains information about a feild on a behaviour */
-	struct CR_API BehaviourFeild {
+	/* Contains information about a field on a behaviour */
+	struct CR_API BehaviourField {
 		std::string name;
 		int typeID;
 		unsigned int index;
 
-		bool operator<(const BehaviourFeild& f) const {
+		bool operator<(const BehaviourField& f) const {
 			return name < f.name; 
 		}
 	};
@@ -63,21 +63,21 @@ namespace Crimson {
 		 * Returns true if changes where detected */
 		bool HotReload();
 		
-		/* Get a vector of all the feilds for a behaviour */
-		std::vector<BehaviourFeild> GetBehaviourFeilds(const BehaviourInstance& behaviour);
+		/* Get a vector of all the fields for a behaviour */
+		std::vector<BehaviourField> GetBehaviourFields(const BehaviourInstance& behaviour);
 
-		bool IsFloat(const BehaviourFeild& feild);
-		float GetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild);
-		bool SetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, float value);
+		bool IsFloat(const BehaviourField& field);
+		float GetFloatProperty(const BehaviourInstance& instance, const BehaviourField& field);
+		bool SetFloatProperty(const BehaviourInstance& instance, const BehaviourField& field, float value);
 
-		bool IsInt(const BehaviourFeild& feild);
-		int GetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild);
-		bool SetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, int value);
+		bool IsInt(const BehaviourField& field);
+		int GetIntProperty(const BehaviourInstance& instance, const BehaviourField& field);
+		bool SetIntProperty(const BehaviourInstance& instance, const BehaviourField& field, int value);
 
 		int GetStringTypeID();
-		bool IsString(const BehaviourFeild& feild);
-		std::string GetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild);
-		bool SetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, std::string value);
+		bool IsString(const BehaviourField& field);
+		std::string GetStringProperty(const BehaviourInstance& instance, const BehaviourField& field);
+		bool SetStringProperty(const BehaviourInstance& instance, const BehaviourField& field, std::string value);
 
 		inline bool CompiliationSuccess() const { return m_compilationSuccess; }
 	};

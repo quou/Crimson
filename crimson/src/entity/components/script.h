@@ -14,9 +14,9 @@ namespace Crimson {
 
 	public:
 		std::string m_behaviourDecl;
-		std::map<BehaviourFeild, float> m_serialisableFloats;
-		std::map<BehaviourFeild, int> m_serialisableInts;
-		std::map<BehaviourFeild, std::string> m_serialisableStrings;
+		std::map<BehaviourField, float> m_serialisableFloats;
+		std::map<BehaviourField, int> m_serialisableInts;
+		std::map<BehaviourField, std::string> m_serialisableStrings;
 
 		bool m_dontCallInit = false;
 

@@ -301,9 +301,9 @@ namespace Crimson {
 					if (sfloatNode) {
 						XMLElement* node = sfloatNode->FirstChildElement();
 						while (node) {
-							BehaviourFeild feild = BehaviourFeild{node->Name(), asTYPEID_FLOAT, node->UnsignedAttribute("i")};
+							BehaviourField field = BehaviourField{node->Name(), asTYPEID_FLOAT, node->UnsignedAttribute("i")};
 
-							sc->m_serialisableFloats[feild] = node->FloatAttribute("v");
+							sc->m_serialisableFloats[field] = node->FloatAttribute("v");
 
 							node = node->NextSiblingElement();
 						}
@@ -313,9 +313,9 @@ namespace Crimson {
 					if (sintNode) {
 						XMLElement* node = sintNode->FirstChildElement();
 						while (node) {
-							BehaviourFeild feild = BehaviourFeild{node->Name(), asTYPEID_INT32, node->UnsignedAttribute("i")};
+							BehaviourField field = BehaviourField{node->Name(), asTYPEID_INT32, node->UnsignedAttribute("i")};
 
-							sc->m_serialisableInts[feild] = node->IntAttribute("v");
+							sc->m_serialisableInts[field] = node->IntAttribute("v");
 
 							node = node->NextSiblingElement();
 						}
@@ -325,9 +325,9 @@ namespace Crimson {
 					if (sstringNode) {
 						XMLElement* node = sstringNode->FirstChildElement();
 						while (node) {
-							BehaviourFeild feild = BehaviourFeild{node->Name(), m_scene->m_scriptManager->GetStringTypeID(), node->UnsignedAttribute("i")};
+							BehaviourField field = BehaviourField{node->Name(), m_scene->m_scriptManager->GetStringTypeID(), node->UnsignedAttribute("i")};
 
-							sc->m_serialisableStrings[feild] = node->Attribute("v");
+							sc->m_serialisableStrings[field] = node->Attribute("v");
 
 							node = node->NextSiblingElement();
 						}

@@ -13,27 +13,27 @@ namespace Crimson {
 			CreateInstance(m_behaviourDecl.c_str(), m_entity);
 
 
-		std::vector<BehaviourFeild> invalidFeilds;
-		/* Set up serialisable feilds */
+		std::vector<BehaviourField> invalidFields;
+		/* Set up serialisable fields */
 		for (auto& f : m_serialisableFloats) {
 			if (!m_entity->m_scene->m_scriptManager->SetFloatProperty(m_behaviour, f.first, f.second)) {
-				invalidFeilds.push_back(f.first);
+				invalidFields.push_back(f.first);
 			}
 		}
 
 		for (auto& f : m_serialisableInts) {
 			if (!m_entity->m_scene->m_scriptManager->SetIntProperty(m_behaviour, f.first, f.second)) {
-				invalidFeilds.push_back(f.first);
+				invalidFields.push_back(f.first);
 			}
 		}
 
 		for (auto& f : m_serialisableStrings) {
 			if (!m_entity->m_scene->m_scriptManager->SetStringProperty(m_behaviour, f.first, f.second)) {
-				invalidFeilds.push_back(f.first);
+				invalidFields.push_back(f.first);
 			}
 		}
 
-		for (auto& f : invalidFeilds) {
+		for (auto& f : invalidFields) {
 			try {
 				m_serialisableFloats.erase(f);
 			} catch (const std::exception& e) {}

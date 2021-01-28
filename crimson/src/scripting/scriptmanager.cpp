@@ -150,8 +150,8 @@ abstract class CrimsonBehaviour {
 		return false;
 	}
 
-	std::vector<BehaviourFeild> ScriptManager::GetBehaviourFeilds(const BehaviourInstance& behaviour) {
-		std::vector<BehaviourFeild> result;
+	std::vector<BehaviourField> ScriptManager::GetBehaviourFields(const BehaviourInstance& behaviour) {
+		std::vector<BehaviourField> result;
 
 		if (!behaviour.instance || !behaviour.typeInfo) { return result; }
 
@@ -163,7 +163,7 @@ abstract class CrimsonBehaviour {
 			behaviour.typeInfo->GetProperty(i, NULL, &typeID, &isPrivate, &isProtected);
 
 			if (!isPrivate && !isProtected) {
-				result.push_back(BehaviourFeild{
+				result.push_back(BehaviourField{
 					behaviour.instance->GetPropertyName(i),
 					typeID,
 					i
@@ -174,16 +174,16 @@ abstract class CrimsonBehaviour {
 		return result;
 	}
 
-	bool ScriptManager::IsFloat(const BehaviourFeild& feild) {
-		return feild.typeID == asTYPEID_FLOAT;
+	bool ScriptManager::IsFloat(const BehaviourField& field) {
+		return field.typeID == asTYPEID_FLOAT;
 	}
 
-	float ScriptManager::GetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+	float ScriptManager::GetFloatProperty(const BehaviourInstance& instance, const BehaviourField& field) {
 		if (!instance.instance) {
 			return 0.0f;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 
 		if (!prop) {
 			return 0.0f;
@@ -192,12 +192,12 @@ abstract class CrimsonBehaviour {
 		return *(float*)prop;
 	}
 
-	bool ScriptManager::SetFloatProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, float value) {
+	bool ScriptManager::SetFloatProperty(const BehaviourInstance& instance, const BehaviourField& field, float value) {
 		if (!instance.instance) {
 			return false;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 		if (!prop) {
 			return false;
 		}
@@ -208,16 +208,16 @@ abstract class CrimsonBehaviour {
 		return true;
 	}
 
-	bool ScriptManager::IsInt(const BehaviourFeild& feild) {
-		return feild.typeID == asTYPEID_INT32;
+	bool ScriptManager::IsInt(const BehaviourField& field) {
+		return field.typeID == asTYPEID_INT32;
 	}
 
-	int ScriptManager::GetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+	int ScriptManager::GetIntProperty(const BehaviourInstance& instance, const BehaviourField& field) {
 		if (!instance.instance) {
 			return 0;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 
 		if (!prop) {
 			return 0;
@@ -226,12 +226,12 @@ abstract class CrimsonBehaviour {
 		return *(int*)prop;
 	}
 
-	bool ScriptManager::SetIntProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, int value) {
+	bool ScriptManager::SetIntProperty(const BehaviourInstance& instance, const BehaviourField& field, int value) {
 		if (!instance.instance) {
 			return false;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 		if (!prop) {
 			return false;
 		}
@@ -246,16 +246,16 @@ abstract class CrimsonBehaviour {
 		return m_engine->GetTypeIdByDecl("string");
 	}
 
-	bool ScriptManager::IsString(const BehaviourFeild& feild) {
-		return feild.typeID == m_engine->GetTypeIdByDecl("string");
+	bool ScriptManager::IsString(const BehaviourField& field) {
+		return field.typeID == m_engine->GetTypeIdByDecl("string");
 	}
 
-	std::string ScriptManager::GetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild) {
+	std::string ScriptManager::GetStringProperty(const BehaviourInstance& instance, const BehaviourField& field) {
 		if (!instance.instance) {
 			return 0;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 
 		if (!prop) {
 			return 0;
@@ -264,12 +264,12 @@ abstract class CrimsonBehaviour {
 		return *(std::string*)prop;
 	}
 
-	bool ScriptManager::SetStringProperty(const BehaviourInstance& instance, const BehaviourFeild& feild, std::string value) {
+	bool ScriptManager::SetStringProperty(const BehaviourInstance& instance, const BehaviourField& field, std::string value) {
 		if (!instance.instance) {
 			return false;
 		}
 
-		void* prop = instance.instance->GetAddressOfProperty(feild.index);
+		void* prop = instance.instance->GetAddressOfProperty(field.index);
 		if (!prop) {
 			return false;
 		}

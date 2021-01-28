@@ -184,7 +184,7 @@ namespace Crimson {
 
 				ImGui::Separator();
 
-				for (const BehaviourFeild& f : scene->m_scriptManager->GetBehaviourFeilds(slc->GetInstance())) {
+				for (const BehaviourField& f : scene->m_scriptManager->GetBehaviourFields(slc->GetInstance())) {
 					std::string name;
 					for (auto c : f.name) {
 						if (std::isupper(c)) {
