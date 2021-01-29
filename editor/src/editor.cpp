@@ -65,9 +65,6 @@ namespace Crimson {
 		/* Create the camera */
 		m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		m_camera.position = vec3(0.0f, 0.5f, 5.0f);
-
-		// SceneSerialiser s(m_scene);
-		// s.DeserialiseScene("test.crimson", true);
 	}
 
 	void Editor::OnUpdate(float delta) {
