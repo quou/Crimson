@@ -22,9 +22,10 @@
 	#define CONSOLE_COLOR_CYAN "\033[0;36m"
 #endif
 
-static FILE* logFile;
-
 namespace Crimson {
+	static FILE* logFile;
+	static std::vector<LogEntry> g_logEntries;
+	
 	void InitLogger() {
 		/* Obtain the current date and time */
 		time_t rawTime;
@@ -87,6 +88,17 @@ namespace Crimson {
 		va_start(argptr, fmt);
 		vprintf(consoleFormat, argptr);
 		va_end(argptr);
+
+		char buf[4096];
+		/* Print to memory */
+		va_start(argptr, fmt);
+		vsprintf(buf, fmt, argptr);
+		va_end(argptr);
+
+		g_logEntries.push_back(LogEntry{severity, buf});
+		if (g_logEntries.size() > 5000) {
+			g_logEntries.erase(g_logEntries.begin());
+		}
 	
 		if (logFile) {
 			/* Print to the log file */
@@ -99,5 +111,13 @@ namespace Crimson {
 	void CloseLogger() {
 		/* Close the log file */
 		fclose(logFile);
+	}
+
+	const std::vector<LogEntry>& GetLogs() {
+		return g_logEntries;
+	}
+
+	void ClearLogs() {
+		g_logEntries.clear();
 	}
 }

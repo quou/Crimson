@@ -124,6 +124,8 @@ namespace Crimson {
 
 				ss.DeserialiseSceneFromMemory(m_currentSave, true);
 			} else { /* Start execution */
+				ClearLogs();
+				
 				SceneSerialiser ss(m_scene);
 				m_currentSave = ss.SerialiseScene();
 
