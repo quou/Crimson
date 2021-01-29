@@ -6,6 +6,7 @@
 #include "heirarchy.h"
 #include "viewport.h"
 #include "editor.h"
+#include "console.h"
 
 namespace Crimson {
 	void Editor::Save() {
@@ -19,36 +20,44 @@ namespace Crimson {
 	}
 
 	void Editor::SaveAs() {
-		std::string path = tinyfd_saveFileDialog("Save Scene As", (m_currentSavePath + m_currentSaveFile).c_str(), 0, NULL, "Scene Files");
-		std::string file = path;
-		file = file.substr(file.find_last_of("/") + 1);
-		path.erase(path.find_last_of('/'));
+		const char* pathPtr = tinyfd_saveFileDialog("Save Scene As", (m_currentSavePath + m_currentSaveFile).c_str(), 0, NULL, "Scene Files");
 
-		m_currentSaveFile = file;
-		m_currentSavePath = path;
+		if (pathPtr) {
+			std::string path = pathPtr;
+			std::string file = path;
+			file = file.substr(file.find_last_of("/") + 1);
+			path.erase(path.find_last_of('/'));
 
-		AssetManager::Quit();
-		AssetManager::Init(path.c_str());
+			m_currentSaveFile = file;
+			m_currentSavePath = path;
 
-		SceneSerialiser s(m_scene);
-		s.SerialiseScene(file.c_str());
+			AssetManager::Quit();
+			AssetManager::Init(path.c_str());
+
+			SceneSerialiser s(m_scene);
+			s.SerialiseScene(file.c_str());
+		}
 	}
 
 	void Editor::Open() {
-		std::string path = tinyfd_openFileDialog("Open Scene", m_currentSavePath.c_str(), 0, NULL, "Scene Files", false);
-		std::string file = path;
-		file = file.substr(file.find_last_of("/") + 1);
-		path.erase(path.find_last_of('/'));
+		const char* pathPtr = tinyfd_openFileDialog("Open Scene", m_currentSavePath.c_str(), 0, NULL, "Scene Files", false);
 
-		m_currentSaveFile = file;
-		m_currentSavePath = path;
+		if (pathPtr) {
+			std::string path = pathPtr;
+			std::string file = path;
+			file = file.substr(file.find_last_of("/") + 1);
+			path.erase(path.find_last_of('/'));
 
-		AssetManager::Quit();
-		AssetManager::Init(path.c_str());
+			m_currentSaveFile = file;
+			m_currentSavePath = path;
 
-		m_scene = ref<Scene>(new Scene());
-		SceneSerialiser s(m_scene);
-		s.DeserialiseScene(file.c_str(), true);
+			AssetManager::Quit();
+			AssetManager::Init(path.c_str());
+
+			m_scene = ref<Scene>(new Scene());
+			SceneSerialiser s(m_scene);
+			s.DeserialiseScene(file.c_str(), true);
+		}
 	}
 
 	void Editor::OnInit() {
@@ -58,6 +67,7 @@ namespace Crimson {
 		m_panelManager = ref<PanelManager>(new PanelManager(this));
 		m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
 		m_panelManager->AddPanel(ref<Panel>(new Viewport()));
+		m_panelManager->AddPanel(ref<Panel>(new Console()));
 
 		/* Create the scene */
 		m_scene = ref<Scene>(new Scene());
