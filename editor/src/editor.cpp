@@ -1,13 +1,56 @@
 #include <crimson.h>
 #include <imgui.h>
 
+#include "utils/tinyfiledialogs.h"
 #include "panel.h"
 #include "heirarchy.h"
 #include "viewport.h"
-
 #include "editor.h"
 
 namespace Crimson {
+	void Editor::Save() {
+		if (m_currentSaveFile.empty()) {
+			SaveAs();
+			return;
+		}
+
+		SceneSerialiser s(m_scene);
+		s.SerialiseScene(m_currentSaveFile.c_str());
+	}
+
+	void Editor::SaveAs() {
+		std::string path = tinyfd_saveFileDialog("Save Scene As", (m_currentSavePath + m_currentSaveFile).c_str(), 0, NULL, "Scene Files");
+		std::string file = path;
+		file = file.substr(file.find_last_of("/") + 1);
+		path.erase(path.find_last_of('/'));
+
+		m_currentSaveFile = file;
+		m_currentSavePath = path;
+
+		AssetManager::Quit();
+		AssetManager::Init(path.c_str());
+
+		SceneSerialiser s(m_scene);
+		s.SerialiseScene(file.c_str());
+	}
+
+	void Editor::Open() {
+		std::string path = tinyfd_openFileDialog("Open Scene", m_currentSavePath.c_str(), 0, NULL, "Scene Files", false);
+		std::string file = path;
+		file = file.substr(file.find_last_of("/") + 1);
+		path.erase(path.find_last_of('/'));
+
+		m_currentSaveFile = file;
+		m_currentSavePath = path;
+
+		AssetManager::Quit();
+		AssetManager::Init(path.c_str());
+
+		m_scene = ref<Scene>(new Scene());
+		SceneSerialiser s(m_scene);
+		s.DeserialiseScene(file.c_str(), true);
+	}
+
 	void Editor::OnInit() {
 		ImGuiManager::Init(m_window);
 
@@ -23,8 +66,8 @@ namespace Crimson {
 		m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
 		m_camera.position = vec3(0.0f, 0.5f, 5.0f);
 
-		SceneSerialiser s(m_scene);
-		s.DeserialiseScene("test.crimson", true);
+		// SceneSerialiser s(m_scene);
+		// s.DeserialiseScene("test.crimson", true);
 	}
 
 	void Editor::OnUpdate(float delta) {
@@ -47,16 +90,26 @@ namespace Crimson {
 		/* Draw panels */
 		ImGuiManager::BeginFrame();
 		m_panelManager->Draw(m_camera, m_scene);
+
+		/* Draw the main menu bar */
 		ImGui::BeginMainMenuBar();
 		if (ImGui::BeginMenu("file")) {
+			if (ImGui::MenuItem("open")) {
+				Open();
+			}
+
 			if (ImGui::MenuItem("save")) {
-				SceneSerialiser s(m_scene);
-				s.SerialiseScene("test.crimson");
+				Save();
+			}
+
+			if (ImGui::MenuItem("save as")) {
+				SaveAs();
 			}
 
 			ImGui::EndMenu();
 		}
 
+		/* Draw the play/stop button */
 		if (ImGui::Button(m_isRunning ? ICON_FK_STOP : ICON_FK_PLAY)) {
 			if (m_isRunning) { /* Stop execution */
 				m_scene = ref<Scene>(new Scene());

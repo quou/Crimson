@@ -13,6 +13,13 @@ namespace Crimson {
 		ref<PanelManager> m_panelManager;
 
 		friend class Heirarchy;
+
+		void Save();
+		void SaveAs();
+		void Open();
+
+		std::string m_currentSavePath;
+		std::string m_currentSaveFile;
 	public:
 		void OnInit();
 		void OnUpdate(float delta);

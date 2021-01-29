@@ -6,8 +6,10 @@
 
 namespace Crimson {
 	void AssetManager::Init(const char* resDir) {
+		instance().m_currentDir = resDir;
+
 		if (PHYSFS_isInit()) { /* Incase we need to re-init */
-			PHYSFS_deinit();
+			Quit();
 		}
 
 		PHYSFS_init(NULL);
@@ -270,6 +272,14 @@ namespace Crimson {
 		for (auto& f : i.m_binary) {
 			free(f.second.first);
 		}
+
+		i.m_binary.clear();
+		i.m_textures.clear();
+		i.m_terminatedStrings.clear();
+		i.m_shaders.clear();
+
+		PHYSFS_unmount(i.m_currentDir.c_str());
+
 		PHYSFS_deinit();
 	}
 }

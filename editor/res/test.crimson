@@ -11,7 +11,7 @@
                 <someFloat v="22.200000762939453" i="4"/>
             </serialisablefloats>
             <serialisableints>
-                <someInt v="12" i="3"/>
+                <someInt v="100" i="3"/>
             </serialisableints>
             <serialisablestrings>
                 <someString v="hello, world" i="5"/>
@@ -32,7 +32,7 @@
     </entity>
     <entity name="disco light">
         <transform>
-            <translation x="5" y="-1" z="4"/>
+            <translation x="0.40000000596046448" y="-1" z="4"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>

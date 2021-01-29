@@ -34,6 +34,8 @@ namespace Crimson {
 		/* Cache for textures, int the format:
 		 * { "file-path" : { ref<Texture>, mod-time }} */
 		std::map<std::string, std::pair<ref<Texture>, uint64_t>> m_textures;
+
+		std::string m_currentDir;
 	public:
 		static void Init(const char* resDir);
 		static void Quit();

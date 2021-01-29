@@ -8,7 +8,7 @@ project "editor"
 
 	targetdir "../bin"
 
-	files { "src/**.h", "src/**.cpp" }
+	files { "src/**.h", "src/**.cpp", "src/**.c" }
 
 	includedirs {
 		"../crimson/ex/imgui/include",
