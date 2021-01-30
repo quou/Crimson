@@ -6,6 +6,7 @@
 namespace Crimson {
 	Viewport::Viewport() {
 		m_renderTarget = ref<RenderTarget>(new RenderTarget(vec2(800, 600)));
+		m_gameRenderTarget = ref<RenderTarget>(new RenderTarget(vec2(800, 600)));
 	}
 	
 	void Viewport::OnDraw(const ref<Scene>& scene, float delta) {
@@ -42,11 +43,11 @@ namespace Crimson {
 			/* Update perspective */
 			camera->projection = mat4::persp(45.0f, size.x/size.y, 0.1f, 1000.0f);
 
-			m_renderTarget->Bind();
+			m_gameRenderTarget->Bind();
 			scene->Draw(*camera);
-			m_renderTarget->Unbind();
+			m_gameRenderTarget->Unbind();
 
-			ImGui::Image((ImTextureID)(unsigned long)m_renderTarget->GetOutput(), ImVec2(size.x, size.y));
+			ImGui::Image((ImTextureID)(unsigned long)m_gameRenderTarget->GetOutput(), ImVec2(size.x, size.y));
 		} else {
 			ImGui::Text("no cameras rendering");
 		}
