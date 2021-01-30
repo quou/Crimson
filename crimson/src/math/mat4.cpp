@@ -256,22 +256,25 @@ namespace Crimson {
 	mat4 mat4::lookat(const vec3& camera, const vec3& object, const vec3& up) {
 		mat4 result(1.0f);
 		vec3 f = (object - camera).normalised();
-		vec3 s = f.cross(up.normalised());
-		vec3 u = s.cross(f);
+		vec3 u = up.normalised();
+		vec3 s = f.cross(u).normalised();
+		u = s.cross(f);
 
 		result.elements[0 + 0 * 4] = s.x;
-		result.elements[0 + 1 * 4] = s.y;
-		result.elements[0 + 2 * 4] = s.z;
-
-		result.elements[1 + 0 * 4] = u.x;
+		result.elements[1 + 0 * 4] = s.y;
+		result.elements[2 + 0 * 4] = s.z;
+		result.elements[0 + 1 * 4] = u.x;
 		result.elements[1 + 1 * 4] = u.y;
-		result.elements[1 + 2 * 4] = u.z;
+		result.elements[2 + 1 * 4] = u.z;
+		result.elements[0 + 2 * 4] =-f.x;
+		result.elements[1 + 2 * 4] =-f.y;
+		result.elements[2 + 2 * 4] =-f.z;
 
-		result.elements[2 + 0 * 4] = -f.x;
-		result.elements[2 + 1 * 4] = -f.y;
-		result.elements[2 + 2 * 4] = -f.z;
+		result.elements[3 + 0 * 4] =-s.dot(camera);
+		result.elements[3 + 1 * 4] =-u.dot(camera);
+		result.elements[3 + 2 * 4] = f.dot(camera);
 
-		return result * translate(vec3(-camera.x, -camera.y, -camera.z));
+		return result;
 	}
 
 	mat4 mat4::translate(const vec3& translation) {
