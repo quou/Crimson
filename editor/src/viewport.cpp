@@ -38,7 +38,7 @@ namespace Crimson {
 
 		if (camera) {
 			vec2 size = vec2(ImGui::GetWindowSize().x - 17, ImGui::GetWindowSize().y - 37);
-			m_renderTarget->Resize(size);
+			m_gameRenderTarget->Resize(size);
 
 			/* Update perspective */
 			camera->projection = mat4::persp(45.0f, size.x/size.y, 0.1f, 1000.0f);
