@@ -24,7 +24,7 @@
                 </source>
                 <phongmaterial>
                     <shader v="standard.glsl"/>
-                    <color x="1" y="0.99998998641967773" z="0.99998998641967773"/>
+                    <color x="0.99998998641967773" y="1" z="0.99999064207077026"/>
                     <shininess v="32"/>
                 </phongmaterial>
             </mesh>
@@ -32,7 +32,7 @@
     </entity>
     <entity name="disco light">
         <transform>
-            <translation x="0.40000000596046448" y="-1" z="4"/>
+            <translation x="-5.0999999046325684" y="-1" z="4"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -57,8 +57,8 @@
             <scale x="1" y="1" z="1"/>
         </transform>
         <skylight>
-            <color x="1" y="1" z="1"/>
-            <intensity v="0.10000000149011612"/>
+            <color x="0.99999243021011353" y="1" z="0.99998998641967773"/>
+            <intensity v="0.20000000298023224"/>
         </skylight>
     </entity>
 </scene>

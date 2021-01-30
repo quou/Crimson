@@ -289,7 +289,10 @@ namespace Crimson {
 				/* Deserialise sky light */
 				componentNode = entityNode->FirstChildElement("skylight");
 				if (componentNode) {
-					newEntity->AddComponent<SkyLightComponent>(vec3(1.0f), 0.1f);
+					newEntity->AddComponent<SkyLightComponent>(
+						DeserialiseVec3(componentNode, "color"),
+						DeserialiseFloat(componentNode, "intensity")
+					);
 				}
 
 				/* Deserialise script */
