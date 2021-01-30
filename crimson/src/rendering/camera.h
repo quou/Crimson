@@ -32,7 +32,7 @@ namespace Crimson {
 
 			vec3 right = direction.cross(vec3::up());
 
-			return mat4::lookat(position + direction, position, vec3::up());
+			return mat4::lookat(position, position + direction, vec3::up());
 		}
 	};
 }

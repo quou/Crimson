@@ -68,7 +68,7 @@ namespace Crimson {
 		}
 	}
 
-	void Heirarchy::OnDraw(const Camera& camera, const ref<Scene>& scene) {
+	void Heirarchy::OnDraw(const ref<Scene>& scene, float delta) {
 		Editor* editor = (Editor*)m_userData;
 		
 		/* Heriarchy */

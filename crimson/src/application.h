@@ -7,11 +7,11 @@
 namespace Crimson {
 	class CR_API Application {
 	protected:
-		ref<Window> m_window;
-		
 		virtual void OnInit() {}
 		virtual void OnUpdate(float delta) {}
 	public:
+		ref<Window> m_window;
+
 		void Run(const char* windowTitle, int w, int h);
 	
 		virtual ~Application() {}

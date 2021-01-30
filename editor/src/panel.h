@@ -9,7 +9,7 @@ namespace Crimson {
 
 		friend class PanelManager;
 	public:
-		virtual void OnDraw(const Camera& camera, const ref<Scene>& scene) = 0;
+		virtual void OnDraw(const ref<Scene>& scene, float delta) = 0;
 
 		virtual ~Panel() {}
 	};
@@ -24,6 +24,6 @@ namespace Crimson {
 
 		void AddPanel(const ref<Panel>& panel);
 
-		void Draw(const Camera& camera, const ref<Scene>& scene);
+		void Draw(const ref<Scene>& scene, float delta);
 	};
 }

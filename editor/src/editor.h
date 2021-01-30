@@ -1,5 +1,7 @@
 #include <crimson.h>
 
+#include "panel.h"
+
 namespace Crimson {
 	class Editor : public Application {
 	private:
@@ -7,8 +9,6 @@ namespace Crimson {
 		std::string m_currentSave;
 
 		bool m_isRunning = false;
-		
-		Camera m_camera;
 
 		ref<PanelManager> m_panelManager;
 

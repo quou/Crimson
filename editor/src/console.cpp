@@ -3,7 +3,7 @@
 #include "console.h"
 
 namespace Crimson {
-	void Console::OnDraw(const Camera& camera, const ref<Scene>& scene) {
+	void Console::OnDraw(const ref<Scene>& scene, float delta) {
 		ImGui::Begin("console", NULL, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
 
 		static bool hideInfo = false;

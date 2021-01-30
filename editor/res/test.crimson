@@ -32,7 +32,7 @@
     </entity>
     <entity name="disco light">
         <transform>
-            <translation x="-5.0999999046325684" y="-1" z="4"/>
+            <translation x="-5.0999999046325684" y="-1" z="-3.4000000953674316"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -60,5 +60,24 @@
             <color x="0.99999243021011353" y="1" z="0.99998998641967773"/>
             <intensity v="0.20000000298023224"/>
         </skylight>
+    </entity>
+    <entity name="floor">
+        <transform>
+            <translation x="0" y="2.7000000476837158" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="7.5999999046325684" y="0.5" z="4.5"/>
+        </transform>
+        <renderable>
+            <mesh index="0">
+                <source>
+                    <instance type="cube"/>
+                </source>
+                <phongmaterial>
+                    <shader v="standard.glsl"/>
+                    <color x="1" y="1" z="1"/>
+                    <shininess v="32"/>
+                </phongmaterial>
+            </mesh>
+        </renderable>
     </entity>
 </scene>

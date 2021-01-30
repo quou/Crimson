@@ -71,10 +71,6 @@ namespace Crimson {
 
 		/* Create the scene */
 		m_scene = ref<Scene>(new Scene());
-
-		/* Create the camera */
-		m_camera = Camera(m_window->GetWidth(), m_window->GetHeight(), 70.0f, 0.1f, 100.0f);
-		m_camera.position = vec3(0.0f, 0.5f, 5.0f);
 	}
 
 	void Editor::OnUpdate(float delta) {
@@ -96,7 +92,7 @@ namespace Crimson {
 
 		/* Draw panels */
 		ImGuiManager::BeginFrame();
-		m_panelManager->Draw(m_camera, m_scene);
+		m_panelManager->Draw(m_scene, delta);
 
 		/* Draw the main menu bar */
 		ImGui::BeginMainMenuBar();

@@ -6,6 +6,6 @@ namespace Crimson {
 	class Console : public Panel {
 	private:
 	public:
-		void OnDraw(const Camera& camera, const ref<Scene>& scene) override;
+		void OnDraw(const ref<Scene>& scene, float delta) override;
 	};
 }
