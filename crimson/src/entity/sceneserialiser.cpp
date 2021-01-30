@@ -46,6 +46,12 @@ namespace Crimson {
 		printer.CloseElement();
 	}
 
+	static void SerialiseBool(const char* name, bool val, XMLPrinter& printer) {
+		printer.OpenElement(name);
+			printer.PushAttribute("v", val);
+		printer.CloseElement();
+	}
+
 	static vec3 DeserialiseVec3(XMLElement* node, const char* name) {
 		vec3 result;
 
@@ -80,6 +86,18 @@ namespace Crimson {
 
 		return result;
 	}
+
+	static bool DeserialiseBool(XMLElement* node, const char* name) {
+		bool result;
+		
+		XMLElement* el = node->FirstChildElement(name);
+		if (el) {
+			result = el->BoolAttribute("v");
+		}
+
+		return result;
+	}
+
 
 	void SceneSerialiser::SerialiseEntity(const ref<Entity>& entity, XMLPrinter& printer) {
 		printer.OpenElement("entity");
@@ -137,6 +155,11 @@ namespace Crimson {
 				SkyLightComponent* slc = (SkyLightComponent*)component;
 				SerialiseVec3("color", slc->color, printer);
 				SerialiseFloat("intensity", slc->intensity, printer);
+			});
+
+			SerialiseComponent<CameraComponent>("camera", entity, printer, [](void* component, XMLPrinter& printer){
+				CameraComponent* cc = (CameraComponent*)component;
+				SerialiseBool("active", cc->active, printer);
 			});
 
 			SerialiseComponent<RenderableComponent>("renderable", entity, printer, [](void* component, XMLPrinter& printer){
@@ -292,6 +315,14 @@ namespace Crimson {
 					newEntity->AddComponent<SkyLightComponent>(
 						DeserialiseVec3(componentNode, "color"),
 						DeserialiseFloat(componentNode, "intensity")
+					);
+				}
+
+				/* Deserialise camera */
+				componentNode = entityNode->FirstChildElement("camera");
+				if (componentNode) {
+					newEntity->AddComponent<CameraComponent>(
+						DeserialiseBool(componentNode, "active")
 					);
 				}
 

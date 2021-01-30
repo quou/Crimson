@@ -9,7 +9,7 @@ namespace Crimson {
 	}
 
 	void SceneCamera::Update(vec2 viewportSize, Editor* editor)  {
-		m_camera.projection = mat4::persp(70.0f, viewportSize.x/viewportSize.y, 0.1f, 1000.0f);
+		m_camera.projection = mat4::persp(45.0f, viewportSize.x/viewportSize.y, 0.1f, 1000.0f);
 
 		if (m_firstMove) {
 			m_firstMove = false;

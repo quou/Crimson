@@ -2,6 +2,7 @@
 
 #include "core.h"
 #include "entity.h"
+#include "rendering/camera.h"
 #include "scripting/scriptmanager.h"
 
 namespace tinyxml2 {
@@ -44,6 +45,8 @@ namespace Crimson {
 
 		void RemovePointLight(PointLightComponent* plc);
 		void RemoveSkyLight(SkyLightComponent* slc);
+		
+		Camera* GetMainCamera() const;
 
 		std::vector<PointLightComponent*>* GetPointLights() { return &m_pointLights; }
 		std::vector<SkyLightComponent*>* GetSkyLights() { return &m_skyLights; }

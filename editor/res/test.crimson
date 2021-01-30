@@ -80,4 +80,14 @@
             </mesh>
         </renderable>
     </entity>
+    <entity name="main camera">
+        <transform>
+            <translation x="-8" y="-4.6999998092651367" z="-9.1999998092651367"/>
+            <rotation x="37.099998474121094" y="44.700000762939453" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <camera>
+            <active v="true"/>
+        </camera>
+    </entity>
 </scene>

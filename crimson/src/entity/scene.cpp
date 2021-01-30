@@ -1,7 +1,8 @@
 #include "scene.h"
 #include "components/lights.h"
-
+#include "components/renderable.h"
 #include "components/script.h"
+#include "components/transform.h"
 
 namespace Crimson {
 	static unsigned long NewEntityID() {
@@ -83,6 +84,24 @@ namespace Crimson {
 				}),
 			std::end(m_skyLights)
 		);
+	}
+
+
+	Camera* Scene::GetMainCamera() const {
+		for (const ref<Entity>& e : m_entities) {
+			if (e->HasComponent<CameraComponent>() && e->GetComponent<CameraComponent>()->active) {
+				Camera* c = &e->GetComponent<CameraComponent>()->camera;
+				
+				if (e->HasComponent<TransformComponent>()) {
+					c->position = e->GetComponent<TransformComponent>()->translation;
+					c->rotation = e->GetComponent<TransformComponent>()->rotation;
+				}
+
+				return c;
+			}
+		}
+
+		return NULL;
 	}
 
 	Scene::~Scene() {

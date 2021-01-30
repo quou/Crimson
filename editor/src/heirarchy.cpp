@@ -137,6 +137,10 @@ namespace Crimson {
 						m_selectionContext->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
 					}
 
+					if (ImGui::MenuItem("camera")) {
+						m_selectionContext->AddComponent<CameraComponent>(true);
+					}
+
 					if (ImGui::MenuItem("renderable")) {
 						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 						Crimson::ref<Crimson::Model> model(new Crimson::Model());
@@ -173,6 +177,12 @@ namespace Crimson {
 
 				DrawColorControl("colour", slc->color);
 				DrawFloatControl("intensity", &slc->intensity);
+			}, true);
+			
+			DrawComponent<CameraComponent>("sky light", m_selectionContext, [](void* component){
+				CameraComponent* cc = (CameraComponent*)component;
+
+				DrawBoolControl("active", &cc->active);
 			}, true);
 
 			DrawComponent<ScriptComponent>("script", m_selectionContext, [&](void* component){
