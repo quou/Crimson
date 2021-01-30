@@ -10,6 +10,8 @@ namespace Crimson {
 		static bool hideWarnings = false;
 		static bool hideErrors = false;
 
+		static std::string selectedEntry;
+
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::Button("clear")) {
 				ClearLogs();
@@ -33,6 +35,12 @@ namespace Crimson {
 			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
 			if (ImGui::Button(ICON_FK_EXCLAMATION_CIRCLE)) {
 				hideErrors = !hideErrors;
+			}
+			ImGui::PopStyleColor();
+
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.1f, 0.25f, 0.8f, 1.0f));
+			if (ImGui::Button(ICON_FK_CLIPBOARD)) {
+				ImGui::SetClipboardText(selectedEntry.c_str());
 			}
 			ImGui::PopStyleColor();
 
@@ -63,7 +71,16 @@ namespace Crimson {
 				break;
 			}
 
-			ImGui::Text("%s %s", icon, entry.message.c_str());
+
+			ImGui::Selectable((std::string(icon) + " " + entry.message).c_str(), entry.message == selectedEntry);
+
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+				ImGui::SetClipboardText(entry.message.c_str());
+			}
+
+			if (ImGui::IsItemClicked()) {
+				selectedEntry = entry.message;
+			}
 		
 			ImGui::PopStyleColor();
 		}
