@@ -12,14 +12,16 @@
 
 namespace Crimson {
 	void ImGuiManager::Init(const ref<Window>& window) {
+		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-
-		ImGui_ImplGlfw_InitForOpenGL(window->m_window, true);
-		ImGui_ImplOpenGL3_Init("#version 330 core");
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+		ImGui_ImplGlfw_InitForOpenGL(window->m_window, true);
+		ImGui_ImplOpenGL3_Init("#version 330 core");
 
 		io.Fonts->AddFontFromMemoryCompressedTTF(UbuntuMono_compressed_data, UbuntuMono_compressed_size, 14.0f);
 
@@ -105,11 +107,19 @@ namespace Crimson {
 		ImGui::NewFrame();
 		ImGuizmo::BeginFrame();
 
-		ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);
+		ImGui::DockSpaceOverViewport();
 	}
 
 	void ImGuiManager::EndFrame() {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_current_context);
+        }
 	}
 }

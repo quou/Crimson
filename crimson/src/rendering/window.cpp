@@ -76,6 +76,10 @@ namespace Crimson {
 		glfwSetMouseButtonCallback(m_window, MouseButtonCallback);
 		glfwSetCursorPosCallback(m_window, MouseMoveCallback);
 
+		if (glfwRawMouseMotionSupported()) {
+			glfwSetInputMode(m_window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+		}
+
 		gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	}
 
@@ -95,5 +99,17 @@ namespace Crimson {
 
 	bool Window::ShouldClose() const {
 		return glfwWindowShouldClose(m_window);
+	}
+
+	void Window::HideCursor() {
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+
+	void Window::ShowCursor() {
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	void Window::SetCursorPos(const vec2& p) {
+		glfwSetCursorPos(m_window, p.x, p.y);
 	}
 }

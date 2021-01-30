@@ -3,6 +3,7 @@
 #include "core.h"
 #include "memory.h"
 #include "input/input.h"
+#include "math/vec2.h"
 
 struct GLFWwindow;
 
@@ -29,5 +30,10 @@ namespace Crimson {
 	
 		inline int GetWidth() const { return m_width; }
 		inline int GetHeight() const { return m_height; }
+
+		void HideCursor();
+		void ShowCursor();
+
+		void SetCursorPos(const vec2& p);
 	};
 }
