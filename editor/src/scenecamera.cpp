@@ -26,8 +26,8 @@ namespace Crimson {
 	}
 
 	void SceneCamera::Move(float delta, Editor* editor) {
-		m_camera.rotation.x -= mouseDelta.y;
-		m_camera.rotation.y -= mouseDelta.x;
+		m_camera.rotation.x -= mouseDelta.y * 0.1f;
+		m_camera.rotation.y -= mouseDelta.x * 0.1f;
 
 		if (m_camera.rotation.x >= 89.0f) {
 			m_camera.rotation.x = 89.0f;
