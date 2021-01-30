@@ -206,6 +206,8 @@ namespace Crimson {
 								name += " ";
 								name += (std::tolower(c));
 								continue;
+							} if (c == ' ') {
+								name += " ";
 							}
 
 							name += c;

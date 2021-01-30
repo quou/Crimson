@@ -40,3 +40,7 @@
 
 /* Scripting */
 #include "scripting/scriptmanager.h"
+
+/* Input */
+#include "input/keys.h"
+#include "input/input.h"

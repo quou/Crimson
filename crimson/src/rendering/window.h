@@ -1,6 +1,8 @@
 #pragma once
 
 #include "core.h"
+#include "memory.h"
+#include "input/input.h"
 
 struct GLFWwindow;
 
@@ -15,10 +17,13 @@ namespace Crimson {
 
 		friend class ImGuiManager;
 	public:
+		ref<EventSystem> m_eventSystem;
+
 		Window(const char* title, int w, int h);
 		virtual ~Window();
 
 		void Update() const;
+		void Poll() const;
 		
 		bool ShouldClose() const;
 	

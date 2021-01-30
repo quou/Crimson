@@ -21,6 +21,8 @@ namespace Crimson {
 		float last = 0.0f, now = 0.0f, delta = 0.0f;
 
 		while (!m_window->ShouldClose()) {
+			m_window->Poll();
+
 			/* Calculate delta time */
 			now = glfwGetTime();
 			delta = now - last;
