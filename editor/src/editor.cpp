@@ -112,6 +112,20 @@ namespace Crimson {
 			ImGui::EndMenu();
 		}
 
+
+		/* Shortcuts */
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_O)) {
+			Open();
+		}
+
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_S)) {
+			Save();
+		}
+
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyDown(CR_KEY_S)) {
+			SaveAs();
+		}
+
 		/* Draw the play/stop button */
 		if (ImGui::Button(m_isRunning ? ICON_FK_STOP : ICON_FK_PLAY)) {
 			if (m_isRunning) { /* Stop execution */
