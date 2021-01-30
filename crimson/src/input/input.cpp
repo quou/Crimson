@@ -30,13 +30,13 @@ namespace Crimson {
 	void EventSystem::KeyCallback(int key, int scancode, int action, int mods) {
 		m_downKeys[key] = action == GLFW_PRESS;
 		m_upKeys[key] = action == GLFW_RELEASE;
-		m_inputs[key] = action == GLFW_PRESS;
+		m_inputs[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
 	void EventSystem::MouseButtonCallback(int button, int action, int mods) {
 		m_downMouse[button] = action == GLFW_PRESS;
 		m_upMouse[button] = action == GLFW_RELEASE;
-		m_mouseInput[button] = action == GLFW_PRESS;
+		m_mouseInput[button] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
 	void EventSystem::MouseMoveCallback(float x, float y) {

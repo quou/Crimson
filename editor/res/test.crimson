@@ -65,7 +65,7 @@
         <transform>
             <translation x="0" y="2.7000000476837158" z="0"/>
             <rotation x="0" y="0" z="0"/>
-            <scale x="7.5999999046325684" y="0.5" z="4.5"/>
+            <scale x="8" y="0.5" z="8"/>
         </transform>
         <renderable>
             <mesh index="0">
