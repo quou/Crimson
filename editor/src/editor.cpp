@@ -97,15 +97,15 @@ namespace Crimson {
 		/* Draw the main menu bar */
 		ImGui::BeginMainMenuBar();
 		if (ImGui::BeginMenu("file")) {
-			if (ImGui::MenuItem("open")) {
+			if (ImGui::MenuItem("open", "ctrl+o")) {
 				Open();
 			}
 
-			if (ImGui::MenuItem("save")) {
+			if (ImGui::MenuItem("save", "ctrl+s")) {
 				Save();
 			}
 
-			if (ImGui::MenuItem("save as")) {
+			if (ImGui::MenuItem("save as", "ctrl+shift+s")) {
 				SaveAs();
 			}
 
