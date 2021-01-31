@@ -35,9 +35,9 @@
             <intensity v="0.20000000298023224"/>
         </skylight>
         <sun>
-            <direction x="-2.2999999523162842" y="34.700000762939453" z="-17.5"/>
+            <direction x="56.700000762939453" y="34.700000762939453" z="-17.5"/>
             <color x="1" y="1" z="1"/>
-            <intensity v="0.26199999451637268"/>
+            <intensity v="0.5"/>
         </sun>
     </entity>
     <entity name="floor">
@@ -71,19 +71,21 @@
     </entity>
     <entity name="disco light">
         <transform>
-            <translation x="0" y="0" z="0"/>
+            <translation x="0" y="-5.1999998092651367" z="0"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <script>
             <class v="DiscoLight"/>
-            <serialisablefloats/>
+            <serialisablefloats>
+                <switchSpeed v="0.10000000149011612" i="5"/>
+            </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>
         </script>
         <pointlight>
             <color x="1" y="1" z="1"/>
-            <intensity v="1"/>
+            <intensity v="0.69999998807907104"/>
             <constant v="1"/>
             <linear v="0.090000003576278687"/>
             <quadratic v="0.032000001519918442"/>

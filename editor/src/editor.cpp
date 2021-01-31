@@ -80,13 +80,15 @@ namespace Crimson {
 			m_scene->Refresh();
 		}
 
-		/* Must be called before AssetManager::HotReload, otherwise
-		 * it won't detect any changes */
-		if (m_scene->m_scriptManager->HotReload()) {
-			m_scene->UpdateBehaviourInstances();
+		if (!m_isRunning) {
+			/* Must be called before AssetManager::HotReload, otherwise
+		 	 * it won't detect any changes */
+			if (m_scene->m_scriptManager->HotReload()) {
+				m_scene->UpdateBehaviourInstances();
+			}
+			
+			AssetManager::HotReload();
 		}
-		
-		AssetManager::HotReload();
 
 		Renderer::Clear(0.0f, 0.0f, 0.0f);
 

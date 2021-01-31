@@ -20,6 +20,7 @@
 #include "entity/entity.h"
 #include "entity/components/transform.h"
 #include "entity/components/lights.h"
+#include "entity/components/renderable.h"
 
 namespace Crimson {
 	void MessageCallback(const asSMessageInfo *msg, void *param) {
@@ -144,6 +145,16 @@ namespace Crimson {
 		r = engine->RegisterObjectType("SkyLight", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
 		r = engine->RegisterObjectProperty("SkyLight", "vec3 color", asOFFSET(SkyLightComponent, color)); assert(r >= 0);
 		r = engine->RegisterObjectProperty("SkyLight", "float intensity", asOFFSET(SkyLightComponent, intensity)); assert(r >= 0);
+
+		/* Sun */
+		r = engine->RegisterObjectType("Sun", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Sun", "vec3 direction", asOFFSET(SunComponent, direction)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Sun", "vec3 color", asOFFSET(SunComponent, color)); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Sun", "float intensity", asOFFSET(SunComponent, intensity)); assert(r >= 0);
+
+		/* Camera */
+		r = engine->RegisterObjectType("Camera", 0, asOBJ_REF | asOBJ_NOCOUNT); assert(r >= 0);
+		r = engine->RegisterObjectProperty("Camera", "bool active", asOFFSET(CameraComponent, active)); assert(r >= 0);
 	}
 
 	asIScriptEngine* g_engine;
@@ -166,7 +177,14 @@ namespace Crimson {
 				} else if (typeID == g_engine->GetTypeIdByDecl("SkyLight@")) /* Sky Light */ {
 					SkyLightComponent** t = (SkyLightComponent**)ref;
 					(*t) = entity->GetComponent<SkyLightComponent>();
-				
+
+				} else if (typeID == g_engine->GetTypeIdByDecl("Sun@")) /* Sun */ {
+					SunComponent** t = (SunComponent**)ref;
+					(*t) = entity->GetComponent<SunComponent>();
+
+				} else if (typeID == g_engine->GetTypeIdByDecl("Camera@")) /* Camera */ {
+					CameraComponent** t = (CameraComponent**)ref;
+					(*t) = entity->GetComponent<CameraComponent>();
 				} else {
 					Log(LogType::ERROR, "%s is not a valid component type", g_engine->GetTypeDeclaration(typeID));
 				}
