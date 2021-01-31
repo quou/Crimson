@@ -62,4 +62,10 @@ namespace Crimson {
 		glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
+
+	void Mesh::DrawNoMaterial() {
+		glBindVertexArray(m_va);
+		glDrawElements(GL_TRIANGLES, m_indexCount, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
 }

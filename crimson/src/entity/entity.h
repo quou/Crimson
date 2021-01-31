@@ -19,6 +19,7 @@ namespace Crimson {
 	class Entity;
 	class Component;
 	class Scene;
+	class Shader;
 
 	using ComponentID = size_t;
 
@@ -48,7 +49,7 @@ namespace Crimson {
 
 		virtual void OnInit() {}
 		virtual void OnUpdate(float delta) {}
-		virtual void OnDraw(const Camera& camera) {}
+		virtual void OnDraw(const Camera& camera, Shader* shader = NULL) {}
 		virtual void OnDestroy() {}
 	public:
 		virtual ~Component() {}
@@ -74,7 +75,7 @@ namespace Crimson {
 		inline unsigned long GetID() const { return m_id; }
 
 		void Update(float delta);
-		void Draw(const Camera& camera);
+		void Draw(const Camera& camera, Shader* shader = NULL);
 
 		virtual ~Entity();
 

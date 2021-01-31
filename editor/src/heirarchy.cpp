@@ -137,6 +137,10 @@ namespace Crimson {
 						m_selectionContext->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
 					}
 
+					if (ImGui::MenuItem("sun")) {
+						m_selectionContext->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+					}
+
 					if (ImGui::MenuItem("camera")) {
 						m_selectionContext->AddComponent<CameraComponent>(true);
 					}
@@ -177,6 +181,14 @@ namespace Crimson {
 
 				DrawColorControl("colour", slc->color);
 				DrawFloatControl("intensity", &slc->intensity);
+			}, true);
+
+			DrawComponent<SunComponent>("sun", m_selectionContext, [](void* component){
+				SunComponent* sc = (SunComponent*)component;
+
+				DrawVec3Control("direction", sc->direction);
+				DrawColorControl("colour", sc->color);
+				DrawFloatControl("intensity", &sc->intensity, 0.001f);
 			}, true);
 			
 			DrawComponent<CameraComponent>("sky light", m_selectionContext, [](void* component){

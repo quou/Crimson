@@ -45,6 +45,7 @@ namespace Crimson {
 		static ShaderSource Parse(const char* source);
 
 		void SetUniformInt(const char* name, int value) const;
+		void SetUniformBool(const char* name, bool value) const;
 		void SetUniformFloat(const char* name, float value) const;
 		void SetUniformVec2(const char* name, const vec2& value) const;
 		void SetUniformVec3(const char* name, const vec3& value) const;

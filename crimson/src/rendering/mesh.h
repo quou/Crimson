@@ -45,6 +45,7 @@ namespace Crimson {
 				const std::vector<unsigned int>& indices);
 
 		void Draw();
+		void DrawNoMaterial();
 
 		inline const ref<Material>& GetMaterial() const { return m_material; }
 		inline InstanceType GetInstanceType() const { return m_instanceType; }

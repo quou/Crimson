@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string.h>
 
+#include <glad/glad.h>
+
 #include "assets.h"
 #include "model.h"
 #include "logger.h"
@@ -21,23 +23,11 @@ namespace Crimson {
 
 	}
 
-	void Model::Draw(const Camera& camera) {
+	void Model::Draw(Shader* shader) {
 		for (const ref<Mesh>& mesh : m_meshes) {
-			ref<Shader> s = AssetManager::LoadShader(mesh->m_material->m_shader.c_str());
-			s->Bind();
-
-			s->SetUniformVec3("u_cameraPos", camera.position);
-			s->SetUniformInt("u_pointLightCount", 1);
-			s->SetUniformVec3("u_pointLights[0].position", vec3(2.0f, 0.0f, 5.0f));
-			s->SetUniformVec3("u_pointLights[0].color", vec3(1.0f, 1.0f, 1.0f));
-			s->SetUniformFloat("u_pointLights[0].intensity", 5.0f);
-
-			s->SetUniformMat4("u_model", m_transform);
-			s->SetUniformMat4("u_view", camera.GetView());
-			s->SetUniformMat4("u_projection", camera.projection);
-			s->SetUniformVec3("u_cameraPos", camera.position);
-
-			mesh->Draw();
+			shader->Bind();
+			shader->SetUniformMat4("u_model", m_transform);
+			mesh->DrawNoMaterial();
 		}
 	}
 
@@ -48,6 +38,20 @@ namespace Crimson {
 
 			s->SetUniformVec3("u_cameraPosition", camera.position);
 
+			SunComponent* sun = scene->GetSun();
+			if (sun != NULL) {
+				s->SetUniformBool("u_useSun", true);
+				s->SetUniformVec3("u_sun.direction", sun->direction);
+				s->SetUniformVec3("u_sun.color", sun->color);
+				s->SetUniformFloat("u_sun.intensity", sun->intensity);
+				s->SetUniformMat4("u_sun.transform", sun->GetTransform());
+
+				sun->BindShadowmap(0);
+				s->SetUniformInt("u_shadowmap", 0);
+			} else {
+				s->SetUniformBool("u_useSun", false);
+			}
+			
 			/* Apply point lights */
 			for (unsigned int i = 0; i < scene->GetPointLights()->size(); i++) {
 				PointLightComponent* light = scene->GetPointLights()->at(i);

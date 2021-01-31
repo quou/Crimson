@@ -49,6 +49,14 @@ struct SkyLight {
 	float intensity;
 };
 
+struct Sun {
+	vec3 direction;
+	vec3 color;
+	float intensity;
+
+	mat4 transform;
+};
+
 uniform vec3 u_cameraPosition;
 
 uniform PointLight u_pointLights[100];
@@ -56,6 +64,10 @@ uniform int u_pointLightCount;
 
 uniform SkyLight u_skyLights[5];
 uniform int u_skyLightCount;
+
+uniform bool u_useSun;
+uniform Sun u_sun;
+uniform sampler2D u_shadowmap;
 
 uniform Material u_material = Material(vec3(1.0, 0.0, 0.0), 32.0);
 
@@ -80,6 +92,46 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
 	return diffuse + specular;
 }
 
+float CalculateDirectionalShadow(Sun light, vec3 normal, vec3 lightDir) {
+	vec4 lightSpacePos = light.transform * vec4(v_worldPos, 1.0);
+	vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
+	projCoords = (projCoords * 0.5) + 0.5;
+
+	float closestDepth = texture(u_shadowmap, projCoords.xy).r;
+	float currentDepth = projCoords.z;
+	
+	float bias = max(0.00005 * (1.0 - dot(normal, lightDir)), 0.000005);
+
+	float shadow = 0.0;
+	vec2 texelSize = 1.0 / textureSize(u_shadowmap, 0);
+	for(int x = -1; x <= 1; ++x) {
+		for(int y = -1; y <= 1; ++y) {
+			float pcfDepth = texture(u_shadowmap, projCoords.xy + vec2(x, y) * texelSize).r;
+			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+		}
+	}
+	shadow /= 9.0;
+	
+	if (projCoords.z > 1.0) {
+		shadow = 0.0;
+	}
+	return shadow;
+}
+
+vec3 CalculateSun(Sun light, vec3 normal, vec3 viewDir) {
+	vec3 lightDir = normalize(-light.direction);
+
+    float diff = max(dot(normal, lightDir), 0.0);
+
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), u_material.shininess);
+	
+    vec3 diffuse = light.color * diff * u_material.color * light.intensity;
+    vec3 specular = light.color * spec * u_material.color * light.intensity;
+
+    return (1.0 - CalculateDirectionalShadow(light, normal, lightDir)) * (diffuse + specular);
+}
+
 void main() {
 	vec3 normal = normalize(v_normal);
 	vec3 viewDir = normalize(u_cameraPosition - v_worldPos);
@@ -89,6 +141,8 @@ void main() {
 	for (int i = 0; i < u_skyLightCount; i++) {
 		lightingResult += u_material.color * u_skyLights[i].color * u_skyLights[i].intensity;
 	}
+
+	lightingResult += CalculateSun(u_sun, normal, viewDir);
 
 	for (int i = 0; i < u_pointLightCount; i++) {
 		lightingResult += CalculatePointLight(u_pointLights[i], normal, viewDir);

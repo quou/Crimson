@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "rendering/camera.h"
 #include "scripting/scriptmanager.h"
+#include "components/lights.h"
 
 namespace tinyxml2 {
 	class XMLPrinter;
@@ -12,6 +13,7 @@ namespace tinyxml2 {
 namespace Crimson {
 	class PointLightComponent;
 	class SkyLightComponent;
+	class SunComponent;
 
 	/* Manages creating, destroying and updating entities */
 	class CR_API Scene {
@@ -38,7 +40,6 @@ namespace Crimson {
 
 		void Draw(const Camera& camera) const;
 
-
 		virtual ~Scene();
 
 		Entity* CreateEntity(const std::string& name = "untitled entity");
@@ -51,6 +52,8 @@ namespace Crimson {
 		std::vector<PointLightComponent*>* GetPointLights() { return &m_pointLights; }
 		std::vector<SkyLightComponent*>* GetSkyLights() { return &m_skyLights; }
 		const std::vector<ref<Entity>>& GetEntities() { return m_entities; }
+	
+		SunComponent* GetSun() const;
 	};
 
 	/* Responsible for serialising scenes to XML files */

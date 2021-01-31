@@ -15,7 +15,7 @@ namespace Crimson {
 
 		RenderableComponent(const ref<Model>& model);
 
-		void OnDraw(const Camera& camera) override;
+		void OnDraw(const Camera& camera, Shader* shader) override;
 	};
 
 	class CameraComponent : public Component {

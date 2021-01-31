@@ -112,6 +112,14 @@ namespace Crimson {
 		glUniform1i(loc, value);
 	}
 
+
+	void Shader::SetUniformBool(const char* name, bool value) const {
+		if (m_panicMode) { return; }
+
+		int loc = glGetUniformLocation(m_id, name);
+		glUniform1i(loc, (int)value);
+	}
+
 	void Shader::SetUniformFloat(const char* name, float value) const {
 		if (m_panicMode) { return; }
 

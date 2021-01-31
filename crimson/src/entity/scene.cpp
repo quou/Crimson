@@ -52,6 +52,17 @@ namespace Crimson {
 	}
 
 	void Scene::Draw(const Camera& camera) const {
+		SunComponent* sun = GetSun();
+
+		if (sun) {
+			/* Draw the shadowmap */
+			sun->BeginShadowmapDraw();
+			for (auto& e : m_entities) {
+				e->Draw(camera, sun->GetShader().get());
+			}
+			sun->EndShadowmapDraw();
+		}
+
 		for (auto& e : m_entities) {
 			e->Draw(camera);
 		}
@@ -98,6 +109,18 @@ namespace Crimson {
 				}
 
 				return c;
+			}
+		}
+
+		return NULL;
+	}
+
+	SunComponent* Scene::GetSun() const {
+		for (const ref<Entity>& e : m_entities) {
+			if (e->HasComponent<SunComponent>()) {
+				SunComponent* s = e->GetComponent<SunComponent>();
+
+				return s;
 			}
 		}
 

@@ -12,9 +12,9 @@ namespace Crimson {
 		}
 	}
 
-	void Entity::Draw(const Camera& camera) {
+	void Entity::Draw(const Camera& camera, Shader* shader) {
 		for (auto& c : m_components) {
-			c->OnDraw(camera);
+			c->OnDraw(camera, shader);
 		}
 	}
 

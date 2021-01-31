@@ -21,7 +21,7 @@ namespace Crimson {
 	
 		inline void SetTransform(const mat4& t) { m_transform = t; }
 
-		void Draw(const Camera& camera);
+		void Draw(Shader* shader);
 		void DrawLitScene(const Camera& camera, Scene* scene);
 
 		inline std::vector<ref<Mesh>>& GetMeshList() { return m_meshes; }

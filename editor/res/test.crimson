@@ -50,7 +50,7 @@
             <quadratic v="0.032000001519918442"/>
         </pointlight>
     </entity>
-    <entity name="sky light">
+    <entity name="sun">
         <transform>
             <translation x="0" y="0" z="0"/>
             <rotation x="0" y="0" z="0"/>
@@ -60,6 +60,11 @@
             <color x="0.99999243021011353" y="1" z="0.99998998641967773"/>
             <intensity v="0.20000000298023224"/>
         </skylight>
+        <sun>
+            <direction x="-1.5" y="34.700000762939453" z="-0.30000001192092896"/>
+            <color x="1" y="1" z="1"/>
+            <intensity v="0.26199999451637268"/>
+        </sun>
     </entity>
     <entity name="floor">
         <transform>

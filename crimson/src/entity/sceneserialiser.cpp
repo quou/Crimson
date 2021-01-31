@@ -157,6 +157,13 @@ namespace Crimson {
 				SerialiseFloat("intensity", slc->intensity, printer);
 			});
 
+			SerialiseComponent<SunComponent>("sun", entity, printer, [](void* component, XMLPrinter& printer){
+				SunComponent* slc = (SunComponent*)component;
+				SerialiseVec3("direction", slc->direction, printer);
+				SerialiseVec3("color", slc->color, printer);
+				SerialiseFloat("intensity", slc->intensity, printer);
+			});
+
 			SerialiseComponent<CameraComponent>("camera", entity, printer, [](void* component, XMLPrinter& printer){
 				CameraComponent* cc = (CameraComponent*)component;
 				SerialiseBool("active", cc->active, printer);
@@ -313,6 +320,16 @@ namespace Crimson {
 				componentNode = entityNode->FirstChildElement("skylight");
 				if (componentNode) {
 					newEntity->AddComponent<SkyLightComponent>(
+						DeserialiseVec3(componentNode, "color"),
+						DeserialiseFloat(componentNode, "intensity")
+					);
+				}
+
+				/* Deserialise sky light */
+				componentNode = entityNode->FirstChildElement("sun");
+				if (componentNode) {
+					newEntity->AddComponent<SunComponent>(
+						DeserialiseVec3(componentNode, "direction"),
 						DeserialiseVec3(componentNode, "color"),
 						DeserialiseFloat(componentNode, "intensity")
 					);

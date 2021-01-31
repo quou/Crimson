@@ -8,7 +8,7 @@ namespace Crimson {
 	RenderableComponent::RenderableComponent(const ref<Model>& model) 
 		: m_model(model) {}
 
-	void RenderableComponent::OnDraw(const Camera& camera) {
+	void RenderableComponent::OnDraw(const Camera& camera, Shader* shader) {
 		if (!m_entity->HasComponent<TransformComponent>()) {
 			Log(LogType::WARNING, "A transform component is required for rendering");
 			return;
@@ -16,7 +16,11 @@ namespace Crimson {
 
 		TransformComponent* tc = m_entity->GetComponent<TransformComponent>();
 
-		m_model->SetTransform(tc->GetMatrix());	
-		m_model->DrawLitScene(camera, m_entity->m_scene);
+		m_model->SetTransform(tc->GetMatrix());
+		if (!shader) {
+			m_model->DrawLitScene(camera, m_entity->m_scene);
+		} else {
+			m_model->Draw(shader);
+		}
 	}
 }
