@@ -61,9 +61,9 @@ namespace Crimson {
 		void OnInit() override;
 		void OnDestroy() override;
 
-		mat4 GetTransform() const;
+		mat4 GetTransform(const Camera& camera) const;
 
-		void BeginShadowmapDraw();
+		void BeginShadowmapDraw(const Camera& camera);
 		void EndShadowmapDraw();
 
 		void BindShadowmap(unsigned int unit) const;

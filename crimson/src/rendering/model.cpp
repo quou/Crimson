@@ -44,7 +44,7 @@ namespace Crimson {
 				s->SetUniformVec3("u_sun.direction", sun->direction);
 				s->SetUniformVec3("u_sun.color", sun->color);
 				s->SetUniformFloat("u_sun.intensity", sun->intensity);
-				s->SetUniformMat4("u_sun.transform", sun->GetTransform());
+				s->SetUniformMat4("u_sun.transform", sun->GetTransform(camera));
 
 				sun->BindShadowmap(0);
 				s->SetUniformInt("u_shadowmap", 0);

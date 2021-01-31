@@ -30,26 +30,6 @@
             </mesh>
         </renderable>
     </entity>
-    <entity name="point light #1">
-        <transform>
-            <translation x="-5.0999999046325684" y="-1" z="-3.4000000953674316"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <script>
-            <class v="DiscoLight"/>
-            <serialisablefloats/>
-            <serialisableints/>
-            <serialisablestrings/>
-        </script>
-        <pointlight>
-            <color x="0" y="1" z="0"/>
-            <intensity v="0.40000000596046448"/>
-            <constant v="1"/>
-            <linear v="0.090000003576278687"/>
-            <quadratic v="0.032000001519918442"/>
-        </pointlight>
-    </entity>
     <entity name="sun">
         <transform>
             <translation x="0" y="0" z="0"/>
@@ -61,7 +41,7 @@
             <intensity v="0.20000000298023224"/>
         </skylight>
         <sun>
-            <direction x="-1.5" y="34.700000762939453" z="-0.30000001192092896"/>
+            <direction x="-2.2999999523162842" y="34.700000762939453" z="-25.899999618530273"/>
             <color x="1" y="1" z="1"/>
             <intensity v="0.26199999451637268"/>
         </sun>
@@ -79,7 +59,7 @@
                 </source>
                 <phongmaterial>
                     <shader v="standard.glsl"/>
-                    <color x="0.99999129772186279" y="0.99998998641967773" z="1"/>
+                    <color x="0.57929617166519165" y="0.51627910137176514" z="1"/>
                     <shininess v="100"/>
                 </phongmaterial>
             </mesh>
@@ -94,19 +74,5 @@
         <camera>
             <active v="true"/>
         </camera>
-    </entity>
-    <entity name="point light #2">
-        <transform>
-            <translation x="6.0999999046325684" y="-0.30000001192092896" z="4.5"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <pointlight>
-            <color x="0.76279067993164062" y="0.46122226119041443" z="0.46122226119041443"/>
-            <intensity v="0.5"/>
-            <constant v="1"/>
-            <linear v="0.090000003576278687"/>
-            <quadratic v="0.032000001519918442"/>
-        </pointlight>
     </entity>
 </scene>

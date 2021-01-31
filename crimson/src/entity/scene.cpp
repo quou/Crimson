@@ -56,7 +56,7 @@ namespace Crimson {
 
 		if (sun) {
 			/* Draw the shadowmap */
-			sun->BeginShadowmapDraw();
+			sun->BeginShadowmapDraw(camera);
 			for (auto& e : m_entities) {
 				e->Draw(camera, sun->GetShader().get());
 			}

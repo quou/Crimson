@@ -81,17 +81,19 @@ namespace Crimson {
 	}
 
 
-	mat4 SunComponent::GetTransform() const {
+	mat4 SunComponent::GetTransform(const Camera& camera) const {
+		mat4 view = mat4::translate(camera.position);
+
 		mat4 lightProjection = mat4::ortho(-20.0f, 20.0f, -20.0f, 20.0f, -10000.0f, 10000.0f);
 
 		mat4 lightView = mat4::lookat(-direction, 
-									  vec3(0.0f, 0.0f,  0.0f), 
+									  vec3(0.0f, 0.0f,  0.0f),
 						 			  vec3(0.0f, 1.0f,  0.0f));
 
-		return lightProjection * lightView;
+		return lightProjection * view * lightView;
 	}
 
-	void SunComponent::BeginShadowmapDraw() {
+	void SunComponent::BeginShadowmapDraw(const Camera& camera) {
 		/* We need to get & store the original viewport and size, for when
 		 * the framebuffer is unbound and the viewport is reset, it is easier to
 		 * do this than passing in the originals, and has almost zero cost to
@@ -111,7 +113,7 @@ namespace Crimson {
 		glCullFace(GL_FRONT);
 	
 		m_shader->Bind();
-		m_shader->SetUniformMat4("u_lightTransform", GetTransform());
+		m_shader->SetUniformMat4("u_lightTransform", GetTransform(camera));
 	}
 
 	void SunComponent::EndShadowmapDraw() {
