@@ -71,6 +71,12 @@ uniform sampler2D u_shadowmap;
 
 uniform Material u_material = Material(vec3(1.0, 0.0, 0.0), 32.0);
 
+float random(vec3 seed, int i){
+	vec4 seed4 = vec4(seed,i);
+	float dot_product = dot(seed4, vec4(12.9898,78.233,45.164,94.673));
+	return fract(sin(dot_product) * 43758.5453);
+}
+
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
 	vec3 lightDir = normalize(light.position - v_worldPos);
 	float diff = max(dot(normal, lightDir), 0.0);
@@ -99,15 +105,14 @@ float CalculateDirectionalShadow(Sun light, vec3 normal, vec3 lightDir) {
 
 	float closestDepth = texture(u_shadowmap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
-	
-	float bias = max(0.00005 * (1.0 - dot(normal, lightDir)), 0.000005);
 
 	float shadow = 0.0;
 	vec2 texelSize = 1.0 / textureSize(u_shadowmap, 0);
 	for(int x = -1; x <= 1; ++x) {
 		for(int y = -1; y <= 1; ++y) {
 			float pcfDepth = texture(u_shadowmap, projCoords.xy + vec2(x, y) * texelSize).r;
-			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+			float pcf = currentDepth > pcfDepth ? 1.0 : 0.0;
+			shadow += pcf;
 		}
 	}
 	shadow /= 9.0;
