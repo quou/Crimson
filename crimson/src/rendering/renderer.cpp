@@ -30,7 +30,7 @@ namespace Crimson {
 	
 	void Renderer::Init(const ref<Window>& window) {
 		instance().m_window = window;
-#ifdef DEBUG
+#if defined(DEBUG) && !defined(_WIN32)
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); 
 		glDebugMessageCallback(MessageCallback, nullptr);

@@ -24,6 +24,7 @@ namespace Crimson {
 
 		if (pathPtr) {
 			std::string path = pathPtr;
+			std::replace(path.begin(), path.end(), '\\', '/'); /* For Windows */
 			std::string file = path;
 			file = file.substr(file.find_last_of("/") + 1);
 			path.erase(path.find_last_of('/'));
@@ -44,6 +45,7 @@ namespace Crimson {
 
 		if (pathPtr) {
 			std::string path = pathPtr;
+			std::replace(path.begin(), path.end(), '\\', '/'); /* For Windows */
 			std::string file = path;
 			file = file.substr(file.find_last_of("/") + 1);
 			path.erase(path.find_last_of('/'));

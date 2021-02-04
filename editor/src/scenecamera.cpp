@@ -48,15 +48,15 @@ namespace Crimson {
 		vec3 right = direction.cross(vec3::up());
 
 		if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_W)) {
-			m_camera.position += 15.0f * direction * delta;
+			m_camera.position += direction * 15.0f * delta;
 		} else if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_S)) {
-			m_camera.position -= 15.0f * direction * delta;
+			m_camera.position -= direction * 15.0f * delta;
 		}
 
 		if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_A)) {
-			m_camera.position -= 15.0f * right * delta;
+			m_camera.position -= right * 15.0f * delta;
 		} else if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_D)) {
-			m_camera.position += 15.0f * right * delta;
+			m_camera.position += right * 15.0f * delta;
 		}
 	}
 }
