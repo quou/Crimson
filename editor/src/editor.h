@@ -17,6 +17,7 @@ namespace Crimson {
 		void Save();
 		void SaveAs();
 		void Open();
+		void New();
 
 		std::string m_currentSavePath;
 		std::string m_currentSaveFile;

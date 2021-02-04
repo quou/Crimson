@@ -113,7 +113,7 @@ namespace Crimson {
 						if (!scene->GetSun()) {
 							Entity* e = scene->CreateEntity("sun");
 							e->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
-							e->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+							e->AddComponent<SunComponent>(vec3(-45.0f, 36.0f, 34.0f), vec3(1.0f), 1.0f);
 						} else {
 							Log(LogType::WARNING, "scene already contains a sun");
 						}
@@ -196,7 +196,7 @@ namespace Crimson {
 
 					if (ImGui::MenuItem("sun")) {
 						if (!scene->GetSun()) {
-							m_selectionContext->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+							m_selectionContext->AddComponent<SunComponent>(vec3(-45.0f, 36.0f, 34.0f), vec3(1.0f), 1.0f);
 						} else {
 							Log(LogType::WARNING, "scene already contains a sun");
 						}

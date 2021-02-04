@@ -60,6 +60,11 @@ namespace Crimson {
 		}
 	}
 
+	void Editor::New() {
+		m_scene = ref<Scene>(new Scene());
+		m_currentSaveFile = "";
+	}
+
 	void Editor::OnInit() {
 		ImGuiManager::Init(m_window);
 
@@ -70,7 +75,7 @@ namespace Crimson {
 		m_panelManager->AddPanel(ref<Panel>(new Console()));
 
 		/* Create the scene */
-		m_scene = ref<Scene>(new Scene());
+		New();
 	}
 
 	void Editor::OnUpdate(float delta) {
@@ -99,6 +104,10 @@ namespace Crimson {
 		/* Draw the main menu bar */
 		ImGui::BeginMainMenuBar();
 		if (ImGui::BeginMenu("file")) {
+			if (ImGui::MenuItem("new", "ctrl+n")) {
+				New();
+			}
+			
 			if (ImGui::MenuItem("open", "ctrl+o")) {
 				Open();
 			}
@@ -116,6 +125,10 @@ namespace Crimson {
 
 
 		/* Shortcuts */
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_N)) {
+			Open();
+		}
+
 		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_O)) {
 			Open();
 		}
