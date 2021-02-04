@@ -106,6 +106,8 @@ namespace Crimson {
 				if (e->HasComponent<TransformComponent>()) {
 					c->position = e->GetComponent<TransformComponent>()->translation;
 					c->rotation = e->GetComponent<TransformComponent>()->rotation;
+				} else {
+					Log(LogType::WARNING, "entities with camera components should also have transform components");
 				}
 
 				return c;

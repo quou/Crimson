@@ -79,6 +79,63 @@ namespace Crimson {
 				scene->CreateEntity();
 			}
 
+			// Right click on blank space
+			if (ImGui::BeginPopupContextWindow(0, 1, false)) {
+				if (ImGui::BeginMenu("create...")) {
+					if (ImGui::MenuItem("empty entity")) {
+						scene->CreateEntity();
+					}
+
+					if (ImGui::MenuItem("spatial")) {
+						Entity* e = scene->CreateEntity();
+						e->AddComponent<TransformComponent>();
+					}
+
+					if (ImGui::MenuItem("cube")) {
+						Entity* e = scene->CreateEntity("cube");
+						e->AddComponent<TransformComponent>();
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Model> model(new Crimson::Model());
+						model->AddMesh(Crimson::MeshFactory::NewCubeMesh(material));
+						e->AddComponent<Crimson::RenderableComponent>(model);
+					}
+
+					if (ImGui::MenuItem("sphere")) {
+						Entity* e = scene->CreateEntity("sphere");
+						e->AddComponent<TransformComponent>();
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Model> model(new Crimson::Model());
+						model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
+						e->AddComponent<Crimson::RenderableComponent>(model);
+					}
+
+					if (ImGui::MenuItem("sun")) {
+						if (!scene->GetSun()) {
+							Entity* e = scene->CreateEntity("sun");
+							e->AddComponent<SkyLightComponent>(vec3(1,1,1), 0.1f);
+							e->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+						} else {
+							Log(LogType::WARNING, "scene already contains a sun");
+						}
+					}
+
+					if (ImGui::MenuItem("lamp")) {
+						Entity* e = scene->CreateEntity("lamp");
+						e->AddComponent<TransformComponent>();
+						e->AddComponent<PointLightComponent>(vec3(1.0f), 1.0f);
+					}
+
+					if (ImGui::MenuItem("camera")) {
+						Entity* e = scene->CreateEntity("camera");
+						e->AddComponent<CameraComponent>(true);
+					}
+
+					ImGui::EndMenu();
+				}
+
+				ImGui::EndPopup();
+			}
+
 			for (const ref<Entity>& ent : scene->GetEntities()) {
 				DrawEntityNode(ent);
 			}
@@ -138,7 +195,11 @@ namespace Crimson {
 					}
 
 					if (ImGui::MenuItem("sun")) {
-						m_selectionContext->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+						if (!scene->GetSun()) {
+							m_selectionContext->AddComponent<SunComponent>(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f), 1.0f);
+						} else {
+							Log(LogType::WARNING, "scene already contains a sun");
+						}
 					}
 
 					if (ImGui::MenuItem("camera")) {
@@ -191,7 +252,7 @@ namespace Crimson {
 				DrawFloatControl("intensity", &sc->intensity, 0.001f);
 			}, true);
 			
-			DrawComponent<CameraComponent>("sky light", m_selectionContext, [](void* component){
+			DrawComponent<CameraComponent>("camera", m_selectionContext, [](void* component){
 				CameraComponent* cc = (CameraComponent*)component;
 
 				DrawBoolControl("active", &cc->active);
