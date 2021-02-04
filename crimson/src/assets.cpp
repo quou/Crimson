@@ -1,6 +1,7 @@
 #include "logger.h"
 #include "assets.h"
 #include "utils/stb_image.h"
+#include "errorassets/errorshader.h"
 
 #include <physfs.h>
 
@@ -15,6 +16,10 @@ namespace Crimson {
 		PHYSFS_init(NULL);
 		PHYSFS_mount(resDir, "/", 1);
 		PHYSFS_setWriteDir(resDir);
+
+		/* Init error assets */
+		Shader::ShaderSource s = Shader::Parse(ErrorAssets::ErrorShaderCode);
+		instance().m_errorShader = ref<Shader>(new Shader(s.vertex.c_str(), s.pixel.c_str()));
 	}
 
 	std::string AssetManager::LoadTerminatedString(const char* path, bool reload) {
@@ -101,10 +106,14 @@ namespace Crimson {
 			PHYSFS_Stat stat;
 			PHYSFS_stat(path, &stat);
 
-			i.m_shaders[path] = {ref<Shader>(new Shader(
-						parsedSource.vertex.c_str(),
-						parsedSource.pixel.c_str())),
-						stat.modtime};
+			if (!source.empty()) {
+				i.m_shaders[path] = {ref<Shader>(new Shader(
+							parsedSource.vertex.c_str(),
+							parsedSource.pixel.c_str())),
+							stat.modtime};
+			} else {
+				i.m_shaders[path].first = i.m_errorShader;
+			}
 		}
 
 		return i.m_shaders[path].first;
