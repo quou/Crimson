@@ -110,12 +110,13 @@ namespace Crimson {
 		return i.m_shaders[path].first;
 	}
 
-	ref<Texture>& AssetManager::LoadTexture(const char* path, bool reload) {
+	Texture* AssetManager::LoadTexture(const char* path, bool reload) {
 		AssetManager& i = instance();
 
 		if (i.m_textures.count(path) == 0 || reload) {
 			/* Load the compressed binary data */
 			unsigned char* rawData = LoadBinary(path, reload);
+			if (!rawData) { return NULL; }
 
 			unsigned char* pixels;
 			int w, h, componentCount;
@@ -131,6 +132,7 @@ namespace Crimson {
 			if (pixels == NULL) {
 				Log(LogType::ERROR, "Failed to load %s: %s",
 						path, stbi_failure_reason());
+				return NULL;
 			}
 
 			i.m_textures[path] = {ref<Texture>(new Texture(
@@ -138,7 +140,7 @@ namespace Crimson {
 						stat.modtime};
 		}
 
-		return i.m_textures[path].first;
+		return i.m_textures[path].first.get();
 	}
 
 

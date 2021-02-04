@@ -50,7 +50,7 @@ namespace Crimson {
 		static ref<Shader>& LoadShader(const char* path, bool reload = false);
 
 		/* Load and parse a texture from a file */
-		static ref<Texture>& LoadTexture(const char* path, bool reload = false);
+		static Texture* LoadTexture(const char* path, bool reload = false);
 
 		inline static const std::map<std::string, std::pair<ref<Shader>, uint64_t>>& 
 		GetShaders() {
