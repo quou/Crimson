@@ -10,7 +10,7 @@ struct GLFWwindow;
 namespace Crimson {
 	class CR_API Window {
 	private:
-		GLFWwindow* m_window;
+		GLFWwindow* m_window = NULL;
 
 		int m_width, m_height;
 

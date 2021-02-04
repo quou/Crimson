@@ -56,11 +56,16 @@ namespace Crimson {
 		glfwInit();
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
 
 		m_window = glfwCreateWindow(w, h, title, NULL, NULL);
+		if (!m_window) {
+			Log(LogType::INFO, "failed to create window. Likely your GPU doesn't support OpenGL 4.2+");
+			abort();
+		}
+
 		glfwMakeContextCurrent(m_window);
 		glfwSwapInterval(0);
 
