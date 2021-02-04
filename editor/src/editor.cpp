@@ -57,12 +57,16 @@ namespace Crimson {
 			m_scene = ref<Scene>(new Scene());
 			SceneSerialiser s(m_scene);
 			s.DeserialiseScene(file.c_str(), true);
+
+			ImGui::SetWindowFocus("viewport");
 		}
 	}
 
 	void Editor::New() {
 		m_scene = ref<Scene>(new Scene());
 		m_currentSaveFile = "";
+
+		ImGui::SetWindowFocus("viewport");
 	}
 
 	void Editor::OnInit() {
