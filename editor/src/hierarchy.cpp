@@ -3,11 +3,11 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 
-#include "heirarchy.h"
+#include "hierarchy.h"
 #include "editor.h"
 
 namespace Crimson {
-	void Heirarchy::DrawEntityNode(const ref<Entity>& ent) {
+	void Hierarchy::DrawEntityNode(const ref<Entity>& ent) {
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 		if (m_selectionContext == ent.get()) {
@@ -68,11 +68,11 @@ namespace Crimson {
 		}
 	}
 
-	void Heirarchy::OnDraw(const ref<Scene>& scene, float delta) {
+	void Hierarchy::OnDraw(const ref<Scene>& scene, float delta) {
 		Editor* editor = (Editor*)m_userData;
 		
 		/* Heriarchy */
-		ImGui::Begin("heirarchy");
+		ImGui::Begin("hierarchy");
 
 		if (!editor->m_isRunning) {
 			if (ImGui::Button("create entity")) {

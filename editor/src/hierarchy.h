@@ -3,7 +3,7 @@
 #include "panel.h"
 
 namespace Crimson {
-	class Heirarchy : public Panel {
+	class Hierarchy : public Panel {
 	private:
 		Entity* m_selectionContext;
 		

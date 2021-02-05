@@ -3,7 +3,7 @@
 
 #include "utils/tinyfiledialogs.h"
 #include "panel.h"
-#include "heirarchy.h"
+#include "hierarchy.h"
 #include "viewport.h"
 #include "editor.h"
 #include "console.h"
@@ -76,7 +76,7 @@ namespace Crimson {
 
 		/* Create panels */
 		m_panelManager = ref<PanelManager>(new PanelManager(this));
-		m_panelManager->AddPanel(ref<Panel>(new Heirarchy()));
+		m_panelManager->AddPanel(ref<Panel>(new Hierarchy()));
 		m_panelManager->AddPanel(ref<Panel>(new Viewport()));
 		m_panelManager->AddPanel(ref<Panel>(new Console()));
 

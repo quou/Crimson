@@ -12,7 +12,7 @@ namespace Crimson {
 
 		ref<PanelManager> m_panelManager;
 
-		friend class Heirarchy;
+		friend class Hierarchy;
 
 		void Save();
 		void SaveAs();
