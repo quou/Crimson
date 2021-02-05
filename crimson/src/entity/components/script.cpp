@@ -53,6 +53,12 @@ namespace Crimson {
 		}
 	}
 
+	void ScriptComponent::ClearSerialisableValues() {
+		m_serialisableFloats.clear();
+		m_serialisableInts.clear();
+		m_serialisableStrings.clear();
+	}
+
 	void ScriptComponent::OnUpdate(float delta) {
 		/* Call the script's OnUpdate function */
 		m_entity->m_scene->m_scriptManager->CallUpdate(m_behaviour, delta);	

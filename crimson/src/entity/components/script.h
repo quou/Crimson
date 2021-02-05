@@ -27,5 +27,7 @@ namespace Crimson {
 		void OnDestroy();
 
 		const BehaviourInstance& GetInstance() const { return m_behaviour; }
+
+		void ClearSerialisableValues();
 	};
 }

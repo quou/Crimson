@@ -211,7 +211,7 @@ abstract class CrimsonBehaviour {
 	}
 
 	bool ScriptManager::SetFloatProperty(const BehaviourInstance& instance, const BehaviourField& field, float value) {
-		if (!instance.instance) {
+		if (!instance.instance || field.typeID == -1) {
 			return false;
 		}
 
@@ -245,7 +245,7 @@ abstract class CrimsonBehaviour {
 	}
 
 	bool ScriptManager::SetIntProperty(const BehaviourInstance& instance, const BehaviourField& field, int value) {
-		if (!instance.instance) {
+		if (!instance.instance || field.typeID == -1) {
 			return false;
 		}
 
@@ -283,7 +283,7 @@ abstract class CrimsonBehaviour {
 	}
 
 	bool ScriptManager::SetStringProperty(const BehaviourInstance& instance, const BehaviourField& field, std::string value) {
-		if (!instance.instance) {
+		if (!instance.instance || field.typeID == -1) {
 			return false;
 		}
 

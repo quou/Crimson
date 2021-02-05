@@ -286,7 +286,11 @@ namespace Crimson {
 
 						for (const std::string& t : scene->m_scriptManager->GetBehaviourNames()) {
 							if (ImGui::Selectable(t.c_str(), t == selectedScript)) {
+								slc->m_dontCallInit = true;
+								slc->ClearSerialisableValues();
 								slc->m_behaviourDecl = t;
+								slc->OnDestroy();
+								slc->OnInit();
 							}
 						}
 
