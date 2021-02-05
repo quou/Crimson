@@ -307,12 +307,11 @@ namespace Crimson {
 							if (std::isupper(c)) {
 								name += " ";
 								name += (std::tolower(c));
-								continue;
-							} if (c == ' ') {
+							} else if (c == '_') {
 								name += " ";
+							} else {
+								name += c;
 							}
-
-							name += c;
 						}
 
 						if (scene->m_scriptManager->IsFloat(f)) {

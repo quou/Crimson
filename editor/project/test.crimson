@@ -8,13 +8,13 @@
         <script>
             <class v="Sphere"/>
             <serialisablefloats>
-                <someFloat v="22.200000762939453" i="4"/>
+                <someFloat v="-70.800003051757812" i="4"/>
             </serialisablefloats>
             <serialisableints>
-                <someInt v="10" i="3"/>
+                <someInt v="7" i="3"/>
             </serialisableints>
             <serialisablestrings>
-                <someString v="hello, world" i="5"/>
+                <someString v="haha" i="5"/>
             </serialisablestrings>
         </script>
         <renderable>
@@ -84,7 +84,7 @@
         <script>
             <class v="DiscoLight"/>
             <serialisablefloats>
-                <switchSpeed v="0.30000001192092896" i="5"/>
+                <switchDelay v="0.30000001192092896" i="5"/>
             </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>

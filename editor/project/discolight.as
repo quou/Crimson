@@ -5,7 +5,7 @@ class DiscoLight : CrimsonBehaviour {
 	private uint colorIndex;
 	private float counter;
 
-	float switchSpeed;
+	float switchDelay;
 
 	void OnInit() {
 		entity.GetComponent(@light);
@@ -25,7 +25,7 @@ class DiscoLight : CrimsonBehaviour {
 
 	void OnUpdate(float delta) {
 		counter += delta;
-		if (counter > switchSpeed) {
+		if (counter > switchDelay) {
 			colorIndex++;
 			if (colorIndex >= colours.length() - 1) {
 				colorIndex = 0;
