@@ -7,9 +7,15 @@
         </transform>
         <script>
             <class v="Sphere"/>
-            <serialisablefloats/>
-            <serialisableints/>
-            <serialisablestrings/>
+            <serialisablefloats>
+                <someFloat v="22.200000762939453" i="4"/>
+            </serialisablefloats>
+            <serialisableints>
+                <someInt v="10" i="3"/>
+            </serialisableints>
+            <serialisablestrings>
+                <someString v="hello, world" i="5"/>
+            </serialisablestrings>
         </script>
         <renderable>
             <mesh index="0">
@@ -17,7 +23,7 @@
                     <instance type="sphere"/>
                 </source>
                 <phongmaterial>
-                    <shader v="standard.glsl"/>
+                    <shader v="standard"/>
                     <color x="0.99998998641967773" y="1" z="0.99999064207077026"/>
                     <shininess v="32"/>
                 </phongmaterial>
@@ -52,7 +58,7 @@
                     <instance type="cube"/>
                 </source>
                 <phongmaterial>
-                    <shader v="standard.glsl"/>
+                    <shader v="standard"/>
                     <color x="0.57929617166519165" y="0.51627910137176514" z="1"/>
                     <shininess v="100"/>
                 </phongmaterial>
@@ -103,7 +109,7 @@
                     <instance type="cube"/>
                 </source>
                 <phongmaterial>
-                    <shader v="standard.glsl"/>
+                    <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
                 </phongmaterial>

@@ -94,7 +94,7 @@ namespace Crimson {
 					if (ImGui::MenuItem("cube")) {
 						Entity* e = scene->CreateEntity("cube");
 						e->AddComponent<TransformComponent>();
-						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 						Crimson::ref<Crimson::Model> model(new Crimson::Model());
 						model->AddMesh(Crimson::MeshFactory::NewCubeMesh(material));
 						e->AddComponent<Crimson::RenderableComponent>(model);
@@ -103,7 +103,7 @@ namespace Crimson {
 					if (ImGui::MenuItem("sphere")) {
 						Entity* e = scene->CreateEntity("sphere");
 						e->AddComponent<TransformComponent>();
-						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 						Crimson::ref<Crimson::Model> model(new Crimson::Model());
 						model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 						e->AddComponent<Crimson::RenderableComponent>(model);
@@ -207,7 +207,7 @@ namespace Crimson {
 					}
 
 					if (ImGui::MenuItem("renderable")) {
-						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+						Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 						Crimson::ref<Crimson::Model> model(new Crimson::Model());
 						model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 						m_selectionContext->AddComponent<Crimson::RenderableComponent>(model);
@@ -328,7 +328,7 @@ namespace Crimson {
 						std::string selectedMeshType = mesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
 
 						DrawComboBox("mesh", [&](){
-							if (ImGui::BeginCombo("###COMBO", selectedMeshType.c_str())) {
+							if (ImGui::BeginCombo("###MESHCOMBO", selectedMeshType.c_str())) {
 								if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
 									mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
 								}
@@ -345,6 +345,26 @@ namespace Crimson {
 
 						if (material->m_type == "phong") {
 							if (ImGui::TreeNodeEx((void*)(unsigned long)i, ImGuiTreeNodeFlags_OpenOnArrow, "phong material")) {
+								std::string selectedShader = material->m_shader;
+
+								DrawComboBox("shader", [&](){
+									if (ImGui::BeginCombo("###SHADERCOMBO", selectedShader.c_str())) {
+										if (ImGui::Selectable("standard", "standard" == selectedShader)) {
+											material->m_shader = "standard";
+										}
+
+										for (const auto& e : AssetManager::GetDir()) {
+											if (e.second == "glsl") {
+												if (ImGui::Selectable(e.first.c_str(), e.first == selectedShader)) {
+													material->m_shader = e.first;
+												}
+											}
+										}
+
+										ImGui::EndCombo();
+									}
+								});	
+
 								PhongMaterial* phongMat = (PhongMaterial*)material.get();
 
 								DrawColorControl("color", phongMat->color);

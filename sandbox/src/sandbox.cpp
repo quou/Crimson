@@ -17,7 +17,7 @@ public:
 		m_scene = Crimson::ref<Crimson::Scene>(new Crimson::Scene());
 
 		/* Create a sphere model */
-		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard.glsl", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
+		Crimson::ref<Crimson::Material> material(new Crimson::PhongMaterial("standard", Crimson::vec3(1.0f, 1.0f, 1.0f), 32.0f));
 		Crimson::ref<Crimson::Model> model(new Crimson::Model());
 		model->AddMesh(Crimson::MeshFactory::NewSphereMesh(material));
 

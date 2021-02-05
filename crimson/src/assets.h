@@ -38,7 +38,7 @@ namespace Crimson {
 		std::string m_currentDir;
 
 		/* Error assets, used in place of assets if an error occurs while loading */
-		ref<Shader> m_errorShader;
+		ref<Shader> m_standardShader;
 	public:
 		static void Init(const char* resDir);
 		static void Quit();
