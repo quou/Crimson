@@ -174,6 +174,24 @@ abstract class CrimsonBehaviour {
 		return result;
 	}
 
+	std::vector<std::string> ScriptManager::GetBehaviourNames() {
+		std::vector<std::string> result;
+
+		if (!m_compilationSuccess) { return result; }
+
+		asITypeInfo* baseTypeInfo = m_module->GetTypeInfoByDecl("CrimsonBehaviour");
+
+		for (unsigned int i = 0; i < m_module->GetObjectTypeCount(); i++) {
+			asITypeInfo* ti = m_module->GetObjectTypeByIndex(i);
+
+			if (ti && ti->DerivesFrom(baseTypeInfo) && ti != baseTypeInfo) {
+				result.push_back(ti->GetName());
+			}
+		}
+
+		return result;
+	}
+
 	bool ScriptManager::IsFloat(const BehaviourField& field) {
 		return field.typeID == asTYPEID_FLOAT;
 	}

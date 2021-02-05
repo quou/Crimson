@@ -277,7 +277,22 @@ namespace Crimson {
 				}
 				ImGui::PopStyleColor();
 
-				DrawTextControl("behaviour", slc->m_behaviourDecl);
+				std::string selectedScript = slc->m_behaviourDecl;
+				DrawComboBox("behaviour", [&](){
+					if (ImGui::BeginCombo("###SCRIPTCOMBO", selectedScript.c_str())) {
+						if (ImGui::Selectable("~", "~" == selectedScript)) {
+							slc->m_behaviourDecl = "~";
+						}
+
+						for (const std::string& t : scene->m_scriptManager->GetBehaviourNames()) {
+							if (ImGui::Selectable(t.c_str(), t == selectedScript)) {
+								slc->m_behaviourDecl = t;
+							}
+						}
+
+						ImGui::EndCombo();
+					}
+				});
 
 				if (exists) {
 					ImGui::Separator();

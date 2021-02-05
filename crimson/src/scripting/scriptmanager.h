@@ -62,6 +62,9 @@ namespace Crimson {
 		/* Recompile scripts if the asset manager has reloaded the text files.
 		 * Returns true if changes where detected */
 		bool HotReload();
+
+		/* Return a vector of names of all the classes that inherit from CrimsonBehaviour */
+		std::vector<std::string> GetBehaviourNames();
 		
 		/* Get a vector of all the fields for a behaviour */
 		std::vector<BehaviourField> GetBehaviourFields(const BehaviourInstance& behaviour);
