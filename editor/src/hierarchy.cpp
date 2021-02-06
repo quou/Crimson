@@ -267,6 +267,9 @@ namespace Crimson {
 					if (exists) {
 						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
 						ImGui::Text(ICON_FK_CHECK " valid behaviour");
+					} else if (slc->m_behaviourDecl == "~") {
+						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.8f, 0.15f, 1.0f));
+						ImGui::Text(ICON_FK_EXCLAMATION_TRIANGLE " no behaviour");
 					} else {
 						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
 						ImGui::Text(ICON_FK_TIMES " invalid behaviour");

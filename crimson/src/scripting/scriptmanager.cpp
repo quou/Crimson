@@ -132,8 +132,6 @@ abstract class CrimsonBehaviour {
 	bool ScriptManager::CheckBehaviourExistance(const char* decl) {
 		if (!m_compilationSuccess) { return false; }
 
-		if (std::string(decl) == "~") { return true; }
-
 		asITypeInfo* type = m_module->GetTypeInfoByDecl(decl);
 	
 		return type == NULL ? false : true;

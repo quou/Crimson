@@ -8,13 +8,13 @@
         <script>
             <class v="Sphere"/>
             <serialisablefloats>
-                <someFloat v="-70.800003051757812" i="4"/>
+                <someFloat v="0.11999999731779099" i="4"/>
             </serialisablefloats>
             <serialisableints>
-                <someInt v="7" i="3"/>
+                <someInt v="11" i="3"/>
             </serialisableints>
             <serialisablestrings>
-                <someString v="haha" i="5"/>
+                <someString v="haha, yes" i="5"/>
             </serialisablestrings>
         </script>
         <renderable>
