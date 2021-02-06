@@ -11,7 +11,8 @@ h2 {
 }
 
 body {
-	font-family: serif;
+	font-family: 'Noto Serif', serif;
+	font-size: 12pt;
 }
 
 code {
