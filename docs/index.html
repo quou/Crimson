@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/styles/atom-one-dark.css" id="code-theme-link">
+		<link rel="stylesheet" href="css/master.css">
+		<link rel="stylesheet" href="css/dark.css" id="theme-link">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div class="block">
+			<button id="theme-toggle"><i class="fa fa-adjust"></i></button>
+
+			<div class="centred">
+				<img src="media/transparentlogo.png" class="img medium"/>
+			</div>
+	
+			<h1>scripting documentation</h1>
+			<p>Here you can find information regarding the use of the scripting API for the Crimson game engine.</p>
+
+			<h2>basic scripting</h2>
+			<p>Crimson uses AngelScript for a powerful, fast and easy to use scripting interface. 
+				AngelScript is designed to be similar to languages such as C++, Java and C#.</p>
+			<p>Crimson acesses scripted behaviours in an object-oriented manner, where script 
+				behaviours are attached to entities via. the script component, similar to 
+				Unity's C# scripting, as shown in the below example:</p>
+			
+			<pre><code class="language-angelscript">class ExampleBehaviour : CrimsonBehaviour {
+	void OnInit() {
+		// Called when the entity is created
+	}
+
+	void OnUpdate(float delta) {
+		// Called every frame, `delta' holds the
+		// time since the last frame, in seconds
+	}
+}</code></pre>
+
+			<p>All behaviours must inherit from the <code>CrimsonBehaviour</code> base class. It's declaration looks like this:</p>
+			<pre><code class="language-angelscript">abstract class CrimsonBehaviour {
+	// A handle to the entity that the 
+	// script component is sitting on
+	protected Entity@ entity;
+	
+	// To be implemeted by the user
+	void OnInit() {}
+	void OnUpdate(float delta) {}
+};</code></pre>
+
+			<h2>example script</h2>
+			<p>Below is a simple script that will move the entity backwards and forwards 
+				continuously, according to the <code>speed</code> member.</p>
+<pre><code class="language-angelscript">class ExampleBehaviour : CrimsonBehaviour {
+	private Transform@ transform;
+	private float posOffset;
+	private bool hasTransform;
+
+	float speed = 3.0f;
+
+	void OnInit() {
+		entity.GetComponent(@transform);
+
+		if (@transform == null) {
+			LogError("No transform component");
+			hasTransform = false;
+		} else {
+			hasTransform = true;
+		}
+	}
+
+	void OnUpdate(float delta) {
+		if (!hasTransform) {
+			return;
+		}
+
+		posOffset += speed * delta;
+
+		transform.translation.x = sin(posOffset) * 5;
+	}
+}</code></pre>
+
+			<h2>getting components</h2>
+			<p>The generic getter for components is a member of the <code>Entity</code> class. 
+				It takes an <code>&out</code> reference, and outputs the component depending 
+				on the type of the reference that it gets passed.</p>
+				
+			<p>If the type that is passed is 
+				not a valid component, then an error is generated and the reference set to <code>null</code>.
+				If the entity doesn't have the component, the reference is set to <code>null</code></p>
+			
+			<p><code>GetComponent</code> usage</p>
+			<pre><code class="language-angelscript">class ExampleBehaviour : CrimsonBehaviour {
+	// An object handle to the transform component
+	private Transform@ transformComponent;
+	
+	void OnInit() {
+		entity.GetComponent(@transformComponent);
+
+		// Make sure the component is not null
+		if (@transformComponent == null) {
+			LogError("Error getting transform component");
+		}
+	}
+}</code></pre>
+
+			<h2>component declarations</h2>
+			<pre><code class="language-angelscript">class Transform {
+	vec3 translation;
+	vec3 rotation;
+	vec3 scale;	
+}
+
+class PointLight {
+	vec3 color;
+	float intensity;
+	float constant;
+	float linear;
+	float quadratic;
+}
+
+class SkyLight {
+	vec3 color;
+	float intensity;
+}
+
+class Sun {
+	vec3 direction;
+	vec3 color;
+	float intensity;
+}
+
+class Camera {
+	bool active;
+}</code></pre>
+		</div>
+		
+		<script src="css/highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
+		<script>
+			const btn = document.querySelector("#theme-toggle");
+			const theme = document.querySelector("#theme-link");
+			const codeTheme = document.querySelector("#code-theme-link");
+
+			btn.addEventListener("click", function() {
+				if (theme.getAttribute("href") == "css/light.css") {
+					theme.href = "css/dark.css";
+					codeTheme.href = "css/styles/atom-one-dark.css";
+				} else {
+					theme.href = "css/light.css";
+					codeTheme.href = "css/styles/atom-one-light.css";
+				}
+			});
+		</script>
+	</body>
+</html>

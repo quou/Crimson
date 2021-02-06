@@ -1,0 +1,21 @@
+body {
+	color: #eee;
+	background: #121212;
+}
+
+a {
+	color: #809fff;
+}
+
+code {
+	background-color: #242424;
+}
+
+button {
+	color: #eee;
+	background-color: #242424;
+}
+
+button:hover {
+	background-color: #000000;
+}

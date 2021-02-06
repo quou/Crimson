@@ -1,0 +1,21 @@
+body {
+	color: #222;
+	background: #fff;
+}
+
+a {
+	color: #0033cc;
+}
+
+code {
+	background-color: #f2f2f2;
+}
+
+button {
+	background: #222;
+	background-color: #f2f2f2;
+}
+
+button:hover {
+	background-color: #e0e0e0;
+}

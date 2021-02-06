@@ -10,7 +10,7 @@ abstract class CrimsonBehaviour {
 	protected Entity@ entity;
 	
 	void OnInit() {}
-	void OnUpdate() {}
+	void OnUpdate(float delta) {}
 };
 	)";
 

@@ -1,22 +1,29 @@
 class Sphere : CrimsonBehaviour {
 	private Transform@ transform;
 	private float posOffset;
+	private bool hasTransform;
 
-	int someInt = 10;
-	float someFloat = 22.2;
-	string someString = "hello, world";
+	float speed = 3.0f;
 
 	void OnInit() {
 		entity.GetComponent(@transform);
 
-		print(someString);
-		print(ToString(someFloat));
-		print(ToString(someInt));
+		if (@transform == null) {
+			LogError("No transform component");
+			hasTransform = false;
+		} else {
+			hasTransform = true;
+		}
 	}
 
 	void OnUpdate(float delta) {
-		posOffset += 3.0f * delta;
+		if (!hasTransform) {
+			return;
+		}
+
+		posOffset += speed * delta;
 
 		transform.translation.x = sin(posOffset) * 5;
 	}
+
 };

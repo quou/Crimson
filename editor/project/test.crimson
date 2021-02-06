@@ -9,13 +9,12 @@
             <class v="Sphere"/>
             <serialisablefloats>
                 <someFloat v="0.11999999731779099" i="4"/>
+                <speed v="3" i="4"/>
             </serialisablefloats>
             <serialisableints>
                 <someInt v="11" i="3"/>
             </serialisableints>
-            <serialisablestrings>
-                <someString v="haha, yes" i="5"/>
-            </serialisablestrings>
+            <serialisablestrings/>
         </script>
         <renderable>
             <mesh index="0">

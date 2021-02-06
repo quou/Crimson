@@ -1,0 +1,53 @@
+h1, h2, h3, h4 {
+	font-family: 'Ubuntu Mono', monospace;
+}
+
+h1 {
+	font-size: 29pt;
+}
+
+h2 {
+	font-size: 24pt;
+}
+
+body {
+	font-family: serif;
+}
+
+code {
+	font-family: 'Ubuntu Mono', monospace;
+	padding: 4px;
+	border-radius: 5px;
+}
+
+button {
+	border: none;
+	padding: 10px;
+	font-size: 14pt;
+	font-family: 'Ubuntu Mono', monospace;
+}
+
+.centred {
+	align-items: center;
+	text-align: center;
+	align-content: center;
+}
+
+.block {
+	margin-left: auto;
+    margin-right: auto;
+    max-width: 60em;
+}
+
+.img {
+	width: 100%;
+	height: auto;
+}
+
+.small {
+	max-width: 150px;
+}
+
+.medium {
+	max-width: 500px;
+}
