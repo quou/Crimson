@@ -51,12 +51,13 @@ namespace Crimson {
 
 		vec2 m_oldViewportSize;
 	public:
-		SunComponent(const vec3& direction, const vec3& color, float intensity)
-			: direction(direction), color(color), intensity(intensity) {}
+		SunComponent(const vec3& direction, const vec3& color, float intensity, bool castShadows = false)
+			: direction(direction), color(color), intensity(intensity), castShadows(castShadows) {}
 
 		vec3 direction;
 		vec3 color;
 		float intensity;
+		bool castShadows;
 
 		void OnInit() override;
 		void OnDestroy() override;

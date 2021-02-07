@@ -110,8 +110,13 @@ namespace Crimson {
 				s->SetUniformFloat("u_sun.intensity", sun->intensity);
 				s->SetUniformMat4("u_sun.transform", sun->GetTransform(camera));
 
-				sun->BindShadowmap(0);
-				s->SetUniformInt("u_shadowmap", 0);
+				if (sun->castShadows) {
+					sun->BindShadowmap(0);
+					s->SetUniformInt("u_shadowmap", 0);
+					s->SetUniformBool("u_shadowEnable", true);
+				} else {
+					s->SetUniformBool("u_shadowEnable", false);
+				}
 			} else {
 				s->SetUniformBool("u_useSun", false);
 			}

@@ -54,7 +54,7 @@ namespace Crimson {
 	void Scene::Draw(const Camera& camera) const {
 		SunComponent* sun = GetSun();
 
-		if (sun) {
+		if (sun && sun->castShadows) {
 			/* Draw the shadowmap */
 			sun->BeginShadowmapDraw(camera);
 			for (auto& e : m_entities) {

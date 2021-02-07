@@ -8,7 +8,7 @@
         <script>
             <class v="BackAndForth"/>
             <serialisablefloats>
-                <speed v="3" i="4"/>
+                <speed v="3.5" i="4"/>
             </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>
@@ -38,6 +38,7 @@
             <direction x="18.200000762939453" y="46.5" z="-51.400001525878906"/>
             <color x="1" y="1" z="1"/>
             <intensity v="0.5"/>
+            <castshadows v="true"/>
         </sun>
     </entity>
     <entity name="floor">

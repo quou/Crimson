@@ -250,6 +250,7 @@ namespace Crimson {
 				DrawVec3Control("direction", sc->direction);
 				DrawColorControl("colour", sc->color);
 				DrawFloatControl("intensity", &sc->intensity, 0.001f);
+				DrawBoolControl("cast shadows", &sc->castShadows);
 			}, true);
 			
 			DrawComponent<CameraComponent>("camera", m_selectionContext, [](void* component){

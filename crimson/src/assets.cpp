@@ -74,6 +74,7 @@ uniform SkyLight u_skyLights[5];
 uniform int u_skyLightCount;
 
 uniform bool u_useSun;
+uniform bool u_shadowEnable;
 uniform Sun u_sun;
 uniform sampler2D u_shadowmap;
 
@@ -138,7 +139,10 @@ vec3 CalculateSun(Sun light, vec3 normal, vec3 viewDir) {
     vec3 diffuse = light.color * diff * u_material.color * light.intensity;
     vec3 specular = light.color * spec * u_material.color * light.intensity;
 
-    return (1.0 - CalculateDirectionalShadow(light, normal, lightDir)) * (diffuse + specular);
+	if (u_shadowEnable) {
+    	return (1.0 - CalculateDirectionalShadow(light, normal, lightDir)) * (diffuse + specular);
+	}
+	return diffuse + specular;
 }
 
 void main() {
