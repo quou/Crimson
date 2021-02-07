@@ -42,7 +42,7 @@ namespace Crimson {
 
 
 	Mesh::Mesh(const std::vector<Vertex>& vertices, 
-			const std::vector<unsigned int>& indices, const ref<Material>& material) {
+			const std::vector<unsigned int>& indices, const ref<Material>& material) : m_localTransform(1.0f) {
 		UseMaterial(material);
 		LoadFromVertexData(vertices, indices);
 

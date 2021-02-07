@@ -84,7 +84,7 @@ namespace Crimson {
 	mat4 SunComponent::GetTransform(const Camera& camera) const {
 		mat4 view = mat4::translate(camera.position);
 
-		mat4 lightProjection = mat4::ortho(-20.0f, 20.0f, -20.0f, 20.0f, -10000.0f, 10000.0f);
+		mat4 lightProjection = mat4::ortho(-20.0f, 20.0f, -20.0f, 20.0f, -1000.0f, 1000.0f);
 
 		mat4 lightView = mat4::lookat(-direction, 
 									  vec3(0.0f, 0.0f,  0.0f),

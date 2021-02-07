@@ -1,7 +1,7 @@
 <scene>
-    <entity name="sphere">
+    <entity name="monkey">
         <transform>
-            <translation x="0" y="0" z="0"/>
+            <translation x="0" y="0" z="2"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -17,15 +17,8 @@
             <serialisablestrings/>
         </script>
         <renderable>
-            <source v="/test.fbx"/>
+            <source v="/monkey.fbx"/>
             <mesh index="0">
-                <phongmaterial>
-                    <shader v="standard"/>
-                    <color x="1" y="1" z="1"/>
-                    <shininess v="32"/>
-                </phongmaterial>
-            </mesh>
-            <mesh index="1">
                 <phongmaterial>
                     <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
@@ -45,7 +38,7 @@
             <intensity v="0.20000000298023224"/>
         </skylight>
         <sun>
-            <direction x="56.700000762939453" y="34.700000762939453" z="-17.5"/>
+            <direction x="18.200000762939453" y="46.5" z="-51.400001525878906"/>
             <color x="1" y="1" z="1"/>
             <intensity v="0.5"/>
         </sun>

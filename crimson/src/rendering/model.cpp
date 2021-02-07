@@ -30,7 +30,7 @@ namespace Crimson {
 		for (unsigned int i = 0; i < scene->getMeshCount(); i++) {
 			const ofbx::Mesh* mesh = scene->getMesh(i);
 			const ofbx::Geometry* geom = mesh->getGeometry();
-			
+
 			std::vector<Vertex> finalVertices;
 			std::vector<unsigned int> finalIndices;
 
@@ -43,10 +43,19 @@ namespace Crimson {
 
 			const ofbx::Vec3* normals = geom->getNormals();
 			if (normals) {
-				for (unsigned int ii = 0; ii < geom->getVertexCount(); ii++) {
+				for (unsigned int ii = 0; ii < geom->getIndexCount(); ii++) {
 					ofbx::Vec3 norm = normals[ii];
 
 					finalVertices[ii].normal = vec3(norm.x, norm.y, norm.z);
+				}
+			}
+
+			const ofbx::Vec2* uvs = geom->getUVs();
+			if (uvs) {
+				for (unsigned int ii = 0; ii < geom->getIndexCount(); ii++) {
+					ofbx::Vec2 uv = uvs[ii];
+
+					finalVertices[ii].uv = vec2(uv.x, uv.y);
 				}
 			}
 
@@ -58,8 +67,19 @@ namespace Crimson {
 				finalIndices.push_back(index);
 			}
 
-			ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f)); 
-			AddMesh(ref<Mesh>(new Mesh(finalVertices, finalIndices, mat)));
+			ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f));
+			ref<Mesh> cmesh(new Mesh(finalVertices, finalIndices, mat));
+
+			const ofbx::Matrix localTransform = geom->getGlobalTransform();
+
+			float elements[16];
+			for (unsigned int i = 0; i < 16; i++) {
+				elements[i] = localTransform.m[i];
+			}
+
+			cmesh->m_localTransform = mat4(elements) * mat4::scale(vec3(0.01f));
+
+			AddMesh(cmesh);
 		}
 	}
 
@@ -70,7 +90,7 @@ namespace Crimson {
 	void Model::Draw(Shader* shader) {
 		for (const ref<Mesh>& mesh : m_meshes) {
 			shader->Bind();
-			shader->SetUniformMat4("u_model", m_transform);
+			shader->SetUniformMat4("u_model", mesh->m_localTransform * m_transform);
 			mesh->DrawNoMaterial();
 		}
 	}
@@ -120,7 +140,7 @@ namespace Crimson {
 			s->SetUniformInt("u_pointLightCount", scene->GetPointLights()->size());
 			s->SetUniformInt("u_skyLightCount", scene->GetSkyLights()->size());
 
-			s->SetUniformMat4("u_model", m_transform);
+			s->SetUniformMat4("u_model", mesh->m_localTransform * m_transform);
 			s->SetUniformMat4("u_view", camera.GetView());
 			s->SetUniformMat4("u_projection", camera.projection);
 			s->SetUniformVec3("u_cameraPos", camera.position);

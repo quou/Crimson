@@ -6,6 +6,7 @@
 #include "renderdata.h"
 #include "memory.h"
 #include "material.h"
+#include "math/mat4.h"
 
 namespace Crimson {
 	class CR_API Mesh {
@@ -30,6 +31,8 @@ namespace Crimson {
 
 		InstanceType m_instanceType;
 		Type m_factoryType;
+
+		mat4 m_localTransform;
 
 		friend class Model;
 		friend class MeshFactory;
