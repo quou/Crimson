@@ -173,22 +173,27 @@ namespace Crimson {
 				RenderableComponent* rc = (RenderableComponent*)component;
 
 				ref<Model> m = rc->m_model;
+				if (m->IsFromFile()) {
+					SerialiseString("source", m->GetPath().c_str(), printer);
+				}
 
 				int i = 0;
 				for (ref<Mesh>& mesh : m->GetMeshList()) {
 					printer.OpenElement("mesh");
 						printer.PushAttribute("index", i);
-						printer.OpenElement("source");
-							/* Determine the type of mesh */
-							if (mesh->GetInstanceType() == Mesh::INSTANCE) {
-								printer.OpenElement("instance");
-									Mesh::Type ft = mesh->GetFactoryType();
-									printer.PushAttribute("type", ft == Mesh::CUBE ? "cube" : "sphere");
+							if (!m->IsFromFile()) {
+								printer.OpenElement("source");
+									/* Determine the type of mesh */
+									if (mesh->GetInstanceType() == Mesh::INSTANCE) {
+										printer.OpenElement("instance");
+											Mesh::Type ft = mesh->GetFactoryType();
+											printer.PushAttribute("type", ft == Mesh::CUBE ? "cube" : "sphere");
+										printer.CloseElement();
+									} else if (mesh->GetInstanceType() == Mesh::CUSTOM) {
+										assert(false && "Cannot serialise custom meshes yet");
+									}
 								printer.CloseElement();
-							} else if (mesh->GetInstanceType() == Mesh::CUSTOM) {
-								assert(false && "Cannot serialise custom meshes yet");
 							}
-						printer.CloseElement();
 
 						ref<Material> material = mesh->GetMaterial();
 
@@ -264,7 +269,15 @@ namespace Crimson {
 				/* Deserialise renderable */
 				componentNode = entityNode->FirstChildElement("renderable");
 				if (componentNode) {
-					ref<Model> model(new Model());
+					ref<Model> model;
+					
+					XMLElement* modelSourceNode = componentNode->FirstChildElement("source");
+					if (modelSourceNode) {
+						model = ref<Model>(new Model(modelSourceNode->Attribute("v")));
+					} else {
+						model = ref<Model>(new Model());
+					}
+
 					XMLElement* meshNode = componentNode->FirstChildElement("mesh");
 					while (meshNode) {
 						ref<Material> material;
@@ -293,8 +306,6 @@ namespace Crimson {
 									Log(LogType::ERROR, "Unknown mesh instance type: %s", instanceType.c_str());
 								}
 							}
-						} else {
-							Log(LogType::WARNING, "No mesh source for renderable component");
 						}
 
 						meshNode = meshNode->NextSiblingElement("mesh");

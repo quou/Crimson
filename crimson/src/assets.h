@@ -24,8 +24,8 @@ namespace Crimson {
 
 
 		/* Cache for binary, in the format:
-		 * { "file-path" : { unsigned char* file-contents, mod-time }} */
-		std::map<std::string, std::pair<unsigned char*, uint64_t>> m_binary;
+		 * { "file-path" : { { unsigned char* file-contents, file-size }, mod-time }} */
+		std::map<std::string, std::pair<std::pair<unsigned char*, unsigned int>, uint64_t>> m_binary;
 	
 		/* Cache for shaders, in the format:
 		 * { "file-path" : { ref<Shader>, mod-time }} */
@@ -47,7 +47,7 @@ namespace Crimson {
 		static std::string LoadTerminatedString(const char* path, bool reload=false);
 
 		/* Load the raw bytes from disk */
-		static unsigned char* LoadBinary(const char* path, bool reload=false);
+		static std::pair<unsigned char*, unsigned int> LoadBinary(const char* path, bool reload=false);
 
 		/* Load, parse and compile a shader from a text file */
 		static ref<Shader>& LoadShader(const char* path, bool reload = false);

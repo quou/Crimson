@@ -209,20 +209,20 @@ namespace Crimson {
 		return i.m_terminatedStrings[path].first;
 	}
 
-	unsigned char* AssetManager::LoadBinary(const char* path, bool reload) {
+	std::pair<unsigned char*, unsigned int> AssetManager::LoadBinary(const char* path, bool reload) {
 		AssetManager& i = instance();
 
 		/* Check if we cannot use a cached file */
 		if (i.m_binary.count(path) == 0 || reload) {
 			/* Make sure to free any existing data that might be cached */
-			if (reload || i.m_binary[path].first != NULL) {
-				free(i.m_binary[path].first);
+			if (reload || i.m_binary[path].first.first != NULL) {
+				free(i.m_binary[path].first.first);
 			}
 
 			PHYSFS_file* file = PHYSFS_openRead(path);
 			if (file == NULL) {
 				Log(LogType::ERROR, "Failed to load: %s", path);
-				return NULL;
+				return {NULL, 0};
 			}
 
 			size_t fileSize = PHYSFS_fileLength(file);
@@ -235,7 +235,7 @@ namespace Crimson {
 			PHYSFS_Stat stat;
 			PHYSFS_stat(path, &stat);
 
-			i.m_binary[path] = {buffer, stat.modtime};
+			i.m_binary[path] = {{buffer, fileSize}, stat.modtime};
 			
 			/* Cleanup */
 			PHYSFS_close(file);
@@ -280,7 +280,7 @@ namespace Crimson {
 
 		if (i.m_textures.count(path) == 0 || reload) {
 			/* Load the compressed binary data */
-			unsigned char* rawData = LoadBinary(path, reload);
+			unsigned char* rawData = LoadBinary(path, reload).first;
 			if (!rawData) { return NULL; }
 
 			unsigned char* pixels;
@@ -437,7 +437,7 @@ namespace Crimson {
 
 		/* Loop over cached binary files */
 		for (auto& f : i.m_binary) {
-			free(f.second.first);
+			free(f.second.first.first);
 		}
 
 		i.m_binary.clear();

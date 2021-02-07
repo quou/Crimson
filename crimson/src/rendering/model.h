@@ -13,8 +13,14 @@ namespace Crimson {
 		std::vector<ref<Mesh>> m_meshes;
 
 		mat4 m_transform;
+
+		std::string m_path;
+		bool m_fromFile;
 	public:
 		Model();
+
+		/* Initiate the meshes from a .fbx file */
+		Model(const char* path);
 		virtual ~Model();
 
 		void AddMesh(const ref<Mesh>& mesh);
@@ -25,5 +31,11 @@ namespace Crimson {
 		void DrawLitScene(const Camera& camera, Scene* scene);
 
 		inline std::vector<ref<Mesh>>& GetMeshList() { return m_meshes; }
+		inline void ClearMeshes() { m_meshes.clear(); }
+
+		inline const std::string& GetPath() const { return m_path; }
+		inline bool IsFromFile() const { return m_fromFile; }
+
+		ref<Mesh>& GetFirstMesh();
 	};
 }

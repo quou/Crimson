@@ -13,10 +13,54 @@
 #include "entity/components/transform.h"
 #include "math/vec3.h"
 #include "math/vec2.h"
+#include "meshfactory.h"
+#include "phongmaterial.h"
+#include "utils/ofbx.h"
 
 namespace Crimson {
-	Model::Model() {
+	Model::Model() : m_fromFile(false) {
 
+	}
+
+	Model::Model(const char* path) : m_fromFile(true), m_path(path) {
+		std::pair<unsigned char*, unsigned int> fileData = AssetManager::LoadBinary(path);
+
+		ofbx::IScene* scene = ofbx::load((ofbx::u8*)fileData.first, fileData.second, (ofbx::u64)ofbx::LoadFlags::TRIANGULATE);
+
+		for (unsigned int i = 0; i < scene->getMeshCount(); i++) {
+			const ofbx::Mesh* mesh = scene->getMesh(i);
+			const ofbx::Geometry* geom = mesh->getGeometry();
+			
+			std::vector<Vertex> finalVertices;
+			std::vector<unsigned int> finalIndices;
+
+			const ofbx::Vec3* positions = geom->getVertices();
+			for (unsigned int ii = 0; ii < geom->getVertexCount(); ii++) {
+				ofbx::Vec3 pos = positions[ii];
+
+				finalVertices.push_back(Vertex{vec3(pos.x, pos.y, pos.z), vec3(0.0f), vec2(0.0f)});
+			}
+
+			const ofbx::Vec3* normals = geom->getNormals();
+			if (normals) {
+				for (unsigned int ii = 0; ii < geom->getVertexCount(); ii++) {
+					ofbx::Vec3 norm = normals[ii];
+
+					finalVertices[ii].normal = vec3(norm.x, norm.y, norm.z);
+				}
+			}
+
+			const int* indices = geom->getFaceIndices();
+			for (unsigned int ii = 0; ii < geom->getIndexCount(); ii++) {
+				int index;
+				index = indices[ii]; if (index < 0) index = -(index + 1);
+
+				finalIndices.push_back(index);
+			}
+
+			ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f)); 
+			AddMesh(ref<Mesh>(new Mesh(finalVertices, finalIndices, mat)));
+		}
 	}
 
 	Model::~Model() {
@@ -87,5 +131,18 @@ namespace Crimson {
 
 	void Model::AddMesh(const ref<Mesh>& mesh) {
 		m_meshes.push_back(mesh);
+	}
+
+	ref<Mesh>& Model::GetFirstMesh() {
+		if (m_meshes.size() > 0) {
+			return m_meshes[0];
+		}
+
+		Log(LogType::INFO, "No first mesh for Model::GetFirstMesh. Creating new sphere mesh instead");
+
+		ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f));
+		m_meshes.push_back(MeshFactory::NewSphereMesh(mat));
+
+		return m_meshes[0];
 	}
 }

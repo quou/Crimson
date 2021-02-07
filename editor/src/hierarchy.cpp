@@ -340,28 +340,44 @@ namespace Crimson {
 			DrawComponent<RenderableComponent>("renderable", m_selectionContext, [](void* component){
 				RenderableComponent* rc = (RenderableComponent*)component;
 
-				ref<Model> m = rc->m_model;
+				ref<Model>& m = rc->m_model;
+
+				ref<Mesh>& firstMesh = m->GetFirstMesh();
+				std::string selectedMeshType;
+				if (!m->IsFromFile()) {
+					selectedMeshType = firstMesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
+				} else {
+					selectedMeshType = m->GetPath();
+				}
+
+				DrawComboBox("mesh", [&](){
+					if (ImGui::BeginCombo("###MESHCOMBO", selectedMeshType.c_str())) {
+						if (ImGui::Selectable("new sphere mesh", "sphere" == selectedMeshType)) {
+							m->ClearMeshes();
+							m->AddMesh(MeshFactory::NewSphereMesh(ref<Material>(new PhongMaterial("standard", vec3(1.0f), 32.0f))));
+						}
+
+						if (ImGui::Selectable("new cube mesh", "cube" == selectedMeshType)) {
+							m->ClearMeshes();
+							m->AddMesh(MeshFactory::NewCubeMesh(ref<Material>(new PhongMaterial("standard", vec3(1.0f), 32.0f))));
+						}
+
+						for (const auto& e : AssetManager::GetDir()) {
+							if (e.second == "fbx") {
+								if (ImGui::Selectable(e.first.c_str(), e.first == m->GetPath())) {
+									m = ref<Model>(new Model(e.first.c_str()));
+								}
+							}
+						}
+
+						ImGui::EndCombo();
+					}
+				});
 
 				int i = 0;
 				for (ref<Mesh>& mesh : m->GetMeshList()) {
 					std::string meshName = "mesh " + std::to_string(i);
 					if (ImGui::TreeNode(meshName.c_str())) {
-						std::string selectedMeshType = mesh->GetFactoryType() == Mesh::CUBE ? "cube" : "sphere";
-
-						DrawComboBox("mesh", [&](){
-							if (ImGui::BeginCombo("###MESHCOMBO", selectedMeshType.c_str())) {
-								if (ImGui::Selectable("sphere", "sphere" == selectedMeshType)) {
-									mesh = MeshFactory::NewSphereMesh(mesh->GetMaterial());
-								}
-
-								if (ImGui::Selectable("cube", "cube" == selectedMeshType)) {
-									mesh = MeshFactory::NewCubeMesh(mesh->GetMaterial());
-								}
-
-								ImGui::EndCombo();
-							}
-						});
-						
 						ref<Material> material = mesh->GetMaterial();
 
 						if (material->m_type == "phong") {

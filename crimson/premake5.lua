@@ -58,7 +58,7 @@ project "crimson"
 		crimsonExternalDeps,
 	}
 
-	files { "include/**.h", "src/**.h", "src/**.cpp" }
+	files { "include/**.h", "src/**.h", "src/**.cpp", "src/**.c" }
 
 	defines {
 		"GLFW_INCLUDE_NONE",
