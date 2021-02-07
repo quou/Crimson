@@ -94,23 +94,4 @@
             <quadratic v="0.032000001519918442"/>
         </pointlight>
     </entity>
-    <entity name="cube">
-        <transform>
-            <translation x="-5.1999998092651367" y="1.7999999523162842" z="0"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <renderable>
-            <mesh index="0">
-                <source>
-                    <instance type="cube"/>
-                </source>
-                <phongmaterial>
-                    <shader v="standard"/>
-                    <color x="1" y="1" z="1"/>
-                    <shininess v="32"/>
-                </phongmaterial>
-            </mesh>
-        </renderable>
-    </entity>
 </scene>

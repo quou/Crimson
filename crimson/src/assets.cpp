@@ -108,12 +108,14 @@ float CalculateDirectionalShadow(Sun light, vec3 normal, vec3 lightDir) {
 	float closestDepth = texture(u_shadowmap, projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
+	float bias = 0.0007;
+
 	float shadow = 0.0;
 	vec2 texelSize = 1.0 / textureSize(u_shadowmap, 0);
 	for(int x = -1; x <= 1; ++x) {
 		for(int y = -1; y <= 1; ++y) {
 			float pcfDepth = texture(u_shadowmap, projCoords.xy + vec2(x, y) * texelSize).r;
-			float pcf = currentDepth > pcfDepth ? 1.0 : 0.0;
+			float pcf = currentDepth - bias > pcfDepth ? 1.0 : 0.0;
 			shadow += pcf;
 		}
 	}
