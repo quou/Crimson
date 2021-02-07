@@ -6,14 +6,11 @@
             <scale x="1" y="1" z="1"/>
         </transform>
         <script>
-            <class v="Sphere"/>
+            <class v="BackAndForth"/>
             <serialisablefloats>
-                <someFloat v="0.11999999731779099" i="4"/>
                 <speed v="3" i="4"/>
             </serialisablefloats>
-            <serialisableints>
-                <someInt v="11" i="3"/>
-            </serialisableints>
+            <serialisableints/>
             <serialisablestrings/>
         </script>
         <renderable>
@@ -87,7 +84,7 @@
             <serialisablestrings/>
         </script>
         <pointlight>
-            <color x="1" y="1" z="1"/>
+            <color x="1" y="0.99998998641967773" z="0.99998998641967773"/>
             <intensity v="0.69999998807907104"/>
             <constant v="1"/>
             <linear v="0.090000003576278687"/>

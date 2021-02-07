@@ -1,4 +1,4 @@
-class Sphere : CrimsonBehaviour {
+class BackAndForth : CrimsonBehaviour {
 	private Transform@ transform;
 	private float posOffset;
 	private bool hasTransform;
