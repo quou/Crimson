@@ -31,11 +31,14 @@ namespace Crimson {
 
 		Scene();
 
+		/* Delete any entities that are marked as destroyed */
 		void Refresh();
 
 		void Update(float delta);
 		void UpdateAndRefresh(float delta);
 
+		/* Re-init script components, to prevent a dangling pointer
+		 * to the behaviour instance */
 		void UpdateBehaviourInstances();
 
 		void Draw(const Camera& camera) const;
