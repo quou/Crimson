@@ -2,7 +2,7 @@
     <entity name="monkey">
         <transform>
             <translation x="0" y="0" z="2"/>
-            <rotation x="0" y="0" z="0"/>
+            <rotation x="90" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <script>
@@ -18,8 +18,8 @@
             <mesh index="0">
                 <phongmaterial>
                     <shader v="standard"/>
-                    <color x="0.64822542667388916" y="0.53488373756408691" z="1"/>
-                    <shininess v="100"/>
+                    <color x="1" y="1" z="1"/>
+                    <shininess v="200"/>
                 </phongmaterial>
             </mesh>
         </renderable>

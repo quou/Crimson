@@ -70,14 +70,7 @@ namespace Crimson {
 			ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f));
 			ref<Mesh> cmesh(new Mesh(finalVertices, finalIndices, mat));
 
-			const ofbx::Matrix localTransform = geom->getGlobalTransform();
-
-			float elements[16];
-			for (unsigned int i = 0; i < 16; i++) {
-				elements[i] = localTransform.m[i];
-			}
-
-			cmesh->m_localTransform = mat4(elements) * mat4::scale(vec3(0.01f));
+			cmesh->m_localTransform = mat4(1.0f);
 
 			AddMesh(cmesh);
 		}
