@@ -31,7 +31,7 @@ namespace Crimson {
 		void DrawLitScene(const Camera& camera, Scene* scene);
 
 		inline std::vector<ref<Mesh>>& GetMeshList() { return m_meshes; }
-		inline void ClearMeshes() { m_meshes.clear(); }
+		inline void ClearMeshes() { m_fromFile = false; m_meshes.clear(); }
 
 		inline const std::string& GetPath() const { return m_path; }
 		inline bool IsFromFile() const { return m_fromFile; }

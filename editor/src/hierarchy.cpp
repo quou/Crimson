@@ -401,7 +401,7 @@ namespace Crimson {
 
 										ImGui::EndCombo();
 									}
-								});	
+								});
 
 								PhongMaterial* phongMat = (PhongMaterial*)material.get();
 

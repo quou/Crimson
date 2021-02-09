@@ -281,6 +281,8 @@ namespace Crimson {
 
 					XMLElement* meshNode = componentNode->FirstChildElement("mesh");
 					while (meshNode) {
+						int meshIndex = meshNode->IntAttribute("index");
+
 						ref<Material> material;
 
 						XMLElement* materialNode = meshNode->FirstChildElement("phongmaterial");
@@ -290,6 +292,14 @@ namespace Crimson {
 								DeserialiseVec3(materialNode, "color"),
 								DeserialiseFloat(materialNode, "shininess")
 							));
+
+							if (modelSourceNode) {
+								std::vector<ref<Mesh>>& meshes = model->GetMeshList();
+
+								if (meshes.size() >= meshIndex && meshIndex >= 0) {
+									meshes[meshIndex]->UseMaterial(material);
+								}
+							}
 						} else {
 							Log(LogType::WARNING, "No material");
 						}
