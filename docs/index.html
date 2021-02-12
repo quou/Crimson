@@ -88,7 +88,8 @@
 				It takes an <code>&out</code> reference, and outputs the component depending 
 				on the type of the reference that it gets passed.</p>
 			
-			<p><code>GetComponent</code> is quite slow, so avoid calling it every frame.</p>
+			<p><code>GetComponent</code> is quite slow, so avoid calling it every frame. 
+				Rather, call it once on initialisation and store the result.</p>
 				
 			<p>If the type that is passed is 
 				not a valid component, then an error is generated and the reference set to <code>null</code>.
