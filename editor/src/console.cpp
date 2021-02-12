@@ -14,6 +14,7 @@ namespace Crimson {
 
 		if (ImGui::BeginMenuBar()) {
 			if (ImGui::Button("clear")) {
+				m_lastSize = 0;
 				ClearLogs();
 			}
 			ImGui::SameLine();
@@ -80,6 +81,11 @@ namespace Crimson {
 
 			if (ImGui::IsItemClicked()) {
 				selectedEntry = entry.message;
+			}
+
+			if (GetLogs().size() > m_lastSize) {
+				ImGui::SetScrollY(ImGui::GetScrollMaxY());
+				m_lastSize = GetLogs().size();
 			}
 		
 			ImGui::PopStyleColor();
