@@ -10,6 +10,11 @@
 
 namespace Crimson {
 	void Editor::Save() {
+		if (m_isRunning) {
+			Log(LogType::WARNING, "Failed to save scene in play mode: Possible loss of data. Press CTRL+SHIFT+S to override.");
+			return;
+		}
+
 		if (m_currentSaveFile.empty()) {
 			SaveAs();
 			return;
@@ -131,19 +136,19 @@ namespace Crimson {
 
 
 		/* Shortcuts */
-		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_N)) {
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_N)) {
 			Open();
 		}
 
-		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_O)) {
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_O)) {
 			Open();
 		}
 
-		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_S)) {
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyPressed(CR_KEY_S)) {
 			Save();
 		}
 
-		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyDown(CR_KEY_S)) {
+		if (ImGui::IsKeyDown(CR_KEY_LEFT_CONTROL) && ImGui::IsKeyDown(CR_KEY_LEFT_SHIFT) && ImGui::IsKeyPressed(CR_KEY_S)) {
 			SaveAs();
 		}
 
