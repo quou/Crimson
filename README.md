@@ -27,6 +27,7 @@ The `run.sh` file will build the project. If the build is successful, then it wi
 ```bash
 ./run.sh
 ```
+MacOS is currently untested, but it likely will not work due to Apple's shaky support of OpenGL.
 
 ### Windows
 Generate Visual Studio/CodeLite project using Premake5, open the project and click "build".
