@@ -7,9 +7,7 @@
         </transform>
         <script>
             <class v="BackAndForth"/>
-            <serialisablefloats>
-                <speed v="3" i="4"/>
-            </serialisablefloats>
+            <serialisablefloats/>
             <serialisableints/>
             <serialisablestrings/>
         </script>
@@ -74,5 +72,30 @@
             <linear v="0.090000003576278687"/>
             <quadratic v="0.032000001519918442"/>
         </pointlight>
+    </entity>
+    <entity name="player">
+        <transform>
+            <translation x="0" y="0" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <script>
+            <class v="Controller"/>
+            <serialisablefloats/>
+            <serialisableints/>
+            <serialisablestrings/>
+        </script>
+        <renderable>
+            <mesh index="0">
+                <source>
+                    <instance type="sphere"/>
+                </source>
+                <phongmaterial>
+                    <shader v="standard"/>
+                    <color x="1" y="1" z="1"/>
+                    <shininess v="32"/>
+                </phongmaterial>
+            </mesh>
+        </renderable>
     </entity>
 </scene>
