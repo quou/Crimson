@@ -31,7 +31,7 @@ namespace Crimson {
 
 			ImGui::Image((ImTextureID)(unsigned long)m_renderTarget->GetOutput(), ImVec2(size.x, size.y));
 
-			if (editor->m_selectedEntity) {
+			if (editor->m_selectedEntity && editor->m_selectedEntity->HasComponent<TransformComponent>()) {
 				ImGuizmo::SetOrthographic(false);
 				ImGuizmo::SetDrawlist();
 				ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
