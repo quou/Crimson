@@ -23,10 +23,13 @@ If you have any questions or comments - I will respond quicker on Discord rather
  - A GPU with OpenGL 4.2+
 
 ### Unix
-```
-./build.sh
+The `run.sh` file will build the project. If the build is successful, then it will run the editor executable.
+```bash
 ./run.sh
 ```
 
 ### Windows
 Generate Visual Studio/CodeLite project using Premake5, open the project and click "build".
+```bash
+premake5 vs2019
+```
