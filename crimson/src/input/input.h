@@ -17,7 +17,9 @@ namespace Crimson {
 		bool m_upMouse[CR_MOUSE_BUTTON_COUNT];
 		vec2 m_mousePosition;
 
-		void Reset();
+		static EventSystem& instance(); 
+
+		static void Reset();
 
 		friend class Window;
 		friend class Application;
@@ -25,18 +27,18 @@ namespace Crimson {
 		EventSystem();
 		virtual ~EventSystem();
 
-		inline bool KeyPressed(int key) const { return m_inputs[key]; }
-		inline bool KeyJustPressed(int key) const { return m_downKeys[key]; }
-		inline bool KeyJustReleased(int key) const { return m_upKeys[key]; }
+		static inline bool KeyPressed(int key) { return instance().m_inputs[key]; }
+		static inline bool KeyJustPressed(int key) { return instance().m_downKeys[key]; }
+		static inline bool KeyJustReleased(int key) { return instance().m_upKeys[key]; }
 
-		inline bool MouseButtonPressed(int button) const { return m_mouseInput[button]; }
-		inline bool MouseButtonJustPressed(int button) const { return m_downMouse[button]; }
-		inline bool MouseButtonJustReleased(int button) const { return m_upMouse[button]; }
+		static inline bool MouseButtonPressed(int button) { return instance().m_mouseInput[button]; }
+		static inline bool MouseButtonJustPressed(int button) { return instance().m_downMouse[button]; }
+		static inline bool MouseButtonJustReleased(int button) { return instance().m_upMouse[button]; }
 
-		const vec2& GetMousePosition() const { return m_mousePosition; }
+		static const vec2& GetMousePosition() { return instance().m_mousePosition; }
 
-		void KeyCallback(int key, int scancode, int action, int mods);
-		void MouseButtonCallback(int button, int action, int mods);
-		void MouseMoveCallback(float x, float y);
+		static void KeyCallback(int key, int scancode, int action, int mods);
+		static void MouseButtonCallback(int button, int action, int mods);
+		static void MouseMoveCallback(float x, float y);
 	};
 }

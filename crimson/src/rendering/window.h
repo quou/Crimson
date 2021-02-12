@@ -18,8 +18,6 @@ namespace Crimson {
 
 		friend class ImGuiManager;
 	public:
-		ref<EventSystem> m_eventSystem;
-
 		Window(const char* title, int w, int h);
 		virtual ~Window();
 

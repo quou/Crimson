@@ -13,10 +13,10 @@ namespace Crimson {
 
 		if (m_firstMove) {
 			m_firstMove = false;
-			m_oldMouse = editor->m_window->m_eventSystem->GetMousePosition();
+			m_oldMouse = EventSystem::GetMousePosition();
 		}
 
-		vec2 pos = editor->m_window->m_eventSystem->GetMousePosition();
+		vec2 pos = EventSystem::GetMousePosition();
 
 		float changeX = pos.x - m_oldMouse.x;
 		float changeY = m_oldMouse.y - pos.y;
@@ -47,15 +47,15 @@ namespace Crimson {
 
 		vec3 right = direction.cross(vec3::up());
 
-		if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_W)) {
+		if (EventSystem::KeyPressed(CR_KEY_W)) {
 			m_camera.position += direction * 15.0f * delta;
-		} else if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_S)) {
+		} else if (EventSystem::KeyPressed(CR_KEY_S)) {
 			m_camera.position -= direction * 15.0f * delta;
 		}
 
-		if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_A)) {
+		if (EventSystem::KeyPressed(CR_KEY_A)) {
 			m_camera.position -= right * 15.0f * delta;
-		} else if (editor->m_window->m_eventSystem->KeyPressed(CR_KEY_D)) {
+		} else if (EventSystem::KeyPressed(CR_KEY_D)) {
 			m_camera.position += right * 15.0f * delta;
 		}
 	}

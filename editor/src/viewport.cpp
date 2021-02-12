@@ -21,7 +21,7 @@ namespace Crimson {
 			/* Update perspective */
 			m_camera.Update(size, editor);
 
-			if (ImGui::IsWindowHovered() && editor->m_window->m_eventSystem->MouseButtonPressed(CR_MOUSE_BUTTON_RIGHT)) {
+			if (ImGui::IsWindowHovered() && EventSystem::MouseButtonPressed(CR_MOUSE_BUTTON_RIGHT)) {
 				m_camera.Move(delta, editor);
 			}
 

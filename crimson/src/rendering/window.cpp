@@ -19,36 +19,15 @@ namespace Crimson {
 	}
 
 	static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-		Window* windowClass = (Window*)glfwGetWindowUserPointer(window);
-
-		if (!windowClass) {
-			Log(LogType::WARNING, "No window user pointer");
-			return;
-		}
-
-		windowClass->m_eventSystem->KeyCallback(key, scancode, action, mods);
+		EventSystem::KeyCallback(key, scancode, action, mods);
 	}
 
 	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		Window* windowClass = (Window*)glfwGetWindowUserPointer(window);
-
-		if (!windowClass) {
-			Log(LogType::WARNING, "No window user pointer");
-			return;
-		}
-
-		windowClass->m_eventSystem->MouseButtonCallback(button, action, mods);
+		EventSystem::MouseButtonCallback(button, action, mods);
 	}
 
 	static void MouseMoveCallback(GLFWwindow* window, double x, double y) {
-		Window* windowClass = (Window*)glfwGetWindowUserPointer(window);
-
-		if (!windowClass) {
-			Log(LogType::WARNING, "No window user pointer");
-			return;
-		}
-
-		windowClass->m_eventSystem->MouseMoveCallback(x, y);
+		EventSystem::MouseMoveCallback(x, y);
 	}
 	
 	Window::Window(const char* title, int w, int h)
@@ -68,8 +47,6 @@ namespace Crimson {
 
 		glfwMakeContextCurrent(m_window);
 		glfwSwapInterval(0);
-
-		m_eventSystem = ref<EventSystem>(new EventSystem());
 
 		/* Needed by event callbacks to interface with the 
 		 * window in a object-oriented manner */
@@ -95,7 +72,7 @@ namespace Crimson {
 	void Window::Update() const {
 		glfwSwapBuffers(m_window);
 		
-		m_eventSystem->Reset();
+		EventSystem::Reset();
 	}
 
 	void Window::Poll() const {

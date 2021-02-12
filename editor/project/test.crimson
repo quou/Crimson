@@ -75,21 +75,4 @@
             <quadratic v="0.032000001519918442"/>
         </pointlight>
     </entity>
-    <entity name="bunny">
-        <transform>
-            <translation x="3" y="1" z="0"/>
-            <rotation x="180" y="0" z="0"/>
-            <scale x="0.004999999888241291" y="0.004999999888241291" z="0.004999999888241291"/>
-        </transform>
-        <renderable>
-            <source v="/meshes/stanford-bunny.fbx"/>
-            <mesh index="0">
-                <phongmaterial>
-                    <shader v="standard"/>
-                    <color x="1" y="1" z="1"/>
-                    <shininess v="32"/>
-                </phongmaterial>
-            </mesh>
-        </renderable>
-    </entity>
 </scene>

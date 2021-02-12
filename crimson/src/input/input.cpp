@@ -19,27 +19,32 @@ namespace Crimson {
 
 	}
 
-	void EventSystem::Reset() {
-		memset(m_downKeys, 0, CR_KEY_COUNT * sizeof(bool));
-		memset(m_upKeys, 0, CR_KEY_COUNT * sizeof(bool));
+	EventSystem& EventSystem::instance() {
+		static EventSystem e;
+		return e;
+	}
 
-		memset(m_downMouse, 0, CR_MOUSE_BUTTON_COUNT * sizeof(bool));
-		memset(m_upMouse, 0, CR_MOUSE_BUTTON_COUNT * sizeof(bool));
+	void EventSystem::Reset() {
+		memset(instance().m_downKeys, 0, CR_KEY_COUNT * sizeof(bool));
+		memset(instance().m_upKeys, 0, CR_KEY_COUNT * sizeof(bool));
+
+		memset(instance().m_downMouse, 0, CR_MOUSE_BUTTON_COUNT * sizeof(bool));
+		memset(instance().m_upMouse, 0, CR_MOUSE_BUTTON_COUNT * sizeof(bool));
 	}
 
 	void EventSystem::KeyCallback(int key, int scancode, int action, int mods) {
-		m_downKeys[key] = action == GLFW_PRESS;
-		m_upKeys[key] = action == GLFW_RELEASE;
-		m_inputs[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
+		instance().m_downKeys[key] = action == GLFW_PRESS;
+		instance().m_upKeys[key] = action == GLFW_RELEASE;
+		instance().m_inputs[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
 	void EventSystem::MouseButtonCallback(int button, int action, int mods) {
-		m_downMouse[button] = action == GLFW_PRESS;
-		m_upMouse[button] = action == GLFW_RELEASE;
-		m_mouseInput[button] = action == GLFW_PRESS || action == GLFW_REPEAT;
+		instance().m_downMouse[button] = action == GLFW_PRESS;
+		instance().m_upMouse[button] = action == GLFW_RELEASE;
+		instance().m_mouseInput[button] = action == GLFW_PRESS || action == GLFW_REPEAT;
 	}
 
 	void EventSystem::MouseMoveCallback(float x, float y) {
-		m_mousePosition = vec2(x, y);
+		instance().m_mousePosition = vec2(x, y);
 	}
 }
