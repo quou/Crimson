@@ -87,6 +87,8 @@
 			<p>The generic getter for components is a member of the <code>Entity</code> class. 
 				It takes an <code>&out</code> reference, and outputs the component depending 
 				on the type of the reference that it gets passed.</p>
+			
+			<p><code>GetComponent</code> is quite slow, so avoid calling it every frame.</p>
 				
 			<p>If the type that is passed is 
 				not a valid component, then an error is generated and the reference set to <code>null</code>.
@@ -136,6 +138,47 @@ class Sun {
 class Camera {
 	bool active;
 }</code></pre>
+			<h2>input</h2>
+<pre><code class="language-angelscript">bool KeyPressed(int key)
+bool KeyJustPressed(int key);
+bool KeyJustReleased(int key);
+bool MouseButtonPressed(int key);
+bool MouseButtonJustPressed(int key);
+bool MouseButtonJustReleased(int key);
+vec2 GetMousePosition();
+</code></pre>
+
+		<h2>example keyboard controller</h2>
+<pre><code class="language-angelscript">class KeyboardController : CrimsonBehaviour {
+	private Transform@ transform;
+	private bool panicMode = false;
+
+	float speed;
+
+	void OnInit() {
+		entity.GetComponent(@transform);
+		if (@transform == null) {
+			panicMode = true;
+		}
+	}
+
+	void OnUpdate(float delta) {
+		if (panicMode) { return; }
+
+		if (EventSystem::KeyPressed(KEY_LEFT)) {
+			transform.translation.x += speed * delta;
+		} else if (EventSystem::KeyPressed(KEY_RIGHT)) {
+			transform.translation.x -= speed * delta;
+		}
+
+		if (EventSystem::KeyPressed(KEY_UP)) {
+			transform.translation.z += speed * delta;
+		} else if (EventSystem::KeyPressed(KEY_DOWN)) {
+			transform.translation.z -= speed * delta;
+		}
+	}
+}
+</code></pre>
 		</div>
 		
 		<script src="css/highlight.pack.js"></script>
