@@ -153,7 +153,9 @@ void main() {
 		lightingResult += u_material.color * u_skyLights[i].color * u_skyLights[i].intensity;
 	}
 
-	lightingResult += CalculateSun(u_sun, normal, viewDir);
+	if (u_useSun) {
+		lightingResult += CalculateSun(u_sun, normal, viewDir);
+	}
 
 	for (int i = 0; i < u_pointLightCount; i++) {
 		lightingResult += CalculatePointLight(u_pointLights[i], normal, viewDir);

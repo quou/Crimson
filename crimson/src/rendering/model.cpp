@@ -132,6 +132,7 @@ namespace Crimson {
 				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].linear").c_str(), light->linear);
 				s->SetUniformFloat(("u_pointLights[" + std::to_string(i) + "].quadratic").c_str(), light->quadratic);
 			}
+			s->SetUniformInt("u_pointLightCount", scene->GetPointLights()->size());
 
 			/* Apply sky lights */
 			for (unsigned int i = 0; i < scene->GetSkyLights()->size(); i++) {
@@ -140,9 +141,8 @@ namespace Crimson {
 				s->SetUniformVec3(("u_skyLights[" + std::to_string(i) + "].color").c_str(), light->color);
 				s->SetUniformFloat(("u_skyLights[" + std::to_string(i) + "].intensity").c_str(), light->intensity);
 			}
-
-			s->SetUniformInt("u_pointLightCount", scene->GetPointLights()->size());
 			s->SetUniformInt("u_skyLightCount", scene->GetSkyLights()->size());
+
 
 			s->SetUniformMat4("u_model", mesh->m_localTransform * m_transform);
 			s->SetUniformMat4("u_view", camera.GetView());

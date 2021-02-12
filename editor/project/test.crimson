@@ -1,7 +1,7 @@
 <scene>
     <entity name="monkey">
         <transform>
-            <translation x="-3.0999999046325684" y="0.30000001192092896" z="2.0999999046325684"/>
+            <translation x="2.4805288314819336" y="0.30000001192092896" z="2.0999999046325684"/>
             <rotation x="90" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -23,23 +23,6 @@
                 </phongmaterial>
             </mesh>
         </renderable>
-    </entity>
-    <entity name="sun">
-        <transform>
-            <translation x="0" y="0" z="0"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <skylight>
-            <color x="0.99999243021011353" y="1" z="0.99998998641967773"/>
-            <intensity v="0.20000000298023224"/>
-        </skylight>
-        <sun>
-            <direction x="51.099998474121094" y="46.5" z="-51.400001525878906"/>
-            <color x="1" y="1" z="1"/>
-            <intensity v="0.5"/>
-            <castshadows v="false"/>
-        </sun>
     </entity>
     <entity name="floor">
         <transform>
@@ -85,7 +68,7 @@
             <serialisablestrings/>
         </script>
         <pointlight>
-            <color x="9.9999999747524271e-07" y="9.9998999303352321e-07" z="9.9998999303352321e-07"/>
+            <color x="1" y="1" z="1"/>
             <intensity v="0.69999998807907104"/>
             <constant v="1"/>
             <linear v="0.090000003576278687"/>
