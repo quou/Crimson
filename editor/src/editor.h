@@ -22,6 +22,8 @@ namespace Crimson {
 		std::string m_currentSavePath;
 		std::string m_currentSaveFile;
 	public:
+		Entity* m_selectedEntity;
+		
 		void OnInit();
 		void OnUpdate(float delta);
 		void OnExit();

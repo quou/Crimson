@@ -1,4 +1,5 @@
 #include <imgui.h>
+#include "imgui/ImGuizmo.h"
 
 #include "viewport.h"
 #include "editor.h"
@@ -29,6 +30,18 @@ namespace Crimson {
 			m_renderTarget->Unbind();
 
 			ImGui::Image((ImTextureID)(unsigned long)m_renderTarget->GetOutput(), ImVec2(size.x, size.y));
+
+			if (editor->m_selectedEntity) {
+				ImGuizmo::SetOrthographic(false);
+				ImGuizmo::SetDrawlist();
+				ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+
+				mat4 transform = editor->m_selectedEntity->GetComponent<TransformComponent>()->GetMatrix();
+
+				ImGuizmo::Manipulate(m_camera.GetCamera().GetView().elements, m_camera.GetCamera().projection.elements,
+										ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, transform.elements,
+										NULL, NULL);
+			}
 		}
 		ImGui::End();
 

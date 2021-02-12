@@ -25,6 +25,12 @@ namespace Crimson {
 	Model::Model(const char* path) : m_fromFile(true), m_path(path) {
 		std::pair<unsigned char*, unsigned int> fileData = AssetManager::LoadBinary(path);
 
+		if (fileData.first == NULL || fileData.second == 0) {
+			ref<Material> mat(new PhongMaterial("standard", vec3(1.0f), 32.0f));
+			AddMesh(MeshFactory::NewSphereMesh(mat));
+			return;
+		}
+
 		ofbx::IScene* scene = ofbx::load((ofbx::u8*)fileData.first, fileData.second, (ofbx::u64)ofbx::LoadFlags::TRIANGULATE);
 
 		for (unsigned int i = 0; i < scene->getMeshCount(); i++) {

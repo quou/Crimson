@@ -420,5 +420,7 @@ namespace Crimson {
 			}, true);
 		}
 		ImGui::End();
+
+		editor->m_selectedEntity = m_selectionContext;
 	}
 }

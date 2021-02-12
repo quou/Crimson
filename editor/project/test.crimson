@@ -1,25 +1,25 @@
 <scene>
     <entity name="monkey">
         <transform>
-            <translation x="0" y="0" z="2"/>
+            <translation x="-3.0999999046325684" y="0.30000001192092896" z="2.0999999046325684"/>
             <rotation x="90" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <script>
             <class v="BackAndForth"/>
             <serialisablefloats>
-                <speed v="3.5" i="4"/>
+                <speed v="3" i="4"/>
             </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>
         </script>
         <renderable>
-            <source v="/monkey.fbx"/>
+            <source v="/meshes/monkey.fbx"/>
             <mesh index="0">
                 <phongmaterial>
                     <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
-                    <shininess v="200"/>
+                    <shininess v="32"/>
                 </phongmaterial>
             </mesh>
         </renderable>
@@ -35,7 +35,7 @@
             <intensity v="0.20000000298023224"/>
         </skylight>
         <sun>
-            <direction x="18.200000762939453" y="46.5" z="-51.400001525878906"/>
+            <direction x="51.099998474121094" y="46.5" z="-51.400001525878906"/>
             <color x="1" y="1" z="1"/>
             <intensity v="0.5"/>
             <castshadows v="false"/>
@@ -91,5 +91,22 @@
             <linear v="0.090000003576278687"/>
             <quadratic v="0.032000001519918442"/>
         </pointlight>
+    </entity>
+    <entity name="bunny">
+        <transform>
+            <translation x="3" y="1" z="0"/>
+            <rotation x="180" y="0" z="0"/>
+            <scale x="0.004999999888241291" y="0.004999999888241291" z="0.004999999888241291"/>
+        </transform>
+        <renderable>
+            <source v="/meshes/stanford-bunny.fbx"/>
+            <mesh index="0">
+                <phongmaterial>
+                    <shader v="standard"/>
+                    <color x="1" y="1" z="1"/>
+                    <shininess v="32"/>
+                </phongmaterial>
+            </mesh>
+        </renderable>
     </entity>
 </scene>
