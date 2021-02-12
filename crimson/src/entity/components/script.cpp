@@ -33,18 +33,22 @@ namespace Crimson {
 			}
 		}
 
-		for (auto& f : invalidFields) {
-			try {
-				m_serialisableFloats.erase(f);
-			} catch (const std::exception& e) {}
+		/* Only reset if the script manager is compiled, otherwise the user
+		 * might lose data if they make a mistake */
+		if (m_entity->m_scene->m_scriptManager->CompilationSuccess()) {
+			for (auto& f : invalidFields) {
+				try {
+					m_serialisableFloats.erase(f);
+				} catch (const std::exception& e) {}
 
-			try {
-				m_serialisableInts.erase(f);
-			} catch (const std::exception& e) {}
+				try {
+					m_serialisableInts.erase(f);
+				} catch (const std::exception& e) {}
 
-			try {
-				m_serialisableStrings.erase(f);
-			} catch (const std::exception& e) {}
+				try {
+					m_serialisableStrings.erase(f);
+				} catch (const std::exception& e) {}
+			}
 		}
 
 		if (!m_dontCallInit) {

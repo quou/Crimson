@@ -82,6 +82,6 @@ namespace Crimson {
 		std::string GetStringProperty(const BehaviourInstance& instance, const BehaviourField& field);
 		bool SetStringProperty(const BehaviourInstance& instance, const BehaviourField& field, std::string value);
 
-		inline bool CompiliationSuccess() const { return m_compilationSuccess; }
+		inline bool CompilationSuccess() const { return m_compilationSuccess; }
 	};
 }

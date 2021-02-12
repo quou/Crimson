@@ -81,7 +81,9 @@
         </transform>
         <script>
             <class v="Controller"/>
-            <serialisablefloats/>
+            <serialisablefloats>
+                <speed v="12" i="3"/>
+            </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>
         </script>

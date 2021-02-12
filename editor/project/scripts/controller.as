@@ -2,7 +2,7 @@ class Controller : CrimsonBehaviour {
 	private Transform@ transform;
 	private bool panicMode = false;
 
-	float speed = 10;
+	float speed;
 
 	void OnInit() {
 		entity.GetComponent(@transform);

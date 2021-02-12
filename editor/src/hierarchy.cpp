@@ -262,9 +262,9 @@ namespace Crimson {
 			DrawComponent<ScriptComponent>("script", m_selectionContext, [&](void* component){
 				ScriptComponent* slc = (ScriptComponent*)component;
 
-				bool exists = scene->m_scriptManager->CompiliationSuccess() && scene->m_scriptManager->CheckBehaviourExistance(slc->m_behaviourDecl.c_str());
+				bool exists = scene->m_scriptManager->CompilationSuccess() && scene->m_scriptManager->CheckBehaviourExistance(slc->m_behaviourDecl.c_str());
 
-				if (scene->m_scriptManager->CompiliationSuccess()) {
+				if (scene->m_scriptManager->CompilationSuccess()) {
 					if (exists) {
 						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
 						ImGui::Text(ICON_FK_CHECK " valid behaviour");
