@@ -377,6 +377,12 @@ namespace Crimson {
 		engine->SetDefaultNamespace("EventSystem");
 
 		r = engine->RegisterGlobalFunction("bool KeyPressed(int key)", asFUNCTION(EventSystem::KeyPressed), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool KeyJustPressed(int key)", asFUNCTION(EventSystem::KeyJustPressed), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool KeyJustReleased(int key)", asFUNCTION(EventSystem::KeyJustReleased), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool MouseButtonPressed(int key)", asFUNCTION(EventSystem::MouseButtonPressed), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool MouseButtonJustPressed(int key)", asFUNCTION(EventSystem::MouseButtonJustPressed), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool MouseButtonJustReleased(int key)", asFUNCTION(EventSystem::MouseButtonJustReleased), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("vec2 GetMousePosition()", asFUNCTION(EventSystem::GetMousePosition), asCALL_CDECL); assert(r >= 0);
 
 		engine->SetDefaultNamespace("");
 	}
@@ -406,13 +412,13 @@ namespace Crimson {
 		/* Utility functions */	
 		r = engine->RegisterGlobalFunction("string ToString(double)", asFUNCTION(ScriptToString), asCALL_CDECL); assert(r >= 0);
 
-		/* Base engine utils */
-		RegisterInput(engine);
-
 		/* Maths */
 		RegisterVec2(engine);
 		RegisterVec3(engine);
 		RegisterVec4(engine);
+
+		/* Base engine utils */
+		RegisterInput(engine);
 
 		/* Entity */
 		RegisterComponents(engine);
