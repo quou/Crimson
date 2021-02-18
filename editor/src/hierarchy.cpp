@@ -407,6 +407,46 @@ namespace Crimson {
 
 								DrawColorControl("color", phongMat->color);
 								DrawFloatControl("shininess", &phongMat->shininess);
+
+								std::string selectedDiffuse = phongMat->diffuse;
+
+								DrawComboBox("diffuse", [&](){
+									if (ImGui::BeginCombo("###DIFFUSECOMBO", selectedDiffuse.c_str())) {
+										if (ImGui::Selectable("~", "~" == selectedDiffuse)) {
+											phongMat->diffuse = "~";
+										}
+
+										for (const auto& e : AssetManager::GetDir()) {
+											if (e.second == "jpg" || e.second == "png" || e.second == "psd" || e.second == "raw" || e.second == "bmp") {
+												if (ImGui::Selectable(e.first.c_str(), e.first == selectedDiffuse)) {
+													phongMat->diffuse = e.first;
+												}
+											}
+										}
+
+										ImGui::EndCombo();
+									}
+								});
+
+								std::string selectedNormal = phongMat->normal;
+
+								DrawComboBox("normal", [&](){
+									if (ImGui::BeginCombo("###NORMALCOMBO", selectedNormal.c_str())) {
+										if (ImGui::Selectable("~", "~" == selectedNormal)) {
+											phongMat->normal = "~";
+										}
+
+										for (const auto& e : AssetManager::GetDir()) {
+											if (e.second == "jpg" || e.second == "png" || e.second == "psd" || e.second == "raw" || e.second == "bmp") {
+												if (ImGui::Selectable(e.first.c_str(), e.first == selectedNormal)) {
+													phongMat->normal = e.first;
+												}
+											}
+										}
+
+										ImGui::EndCombo();
+									}
+								});
 							
 								ImGui::TreePop();
 							}

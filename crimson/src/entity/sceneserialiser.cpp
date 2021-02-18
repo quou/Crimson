@@ -205,6 +205,8 @@ namespace Crimson {
 								SerialiseString("shader", phongMat->m_shader.c_str(), printer);
 								SerialiseVec3("color", phongMat->color, printer);
 								SerialiseFloat("shininess", phongMat->shininess, printer);
+								SerialiseString("diffuse", phongMat->diffuse.c_str(), printer);
+								SerialiseString("normal", phongMat->normal.c_str(), printer);
 							printer.CloseElement();
 						}
 
@@ -290,7 +292,9 @@ namespace Crimson {
 							material = ref<Material>(new PhongMaterial(
 								DeserialiseString(materialNode, "shader").c_str(),
 								DeserialiseVec3(materialNode, "color"),
-								DeserialiseFloat(materialNode, "shininess")
+								DeserialiseFloat(materialNode, "shininess"),
+								DeserialiseString(materialNode, "diffuse"),
+								DeserialiseString(materialNode, "normal")
 							));
 
 							if (modelSourceNode) {

@@ -40,6 +40,10 @@ out vec4 v_color;
 struct Material {
 	vec3 color;
 	float shininess;
+	sampler2D diffuse;
+	bool useDiffuse;
+	sampler2D normal;
+	bool useNormal;
 };
 
 struct PointLight {
@@ -78,7 +82,24 @@ uniform bool u_shadowEnable;
 uniform Sun u_sun;
 uniform sampler2D u_shadowmap;
 
-uniform Material u_material = Material(vec3(1.0, 0.0, 0.0), 32.0);
+uniform Material u_material;
+
+vec3 GetNormalFromMap() {
+    vec3 tangentNormal = texture(u_material.normal, v_uv).xyz * 2.0 - 1.0;
+
+    vec3 Q1  = dFdx(v_worldPos);
+    vec3 Q2  = dFdy(v_worldPos);
+    vec2 st1 = dFdx(v_uv);
+    vec2 st2 = dFdy(v_uv);
+
+    vec3 N   = normalize(v_normal);
+    vec3 T  = normalize(Q1*st2.t - Q2*st1.t);
+    vec3 B  = -normalize(cross(N, T));
+    mat3 TBN = mat3(T, B, N);
+
+    return normalize(TBN * tangentNormal);
+}
+
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 viewDir) {
 	vec3 lightDir = normalize(light.position - v_worldPos);
@@ -145,6 +166,9 @@ vec3 CalculateSun(Sun light, vec3 normal, vec3 viewDir) {
 
 void main() {
 	vec3 normal = normalize(v_normal);
+	if (u_material.useNormal) {
+		normal = normalize(GetNormalFromMap());
+	}
 	vec3 viewDir = normalize(u_cameraPosition - v_worldPos);
 
 	vec3 lightingResult = vec3(0.0);
@@ -161,7 +185,12 @@ void main() {
 		lightingResult += CalculatePointLight(u_pointLights[i], normal, viewDir);
 	}
 
-	v_color = vec4(lightingResult, 1.0);
+	vec4 textureColor = vec4(1.0f);
+	if (u_material.useDiffuse) {
+		textureColor = texture(u_material.diffuse, v_uv);
+	}
+
+	v_color = textureColor * vec4(lightingResult, 1.0);
 }
 )";
 

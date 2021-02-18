@@ -1,13 +1,15 @@
 <scene>
     <entity name="monkey">
         <transform>
-            <translation x="2.4805288314819336" y="0.30000001192092896" z="2.0999999046325684"/>
+            <translation x="-0.92000001668930054" y="0.30000001192092896" z="-0.60000002384185791"/>
             <rotation x="90" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <script>
             <class v="BackAndForth"/>
-            <serialisablefloats/>
+            <serialisablefloats>
+                <speed v="3" i="4"/>
+            </serialisablefloats>
             <serialisableints/>
             <serialisablestrings/>
         </script>
@@ -18,6 +20,8 @@
                     <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
+                    <diffuse v="/brickwall.jpg"/>
+                    <normal v="/brickwall_normal.jpg"/>
                 </phongmaterial>
             </mesh>
         </renderable>
@@ -35,8 +39,10 @@
                 </source>
                 <phongmaterial>
                     <shader v="standard"/>
-                    <color x="0.98604649305343628" y="0.40817737579345703" z="0.40817737579345703"/>
+                    <color x="0.86511629819869995" y="0.40640348196029663" z="0.40640348196029663"/>
                     <shininess v="32"/>
+                    <diffuse v="~"/>
+                    <normal v="~"/>
                 </phongmaterial>
             </mesh>
         </renderable>
@@ -75,7 +81,7 @@
     </entity>
     <entity name="player">
         <transform>
-            <translation x="0" y="0" z="0"/>
+            <translation x="4.1999998092651367" y="0" z="2.2000000476837158"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -96,8 +102,24 @@
                     <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
+                    <diffuse v="~"/>
+                    <normal v="~"/>
                 </phongmaterial>
             </mesh>
         </renderable>
+    </entity>
+    <entity name="lamp">
+        <transform>
+            <translation x="-6.3000001907348633" y="0.5" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <pointlight>
+            <color x="1" y="1" z="1"/>
+            <intensity v="1"/>
+            <constant v="1"/>
+            <linear v="0.090000003576278687"/>
+            <quadratic v="0.032000001519918442"/>
+        </pointlight>
     </entity>
 </scene>

@@ -10,9 +10,11 @@ namespace Crimson {
 	public:
 		vec3 color;
 		float shininess;
+		std::string diffuse;
+		std::string normal;
 
-		PhongMaterial(const std::string& shader, const vec3& color, float shininess) 
-			: Material(shader, "phong"), color(color), shininess(shininess) {}
+		PhongMaterial(const std::string& shader, const vec3& color, float shininess, const std::string& diffuse = "~", const std::string& normal = "~")
+			: Material(shader, "phong"), color(color), shininess(shininess), diffuse(diffuse), normal(normal) {}
 
 		void Apply() override;
 	};
