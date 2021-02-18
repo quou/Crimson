@@ -331,14 +331,10 @@ namespace Crimson {
 
 	mat4 mat4::transpose(const mat4& matrix) {
 		return mat4(
-			vec4(matrix.rows[0].x, matrix.rows[1].x, 
-				matrix.rows[2].x, matrix.rows[3].x),
-			vec4(matrix.rows[0].y, matrix.rows[1].y, 
-				matrix.rows[2].y, matrix.rows[3].y),
-			vec4(matrix.rows[0].z, matrix.rows[1].z, 
-				matrix.rows[2].z, matrix.rows[3].z),
-			vec4(matrix.rows[0].w, matrix.rows[1].w,
-				matrix.rows[2].w, matrix.rows[3].w)
+			vec4(matrix.rows[0].x, matrix.rows[1].x, matrix.rows[2].x, matrix.rows[3].x),
+			vec4(matrix.rows[0].y, matrix.rows[1].y, matrix.rows[2].y, matrix.rows[3].y),
+			vec4(matrix.rows[0].z, matrix.rows[1].z, matrix.rows[2].z, matrix.rows[3].z),
+			vec4(matrix.rows[0].w, matrix.rows[1].w, matrix.rows[2].w, matrix.rows[3].w)
 			);
 	}
 

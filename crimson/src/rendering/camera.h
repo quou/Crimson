@@ -30,8 +30,6 @@ namespace Crimson {
 				cos(rot.x) * cos(rot.y)
 			);
 
-			vec3 right = direction.cross(vec3::up());
-
 			return mat4::lookat(position, position + direction, vec3::up());
 		}
 	};

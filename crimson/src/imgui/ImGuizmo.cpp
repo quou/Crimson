@@ -26,13 +26,11 @@
 #endif
 #include "imgui_internal.h"
 #include "ImGuizmo.h"
-#if !defined(_WIN32)
+#if !defined(_WIN32) 
 #define _malloca(x) alloca(x)
 #else
 #include <malloc.h>
 #endif
-
-#include <stdio.h>
 
 // includes patches for multiview from
 // https://github.com/CedricGuillemet/ImGuizmo/issues/15
@@ -42,7 +40,7 @@ namespace ImGuizmo
    static const float ZPI = 3.14159265358979323846f;
    static const float RAD2DEG = (180.f / ZPI);
    static const float DEG2RAD = (ZPI / 180.f);
-   static float gGizmoSizeClipSpace = 0.13f;
+   static float gGizmoSizeClipSpace = 0.15f;
    const float screenRotateSize = 0.04f;
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -686,7 +684,7 @@ namespace ImGuizmo
    static const float planeLimit = 0.2f;
 
    static const vec_t directionUnary[3] = { makeVect(1.f, 0.f, 0.f), makeVect(0.f, 1.f, 0.f), makeVect(0.f, 0.f, 1.f) };
-   static const ImU32 directionColor[3] = { 0xFF715ED8, 0xFF25AA25, 0xFFCC532C };
+   static const ImU32 directionColor[3] = { 0xFF715ED8, 0xFFCC532C, 0xFF25AA25, };
 
    // Alpha: 100%: FF, 87%: DE, 70%: B3, 54%: 8A, 50%: 80, 38%: 61, 12%: 1F
    static const ImU32 planeColor[3] = { 0xFF7A68D8, 0xFF55AB55, 0xFFD96742 };
@@ -2208,7 +2206,7 @@ namespace ImGuizmo
    {
       matrix_t viewInverse;
       viewInverse.Inverse(*(matrix_t*)view);
-
+      
       struct CubeFace
       {
          float z;
@@ -2294,7 +2292,7 @@ namespace ImGuizmo
                cubeFace.faceCoordsScreen[iCoord] = worldToPos(faceCoords[iCoord] * 0.5f * invert, res);
             }
             cubeFace.color = directionColor[normalIndex] | 0x808080;
-
+            
             cubeFace.z = centerPositionVP.z / centerPositionVP.w;
             cubeFaceCount++;
          }
@@ -2322,7 +2320,7 @@ namespace ImGuizmo
       vec_t frustum[6];
       ComputeFrustumPlanes(frustum, viewProjection.m16);
       matrix_t res = *(matrix_t*)matrix * viewProjection;
-
+         
       for (float f = -gridSize; f <= gridSize; f += 1.f)
       {
          for (int dir = 0; dir < 2; dir++)

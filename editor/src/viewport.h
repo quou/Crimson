@@ -10,10 +10,6 @@ namespace Crimson {
 		ref<RenderTarget> m_gameRenderTarget;
 
 		SceneCamera m_camera;
-
-		int m_gizmoType = 0;
-		float m_snapRotation = 45.0f;
-		float m_snapTranslation = 0.5f;
 	public:
 		Viewport();
 
