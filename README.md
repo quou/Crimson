@@ -11,9 +11,9 @@ If you have any questions or comments - I will respond quicker on Discord rather
 ![](https://github.com/georgelam6/Crimson/blob/master/docs/media/ss/Screenshot_2021-01-27_17-28-49.png)
 
 # Current Features
- - Basic 3D rendering
+ - 3D rendering
  - Scripting with AngelScript
- - Bare-bones editor
+ - Editor
  - Scene serialisation
 
 # Building
