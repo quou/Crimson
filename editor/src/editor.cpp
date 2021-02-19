@@ -159,6 +159,8 @@ namespace Crimson {
 				SceneSerialiser ss(m_scene);
 
 				ss.DeserialiseSceneFromMemory(m_currentSave, true);
+
+				ImGui::SetWindowFocus("viewport");
 			} else { /* Start execution */
 				ClearLogs();
 				
@@ -168,6 +170,8 @@ namespace Crimson {
 				m_scene = ref<Scene>(new Scene());
 				ss = SceneSerialiser(m_scene);
 				ss.DeserialiseSceneFromMemory(m_currentSave);
+
+				ImGui::SetWindowFocus("game");
 			}
 
 			m_isRunning = !m_isRunning;
