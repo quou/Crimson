@@ -7,7 +7,7 @@ namespace Crimson {
 	private:
 		Entity* m_selectionContext;
 		
-		void DrawEntityNode(const ref<Entity>& ent);
+		void DrawEntityNode(Entity* ent);
 	public:
 		void OnDraw(const ref<Scene>& scene, float delta) override;
 	};

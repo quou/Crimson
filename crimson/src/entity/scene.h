@@ -8,6 +8,7 @@
 
 namespace tinyxml2 {
 	class XMLPrinter;
+	class XMLElement;
 };
 
 namespace Crimson {
@@ -63,11 +64,14 @@ namespace Crimson {
 	class CR_API SceneSerialiser {
 	private:
 		ref<Scene> m_scene;
+
+		Entity* DeseraliseEntity(tinyxml2::XMLElement* node, bool dontInitScripts);
+		void DeserialiseEntities(tinyxml2::XMLElement* node, Entity* parent, bool dontInitScripts);
 	public:
 		SceneSerialiser(const ref<Scene>& scene)
 			: m_scene(scene) {}
 
-		void SerialiseEntity(const ref<Entity>& entity, tinyxml2::XMLPrinter& printer);
+		void SerialiseEntity(Entity* entity, tinyxml2::XMLPrinter& printer);
 
 		/* Serialise a scene and return the XML. If the path isn't null,
 		 * save the XML to the specified file */

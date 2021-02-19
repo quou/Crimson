@@ -7,20 +7,61 @@
 #include "editor.h"
 
 namespace Crimson {
-	void Hierarchy::DrawEntityNode(const ref<Entity>& ent) {
+	void Hierarchy::DrawEntityNode(Entity* ent) {
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
 
-		if (m_selectionContext == ent.get()) {
+		if (m_selectionContext == ent) {
 			flags |= ImGuiTreeNodeFlags_Selected;
+		}
+
+		if (ent->HasComponent<TransformComponent>() && ent->GetComponent<TransformComponent>()->children.size() == 0) {
+			flags |= ImGuiTreeNodeFlags_Leaf;
+		} else if (!ent->HasComponent<TransformComponent>()) {
+			flags |= ImGuiTreeNodeFlags_Leaf;
 		}
 
 		bool open = ImGui::TreeNodeEx((void*)(uint64_t)ent->GetID(), flags, "%s", ent->m_name.c_str());
 
 		if (ImGui::IsItemClicked()) {
-			m_selectionContext = ent.get();
+			m_selectionContext = ent;
 		}
 
+		if (ent->HasComponent<TransformComponent>()) {
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+				ImGui::Text("reparent");
+
+				ImGui::SetDragDropPayload("reparent entity", &ent, sizeof(Entity**));
+
+				ImGui::EndDragDropSource();
+			}
+		}
+
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("reparent entity")) {
+				Entity* draggedEntity = *static_cast<Entity**>(payload->Data);
+
+				if (draggedEntity != ent && draggedEntity->HasComponent<TransformComponent>() && ent->HasComponent<TransformComponent>() && ent->GetComponent<TransformComponent>()->parent != draggedEntity) {
+					if (draggedEntity->GetComponent<TransformComponent>()->parent) {
+						Entity* parent = draggedEntity->GetComponent<TransformComponent>()->parent;
+						std::vector<Entity*>& parentChildren = parent->GetComponent<TransformComponent>()->children;
+
+						parentChildren.erase(std::remove(parentChildren.begin(), parentChildren.end(), draggedEntity), parentChildren.end());
+					}
+
+					draggedEntity->GetComponent<TransformComponent>()->parent = ent;
+					ent->GetComponent<TransformComponent>()->children.push_back(draggedEntity);					
+				}
+			}
+		}
+
+
 		if (open) {
+			if (ent->HasComponent<TransformComponent>()) {
+				for (Entity* e : ent->GetComponent<TransformComponent>()->children) {
+					DrawEntityNode(e);
+				}
+			}
+
 			ImGui::TreePop();
 		}
 	}
@@ -136,8 +177,30 @@ namespace Crimson {
 				ImGui::EndPopup();
 			}
 
+			ImGui::Text("root");
+			if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("reparent entity")) {
+				Entity* draggedEntity = *static_cast<Entity**>(payload->Data);
+
+				if (draggedEntity->HasComponent<TransformComponent>()) {
+					if (draggedEntity->GetComponent<TransformComponent>()->parent) {
+						Entity* parent = draggedEntity->GetComponent<TransformComponent>()->parent;
+						std::vector<Entity*>& parentChildren = parent->GetComponent<TransformComponent>()->children;
+
+						parentChildren.erase(std::remove(parentChildren.begin(), parentChildren.end(), draggedEntity), parentChildren.end());
+					}
+
+					draggedEntity->GetComponent<TransformComponent>()->parent = NULL;
+				}
+			}
+		}
+
 			for (const ref<Entity>& ent : scene->GetEntities()) {
-				DrawEntityNode(ent);
+				if (ent->HasComponent<TransformComponent>() && !ent->GetComponent<TransformComponent>()->parent) {
+					DrawEntityNode(ent.get());
+				} else if (!ent->HasComponent<TransformComponent>()) {
+					DrawEntityNode(ent.get());
+				}
 			}
 
 			if (ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {

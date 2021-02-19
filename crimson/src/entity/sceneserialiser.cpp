@@ -16,7 +16,7 @@ using namespace tinyxml2;
 
 namespace Crimson {
 	template <typename T, typename F>
-	static void SerialiseComponent(const std::string& componentName, const ref<Entity>& entity, XMLPrinter& printer, F function) {
+	static void SerialiseComponent(const std::string& componentName, Entity* entity, XMLPrinter& printer, F function) {
 		if (!entity->HasComponent<T>()) { return; }
 
 		printer.OpenElement(componentName.c_str());
@@ -99,7 +99,7 @@ namespace Crimson {
 	}
 
 
-	void SceneSerialiser::SerialiseEntity(const ref<Entity>& entity, XMLPrinter& printer) {
+	void SceneSerialiser::SerialiseEntity(Entity* entity, XMLPrinter& printer) {
 		printer.OpenElement("entity");
 			printer.PushAttribute("name", entity->m_name.c_str());
 
@@ -216,6 +216,12 @@ namespace Crimson {
 				}
 			});
 
+			if (entity->HasComponent<TransformComponent>()) {
+				for (Entity* child : entity->GetComponent<TransformComponent>()->children) {
+					SerialiseEntity(child, printer);
+				}
+			}
+
 		printer.CloseElement();
 	}
 
@@ -225,7 +231,11 @@ namespace Crimson {
 		printer.OpenElement("scene");
 
 		for (const ref<Entity>& entity : m_scene->m_entities) {
-			SerialiseEntity(entity, printer);
+			if (entity->HasComponent<TransformComponent>() && !entity->GetComponent<TransformComponent>()->parent) {
+				SerialiseEntity(entity.get(), printer);
+			} else if (!entity->HasComponent<TransformComponent>()) {
+				SerialiseEntity(entity.get(), printer);
+			}
 		}
 
 		printer.CloseElement();
@@ -244,6 +254,184 @@ namespace Crimson {
 		DeserialiseSceneFromMemory(src, dontInitScripts);
 	}
 
+	Entity* SceneSerialiser::DeseraliseEntity(tinyxml2::XMLElement* entityNode, bool dontInitScripts) {
+		Entity* newEntity = m_scene->CreateEntity(entityNode->Attribute("name"));
+
+		/* Deserialise transform */
+		XMLElement* componentNode = entityNode->FirstChildElement("transform");
+		if (componentNode) {
+			TransformComponent* tc = newEntity->AddComponent<TransformComponent>();
+
+			tc->translation = DeserialiseVec3(componentNode, "translation");
+			tc->rotation = DeserialiseVec3(componentNode, "rotation");
+			tc->scale = DeserialiseVec3(componentNode, "scale");
+		}
+
+		/* Deserialise renderable */
+		componentNode = entityNode->FirstChildElement("renderable");
+		if (componentNode) {
+			ref<Model> model;
+			
+			XMLElement* modelSourceNode = componentNode->FirstChildElement("source");
+			if (modelSourceNode) {
+				model = ref<Model>(new Model(modelSourceNode->Attribute("v")));
+			} else {
+				model = ref<Model>(new Model());
+			}
+
+			XMLElement* meshNode = componentNode->FirstChildElement("mesh");
+			while (meshNode) {
+				int meshIndex = meshNode->IntAttribute("index");
+
+				ref<Material> material;
+
+				XMLElement* materialNode = meshNode->FirstChildElement("phongmaterial");
+				if (materialNode) {
+					material = ref<Material>(new PhongMaterial(
+						DeserialiseString(materialNode, "shader").c_str(),
+						DeserialiseVec3(materialNode, "color"),
+						DeserialiseFloat(materialNode, "shininess"),
+						DeserialiseString(materialNode, "diffuse"),
+						DeserialiseString(materialNode, "normal")
+					));
+
+					if (modelSourceNode) {
+						std::vector<ref<Mesh>>& meshes = model->GetMeshList();
+
+						if (meshes.size() >= meshIndex && meshIndex >= 0) {
+							meshes[meshIndex]->UseMaterial(material);
+						}
+					}
+				} else {
+					Log(LogType::WARNING, "No material");
+				}
+
+				XMLElement* sourceNode = meshNode->FirstChildElement("source");
+				if (sourceNode) {
+					XMLElement* instanceNode = sourceNode->FirstChildElement("instance");
+					if (instanceNode) {
+						std::string instanceType = instanceNode->Attribute("type");
+						if (instanceType == "sphere") {
+							model->AddMesh(MeshFactory::NewSphereMesh(material));
+						} else if (instanceType == "cube") {
+							model->AddMesh(MeshFactory::NewCubeMesh(material));
+						} else {
+							Log(LogType::ERROR, "Unknown mesh instance type: %s", instanceType.c_str());
+						}
+					}
+				}
+
+				meshNode = meshNode->NextSiblingElement("mesh");
+			}
+
+			newEntity->AddComponent<RenderableComponent>(model);
+		}
+
+		/* Deserialise point light */
+		componentNode = entityNode->FirstChildElement("pointlight");
+		if (componentNode) {
+			PointLightComponent* plc = newEntity->AddComponent<PointLightComponent>(
+				DeserialiseVec3(componentNode, "color"),
+				DeserialiseFloat(componentNode, "intensity")
+			);
+
+			plc->constant = DeserialiseFloat(componentNode, "constant");
+			plc->linear = DeserialiseFloat(componentNode, "linear");
+			plc->quadratic = DeserialiseFloat(componentNode, "quadratic");
+		}
+
+		/* Deserialise sky light */
+		componentNode = entityNode->FirstChildElement("skylight");
+		if (componentNode) {
+			newEntity->AddComponent<SkyLightComponent>(
+				DeserialiseVec3(componentNode, "color"),
+				DeserialiseFloat(componentNode, "intensity")
+			);
+		}
+
+		/* Deserialise sky light */
+		componentNode = entityNode->FirstChildElement("sun");
+		if (componentNode) {
+			newEntity->AddComponent<SunComponent>(
+				DeserialiseVec3(componentNode, "direction"),
+				DeserialiseVec3(componentNode, "color"),
+				DeserialiseFloat(componentNode, "intensity"),
+				DeserialiseBool(componentNode, "castshadows")
+			);
+		}
+
+		/* Deserialise camera */
+		componentNode = entityNode->FirstChildElement("camera");
+		if (componentNode) {
+			newEntity->AddComponent<CameraComponent>(
+				DeserialiseBool(componentNode, "active")
+			);
+		}
+
+		/* Deserialise script */
+		componentNode = entityNode->FirstChildElement("script");
+		if (componentNode) {
+			ScriptComponent* sc = newEntity->AddComponentManualInit<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());
+
+			XMLElement* sfloatNode = componentNode->FirstChildElement("serialisablefloats");
+			if (sfloatNode) {
+				XMLElement* node = sfloatNode->FirstChildElement();
+				while (node) {
+					BehaviourField field = BehaviourField{node->Name(), asTYPEID_FLOAT, node->UnsignedAttribute("i")};
+
+					sc->m_serialisableFloats[field] = node->FloatAttribute("v");
+
+					node = node->NextSiblingElement();
+				}
+			}
+
+			XMLElement* sintNode = componentNode->FirstChildElement("serialisableints");
+			if (sintNode) {
+				XMLElement* node = sintNode->FirstChildElement();
+				while (node) {
+					BehaviourField field = BehaviourField{node->Name(), asTYPEID_INT32, node->UnsignedAttribute("i")};
+
+					sc->m_serialisableInts[field] = node->IntAttribute("v");
+
+					node = node->NextSiblingElement();
+				}
+			}
+
+			XMLElement* sstringNode = componentNode->FirstChildElement("serialisablestrings");
+			if (sstringNode) {
+				XMLElement* node = sstringNode->FirstChildElement();
+				while (node) {
+					BehaviourField field = BehaviourField{node->Name(), m_scene->m_scriptManager->GetStringTypeID(), node->UnsignedAttribute("i")};
+
+					sc->m_serialisableStrings[field] = node->Attribute("v");
+
+					node = node->NextSiblingElement();
+				}
+			}
+
+			sc->m_dontCallInit = dontInitScripts;
+			sc->OnInit();
+		}
+
+		return newEntity;
+	}
+
+	void SceneSerialiser::DeserialiseEntities(tinyxml2::XMLElement* node, Entity* parent, bool dontInitScripts) {
+		XMLElement* entityNode = node->FirstChildElement("entity");
+		while (entityNode) {
+			Entity* entity = DeseraliseEntity(entityNode, dontInitScripts);
+
+			if (parent && entity && entity->HasComponent<TransformComponent>() && parent->HasComponent<TransformComponent>()) {
+				entity->GetComponent<TransformComponent>()->parent = parent;
+				parent->GetComponent<TransformComponent>()->children.push_back(entity);
+			}
+
+			DeserialiseEntities(entityNode, entity, dontInitScripts);
+
+			entityNode = entityNode->NextSiblingElement("entity");
+		}
+	}
+
 	void SceneSerialiser::DeserialiseSceneFromMemory(const std::string& xml, bool dontInitScripts) {
 		XMLDocument doc;
 
@@ -255,168 +443,7 @@ namespace Crimson {
 
 		XMLElement* sceneNode = doc.RootElement();
 		if (sceneNode) {
-			XMLElement* entityNode = sceneNode->FirstChildElement("entity");
-			while (entityNode) {
-				Entity* newEntity = m_scene->CreateEntity(entityNode->Attribute("name"));
-
-				/* Deserialise transform */
-				XMLElement* componentNode = entityNode->FirstChildElement("transform");
-				if (componentNode) {
-					TransformComponent* tc = newEntity->AddComponent<TransformComponent>();
-
-					tc->translation = DeserialiseVec3(componentNode, "translation");
-					tc->rotation = DeserialiseVec3(componentNode, "rotation");
-					tc->scale = DeserialiseVec3(componentNode, "scale");
-				}
-
-				/* Deserialise renderable */
-				componentNode = entityNode->FirstChildElement("renderable");
-				if (componentNode) {
-					ref<Model> model;
-					
-					XMLElement* modelSourceNode = componentNode->FirstChildElement("source");
-					if (modelSourceNode) {
-						model = ref<Model>(new Model(modelSourceNode->Attribute("v")));
-					} else {
-						model = ref<Model>(new Model());
-					}
-
-					XMLElement* meshNode = componentNode->FirstChildElement("mesh");
-					while (meshNode) {
-						int meshIndex = meshNode->IntAttribute("index");
-
-						ref<Material> material;
-
-						XMLElement* materialNode = meshNode->FirstChildElement("phongmaterial");
-						if (materialNode) {
-							material = ref<Material>(new PhongMaterial(
-								DeserialiseString(materialNode, "shader").c_str(),
-								DeserialiseVec3(materialNode, "color"),
-								DeserialiseFloat(materialNode, "shininess"),
-								DeserialiseString(materialNode, "diffuse"),
-								DeserialiseString(materialNode, "normal")
-							));
-
-							if (modelSourceNode) {
-								std::vector<ref<Mesh>>& meshes = model->GetMeshList();
-
-								if (meshes.size() >= meshIndex && meshIndex >= 0) {
-									meshes[meshIndex]->UseMaterial(material);
-								}
-							}
-						} else {
-							Log(LogType::WARNING, "No material");
-						}
-
-						XMLElement* sourceNode = meshNode->FirstChildElement("source");
-						if (sourceNode) {
-							XMLElement* instanceNode = sourceNode->FirstChildElement("instance");
-							if (instanceNode) {
-								std::string instanceType = instanceNode->Attribute("type");
-								if (instanceType == "sphere") {
-									model->AddMesh(MeshFactory::NewSphereMesh(material));
-								} else if (instanceType == "cube") {
-									model->AddMesh(MeshFactory::NewCubeMesh(material));
-								} else {
-									Log(LogType::ERROR, "Unknown mesh instance type: %s", instanceType.c_str());
-								}
-							}
-						}
-
-						meshNode = meshNode->NextSiblingElement("mesh");
-					}
-
-					newEntity->AddComponent<RenderableComponent>(model);
-				}
-
-				/* Deserialise point light */
-				componentNode = entityNode->FirstChildElement("pointlight");
-				if (componentNode) {
-					PointLightComponent* plc = newEntity->AddComponent<PointLightComponent>(
-						DeserialiseVec3(componentNode, "color"),
-						DeserialiseFloat(componentNode, "intensity")
-					);
-
-					plc->constant = DeserialiseFloat(componentNode, "constant");
-					plc->linear = DeserialiseFloat(componentNode, "linear");
-					plc->quadratic = DeserialiseFloat(componentNode, "quadratic");
-				}
-
-				/* Deserialise sky light */
-				componentNode = entityNode->FirstChildElement("skylight");
-				if (componentNode) {
-					newEntity->AddComponent<SkyLightComponent>(
-						DeserialiseVec3(componentNode, "color"),
-						DeserialiseFloat(componentNode, "intensity")
-					);
-				}
-
-				/* Deserialise sky light */
-				componentNode = entityNode->FirstChildElement("sun");
-				if (componentNode) {
-					newEntity->AddComponent<SunComponent>(
-						DeserialiseVec3(componentNode, "direction"),
-						DeserialiseVec3(componentNode, "color"),
-						DeserialiseFloat(componentNode, "intensity"),
-						DeserialiseBool(componentNode, "castshadows")
-					);
-				}
-
-				/* Deserialise camera */
-				componentNode = entityNode->FirstChildElement("camera");
-				if (componentNode) {
-					newEntity->AddComponent<CameraComponent>(
-						DeserialiseBool(componentNode, "active")
-					);
-				}
-
-				/* Deserialise script */
-				componentNode = entityNode->FirstChildElement("script");
-				if (componentNode) {
-					ScriptComponent* sc = newEntity->AddComponentManualInit<ScriptComponent>(DeserialiseString(componentNode, "class").c_str());
-
-					XMLElement* sfloatNode = componentNode->FirstChildElement("serialisablefloats");
-					if (sfloatNode) {
-						XMLElement* node = sfloatNode->FirstChildElement();
-						while (node) {
-							BehaviourField field = BehaviourField{node->Name(), asTYPEID_FLOAT, node->UnsignedAttribute("i")};
-
-							sc->m_serialisableFloats[field] = node->FloatAttribute("v");
-
-							node = node->NextSiblingElement();
-						}
-					}
-
-					XMLElement* sintNode = componentNode->FirstChildElement("serialisableints");
-					if (sintNode) {
-						XMLElement* node = sintNode->FirstChildElement();
-						while (node) {
-							BehaviourField field = BehaviourField{node->Name(), asTYPEID_INT32, node->UnsignedAttribute("i")};
-
-							sc->m_serialisableInts[field] = node->IntAttribute("v");
-
-							node = node->NextSiblingElement();
-						}
-					}
-
-					XMLElement* sstringNode = componentNode->FirstChildElement("serialisablestrings");
-					if (sstringNode) {
-						XMLElement* node = sstringNode->FirstChildElement();
-						while (node) {
-							BehaviourField field = BehaviourField{node->Name(), m_scene->m_scriptManager->GetStringTypeID(), node->UnsignedAttribute("i")};
-
-							sc->m_serialisableStrings[field] = node->Attribute("v");
-
-							node = node->NextSiblingElement();
-						}
-					}
-
-					sc->m_dontCallInit = dontInitScripts;
-					sc->OnInit();
-				}
-
-				entityNode = entityNode->NextSiblingElement("entity");
-			}
+			DeserialiseEntities(sceneNode, NULL, dontInitScripts);
 		}
 	}
 }
