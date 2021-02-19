@@ -1,7 +1,7 @@
 <scene>
     <entity name="monkey">
         <transform>
-            <translation x="-0.92000001668930054" y="0.30000001192092896" z="-0.60000002384185791"/>
+            <translation x="-0.92000001668930054" y="-1.2000000476837158" z="-0.60000002384185791"/>
             <rotation x="90" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -20,13 +20,13 @@
                     <shader v="standard"/>
                     <color x="1" y="1" z="1"/>
                     <shininess v="32"/>
-                    <diffuse v="/brickwall.jpg"/>
-                    <normal v="/brickwall_normal.jpg"/>
+                    <diffuse v="/textures/brickwall.jpg"/>
+                    <normal v="/textures/brickwall_normal.jpg"/>
                 </phongmaterial>
             </mesh>
         </renderable>
     </entity>
-    <entity name="floor">
+    <entity name="ground 001">
         <transform>
             <translation x="0" y="2.7000000476837158" z="0"/>
             <rotation x="0" y="0" z="0"/>
@@ -39,18 +39,18 @@
                 </source>
                 <phongmaterial>
                     <shader v="standard"/>
-                    <color x="0.86511629819869995" y="0.40640348196029663" z="0.40640348196029663"/>
+                    <color x="1" y="0.99998998641967773" z="0.99998998641967773"/>
                     <shininess v="32"/>
-                    <diffuse v="~"/>
-                    <normal v="~"/>
+                    <diffuse v="/textures/Asphalt_001_COLOR.jpg"/>
+                    <normal v="/textures/Stone_Path_005_Normal.jpg"/>
                 </phongmaterial>
             </mesh>
         </renderable>
     </entity>
     <entity name="main camera">
         <transform>
-            <translation x="-8" y="-4.6999998092651367" z="-9.1999998092651367"/>
-            <rotation x="37.099998474121094" y="44.700000762939453" z="0"/>
+            <translation x="-12.199999809265137" y="-9.3000001907348633" z="-12.600000381469727"/>
+            <rotation x="37.099998474121094" y="43.400001525878906" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
         <camera>
@@ -81,7 +81,7 @@
     </entity>
     <entity name="player">
         <transform>
-            <translation x="4.1999998092651367" y="0" z="2.2000000476837158"/>
+            <translation x="4.1999998092651367" y="-0.10000000149011612" z="2.2000000476837158"/>
             <rotation x="0" y="0" z="0"/>
             <scale x="1" y="1" z="1"/>
         </transform>
@@ -121,5 +121,17 @@
             <linear v="0.090000003576278687"/>
             <quadratic v="0.032000001519918442"/>
         </pointlight>
+    </entity>
+    <entity name="sun">
+        <skylight>
+            <color x="1" y="1" z="1"/>
+            <intensity v="0.10000000149011612"/>
+        </skylight>
+        <sun>
+            <direction x="-45" y="36" z="34"/>
+            <color x="1" y="1" z="1"/>
+            <intensity v="1"/>
+            <castshadows v="true"/>
+        </sun>
     </entity>
 </scene>
