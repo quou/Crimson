@@ -9,28 +9,6 @@
             <active v="true"/>
         </camera>
     </entity>
-    <entity name="disco light">
-        <transform>
-            <translation x="0" y="-5.1999998092651367" z="0"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <script>
-            <class v="DiscoLight"/>
-            <serialisablefloats>
-                <switchDelay v="0.30000001192092896" i="5"/>
-            </serialisablefloats>
-            <serialisableints/>
-            <serialisablestrings/>
-        </script>
-        <pointlight>
-            <color x="1" y="1" z="1"/>
-            <intensity v="0.69999998807907104"/>
-            <constant v="1"/>
-            <linear v="0.090000003576278687"/>
-            <quadratic v="0.032000001519918442"/>
-        </pointlight>
-    </entity>
     <entity name="player">
         <transform>
             <translation x="4.1999998092651367" y="-0.10000000149011612" z="2.2000000476837158"/>
@@ -59,32 +37,6 @@
                 </phongmaterial>
             </mesh>
         </renderable>
-    </entity>
-    <entity name="lamp">
-        <transform>
-            <translation x="-6.3000001907348633" y="0.5" z="0"/>
-            <rotation x="0" y="0" z="0"/>
-            <scale x="1" y="1" z="1"/>
-        </transform>
-        <pointlight>
-            <color x="1" y="1" z="1"/>
-            <intensity v="1"/>
-            <constant v="1"/>
-            <linear v="0.090000003576278687"/>
-            <quadratic v="0.032000001519918442"/>
-        </pointlight>
-    </entity>
-    <entity name="sun">
-        <skylight>
-            <color x="1" y="1" z="1"/>
-            <intensity v="0.10000000149011612"/>
-        </skylight>
-        <sun>
-            <direction x="-45" y="36" z="34"/>
-            <color x="1" y="1" z="1"/>
-            <intensity v="1"/>
-            <castshadows v="true"/>
-        </sun>
     </entity>
     <entity name="environment">
         <transform>
@@ -139,6 +91,66 @@
                     </phongmaterial>
                 </mesh>
             </renderable>
+        </entity>
+    </entity>
+    <entity name="lights">
+        <transform>
+            <translation x="0" y="0" z="0"/>
+            <rotation x="0" y="0" z="0"/>
+            <scale x="1" y="1" z="1"/>
+        </transform>
+        <entity name="disco light">
+            <transform>
+                <translation x="0" y="-5.1999998092651367" z="0"/>
+                <rotation x="0" y="0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <script>
+                <class v="DiscoLight"/>
+                <serialisablefloats>
+                    <switchDelay v="0.30000001192092896" i="5"/>
+                </serialisablefloats>
+                <serialisableints/>
+                <serialisablestrings/>
+            </script>
+            <pointlight>
+                <color x="1" y="1" z="1"/>
+                <intensity v="0.69999998807907104"/>
+                <constant v="1"/>
+                <linear v="0.090000003576278687"/>
+                <quadratic v="0.032000001519918442"/>
+            </pointlight>
+        </entity>
+        <entity name="lamp">
+            <transform>
+                <translation x="-6.3000001907348633" y="0.5" z="0"/>
+                <rotation x="0" y="0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <pointlight>
+                <color x="1" y="1" z="1"/>
+                <intensity v="1"/>
+                <constant v="1"/>
+                <linear v="0.090000003576278687"/>
+                <quadratic v="0.032000001519918442"/>
+            </pointlight>
+        </entity>
+        <entity name="sun">
+            <transform>
+                <translation x="0" y="0" z="0"/>
+                <rotation x="0" y="0" z="0"/>
+                <scale x="1" y="1" z="1"/>
+            </transform>
+            <skylight>
+                <color x="1" y="1" z="1"/>
+                <intensity v="0.10000000149011612"/>
+            </skylight>
+            <sun>
+                <direction x="-45" y="36" z="34"/>
+                <color x="1" y="1" z="1"/>
+                <intensity v="1"/>
+                <castshadows v="true"/>
+            </sun>
         </entity>
     </entity>
 </scene>
