@@ -211,7 +211,7 @@ namespace Crimson {
 			static void constructS(float scalar, void* memory) {
 				new(memory) vec4(scalar);
 			}
-					
+			
 			static void constructX(float x, float y, float z, float w, void* memory) {
 				new(memory) vec4(x, y, z, w);
 			}

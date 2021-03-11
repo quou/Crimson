@@ -46,3 +46,8 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+
+# Added by cargo
+
+/target

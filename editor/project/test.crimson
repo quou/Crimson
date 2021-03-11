@@ -85,7 +85,7 @@
                     <phongmaterial>
                         <shader v="standard"/>
                         <color x="1" y="1" z="1"/>
-                        <shininess v="32"/>
+                        <shininess v="20"/>
                         <diffuse v="/textures/brickwall.jpg"/>
                         <normal v="/textures/brickwall_normal.jpg"/>
                     </phongmaterial>
